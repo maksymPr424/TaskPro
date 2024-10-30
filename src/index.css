@@ -1,0 +1,73 @@
+@import "node_modules/modern-normalize/modern-normalize.css";
+
+@font-face {
+  font-family: mediumFont;
+  src: url(./fonts/Poppins-Medium.ttf);
+}
+
+@font-face {
+  font-family: regularFont;
+  src: url(./fonts/Poppins-Regular.ttf);
+}
+
+@font-face {
+  font-family: semiBoltFont;
+  src: url(./fonts/Poppins-SemiBold.ttf);
+}
+
+* {
+  font-family: regularFont sans-serif;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    font-family: semiBoldFont, mediumFont, regularFont sans-serif;
+
+    color-scheme: light;
+    --base-green-violet: #bedbb0;
+    --active-green-violet: #9dc888;
+    --text: #161616;
+    --background: #ffffff;
+    --no-active: #ffffff80;
+    --without-priority: #ffffff4d;
+    --low-priority: #8fa1d0;
+    --medium-priority: #e09cb5;
+    --logout-plus-active: #bedbb0;
+    --logout-plus-no-active: #9dc888;
+    --favicon-color: #fff;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    --base-green-violet: #bedbb0;
+    --active-green-violet: #9dc888;
+    --text: #ffffff;
+    --background: #161616;
+    --no-active: #ffffff80;
+    --without-priority: #ffffff4d;
+    --low-priority: #8fa1d0;
+    --medium-priority: #e09cb5;
+    --logout-plus-active: #bedbb0;
+    --logout-plus-no-active: #9dc888;
+  }
+}
+
+@media (prefers-color-scheme: violet) {
+  :root {
+    color-scheme: violet;
+
+    --no-active: #ffffff80;
+    --without-priority: #ffffff4d;
+    --low-priority: #8fa1d0;
+    --medium-priority: #e09cb5;
+    --text: #ffffff;
+    --background: #ecedfd;
+    --base-green-violet: #7b7ede;
+    --active-green-violet: #5255bc;
+    --logout-plus-active: #b8bcfd;
+    --logout-plus-no-active: #fff;
+  }
+}

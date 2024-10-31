@@ -1,0 +1,41 @@
+.welcome-all{background: linear-gradient(to bottom, #fff, #9DC888);
+             /* width: 1440px; */
+             height: 770px;
+             margin: 0 auto;
+             width: 100%;}
+.welcome-container{display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;}
+.welcome-logo{width: 48px;
+              height: 48px;
+              border-radius: 8px;
+              background-color: #161616;}
+.welcome-logo-txt{font-weight: 600;
+                  font-size: 40px;
+                  line-height: 60px;
+                  color: #161616;
+                  }
+.welcome-txt{font-weight: 400;
+             font-size: 14px;
+             line-height: 18px;
+             width: 473px;
+             height: 36px;}
+.welcome-btn-reg{background-color: #161616;
+                 color: #fff;
+                 width: 344px;
+                 height: 49px;
+                 border-radius: 8px;
+                 cursor: pointer;
+                 font-weight: 500;
+                 font-size: 14px;
+                 border: none;}
+.welcome-btn-log{cursor: pointer;
+                 text-decoration: none;
+                 width: 40px;
+                 height: 21px;
+                 color: #161616;
+                 font-weight: 500;
+                 font-size: 14px;
+                 line-height: 21px;
+                 }

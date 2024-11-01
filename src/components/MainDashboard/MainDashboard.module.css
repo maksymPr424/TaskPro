@@ -1,0 +1,45 @@
+.button {
+  display: inline-flex;
+  gap: 8px;
+  padding: 14px 79px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background: var(--background);
+  color: var(--text);
+  font-family: var(--mediumFont, Poppins);
+  font-size: 14px;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.02em;
+}
+
+.plus {
+  padding: 7px;
+  background: var(--text);
+  stroke: var(--background);
+}
+
+.modal {
+  width: 100%;
+  background: var(--background);
+  position: relative;
+  padding: 24px;
+}
+
+.title {
+  color: var(--text);
+  font-family: var(--mediumFont, Poppins);
+  font-size: 18px;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.02em;
+}
+
+.close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  stroke: var(--text);
+}

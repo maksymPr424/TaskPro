@@ -1,3 +1,9 @@
+import MainDashboard from "../../components/MainDashboard/MainDashboard";
+
 export default function ScreensPage() {
-  return <h2>Content Screens Page</h2>;
+  return (
+    <>
+      <MainDashboard />
+    </>
+  );
 }

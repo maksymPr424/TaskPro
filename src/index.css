@@ -1,17 +1,19 @@
+@font-face {
+  font-family: regularFont;
+  src: url(./fonts/Poppins-Regular.ttf);
+  font-weight: 400;
+}
 
 @font-face {
   font-family: mediumFont;
   src: url(./fonts/Poppins-Medium.ttf);
-}
-
-@font-face {
-  font-family: regularFont;
-  src: url(./fonts/Poppins-Regular.ttf);
+  font-weight: 500;
 }
 
 @font-face {
   font-family: semiBoltFont;
   src: url(./fonts/Poppins-SemiBold.ttf);
+  font-weight: 600;
 }
 
 * {

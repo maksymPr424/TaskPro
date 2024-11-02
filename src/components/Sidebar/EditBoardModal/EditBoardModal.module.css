@@ -1,0 +1,93 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: #1e1e1e;
+  padding: 20px;
+  border-radius: 8px;
+  width: 320px;
+  color: #ffffff;
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  background-color: #333;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+}
+
+.iconsSection, .backgroundSection {
+  margin-bottom: 20px;
+}
+
+.iconOptions, .backgroundOptions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.iconOption, .backgroundOption {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 2px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.iconOption.selected, .backgroundOption.selected {
+  border-color: #00ff88;
+}
+
+.backgroundOption {
+  background-size: cover;
+}
+
+.saveButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+  background-color: #a8ffb1;
+  color: #1e1e1e;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.saveIcon {
+  margin-right: 8px;
+}

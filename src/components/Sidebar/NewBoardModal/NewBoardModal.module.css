@@ -1,0 +1,109 @@
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modalContent {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 8px;
+    width: 320px;
+    color: #ffffff;
+    position: relative;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.input {
+    width: 100%;
+    padding: 10px;
+    background-color: #333;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.iconsSection, .backgroundSection {
+    text-align: left;
+}
+
+.iconOptions, .backgroundOptions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    justify-content: center;
+}
+
+.iconLabel, .backgroundLabel {
+    display: flex;
+    align-items: center;
+}
+
+.hiddenInput {
+    display: none;
+}
+
+.iconOption, .backgroundOption {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: border-color 0.2s;
+}
+
+.iconOption {
+    fill: #bbbbbb;
+}
+
+.iconOption.selected, .backgroundOption.selected {
+    border: 2px solid #00ff88;
+}
+
+.backgroundOption {
+    background-size: cover;
+    background-position: center;
+    border: 2px solid transparent;
+}
+
+.createButton {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #a8ffb1;
+    color: #1e1e1e;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.createIcon {
+    width: 20px;
+    height: 20px;
+}

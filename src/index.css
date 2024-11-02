@@ -1,5 +1,3 @@
-@import "node_modules/modern-normalize/modern-normalize.css";
-
 @font-face {
   font-family: mediumFont;
   src: url(./fonts/Poppins-Medium.ttf);
@@ -35,6 +33,8 @@
     --logout-plus-active: #bedbb0;
     --logout-plus-no-active: #9dc888;
     --favicon-color: #fff;
+    --theme-text: #000;
+    --placeholder: #161616;
   }
 }
 
@@ -52,6 +52,8 @@
     --medium-priority: #e09cb5;
     --logout-plus-active: #bedbb0;
     --logout-plus-no-active: #9dc888;
+    --theme-text: rgb(255, 255, 255, 0.5);
+    --placeholder: #161616;
   }
 }
 
@@ -69,5 +71,7 @@
     --active-green-violet: #5255bc;
     --logout-plus-active: #b8bcfd;
     --logout-plus-no-active: #fff;
+    --theme-text: #000;
+    --placeholder: #161616;
   }
 }

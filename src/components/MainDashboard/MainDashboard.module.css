@@ -35,6 +35,7 @@
   font-style: normal;
   line-height: normal;
   letter-spacing: -0.02em;
+  margin-bottom: 24px;
 }
 
 .close {
@@ -42,4 +43,59 @@
   top: 14px;
   right: 14px;
   stroke: var(--text);
+}
+
+.input {
+  display: flex;
+  width: 287px;
+  padding: 14px 0;
+  padding-left: 18px;
+  align-items: center;
+  border-radius: 8px;
+  border: 1px solid var(--base-green-violet);
+  opacity: 0.4;
+  box-shadow: 0px 4px 16px 0px rgba(22, 22, 22, 0.08);
+}
+
+span {
+  color: red;
+  font-size: 8px;
+  margin-top: 8px;
+}
+
+.modalButtton {
+  display: flex;
+  width: 100%;
+  padding: 10px 0px;
+  justify-content: center;
+  align-items: center;
+  color: var(--base-green-violet);
+  font-family: var(--mediumFont, Poppins);
+  font-size: 14px;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: -0.02em;
+}
+
+.loading {
+  text-align: center;
+  padding: 20px;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  padding: 20px;
+}
+
+.columnButton {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.edit,
+.delete {
+  stroke: var(--without-priority);
 }

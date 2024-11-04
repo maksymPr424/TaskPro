@@ -1,0 +1,188 @@
+.modalOverlay {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modalContent {
+    width: 335px;
+    height: 440px;
+    background: #FCFCFC;
+    padding: 14px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 16px rgba(22, 24, 35, 0.06);
+    position: relative;
+    margin: auto;
+}
+
+.closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.closeIcon {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+}
+
+.modalTitle {
+    margin-bottom: 24px;
+    text-align: left;
+    margin-left: 10px;
+    margin-top: 10px;
+    color: #161616;
+    font-family: mediumFont;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.36px;
+}
+
+.profileImageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 14px;
+    position: relative;
+
+}
+
+.profileImage {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+}
+
+.imageUploadButton {
+    position: absolute;
+    bottom: 0;
+    right: 5px;
+    background: #FCFCFC;
+    border: 2px solid #4CAF50;
+    color: #4CAF50;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.label {
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    color: #333;
+}
+
+.inputField {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    color: #161616;
+    font-family: regularFont;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.28px;
+    transition: border-color 0.3s ease;
+}
+
+/* Стили фокуса для input */
+.inputField:focus {
+    border: 1px solid #BEDBB0;
+    outline: none;
+}
+
+.passwordContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.passwordVisibilityToggle {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.submitButton {
+    background-color: #BEDBB0;
+    ;
+    color: #161616;
+    font-family: mediumFont;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.28px;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submitButton:hover {
+    background-color: #45a049;
+}
+
+.errorMessage {
+    color: red;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+
+.isOpenFoto {
+    width: 24px;
+    height: 24px;
+    background-color: #C2DFB3;
+    border-radius: 8px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: absolute;
+    top: 50px;
+    transition: background-color 0.3s;
+}
+
+.openIcon {
+    width: 10px;
+    height: 10px;
+    fill: #161616;
+    transition: fill 0.3s;
+}
+
+.isOpenFoto:hover {
+    background-color: #9DC888;
+}
+
+.isOpenFoto:hover .openIcon {
+    fill: #9DC888;
+}
+
+.passwordVisibilityToggle.visible {
+    fill: #4CAF50;
+    stroke: #45a049;
+}

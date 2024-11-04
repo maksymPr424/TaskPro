@@ -1,0 +1,80 @@
+.header {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    width: 375px;
+    height: 60px;
+    background-color: #fcfcfc;
+    border-bottom: 1px solid #e0e0e0;
+    box-sizing: border-box;
+}
+
+.menuIcon {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 24px;
+    fill: none;
+    cursor: pointer;
+    stroke: none;
+}
+
+
+
+.theme {
+    color: rgba(22, 22, 22, 0.80);
+    font-family: semiBoltFont;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.28px;
+    margin-left: 150px;
+    display: flex;
+    align-items: center;
+}
+
+.menuIcon2 {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+    margin-right: 14px;
+}
+
+
+.profile {
+    display: flex;
+    align-items: center;
+}
+
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+}
+
+.userPhoto {
+    width: 32px;
+    height: 32px;
+    border-radius: 8%;
+    margin-right: 8px;
+}
+
+.userName {
+    color: #161616;
+    font-family: semiBoltFont;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.28px;
+    margin-right: 8px;
+}

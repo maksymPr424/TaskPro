@@ -1,3 +1,8 @@
+import Header from "../../components/Header/Header";
 export default function WelcomePage() {
-  return <h1>Content Welcome Page</h1>;
+  return (
+    <h1>
+      <Header />
+    </h1>
+  );
 }

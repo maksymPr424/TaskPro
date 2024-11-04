@@ -1,0 +1,36 @@
+[
+  {
+    "name": "Yulia Shevchenko",
+    "phoneNumber": "+380000000001",
+    "email": "oleh1@example.com",
+    "isFavourite": false,
+    "contactType": "personal"
+  },
+  {
+    "name": "Dmytro Boyko",
+    "phoneNumber": "+380000000002",
+    "email": null,
+    "isFavourite": false,
+    "contactType": "personal",
+    "createdAt": "2024-05-08T16:12:14.954163",
+    "updatedAt": "2024-05-08T16:12:14.954164"
+  },
+  {
+    "name": "Andriy Pavlenko",
+    "email": "dmytro3@example.com",
+    "theme": "violet",
+    "foto": ""
+  },
+  {
+    "name": "Yulia Shevchenko",
+    "email": null,
+    "theme": "light",
+    "foto": ""
+  },
+  {
+    "name": "Kateryna Povalenko",
+    "email": "ivan5@example.com",
+    "theme": "dark",
+    "foto": ""
+  }
+]

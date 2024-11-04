@@ -140,7 +140,6 @@
   }
   /* .iconsSection, .backgroundSection {
       text-align: left;
-  
   } */
   
   .iconOptions {
@@ -170,7 +169,6 @@
       display: none;
   }
   
-  
   .iconOption {
       border: 1px solid #605f5f;
       width: 18px;
@@ -192,7 +190,6 @@
   .iconOption.selected, .backgroundOption.selected {
       border: 2px solid #00ff88;
   }
-  
   
   .saveButton {
       display: flex;

@@ -1,101 +1,120 @@
-
-import { useState } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import Modal from "react-modal";
 import PropTypes from "prop-types";
 import css from "./NewBoardModal.module.css";
 
-const icons = ["icon1", "icon2", "icon3", "icon4", "icon5"];
-const backgrounds = ["bg1", "bg2", "bg3", "bg4", "bg5"];
+Modal.setAppElement("#root");
 
-const NewBoardModal = ({ onClose, onCreateBoard }) => {
-  const [title, setTitle] = useState("");
-  const [selectedIcon, setSelectedIcon] = useState(icons[0]);
-  const [selectedBackground, setSelectedBackground] = useState(backgrounds[0]); // Изменено на backgrounds[0]
+const icons = ["icon1", "icon2", "icon3", "icon4", "icon5", "icon6", "icon7", "icon8"];
+const backgrounds = ["bg1", "bg2", "bg3", "bg4", "bg5", "bg6", "bg7", "bg8", "bg9", "bg10", "bg11", "bg12", "bg13", "bg14", "bg15", "bg16"];
 
-  const handleCreateBoard = () => {
-    if (!title.trim()) {
-      alert("Please enter a title");
-      return;
-    }
-
-    const newBoard = {
-      title,
-      icon: selectedIcon, // Обновлено здесь для правильного использования
-      background: selectedBackground, // Обновлено здесь для правильного использования
-    };
-
-    onCreateBoard(newBoard);
-    onClose();
+const NewBoardModal = ({ isOpen, onClose, onCreateBoard }) => {
+  const initialValues = {
+    title: "",
+    icon: icons[0],
+    background: backgrounds[0],
   };
 
+  const validationSchema = Yup.object({
+    title: Yup.string()
+      .required("Please enter a title.")
+      .min(3, "Title must be at least 3 characters long.")
+      .max(20, "Title must not exceed 20 characters."),
+    icon: Yup.string().required("Please select an icon."),
+    background: Yup.string().required("Please select a background."),
+  });
+
   return (
-    <div className={css.modalOverlay}>
-      <div className={css.modalContent}>
-        <button className={css.closeButton} onClick={onClose}>×</button>
-        <h2>New board</h2>
-        
-        <input
-          type="text"
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className={css.input}
-        />
-        
-        <div className={css.iconsSection}>
-          <p>Icons</p>
-          <div className={css.iconOptions}>
-            {icons.map((icon, index) => (
-              <label key={index} className={css.iconLabel}>
-                <input
-                  type="radio"
-                  name="icon"
-                  value={icon}
-                  checked={selectedIcon === icon}
-                  onChange={() => setSelectedIcon(icon)}
-                  className={css.hiddenInput}
-                />
-                <svg className={`${css.iconOption} ${selectedIcon === icon ? css.selected : ""}`}>
-                  <use href={`/src/assets/${icon}.svg#${icon}`}></use>
-                </svg>
-              </label>
-            ))}
-          </div>
-        </div>
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onClose}
+      className={css.modalContent}
+      overlayClassName={css.modalOverlay}
+      contentLabel="New Board Modal"
+      ariaHideApp={false}
+    >
+      <button className={css.closeButton} onClick={onClose}>×</button>
+      <h2 className={css.modalName}>New board</h2>
+      {/*------------------------------------------------------  */}
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={(values, { resetForm }) => {
+          onCreateBoard(values);
+          resetForm(); 
+          onClose();
+        }}
 
-        <div className={css.backgroundSection}>
-          <p>Background</p>
-          <div className={css.backgroundOptions}>
-            {backgrounds.map((bg, index) => (
-              <label key={index} className={css.backgroundLabel}>
-                <input
-                  type="radio"
-                  name="background"
-                  value={bg}
-                  checked={selectedBackground === bg}
-                  onChange={() => setSelectedBackground(bg)}
-                  className={css.hiddenInput}
-                />
-                <div
-                  className={`${css.backgroundOption} ${selectedBackground === bg ? css.selected : ""}`}
-                  style={{ backgroundImage: `url(/src/assets/${bg}.jpg)` }}
-                ></div>
-              </label>
-            ))}
-          </div>
-        </div>
+      >
+        {({ setFieldValue, values }) => (
+          <Form>
+            <Field
+              type="text"
+              name="title"
+              placeholder="Title"
+              className={css.input}
+            />
+            <ErrorMessage name="title" component="p" className={css.error} />
 
-        <button onClick={handleCreateBoard} className={css.createButton}>
-          <svg className={css.createIcon}>
-            <use href="/src/assets/plus.svg#plus"></use>
-          </svg>
-          Create
-        </button>
-      </div>
-    </div>
+            <div className={css.iconsSection}>
+              {/* ------------------------------------- */}
+              <p className={css.sectionName}>Icons</p>
+              <div className={css.iconOptions}>
+                {icons.map((icon, index) => (
+                  <label key={index} className={css.iconLabel}>
+                    <Field
+                      type="radio"
+                      name="icon"
+                      value={icon}
+                      onChange={() => setFieldValue("icon", icon)}
+                      className={css.hiddenInput}
+                    />
+                    <svg className={`${css.iconOption} ${icon === values.icon ? css.selected : ""}`}>
+                      <use href={`/src/assets/${icon}.svg#${icon}`}></use>
+                    </svg>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div className={css.backgroundSection}>
+              <p className={css.sectionName}>Background</p>
+              <div className={css.backgroundOptions}>
+                {backgrounds.map((bg, index) => (
+                  <label key={index} className={css.backgroundLabel}>
+                    <Field
+                      type="radio"
+                      name="background"
+                      value={bg}
+                      onChange={() => setFieldValue("background", bg)}
+                      className={css.hiddenInput}
+                    />
+                    <div
+                      className={`${css.backgroundOption} ${bg === values.background ? css.selected : ""}`}
+                      style={{ backgroundImage: `url(/src/assets/${bg}.jpg)` }}
+                    ></div>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <button type="submit" className={css.createButton}>
+              {/* <svg className={css.createIcon}>
+                <use href="/src/assets/plus.svg#plus"></use>
+              </svg> */}
+              + 
+              Create
+            </button>
+          </Form>
+        )}
+      </Formik>
+    </Modal>
   );
 };
 
 NewBoardModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onCreateBoard: PropTypes.func.isRequired,
 };

@@ -1,4 +1,4 @@
-import Sidebar from "../../components/Sidebar/Sidebar.jsx";
+import Sidebar from "../../components/Sidebar/Sidebar";
 
 export default function WelcomePage() {
   return <>

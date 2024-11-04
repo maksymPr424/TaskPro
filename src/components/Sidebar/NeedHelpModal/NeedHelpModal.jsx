@@ -1,68 +1,89 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import Modal from "react-modal";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import axios from "axios";
 import css from "./NeedHelpModal.module.css";
 
-const NeedHelpModal = ({ onClose, onSend }) => {
-  const [email, setEmail] = useState("");
-  const [comment, setComment] = useState("");
+const NeedHelpModal = ({ isOpen, onClose }) => {
+  const [submitError, setSubmitError] = useState("");
 
-  const handleSend = () => {
-    if (!email.trim()) {
-      alert("Please enter an email address");
-      return;
+  const initialValues = {
+    email: "",
+    comment: ""
+  };
+
+  const validationSchema = Yup.object().shape({
+    email: Yup.string()
+      .email("Please enter a valid email address.")
+      .required("Please enter an email address."),
+    comment: Yup.string().required("Please enter a comment.")
+  });
+
+  const handleSubmit = async (values, { resetForm }) => {
+    try {
+      await axios.post('/support', { userEmail: values.email, comment: values.comment });
+      resetForm();
+      onClose();
+    } catch (error) {
+      console.error("Failed to send support request.", error);
+      setSubmitError("Failed to send support request.");
     }
-    // Простая проверка на валидный email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      alert("Please enter a valid email address");
-      return;
-    }
-    if (!comment.trim()) {
-      alert("Please enter a comment");
-      return;
-    }
-    onSend({ email, comment });
-    onClose();
   };
 
   return (
-    <div className={css.modalOverlay}>
-      <div className={css.modalContent}>
-        <button
-          className={css.closeButton}
-          onClick={onClose}
-          aria-label="Close modal"
-        >
-          ×
-        </button>
-        <h2>Need help</h2>
-        
-        <input
-          type="email"
-          placeholder="Email address"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className={css.input}
-        />
-        
-        <textarea
-          placeholder="Comment"
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-          className={css.textarea}
-        ></textarea>
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onClose}
+      className={css.modalContent}
+      overlayClassName={css.modalOverlay}
+      contentLabel="Need Help Modal"
+      ariaHideApp={false}
+    >
+      <button className={css.closeButton} onClick={onClose} aria-label="Close modal">
+        ×
+      </button>
+      <h2 className={css.modalName}>Need help</h2>
 
-        <button onClick={handleSend} className={css.sendButton} aria-label="Send help request">
-          Send
-        </button>
-      </div>
-    </div>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        {() => (
+          <Form>
+            <Field
+              type="email"
+              name="email"
+              placeholder="Email address"
+              className={css.input}
+            />
+            <ErrorMessage name="email" component="p" className={css.error} />
+
+            <Field
+              as="textarea"
+              name="comment"
+              placeholder="Comment"
+              className={css.textarea}
+            />
+            <ErrorMessage name="comment" component="p" className={css.error} />
+
+            {submitError && <p className={css.error}>{submitError}</p>}
+
+            <button type="submit" className={css.sendButton} aria-label="Send help request">
+              Send
+            </button>
+          </Form>
+        )}
+      </Formik>
+    </Modal>
   );
 };
 
 NeedHelpModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  onSend: PropTypes.func.isRequired,
 };
 
 export default NeedHelpModal;

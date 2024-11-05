@@ -55,7 +55,7 @@ export default function RegisterForm() {
     mode: "onSubmit",
   });
 
-  const onSubmit = data => {
+  const onSubmit = (data) => {
     dispatch(registerUser(data));
     reset();
   };
@@ -67,14 +67,16 @@ export default function RegisterForm() {
           className={({ isActive }) =>
             `${styles.navLink} ${isActive ? styles.activeLink : ""}`
           }
-          to='/auth/register'>
+          to="/auth/register"
+        >
           Registration
         </NavLink>
         <NavLink
           className={({ isActive }) =>
             `${styles.navLink} ${isActive ? styles.activeLink : ""}`
           }
-          to='/auth/login'>
+          to="/auth/login"
+        >
           Log In
         </NavLink>
       </nav>
@@ -83,8 +85,8 @@ export default function RegisterForm() {
           <label className={styles.label}>
             <input
               {...register("name")}
-              type='text'
-              placeholder='Enter your name'
+              type="text"
+              placeholder="Enter your name"
               className={`${styles.input} ${
                 errors.name ? styles.inputError : ""
               }`}
@@ -96,8 +98,8 @@ export default function RegisterForm() {
           <label className={styles.label}>
             <input
               {...register("email")}
-              type='text'
-              placeholder='Enter your email'
+              type="text"
+              placeholder="Enter your email"
               className={`${styles.input} ${
                 errors.email ? styles.inputError : ""
               }`}
@@ -110,7 +112,7 @@ export default function RegisterForm() {
             <input
               {...register("password")}
               type={isPasswordVisible ? "text" : "password"}
-              placeholder='Create a password'
+              placeholder="Create a password"
               className={`${styles.input} ${
                 errors.password ? styles.inputError : ""
               }`}
@@ -120,14 +122,29 @@ export default function RegisterForm() {
             )}
             <span
               className={styles.togglePasswordWrapper}
-              onClick={() => setIsPasswordVisible(!isPasswordVisible)}>
-              <svg className={styles.togglePasswordIcon} width='18' height='18'>
-                <use href={`${svgSprite}#eye`} />
-              </svg>
+              onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+            >
+              {isPasswordVisible ? (
+                <svg
+                  className={styles.togglePasswordIcon}
+                  width="18"
+                  height="18"
+                >
+                  <use href={`${svgSprite}#eye-off`} />
+                </svg>
+              ) : (
+                <svg
+                  className={styles.togglePasswordIcon}
+                  width="18"
+                  height="18"
+                >
+                  <use href={`${svgSprite}#eye`} />
+                </svg>
+              )}
             </span>
           </label>
         </div>
-        <button type='submit' className={styles.button}>
+        <button type="submit" className={styles.button}>
           Register Now
         </button>
       </form>

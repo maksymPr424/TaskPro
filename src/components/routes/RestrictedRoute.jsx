@@ -8,5 +8,5 @@ export default function PrivateRoute({ children }) {
   if (isLoggedIn) {
     return children;
   }
-  return <Navigate to='/welcome' />;
+  return <Navigate to="/welcome" />;
 }

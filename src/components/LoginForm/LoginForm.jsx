@@ -48,7 +48,7 @@ export default function LoginForm() {
     mode: "onSubmit",
   });
 
-  const onSubmit = data => {
+  const onSubmit = (data) => {
     dispatch(loginUser(data));
     reset();
   };
@@ -66,14 +66,16 @@ export default function LoginForm() {
           className={({ isActive }) =>
             `${styles.navLink} ${isActive ? styles.activeLink : ""}`
           }
-          to='/auth/register'>
+          to="/auth/register"
+        >
           Registration
         </NavLink>
         <NavLink
           className={({ isActive }) =>
             `${styles.navLink} ${isActive ? styles.activeLink : ""}`
           }
-          to='/auth/login'>
+          to="/auth/login"
+        >
           Log In
         </NavLink>
       </nav>
@@ -82,8 +84,8 @@ export default function LoginForm() {
           <label className={styles.label}>
             <input
               {...register("email")}
-              type='text'
-              placeholder='Enter your email'
+              type="text"
+              placeholder="Enter your email"
               className={`${styles.input} ${
                 errors.email ? styles.inputError : ""
               }`}
@@ -96,7 +98,7 @@ export default function LoginForm() {
             <input
               {...register("password")}
               type={isPasswordVisible ? "text" : "password"}
-              placeholder='Enter your password'
+              placeholder="Enter your password"
               className={`${styles.input} ${
                 errors.password ? styles.inputError : ""
               }`}
@@ -106,14 +108,29 @@ export default function LoginForm() {
             )}
             <span
               className={styles.togglePasswordWrapper}
-              onClick={() => setIsPasswordVisible(!isPasswordVisible)}>
-              <svg className={styles.togglePasswordIcon} width='18' height='18'>
-                <use href={`${svgSprite}#eye`} />
-              </svg>
+              onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+            >
+              {isPasswordVisible ? (
+                <svg
+                  className={styles.togglePasswordIcon}
+                  width="18"
+                  height="18"
+                >
+                  <use href={`${svgSprite}#eye-off`} />
+                </svg>
+              ) : (
+                <svg
+                  className={styles.togglePasswordIcon}
+                  width="18"
+                  height="18"
+                >
+                  <use href={`${svgSprite}#eye`} />
+                </svg>
+              )}
             </span>
           </label>
         </div>
-        <button type='submit' className={styles.button}>
+        <button type="submit" className={styles.button}>
           Log In Now
         </button>
       </form>

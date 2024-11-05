@@ -21,9 +21,9 @@ function App() {
     <>
       <Suspense fallback={<div>Loading</div>}>
         <Routes>
-          <Route path='/' element={<Navigate to='/welcome' replace />} />
+          <Route path="/" element={<Navigate to="/welcome" replace />} />
           <Route
-            path='welcome'
+            path="welcome"
             element={
               <PublicRoute>
                 <WelcomePage />
@@ -31,7 +31,7 @@ function App() {
             }
           />
           <Route
-            path='auth/:id'
+            path="auth/:id"
             element={
               <PublicRoute>
                 <AuthPage />
@@ -39,7 +39,7 @@ function App() {
             }
           />
           <Route
-            path='/home'
+            path="/home"
             element={
               <RestrictedRoute>
                 <HomePage />
@@ -47,14 +47,22 @@ function App() {
             }
           />
           <Route
-            path='/screen'
+            path="/home/:boardName"
             element={
               <RestrictedRoute>
                 <ScreensPage />
               </RestrictedRoute>
             }
           />
-          <Route path='*' element={<NotFoundPage />} />
+          {/* <Route
+            path="/screen"
+            element={
+              <RestrictedRoute>
+                <ScreensPage />
+              </RestrictedRoute>
+            }
+          /> */}
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Suspense>
     </>

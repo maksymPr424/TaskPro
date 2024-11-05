@@ -1,6 +1,6 @@
 import user_image from "../../assets/welcome_page_user_image.png";
 import styles from "./WelcomePage.module.css";
-// import svgSprite from "./../../../public/sprite.svg";
+// import svgSprite from "../../../public/sprite.svg";
 import { Link } from "react-router-dom";
 
 export default function WelcomePage() {
@@ -9,7 +9,7 @@ export default function WelcomePage() {
       <img className={styles.userImage} src={user_image} alt="user_image" />
       <div className={styles.logoWrapper}>
         <svg className={styles.logoIcon} width="48" height="48">
-          <use href={`../../../public/sprite.svg#taskpro_logo`}></use>
+          <use href="/sprite.svg#taskpro_logo"></use>
         </svg>
         <p className={styles.logoTitle}>Task Pro</p>
       </div>

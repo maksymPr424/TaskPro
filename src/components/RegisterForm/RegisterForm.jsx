@@ -130,7 +130,7 @@ export default function RegisterForm() {
                   width="18"
                   height="18"
                 >
-                  <use href={`../../../public/sprite.svg#eye-off`} />
+                  <use href="/sprite.svg#eye-off`" />
                 </svg>
               ) : (
                 <svg
@@ -138,7 +138,7 @@ export default function RegisterForm() {
                   width="18"
                   height="18"
                 >
-                  <use href={`../../../public/sprite.svg#eye`} />
+                  <use href="sprite.svg#eye" />
                 </svg>
               )}
             </span>

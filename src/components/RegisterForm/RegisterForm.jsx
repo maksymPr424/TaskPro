@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../../redux/auth/operations.js";
-import svgSprite from "./../../../public/assets/sprite.svg";
+import svgSprite from "./../../../public/sprite.svg";
 import * as Yup from "yup";
 
 const validateRegisterFormSchema = Yup.object().shape({

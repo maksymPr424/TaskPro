@@ -6,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../redux/auth/operations.js";
 import { selectIsLoggedIn } from "../../redux/auth/selectors.js";
-import svgSprite from "../../assets/sprite.svg";
+import svgSprite from "./../../assets/sprite.svg";
 import * as Yup from "yup";
 
 const validateLoginFormSchema = Yup.object().shape({

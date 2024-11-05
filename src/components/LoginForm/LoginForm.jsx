@@ -117,7 +117,7 @@ export default function LoginForm() {
                   width="18"
                   height="18"
                 >
-                  <use href="/sprite.svg#eye-off`" />
+                  <use href="/sprite.svg#eye-off" />
                 </svg>
               ) : (
                 <svg
@@ -125,7 +125,7 @@ export default function LoginForm() {
                   width="18"
                   height="18"
                 >
-                  <use href="sprite.svg#eye" />
+                  <use href="/sprite.svg#eye" />
                 </svg>
               )}
             </span>

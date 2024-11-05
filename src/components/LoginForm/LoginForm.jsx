@@ -6,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../redux/auth/operations.js";
 import { selectIsLoggedIn } from "../../redux/auth/selectors.js";
-import svgSprite from "././../../../public/sprite.svg";
+// import svgSprite from "../../../public/sprite.svg";
 
 import * as Yup from "yup";
 
@@ -117,7 +117,7 @@ export default function LoginForm() {
                   width="18"
                   height="18"
                 >
-                  <use href={`${svgSprite}#eye-off`} />
+                  <use href={`../../../public/sprite.svg#eye-off`} />
                 </svg>
               ) : (
                 <svg
@@ -125,7 +125,7 @@ export default function LoginForm() {
                   width="18"
                   height="18"
                 >
-                  <use href={`${svgSprite}#eye`} />
+                  <use href={`../../../public/sprite.svg#eye`} />
                 </svg>
               )}
             </span>

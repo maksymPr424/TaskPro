@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../../redux/auth/operations.js";
-import svgSprite from "./../../../public/sprite.svg";
+// import svgSprite from "../../../public/sprite.svg";
 import * as Yup from "yup";
 
 const validateRegisterFormSchema = Yup.object().shape({
@@ -130,7 +130,7 @@ export default function RegisterForm() {
                   width="18"
                   height="18"
                 >
-                  <use href={`${svgSprite}#eye-off`} />
+                  <use href={`../../../public/sprite.svg#eye-off`} />
                 </svg>
               ) : (
                 <svg
@@ -138,7 +138,7 @@ export default function RegisterForm() {
                   width="18"
                   height="18"
                 >
-                  <use href={`${svgSprite}#eye`} />
+                  <use href={`../../../public/sprite.svg#eye`} />
                 </svg>
               )}
             </span>

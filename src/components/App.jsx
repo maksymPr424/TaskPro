@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { lazy, Suspense, useEffect } from "react";
 import RestrictedRoute from "./routes/RestrictedRoute.jsx";
-import PublicRoute from "./routes/PublicROute.jsx";
+import PublicRoute from "./routes/PublicRoute.jsx";
 import NotFoundPage from "../pages/NotFound/NotFoundPage.jsx";
 import { useDispatch } from "react-redux";
 import { refreshUser } from "../redux/auth/operations.js";

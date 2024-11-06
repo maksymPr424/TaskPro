@@ -16,7 +16,7 @@ export const registerUser = createAsyncThunk(
       setToken(loginData.accessToken);
       return { ...registerData, accessToken: loginData.accessToken };
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error.response);
     }
   }
 );
@@ -29,7 +29,13 @@ export const loginUser = createAsyncThunk(
       setToken(data.accessToken);
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      const errorMessage = error.response
+        ? error.response.data.message
+        : "Something went wrong...";
+      return thunkAPI.rejectWithValue({
+        status: error.response?.status,
+        message: errorMessage,
+      });
     }
   }
 );
@@ -64,7 +70,10 @@ export const refreshUser = createAsyncThunk(
       const { data } = await taskpro_api("auth/current");
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue({
+        status: error.response?.status,
+        message: error.response?.data?.message || "Something went wrong...",
+      });
     }
   }
 );

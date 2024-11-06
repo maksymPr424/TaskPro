@@ -1,0 +1,59 @@
+.head {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  padding-top: 14px;
+  padding-bottom: 39px;
+}
+
+.boardName {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.dropdownContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn {
+  display: flex;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  color: rgba(255, 255, 255, 0.8);
+  align-items: center;
+  gap: 8px;
+  border: none;
+  background-color: transparent;
+}
+
+.filterIcon {
+  width: 16px;
+  height: 16px;
+  stroke: rgba(255, 255, 255, 0.8);
+  fill: transparent;
+}
+
+@media (min-width: 768px) {
+  .head {
+    padding-top: 26px;
+    padding-bottom: 26px;
+  }
+
+  .boardName {
+    font-size: 18px;
+    width: 113px;
+    height: 28px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .head {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}

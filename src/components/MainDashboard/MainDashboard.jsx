@@ -1,8 +1,5 @@
 import { useState, useId, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Modal from "react-modal";
-import * as Yup from "yup";
-import { Formik, Form, Field, ErrorMessage } from "formik";
 import css from "./MainDashboard.module.css";
 import {
   getColumn,
@@ -15,14 +12,11 @@ import {
   selectIsLoading,
   selectError,
 } from "../../redux/main_dashboard/column/columnSelectors";
+import { AddColumnModal } from "./ColumnModals/AddColumnModal";
+import { EditColumnModal } from "./ColumnModals/EditColumnModal";
+import Card from "./Card/Card";
 
 const IconPlus = (id) => (
-  <svg>
-    <use xlinkHref={`../../assets/sprite.svg#${id}`} />
-  </svg>
-);
-
-const IconClose = (id) => (
   <svg>
     <use xlinkHref={`../../assets/sprite.svg#${id}`} />
   </svg>
@@ -39,13 +33,6 @@ const IconDelete = (id) => (
     <use xlinkHref={`../../assets/sprite.svg#${id}`} />
   </svg>
 );
-
-const columnSchema = Yup.object().shape({
-  title: Yup.string()
-    .min(3, "Too short")
-    .max(20, "Too long")
-    .required("Required"),
-});
 
 export default function MainDashboard() {
   const dispatch = useDispatch();
@@ -75,14 +62,6 @@ export default function MainDashboard() {
       });
   };
 
-  const handleDeleteColumn = (id) => {
-    dispatch(delateColumn(id))
-      .unwrap()
-      .catch((error) => {
-        console.error("Failed to delete column:", error);
-      });
-  };
-
   const startEditColumn = (column) => {
     setEditingColumn(column);
     setEditModalIsOpen(true);
@@ -101,17 +80,20 @@ export default function MainDashboard() {
       });
   };
 
+  const handleDeleteColumn = (id) => {
+    dispatch(delateColumn(id))
+      .unwrap()
+      .catch((error) => {
+        console.error("Failed to delete column:", error);
+      });
+  };
+
   if (error) {
     return <div className={css.error}>Error: {error}</div>;
   }
 
   return (
     <div className={css.container}>
-      <button className={css.button} onClick={() => setAddModalIsOpen(true)}>
-        <IconPlus className={css.plus} id="icon-plus" />
-        Add column
-      </button>
-
       <ul className={css.columnsContainer}>
         {isLoading ? (
           <div className={css.loading}>Loading...</div>
@@ -133,93 +115,31 @@ export default function MainDashboard() {
                   <IconDelete className={css.delete} id="icon-trash" />
                 </button>
               </div>
+              <Card className={css.tasks} />
             </li>
           ))
         )}
       </ul>
 
-      {/* Add column */}
-      <Modal
-        className={css.modal}
-        isOpen={addModalIsOpen}
-        onRequestClose={() => setAddModalIsOpen(false)}
-      >
-        <h2 className={css.title}>Add column</h2>
-        <button
-          className={css.closeButton}
-          onClick={() => setAddModalIsOpen(false)}
-        >
-          <IconClose className={css.close} id="icon-close" />
-        </button>
-        <Formik
-          initialValues={{ title: "" }}
-          validationSchema={columnSchema}
-          onSubmit={handleAddColumn}
-        >
-          {({ isSubmitting }) => (
-            <Form>
-              <Field className={css.input} name="title" id={columnId} />
-              <ErrorMessage
-                className={css.error}
-                name="title"
-                component="span"
-              />
-              <button
-                className={css.modalButton}
-                type="submit"
-                disabled={isSubmitting}
-              >
-                <IconPlus className={css.plus} id="icon-plus" />
-                {isSubmitting ? "Adding..." : "Add"}
-              </button>
-            </Form>
-          )}
-        </Formik>
-      </Modal>
+      <button className={css.button} onClick={() => setAddModalIsOpen(true)}>
+        <IconPlus className={css.plus} id="icon-plus" />
+        Add column
+      </button>
 
-      {/* Edit column */}
-      <Modal
-        className={css.modal}
+      <AddColumnModal
+        isOpen={addModalIsOpen}
+        onClose={() => setAddModalIsOpen(false)}
+        onSubmit={handleAddColumn}
+        columnId={columnId}
+      />
+
+      <EditColumnModal
         isOpen={editModalIsOpen}
-        onRequestClose={() => setEditModalIsOpen(false)}
-      >
-        <h2 className={css.title}>Edit column</h2>
-        <button
-          className={css.closeButton}
-          onClick={() => setEditModalIsOpen(false)}
-        >
-          <IconClose className={css.close} id="icon-close" />
-        </button>
-        <Formik
-          initialValues={{ title: editingColumn?.title || "" }}
-          validationSchema={columnSchema}
-          onSubmit={handleEditColumn}
-          enableReinitialize
-        >
-          {({ isSubmitting }) => (
-            <Form>
-              <Field
-                className={css.input}
-                name="title"
-                id={`${columnId}-edit`}
-              />
-              <ErrorMessage
-                className={css.error}
-                name="title"
-                component="span"
-              />
-              <button
-                className={css.modalButton}
-                type="submit"
-                disabled={isSubmitting}
-              >
-                <IconPlus className={css.plus} id="icon-plus" />
-                {isSubmitting ? "Editing..." : "Edit"}
-              </button>
-            </Form>
-          )}
-        </Formik>
-      </Modal>
+        onClose={() => setEditModalIsOpen(false)}
+        onSubmit={handleEditColumn}
+        columnId={columnId}
+        editingColumn={editingColumn}
+      />
     </div>
   );
 }

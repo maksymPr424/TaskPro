@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getColumn, addColumn, delateColumn, editColumn } from "../column/columnOperations";
+import { getColumn, addColumn, deleteColumn, editColumn } from "../column/columnOperations";
 
-const LOCAL_STORAGE_KEY = 'dashboard_columns';
+export const LOCAL_STORAGE_COLUMNS_KEY = 'dashboard_columns';
 
 const handlePending = (state) => {
     state.loading = true;
@@ -13,11 +13,11 @@ const handleRejected = (state, action) => {
 };
 
 const saveToStorage = (columns) => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(columns));
+    localStorage.setItem(LOCAL_STORAGE_COLUMNS_KEY, JSON.stringify(columns));
 };
 
 const loadFromStorage = () => {
-    const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
+    const saved = localStorage.getItem(LOCAL_STORAGE_COLUMNS_KEY);
     return saved ? JSON.parse(saved) : [];
 };
 
@@ -41,17 +41,6 @@ const columnsSlice = createSlice({
             })
             .addCase(getColumn.rejected, handleRejected)
 
-            .addCase(delateColumn.pending, handlePending)
-            .addCase(delateColumn.fulfilled, (state, action) => {
-                state.loading = false;
-                state.error = null;
-                const index = state.items.findIndex(
-                    ({ id }) => id === action.payload.id
-                );
-                state.items.splice(index, 1);
-                saveToStorage(state.items);
-            })
-            .addCase(delateColumn.rejected, handleRejected)
 
             .addCase(addColumn.pending, handlePending)
             .addCase(addColumn.fulfilled, (state, action) => {
@@ -74,7 +63,20 @@ const columnsSlice = createSlice({
                 }
                 saveToStorage(state.items);
             })
-            .addCase(editColumn.rejected, handleRejected);
+            .addCase(editColumn.rejected, handleRejected)
+
+            .addCase(deleteColumn.pending, handlePending)
+            .addCase(deleteColumn.fulfilled, (state, action) => {
+                state.loading = false;
+                state.error = null;
+                const index = state.items.findIndex(
+                    ({ id }) => id === action.payload.id
+                );
+                state.items.splice(index, 1);
+                saveToStorage(state.items);
+            })
+            .addCase(deleteColumn.rejected, handleRejected)
+
     },
 });
 

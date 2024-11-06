@@ -9,10 +9,12 @@ import {
     REGISTER,
 } from "redux-persist";
 import { columnsReducer } from "./main_dashboard/column/columnSlice";
+import { cardsReducer } from "./main_dashboard/card/cardSlice";
 
 export const store = configureStore({
     reducer: {
         columns: columnsReducer,
+        cards: cardsReducer
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

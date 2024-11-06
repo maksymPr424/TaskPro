@@ -1,14 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-
-const LOCAL_STORAGE_KEY = 'dashboard_columns';
+import { LOCAL_STORAGE_COLUMNS_KEY } from "./columnSlice";
 
 const getStorageData = () => {
-    const data = localStorage.getItem(LOCAL_STORAGE_KEY);
+    const data = localStorage.getItem(LOCAL_STORAGE_COLUMNS_KEY);
     return data ? JSON.parse(data) : [];
 };
 
 const setStorageData = (data) => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
+    localStorage.setItem(LOCAL_STORAGE_COLUMNS_KEY, JSON.stringify(data));
 };
 
 export const getColumn = createAsyncThunk(
@@ -41,20 +40,6 @@ export const addColumn = createAsyncThunk(
     }
 );
 
-export const delateColumn = createAsyncThunk(
-    "columns/delateColumn",
-    async (id, thunkAPI) => {
-        try {
-            const columns = getStorageData();
-            const updatedColumns = columns.filter(column => column.id !== id);
-            setStorageData(updatedColumns);
-            return { id };
-        } catch (e) {
-            return thunkAPI.rejectWithValue(e.message);
-        }
-    }
-);
-
 export const editColumn = createAsyncThunk(
     "columns/editColumn",
     async ({ id, title }, thunkAPI) => {
@@ -67,6 +52,20 @@ export const editColumn = createAsyncThunk(
             );
             setStorageData(updatedColumns);
             return { id, title };
+        } catch (e) {
+            return thunkAPI.rejectWithValue(e.message);
+        }
+    }
+);
+
+export const deleteColumn = createAsyncThunk(
+    "columns/delateColumn",
+    async (id, thunkAPI) => {
+        try {
+            const columns = getStorageData();
+            const updatedColumns = columns.filter(column => column.id !== id);
+            setStorageData(updatedColumns);
+            return { id };
         } catch (e) {
             return thunkAPI.rejectWithValue(e.message);
         }

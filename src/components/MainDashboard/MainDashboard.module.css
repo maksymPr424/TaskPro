@@ -9,9 +9,6 @@
   background: var(--background);
   color: var(--text);
   font-family: var(--mediumFont, Poppins);
-  font-size: 14px;
-  font-style: normal;
-  line-height: normal;
   letter-spacing: -0.02em;
 }
 
@@ -32,17 +29,15 @@
   color: var(--text);
   font-family: var(--mediumFont, Poppins);
   font-size: 18px;
-  font-style: normal;
-  line-height: normal;
   letter-spacing: -0.02em;
   margin-bottom: 24px;
 }
 
 .close {
+  stroke: var(--text);
   position: absolute;
   top: 14px;
   right: 14px;
-  stroke: var(--text);
 }
 
 .input {
@@ -71,10 +66,8 @@ span {
   align-items: center;
   color: var(--base-green-violet);
   font-family: var(--mediumFont, Poppins);
-  font-size: 14px;
-  font-style: normal;
-  line-height: normal;
   letter-spacing: -0.02em;
+  gap: 8px;
 }
 
 .loading {
@@ -98,4 +91,8 @@ span {
 .edit,
 .delete {
   stroke: var(--without-priority);
+}
+
+.tasks {
+  margin-top: 14px;
 }

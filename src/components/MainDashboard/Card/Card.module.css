@@ -1,0 +1,188 @@
+.loading {
+  text-align: center;
+  padding: 20px;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  padding: 20px;
+}
+
+span {
+  color: red;
+  font-size: 8px;
+  margin-top: 8px;
+}
+
+.button {
+  display: inline-flex;
+  gap: 8px;
+  padding: 14px 0;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border-radius: 8px;
+  background: var(--base-green-violet);
+  color: var(--card-button-text);
+  font-family: var(--mediumFont, Poppins);
+  letter-spacing: -0.02em;
+}
+
+.plus {
+  padding: 7px;
+  background: var(--text);
+  stroke: var(--background);
+}
+
+.edit,
+.delete {
+  stroke: var(--without-priority);
+}
+
+.list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.item {
+  width: 100%;
+  border-radius: 8px;
+  background: var(--background-task);
+  border-left: 4px solid red;
+  padding: 14px 20px;
+}
+
+.item::after {
+  content: "";
+  bottom: 60px;
+  width: 100%;
+  stroke-width: 1px;
+  stroke: var(--without-priority);
+}
+
+.title {
+  color: var(--text);
+  font-family: var(--semiBoltFont, Poppins);
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.text {
+  color: var(--no-active);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--mediumFont, Poppins);
+  font-size: 12px;
+  line-height: 1.33;
+  letter-spacing: -0.02em;
+}
+
+.label {
+  color: var(--text);
+  font-family: var(--mediumFont, Poppins);
+  font-size: 10px;
+  letter-spacing: -0.002em;
+}
+
+.input {
+  width: 12px;
+  height: 12px;
+  margin-right: 4px;
+}
+
+.container {
+  display: flex;
+  gap: 14px;
+}
+
+.subtitle {
+  color: var(--no-active);
+  font-family: var(--mediumFont, Poppins);
+  font-size: 8px;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+
+.iconContainer {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+}
+
+.priority {
+  display: flex;
+  gap: 8px;
+  margin-top: 24px;
+  margin-bottom: 14px;
+}
+
+.addModal {
+  border-radius: 8px;
+  border: 1px solid var(--border-modal-card);
+  background: var(--background-task-modal);
+  width: 100%;
+  padding: 24px;
+  position: relative;
+}
+
+.close {
+  stroke: var(--text);
+  position: absolute;
+  top: 14px;
+  right: 14px;
+}
+
+.columnButton {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modalTitle {
+  color: var(--text);
+  font-family: var(--mediumFont, Poppins);
+  font-size: 18px;
+  letter-spacing: -0.02em;
+}
+
+.modalInputTitle {
+  width: 100%;
+  padding: 14px 0;
+  padding-left: 18px;
+  border-radius: 8px;
+  border: 1px solid var(--border-input-modal);
+  opacity: 0.4;
+  background: var(--background-input-modal);
+  box-shadow: 0px 4px 16px 0px rgba(22, 22, 22, 0.08);
+  color: var(--text);
+  font-family: var(--regularFont, Poppins);
+  letter-spacing: -0.02em;
+}
+
+.modalInputTitle:not(:last-child) {
+  margin-bottom: 14px;
+}
+
+.modalSubtitle {
+  color: var(--no-active);
+  font-family: var(--regularFont, Poppins);
+  font-size: 12px;
+  letter-spacing: -0.02em;
+}
+
+.modalButton {
+  margin-top: 40px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--base-green-violet);
+  font-family: var(--mediumFont, Poppins);
+  letter-spacing: -0.02em;
+  padding: 10px 0px;
+  gap: 8px;
+}

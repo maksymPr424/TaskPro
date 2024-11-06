@@ -36,6 +36,12 @@
     --logout-plus-active: #bedbb0;
     --logout-plus-no-active: #9dc888;
     --favicon-color: #fff;
+    --card-button-text: #161616;
+    --background-task: #fff;
+    --border-modal-card: #fcfcfc;
+    --background-task-modal: #fcfcfc;
+    --border-input-modal: #bedbb0;
+    --background-input-modal: #ffffff;
   }
 }
 
@@ -53,6 +59,12 @@
     --medium-priority: #e09cb5;
     --logout-plus-active: #bedbb0;
     --logout-plus-no-active: #9dc888;
+    --card-button-text: #161616;
+    --background-task: #121212;
+    --border-modal-card: rgba(190, 219, 176, 0.5);
+    --background-task-modal: #151515;
+    --border-input-modal: #bedbb0;
+    --background-input-modal: #1f1f1f;
   }
 }
 
@@ -70,5 +82,11 @@
     --active-green-violet: #5255bc;
     --logout-plus-active: #b8bcfd;
     --logout-plus-no-active: #fff;
+    --card-button-text: #fff;
+    --background-task: #fff;
+    --border-modal-card: #fcfcfc;
+    --background-task-modal: #fcfcfc;
+    --border-input-modal: #5255bc;
+    --background-input-modal: #ecedfd;
   }
 }

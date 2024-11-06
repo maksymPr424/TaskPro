@@ -4,7 +4,7 @@ import css from "./MainDashboard.module.css";
 import {
   getColumn,
   addColumn,
-  delateColumn,
+  deleteColumn,
   editColumn,
 } from "../../redux/main_dashboard/column/columnOperations";
 import {
@@ -81,7 +81,7 @@ export default function MainDashboard() {
   };
 
   const handleDeleteColumn = (id) => {
-    dispatch(delateColumn(id))
+    dispatch(deleteColumn(id))
       .unwrap()
       .catch((error) => {
         console.error("Failed to delete column:", error);

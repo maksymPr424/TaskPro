@@ -59,7 +59,7 @@ export const editColumn = createAsyncThunk(
 );
 
 export const deleteColumn = createAsyncThunk(
-    "columns/delateColumn",
+    "columns/deleteColumn",
     async (id, thunkAPI) => {
         try {
             const columns = getStorageData();

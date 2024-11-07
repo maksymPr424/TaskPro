@@ -1,6 +1,5 @@
 .formWrapper {
-  display: flex;
-  flex-direction: column;
+  position: relative;
   padding: 24px;
   background-color: #151515;
   border-radius: 8px;
@@ -29,15 +28,13 @@
   letter-spacing: -0.02em;
   line-height: normal;
   transition: all 0.2s ease;
-}
-
-.navLink:hover {
-  color: #bedbb0;
-  opacity: 100%;
-}
-
-.navLink:focus {
-  opacity: 100%;
+  &:hover {
+    color: #bedbb0;
+    opacity: 100%;
+  }
+  &::focus {
+    opacity: 100%;
+  }
 }
 
 .activeLink {
@@ -69,14 +66,18 @@
   padding: 14px 18px;
   box-shadow: 0px 4px 16px 0px rgba(22, 22, 22, 0.08);
   transition: all 0.2s ease;
-}
-
-.input:hover {
-  border: 1px solid #bedbb084;
-}
-
-.input:focus {
-  border: 1px solid #bedbb097;
+  &:hover {
+    border: 1px solid #bedbb084;
+    &::placeholder {
+      opacity: 50%;
+    }
+  }
+  &:focus {
+    border: 1px solid #bedbb097;
+    &::placeholder {
+      opacity: 60%;
+    }
+  }
 }
 
 .input::placeholder {
@@ -84,19 +85,18 @@
   opacity: 40%;
   font-size: 14px;
   letter-spacing: -0.02em;
+  transition: all 0.2s ease;
 }
 
 .inputError {
   border: 1px solid rgba(241, 202, 202, 0.591);
   transition: all 0.2s ease;
-}
-
-.inputError:hover {
-  border: 1px solid rgba(241, 202, 202, 0.826);
-}
-
-.inputError:focus {
-  border: 1px solid rgba(241, 197, 197, 0.753);
+  &:hover {
+    border: 1px solid rgba(241, 202, 202, 0.826);
+  }
+  &:focus {
+    border: 1px solid rgba(241, 197, 197, 0.753);
+  }
 }
 
 .error {
@@ -130,7 +130,7 @@
 }
 
 .togglePasswordWrapper {
-  position: absolute;
+  display: flex;
   border: none;
   background-color: transparent;
   position: absolute;
@@ -146,8 +146,20 @@
   opacity: 30%;
   fill: none;
   transition: all 0.1s ease;
+  &:hover {
+    opacity: 60%;
+  }
 }
 
-.togglePasswordIcon:hover {
-  opacity: 100%;
+.errorWrapper {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  top: 100%;
+  right: 0;
+  left: 0;
+}
+.regError {
+  color: rgb(208 114 114);
 }

@@ -5,10 +5,15 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../redux/auth/operations.js";
-import { selectIsLoggedIn } from "../../redux/auth/selectors.js";
+import {
+  selectError,
+  selectIsLoading,
+  selectIsLoggedIn,
+} from "../../redux/auth/selectors.js";
 // import svgSprite from "../../../public/sprite.svg";
 
 import * as Yup from "yup";
+import Loader from "../Loader/Loader.jsx";
 
 const validateLoginFormSchema = Yup.object().shape({
   email: Yup.string()
@@ -31,7 +36,8 @@ const validateLoginFormSchema = Yup.object().shape({
 export default function LoginForm() {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const dispatch = useDispatch();
-
+  const loginError = useSelector(selectError);
+  const isLoading = useSelector(selectIsLoading);
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const navigate = useNavigate();
 
@@ -49,7 +55,7 @@ export default function LoginForm() {
     mode: "onSubmit",
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = data => {
     dispatch(loginUser(data));
     reset();
   };
@@ -62,21 +68,20 @@ export default function LoginForm() {
 
   return (
     <div className={styles.formWrapper}>
+      {isLoading && <Loader style={{ top: "110%" }} />}
       <nav className={styles.navigation}>
         <NavLink
           className={({ isActive }) =>
             `${styles.navLink} ${isActive ? styles.activeLink : ""}`
           }
-          to="/auth/register"
-        >
+          to='/auth/register'>
           Registration
         </NavLink>
         <NavLink
           className={({ isActive }) =>
             `${styles.navLink} ${isActive ? styles.activeLink : ""}`
           }
-          to="/auth/login"
-        >
+          to='/auth/login'>
           Log In
         </NavLink>
       </nav>
@@ -85,8 +90,8 @@ export default function LoginForm() {
           <label className={styles.label}>
             <input
               {...register("email")}
-              type="text"
-              placeholder="Enter your email"
+              type='text'
+              placeholder='Enter your email'
               className={`${styles.input} ${
                 errors.email ? styles.inputError : ""
               }`}
@@ -99,7 +104,7 @@ export default function LoginForm() {
             <input
               {...register("password")}
               type={isPasswordVisible ? "text" : "password"}
-              placeholder="Enter your password"
+              placeholder='Enter your password'
               className={`${styles.input} ${
                 errors.password ? styles.inputError : ""
               }`}
@@ -109,32 +114,34 @@ export default function LoginForm() {
             )}
             <span
               className={styles.togglePasswordWrapper}
-              onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-            >
+              onClick={() => setIsPasswordVisible(!isPasswordVisible)}>
               {isPasswordVisible ? (
                 <svg
                   className={styles.togglePasswordIcon}
-                  width="18"
-                  height="18"
-                >
-                  <use href="/sprite.svg#eye-off" />
+                  width='18'
+                  height='18'>
+                  <use href='/sprite.svg#eye-off' />
                 </svg>
               ) : (
                 <svg
                   className={styles.togglePasswordIcon}
-                  width="18"
-                  height="18"
-                >
-                  <use href="/sprite.svg#eye" />
+                  width='18'
+                  height='18'>
+                  <use href='/sprite.svg#eye' />
                 </svg>
               )}
             </span>
           </label>
         </div>
-        <button type="submit" className={styles.button}>
+        <button type='submit' className={styles.button}>
           Log In Now
         </button>
       </form>
+      {loginError && (
+        <div className={styles.errorWrapper}>
+          <p className={styles.loginError}>{loginError}</p>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,0 +1,49 @@
+.icon {
+  width: 20px;
+  height: 20px;
+  stroke: black;
+  transition: all 0.2s ease;
+}
+
+.closeButton {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+}
+
+.closeButton:hover .icon,
+.closeButton:focus .icon {
+  stroke: #7a8477;
+}
+
+.contentWrapper {
+  margin-top: 20px;
+  padding: 16px;
+  color: #333;
+  max-width: 270px;
+  @media screen and (min-width: 375px) and (max-width: 767px) {
+    max-width: 330px;
+  }
+  @media screen and (min-width: 768px) {
+    max-width: 100%;
+  }
+}
+
+.okButton {
+  font-family: Poppins;
+  margin: 10px auto 0;
+  padding: 8px 10px;
+  max-width: 100px;
+  background-color: #d5e4ce;
+  color: rgb(86, 85, 85);
+  text-align: center;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.okButton:hover {
+  background-color: #e2ecdd;
+  color: rgb(101, 100, 100);
+}

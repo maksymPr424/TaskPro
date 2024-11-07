@@ -10,11 +10,27 @@ import {
 } from "redux-persist";
 import { columnsReducer } from "./main_dashboard/column/columnSlice";
 import { cardsReducer } from "./main_dashboard/card/cardSlice";
+import storage from "redux-persist/lib/storage";
+import persistReducer from "redux-persist/es/persistReducer";
+
+
+const persistConfigColumn = {
+    key: "columns",
+    storage,
+    whitelist: ["token"],
+};
+
+const persistConfigCard = {
+    key: "cards",
+    storage,
+    whitelist: ["token"],
+};
 
 export const store = configureStore({
     reducer: {
-        columns: columnsReducer,
-        cards: cardsReducer
+        columns: persistReducer(persistConfigColumn, columnsReducer),
+        cards: persistReducer(persistConfigCard, cardsReducer),
+
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
@@ -24,3 +40,8 @@ export const store = configureStore({
         }),
 });
 export const persistor = persistStore(store);
+
+
+
+
+

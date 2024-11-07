@@ -1,7 +1,7 @@
 import Modal from "react-modal";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import css from "./MainDashboard.module.css";
+import css from "../MainDashboard.module.css";
 import PropTypes from "prop-types";
 
 const columnSchema = Yup.object().shape({

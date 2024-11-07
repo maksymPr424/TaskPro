@@ -4,18 +4,17 @@ import sprite from "../../../public/sprite.svg";
 
 const customStyles = {
   content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
+    inset: "auto",
     padding: "10px",
-    bottom: "auto",
-    transform: "translate(-50%, -50%)",
     minHeight: "120px",
     borderRadius: "10px",
     borderColor: "transparent",
     background: "#bedbb0",
   },
   overlay: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: "#333",
   },
 };

@@ -110,6 +110,32 @@ input::placeholder {
   color: #fff;
 }
 
+/* new */
+
+::before, ::after {
+  animation: none;
+  transition: none;
+}
+
+html, body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+input, button, textarea {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  outline: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 /* .container {
   max-width: 375px;
   margin: 0 auto;

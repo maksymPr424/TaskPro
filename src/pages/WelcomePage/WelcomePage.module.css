@@ -1,0 +1,100 @@
+.welcomePage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  background: linear-gradient(
+    to bottom,
+    rgb(246, 246, 247) 25%,
+    rgba(190, 219, 176, 1) 92%
+  );
+}
+
+.userImage {
+  width: 124px;
+  height: 124px;
+  @media screen and (min-width: 768px) {
+    width: 162px;
+    height: 162px;
+  }
+}
+
+.logoWrapper {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  @media screen and (min-width: 768px) {
+    margin-top: 24px;
+  }
+}
+
+.logoIcon {
+  fill: white;
+}
+
+.logoTitle {
+  color: #161616;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.04em;
+  @media screen and (min-width: 768px) {
+    font-size: 48px;
+    letter-spacing: -0.03em;
+  }
+}
+
+.welcomeText {
+  margin-top: 24px;
+  color: #161616;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.29;
+  letter-spacing: -0.015em;
+  max-width: 335px;
+  @media screen and (max-width: 320px) {
+    max-width: 300px;
+  }
+  @media screen and (min-width: 768px) {
+    max-width: 473px;
+  }
+}
+
+.baseLink {
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 8px;
+  line-height: normal;
+  transition: all 0.3s ease;
+}
+
+.regLink {
+  composes: baseLink;
+  width: 335px;
+  margin-top: 48px;
+  color: white;
+  background-color: #161616;
+  padding: 14px 8px;
+  &:hover {
+    color: #9dc888;
+  }
+  @media screen and (max-width: 320px) {
+    width: 300px;
+  }
+  @media screen and (min-width: 768px) {
+    width: 344px;
+  }
+}
+
+.loginLink {
+  composes: baseLink;
+  margin-top: 14px;
+  color: #161616;
+  &:hover {
+    color: #669351;
+  }
+}

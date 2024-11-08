@@ -30,7 +30,7 @@
 }
 
 .titleFilter {
-  color: #fff;
+  color: var(--text);
   font-size: 18px;
   font-weight: 500;
   letter-spacing: -0.02;
@@ -47,7 +47,7 @@
 }
 
 .label {
-  color: #fff;
+  color: var(--text);
   font-weight: 500;
   font-size: 14px;
   letter-spacing: -0.02em;
@@ -106,5 +106,5 @@ input[type="radio"]:checked + .radioBtn::before {
 }
 
 .radioText input[type="radio"]:checked + .radioBtn + .radioLabel {
-  color: #fff;
+  color: var(--text);
 }

@@ -1,24 +1,20 @@
-import icons from "../../assets/sprite.svg";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+// import icons from "../../assets/sprite.svg";
+import { useDispatch, useSelector } from "react-redux";
 import s from "./FilterDropdown.module.css";
 import {
-  changeFilter,
   resetFilter,
+  setColorFilter,
 } from "../../redux/boards/sliceHeaderDashboard/filtersSlice";
 
 export default function FilterDropdown({ onClose }) {
-  const [selectedPriority, setSelectedPriority] = useState("");
   const dispatch = useDispatch();
-
-  const handlePriorityChange = (priority) => {
-    setSelectedPriority(priority);
-    dispatch(changeFilter(priority));
+  const selectedColor = useSelector((state) => state.filters.selectedColor);
+  const handleColorChange = (color) => {
+    dispatch(setColorFilter(color));
     // onClose();
   };
 
   const handleReset = () => {
-    setSelectedPriority("");
     dispatch(resetFilter());
     // onClose();
   };
@@ -26,9 +22,9 @@ export default function FilterDropdown({ onClose }) {
   return (
     <div className={s.dropdown}>
       <button className={s.closeButton} onClick={onClose}>
-        <svg className={s.closeIcon}>
+        {/* <svg className={s.closeIcon}>
           <use href={`${icons}#icon-Close`}></use>
-        </svg>
+        </svg> */}
       </button>
       <h3 className={s.titleFilter}>Filters</h3>
       <div className={s.subtitle}>
@@ -44,8 +40,8 @@ export default function FilterDropdown({ onClose }) {
             type="radio"
             name="color"
             value="Without"
-            onChange={() => handlePriorityChange("Without")}
-            checked={selectedPriority === "Without"}
+            onChange={() => handleColorChange("Without")}
+            checked={selectedColor === "Without"}
           />
           <span
             className={s.radioBtn}
@@ -60,8 +56,8 @@ export default function FilterDropdown({ onClose }) {
             type="radio"
             name="color"
             value="Low"
-            onChange={() => handlePriorityChange("Low")}
-            checked={selectedPriority === "Low"}
+            onChange={() => handleColorChange("Low")}
+            checked={selectedColor === "Low"}
           />
           <span
             className={s.radioBtn}
@@ -74,8 +70,8 @@ export default function FilterDropdown({ onClose }) {
             type="radio"
             name="color"
             value="Medium"
-            onChange={() => handlePriorityChange("Medium")}
-            checked={selectedPriority === "Medium"}
+            onChange={() => handleColorChange("Medium")}
+            checked={selectedColor === "Medium"}
           />
           <span
             className={s.radioBtn}
@@ -88,8 +84,8 @@ export default function FilterDropdown({ onClose }) {
             type="radio"
             name="color"
             value="High"
-            onChange={() => handlePriorityChange("High")}
-            checked={selectedPriority === "High"}
+            onChange={() => handleColorChange("High")}
+            checked={selectedColor === "High"}
           />
           <span
             className={s.radioBtn}

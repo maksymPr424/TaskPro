@@ -1,5 +1,5 @@
 import { useState } from "react";
-import icons from "../../assets/sprite.svg";
+// import icons from "../../assets/sprite.svg";
 import s from "./HeaderDashboard.module.css";
 import Container from "../Container/Container.jsx";
 import FilterDropdown from "../FilterModal/FilterDropdown.jsx";
@@ -17,9 +17,9 @@ export default function HeaderDashboard({ boardName }) {
         <h4 className={s.boardName}>{boardName}</h4>
         <div className={s.dropdownContainer}>
           <button className={s.btn} onClick={toggleDropdown}>
-            <svg className={s.filterIcon}>
+            {/* <svg className={s.filterIcon}>
               <use href={`${icons}#icon-Filter`}></use>
-            </svg>
+            </svg> */}
             Filters
           </button>
           {isDropdownOpen && (

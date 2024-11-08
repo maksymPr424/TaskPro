@@ -34,6 +34,7 @@
     --logout-plus-active: #bedbb0;
     --logout-plus-no-active: #9dc888;
     --favicon-color: #fff;
+    --background-board: #f6f6f7;
   }
 }
 
@@ -51,6 +52,7 @@
     --medium-priority: #e09cb5;
     --logout-plus-active: #bedbb0;
     --logout-plus-no-active: #9dc888;
+    --background-board: #1f1f1f;
   }
 }
 
@@ -68,6 +70,7 @@
     --active-green-violet: #5255bc;
     --logout-plus-active: #b8bcfd;
     --logout-plus-no-active: #fff;
+    --background-board: #ecedfd;
   }
 }
 
@@ -112,19 +115,23 @@ input::placeholder {
 
 /* new */
 
-::before, ::after {
+::before,
+::after {
   animation: none;
   transition: none;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-input, button, textarea {
+input,
+button,
+textarea {
   border: none;
   background: none;
   padding: 0;

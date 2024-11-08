@@ -4,10 +4,8 @@ import HeaderDashboard from "../../components/HeaderDashboard/HeaderDashboard.js
 
 export default function ScreensPage() {
   const { boardId } = useParams();
-  const boardName = useSelector((state) =>
-    Array.isArray(state.board.boards)
-      ? state.board.boards.find((board) => board.id === boardId)?.name
-      : null
+  const boardName = useSelector(
+    (state) => state.board.boards?.find((board) => board.id === boardId)?.name
   );
 
   return (

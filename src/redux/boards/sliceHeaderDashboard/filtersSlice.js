@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   name: "",
+  selectedColor: null,
 };
 
 const filtersSlice = createSlice({
@@ -13,9 +14,14 @@ const filtersSlice = createSlice({
     },
     resetFilter: (state) => {
       state.name = "";
+      state.selectedColor = null;
+    },
+    setColorFilter: (state, action) => {
+      state.selectedColor = action.payload;
     },
   },
 });
 
 export const filtersReducer = filtersSlice.reducer;
-export const { changeFilter, resetFilter } = filtersSlice.actions;
+export const { changeFilter, resetFilter, setColorFilter } =
+  filtersSlice.actions;

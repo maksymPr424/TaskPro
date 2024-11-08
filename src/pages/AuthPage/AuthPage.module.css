@@ -1,0 +1,15 @@
+.authPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(
+    to bottom,
+    rgb(246, 246, 247) 25%,
+    rgba(190, 219, 176, 1) 92%
+  );
+}
+
+.formContainer {
+  transition: height 0.2s ease;
+}

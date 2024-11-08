@@ -76,7 +76,6 @@ const columnsSlice = createSlice({
                 saveToStorage(state.items);
             })
             .addCase(deleteColumn.rejected, handleRejected)
-
     },
 });
 

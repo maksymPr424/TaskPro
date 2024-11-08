@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import css from "../MainDashboard.module.css";
 import PropTypes from "prop-types";
+import { FaPlus } from "react-icons/fa6";
 
 const columnSchema = Yup.object().shape({
   title: Yup.string()
@@ -10,18 +11,6 @@ const columnSchema = Yup.object().shape({
     .max(20, "Too long")
     .required("Required"),
 });
-
-const IconPlus = (id) => (
-  <svg>
-    <use xlinkHref={`../../assets/sprite.svg#${id}`} />
-  </svg>
-);
-
-const IconClose = (id) => (
-  <svg>
-    <use xlinkHref={`../../assets/sprite.svg#${id}`} />
-  </svg>
-);
 
 export const EditColumnModal = ({
   isOpen,
@@ -34,7 +23,9 @@ export const EditColumnModal = ({
     <Modal className={css.modal} isOpen={isOpen} onRequestClose={onClose}>
       <h2 className={css.title}>Edit column</h2>
       <button className={css.closeButton} onClick={onClose}>
-        <IconClose className={css.close} id="icon-close" />
+        <svg className={css.close} width="18" height="18">
+          <use href="/sprite.svg#icon-close" />
+        </svg>
       </button>
       <Formik
         initialValues={{ title: editingColumn?.title || "" }}
@@ -42,20 +33,14 @@ export const EditColumnModal = ({
         onSubmit={onSubmit}
         enableReinitialize
       >
-        {({ isSubmitting }) => (
-          <Form>
-            <Field className={css.input} name="title" id={`${columnId}-edit`} />
-            <ErrorMessage className={css.error} name="title" component="span" />
-            <button
-              className={css.modalButton}
-              type="submit"
-              disabled={isSubmitting}
-            >
-              <IconPlus className={css.plus} id="icon-plus" />
-              {isSubmitting ? "Editing..." : "Edit"}
-            </button>
-          </Form>
-        )}
+        <Form>
+          <Field className={css.input} name="title" id={`${columnId}-edit`} />
+          <ErrorMessage className={css.error} name="title" component="span" />
+          <button className={css.modalButton} type="submit">
+            <FaPlus className={css.plusModal} />
+            Edit
+          </button>
+        </Form>
       </Formik>
     </Modal>
   );

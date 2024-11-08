@@ -1,3 +1,17 @@
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul {
+  margin: 0;
+}
+
 .loading {
   text-align: center;
   padding: 20px;
@@ -9,6 +23,10 @@
   padding: 20px;
 }
 
+.container {
+  margin-top: 20px;
+}
+
 span {
   color: red;
   font-size: 8px;
@@ -16,27 +34,37 @@ span {
 }
 
 .button {
-  display: inline-flex;
-  gap: 8px;
-  padding: 14px 0;
+  display: flex;
+  width: 100%;
+  padding: 14px 0px;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  border-radius: 8px;
-  background: var(--base-green-violet);
-  color: var(--card-button-text);
+  color: var(--text-button-modal);
   font-family: var(--mediumFont, Poppins);
   letter-spacing: -0.02em;
+  gap: 8px;
+  margin-top: 24px;
+  border-radius: 8px;
+  background: var(--border-input);
+  border: none;
 }
 
-.plus {
+.modalTitle {
+  margin-bottom: 24px;
+}
+
+.plusModal {
+  background-color: var(--text-button-modal);
+  color: var(--icon-modal);
+  width: 28px;
+  height: 28px;
   padding: 7px;
-  background: var(--text);
-  stroke: var(--background);
+  border-radius: 6px;
 }
 
 .edit,
-.delete {
+.delete,
+.move {
   stroke: var(--without-priority);
 }
 
@@ -45,6 +73,9 @@ span {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding-right: 10px;
 }
 
 .item {
@@ -53,14 +84,16 @@ span {
   background: var(--background-task);
   border-left: 4px solid red;
   padding: 14px 20px;
+  position: relative;
 }
 
 .item::after {
+  position: absolute;
   content: "";
   bottom: 60px;
-  width: 100%;
-  stroke-width: 1px;
-  stroke: var(--without-priority);
+  width: 88%;
+  height: 1px;
+  background-color: var(--without-priority);
 }
 
 .title {
@@ -93,11 +126,6 @@ span {
   margin-right: 4px;
 }
 
-.container {
-  display: flex;
-  gap: 14px;
-}
-
 .subtitle {
   color: var(--no-active);
   font-family: var(--mediumFont, Poppins);
@@ -110,6 +138,14 @@ span {
   margin-left: auto;
   display: flex;
   gap: 8px;
+  align-items: flex-end;
+}
+
+.iconButtons {
+  border: none;
+  width: 16px;
+  height: 16px;
+  background: inherit;
 }
 
 .priority {
@@ -117,6 +153,12 @@ span {
   gap: 8px;
   margin-top: 24px;
   margin-bottom: 14px;
+}
+
+.subcontainer {
+  display: flex;
+  gap: 8px;
+  margin-top: 28px;
 }
 
 .addModal {
@@ -130,9 +172,14 @@ span {
 
 .close {
   stroke: var(--text);
+}
+
+.closeButton {
   position: absolute;
   top: 14px;
   right: 14px;
+  border: none;
+  background: var(--background-task-modal);
 }
 
 .columnButton {
@@ -185,4 +232,56 @@ span {
   letter-spacing: -0.02em;
   padding: 10px 0px;
   gap: 8px;
+}
+
+.priority {
+  position: relative;
+  display: inline-block;
+  margin: 10px;
+  cursor: pointer;
+}
+
+/* Сховуємо стандартну радіо кнопку */
+.priority input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+}
+
+/* Стилі для кастомного кола */
+.radioCustom {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: var(
+    --without-priority
+  ); /* Колір для незаповненого інпуту */
+  transition: background-color 0.3s;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+/* Кольори для кожного пріоритету */
+.priorityWithout input:checked ~ .radioCustom {
+  background-color: var(--without-priority); /* Без пріоритету */
+}
+
+.priorityLow input:checked ~ .radioCustom {
+  background-color: var(--low-priority); /* Низький пріоритет */
+}
+
+.priorityMedium input:checked ~ .radioCustom {
+  background-color: var(--medium-priority); /* Середній пріоритет */
+}
+
+.priorityHigh input:checked ~ .radioCustom {
+  background-color: var(--high-priority); /* Високий пріоритет */
+}
+@media screen and (min-width: 768px) {
+  .addModal {
+    width: 334px;
+    position: fixed;
+    top: 300px;
+    left: 390px;
+    transform: translate(-50%, -50%);
+  }
 }

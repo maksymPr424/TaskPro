@@ -1,54 +1,99 @@
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul {
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: max-content;
+  min-width: 320px;
+  overflow-x: auto;
+  padding: 20px 0;
+  padding-right: 20px;
+  gap: 20px;
+}
+
 .button {
-  display: inline-flex;
-  gap: 8px;
-  padding: 14px 79px;
-  width: 100%;
+  flex-shrink: 0;
+  display: flex;
   justify-content: center;
   align-items: center;
+  padding: 14px 0;
+  font-size: 14px;
   border-radius: 8px;
-  background: var(--background);
-  color: var(--text);
+  border: none;
+  background: var(--background-button);
+  color: var(--text-column);
   font-family: var(--mediumFont, Poppins);
   letter-spacing: -0.02em;
+  width: 100vw;
+  gap: 8px;
 }
 
 .plus {
+  width: 28px;
+  height: 28px;
   padding: 7px;
-  background: var(--text);
-  stroke: var(--background);
+  border-radius: 6px;
+  color: var(--background-button);
+  background-color: var(--text-column);
 }
 
 .modal {
+  border-radius: 8px;
   width: 100%;
-  background: var(--background);
+  max-width: 375px;
+  background: var(--background-task-modal);
   position: relative;
   padding: 24px;
 }
 
 .title {
-  color: var(--text);
+  color: var(--text-column);
   font-family: var(--mediumFont, Poppins);
   font-size: 18px;
   letter-spacing: -0.02em;
   margin-bottom: 24px;
 }
 
-.close {
-  stroke: var(--text);
+.closeButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--background-task-modal);
+  border: none;
   position: absolute;
   top: 14px;
   right: 14px;
 }
 
+.close {
+  stroke: var(--text);
+}
+
 .input {
   display: flex;
-  width: 287px;
+  width: 100%;
   padding: 14px 0;
   padding-left: 18px;
   align-items: center;
   border-radius: 8px;
-  border: 1px solid var(--base-green-violet);
+  color: var(--text-column);
   opacity: 0.4;
+  border: 1px solid var(--border-input);
+  outline: none;
+  background: var(--background-input-modal);
   box-shadow: 0px 4px 16px 0px rgba(22, 22, 22, 0.08);
 }
 
@@ -58,16 +103,29 @@ span {
   margin-top: 8px;
 }
 
-.modalButtton {
+.modalButton {
   display: flex;
   width: 100%;
   padding: 10px 0px;
   justify-content: center;
   align-items: center;
-  color: var(--base-green-violet);
+  color: var(--text-button-modal);
   font-family: var(--mediumFont, Poppins);
   letter-spacing: -0.02em;
   gap: 8px;
+  margin-top: 24px;
+  border-radius: 8px;
+  background: var(--border-input);
+  border: none;
+}
+
+.plusModal {
+  background-color: var(--text-button-modal);
+  color: var(--icon-modal);
+  width: 28px;
+  height: 28px;
+  padding: 7px;
+  border-radius: 6px;
 }
 
 .loading {
@@ -81,13 +139,6 @@ span {
   padding: 20px;
 }
 
-.columnButton {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
 .edit,
 .delete {
   stroke: var(--without-priority);
@@ -95,4 +146,61 @@ span {
 
 .tasks {
   margin-top: 14px;
+}
+
+.columnsContainer {
+  flex-shrink: 0;
+  display: flex;
+  gap: 20px;
+}
+
+.columnItem {
+  flex-shrink: 0;
+  width: 100vw;
+}
+
+.column {
+  display: flex;
+  padding: 18px 20px 17px 20px;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  background: var(--background-button);
+}
+
+.titleColumn {
+  color: var(--text-column);
+  font-family: var(--mediumFont, Poppins);
+  font-size: 14px;
+  letter-spacing: -0.02em;
+}
+
+.editButton,
+.deleteButton {
+  width: 16px;
+  height: 16px;
+  border: none;
+  background: inherit;
+}
+
+.columnButtons {
+  display: flex;
+  gap: 8px;
+}
+
+@media screen and (min-width: 768px) {
+  .button {
+    width: 334px;
+  }
+
+  .modal {
+    position: fixed;
+    top: 300px;
+    left: 390px;
+    transform: translate(-50%, -50%);
+  }
+
+  .columnItem {
+    width: 334px;
+  }
 }

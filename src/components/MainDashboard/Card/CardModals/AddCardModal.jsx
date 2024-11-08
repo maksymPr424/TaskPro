@@ -1,10 +1,10 @@
 import * as Yup from "yup";
 import Modal from "react-modal";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import css from "../Card.module.css";
 import PropTypes from "prop-types";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const PRIORITIES = {
   WITHOUT: "Without priority",
@@ -23,87 +23,85 @@ const cardSchema = Yup.object().shape({
   priority: Yup.string().oneOf(Object.values(PRIORITIES)),
 });
 
-const IconPlus = (id) => (
-  <svg>
-    <use xlinkHref={`../../../../assets/sprite.svg#${id}`} />
-  </svg>
-);
-
-const IconClose = (id) => (
-  <svg>
-    <use xlinkHref={`../../../../assets/sprite.svg#${id}`} />
-  </svg>
-);
-
 export const AddCardModal = ({ isOpen, onClose, onSubmit, cardId }) => {
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Modal className={css.addModal} isOpen={isOpen} onRequestClose={onClose}>
-        <h2 className={css.modalTitle}>Add card</h2>
-        <button className={css.closeButton}>
-          <IconClose className={css.close} id="icon-close" />
-        </button>
-        <Formik
-          initialValues={{
-            title: "",
-            description: "",
-            calendar: new Date(),
-            labelPriority: "Without priority",
-          }}
-          validationSchema={cardSchema}
-          onSubmit={onSubmit}
-        >
-          {({ isSubmitting }) => (
-            <Form>
-              <Field className={css.modalInputTitle} name="title" id={cardId} />
-              <ErrorMessage
-                className={css.error}
-                name="title"
-                component="span"
-              />
+    <Modal className={css.addModal} isOpen={isOpen} onRequestClose={onClose}>
+      <h2 className={css.modalTitle}>Add card</h2>
+      <button onClick={onClose} className={css.closeButton}>
+        <svg className={css.close} width="18" height="18">
+          <use href="/sprite.svg#icon-close" />
+        </svg>
+      </button>
+      <Formik
+        initialValues={{
+          title: "",
+          description: "",
+          calendar: new Date(),
+          priority: PRIORITIES.WITHOUT,
+        }}
+        validationSchema={cardSchema}
+        onSubmit={(values, formikHelpers) => onSubmit(values, formikHelpers)} // Передаємо formikHelpers у onSubmit
+      >
+        <Form>
+          <Field className={css.modalInputTitle} name="title" id={cardId} />
+          <ErrorMessage className={css.error} name="title" component="span" />
 
-              <Field
-                className={css.modalInputTitle}
-                type="textarea"
-                name="description"
-                id={cardId}
-              />
-              <ErrorMessage
-                className={css.error}
-                name="description"
-                component="span"
-              />
+          <Field
+            className={css.modalInputTitle}
+            type="textarea"
+            name="description"
+            id={cardId}
+          />
+          <ErrorMessage
+            className={css.error}
+            name="description"
+            component="span"
+          />
 
-              <div className={css.priority}>
-                <h3 className={css.modalSubtitle}>Label color</h3>
-                <Field
-                  type="radio"
-                  name="labelPriority"
-                  value="Without priority"
+          <div className={css.priority}>
+            <h3 className={css.modalSubtitle}>Priority</h3>
+            <label>
+              <Field type="radio" name="priority" value={PRIORITIES.WITHOUT} />
+              Without priority
+            </label>
+            <label>
+              <Field type="radio" name="priority" value={PRIORITIES.LOW} />
+              Low
+            </label>
+            <label>
+              <Field type="radio" name="priority" value={PRIORITIES.MEDIUM} />
+              Medium
+            </label>
+            <label>
+              <Field type="radio" name="priority" value={PRIORITIES.HIGH} />
+              High
+            </label>
+          </div>
+
+          <div>
+            <h3 className={css.modalSubtitle}>Deadline</h3>
+            <Field name="calendar">
+              {({ form }) => (
+                <DatePicker
+                  selected={form.values.calendar}
+                  onChange={(date) => form.setFieldValue("calendar", date)}
+                  className={css.datepicker}
+                  dateFormat="dd/MM/yyyy"
+                  minDate={new Date()}
                 />
-                <Field type="radio" name="labelPriority" value="Low" />
-                <Field type="radio" name="labelPriority" value="Medium" />
-                <Field type="radio" name="labelPriority" value="High" />
-              </div>
+              )}
+            </Field>
+          </div>
 
-              <div>
-                <h3 className={css.modalSubtitle}>Deadline</h3>
-                <DatePicker defaultValue={new Date()} />
-              </div>
-
-              <button
-                className={css.modalButton}
-                type="submit"
-                disabled={isSubmitting}
-              >
-                <IconPlus className={css.plus} id="icon-plus" />
-                {isSubmitting ? "Adding..." : "Add"}
-              </button>
-            </Form>
-          )}
-        </Formik>
-      </Modal>
-    </LocalizationProvider>
+          <button className={css.modalButton} type="submit">
+            <svg className={css.plus} width="14" height="14">
+              <use href="/sprite.svg#icon-plus" />
+            </svg>
+            Add
+          </button>
+        </Form>
+      </Formik>
+    </Modal>
   );
 };
 

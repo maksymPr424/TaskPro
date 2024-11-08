@@ -26,6 +26,8 @@ const persistConfigCard = {
     whitelist: ["token"],
 };
 
+
+
 export const store = configureStore({
     reducer: {
         columns: persistReducer(persistConfigColumn, columnsReducer),

@@ -15,24 +15,10 @@ import {
 import { AddColumnModal } from "./ColumnModals/AddColumnModal";
 import { EditColumnModal } from "./ColumnModals/EditColumnModal";
 import Card from "./Card/Card";
+import { FaPlus } from "react-icons/fa6";
+import ReactModal from "react-modal";
 
-const IconPlus = (id) => (
-  <svg>
-    <use xlinkHref={`../../assets/sprite.svg#${id}`} />
-  </svg>
-);
-
-const IconEdit = (id) => (
-  <svg>
-    <use xlinkHref={`../../assets/sprite.svg#${id}`} />
-  </svg>
-);
-
-const IconDelete = (id) => (
-  <svg>
-    <use xlinkHref={`../../assets/sprite.svg#${id}`} />
-  </svg>
-);
+ReactModal.setAppElement("#root");
 
 export default function MainDashboard() {
   const dispatch = useDispatch();
@@ -99,21 +85,27 @@ export default function MainDashboard() {
           <div className={css.loading}>Loading...</div>
         ) : (
           columns.map((column) => (
-            <li key={column.id} className={css.column}>
-              <h3>{column.title}</h3>
-              <div className={css.columnButtons}>
-                <button
-                  className={css.editButton}
-                  onClick={() => startEditColumn(column)}
-                >
-                  <IconEdit className={css.edit} id="icon-pencil" />
-                </button>
-                <button
-                  className={css.deleteButton}
-                  onClick={() => handleDeleteColumn(column.id)}
-                >
-                  <IconDelete className={css.delete} id="icon-trash" />
-                </button>
+            <li className={css.columnItem} key={column.id}>
+              <div className={css.column}>
+                <h3 className={css.titleColumn}>{column.title}</h3>
+                <div className={css.columnButtons}>
+                  <button
+                    className={css.editButton}
+                    onClick={() => startEditColumn(column)}
+                  >
+                    <svg className={css.edit} width="16" height="16">
+                      <use href="/sprite.svg#icon-pencil" />
+                    </svg>
+                  </button>
+                  <button
+                    className={css.deleteButton}
+                    onClick={() => handleDeleteColumn(column.id)}
+                  >
+                    <svg className={css.delete} width="16" height="16">
+                      <use href="/sprite.svg#icon-trash" />
+                    </svg>
+                  </button>
+                </div>
               </div>
               <Card className={css.tasks} />
             </li>
@@ -122,7 +114,7 @@ export default function MainDashboard() {
       </ul>
 
       <button className={css.button} onClick={() => setAddModalIsOpen(true)}>
-        <IconPlus className={css.plus} id="icon-plus" />
+        <FaPlus className={css.plus} />
         Add column
       </button>
 

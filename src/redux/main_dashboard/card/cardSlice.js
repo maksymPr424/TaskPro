@@ -1,6 +1,6 @@
+// cardSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 import { addCard, deleteCard, editCard, getCard } from "./cardOperations";
-
 
 export const LOCAL_STORAGE_CARDS_KEY = 'dashboard_card';
 
@@ -57,7 +57,6 @@ const cardSlice = createSlice({
                 state.error = null;
                 const index = state.items.findIndex(
                     (card) => card.id === action.payload.id);
-
                 if (index !== -1) {
                     state.items[index] = action.payload;
                 }

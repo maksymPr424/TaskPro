@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
-  selectCard,
+  selectCards,
   selectError,
   selectIsLoading,
 } from "../../../redux/main_dashboard/card/cardSelectors";
@@ -12,38 +12,13 @@ import {
   getCard,
 } from "../../../redux/main_dashboard/card/cardOperations";
 import css from "./Card.module.css";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { AddCardModal } from "./CardModals/AddCardModal";
 import { EditCardModal } from "./CardModals/EditCardModal";
-
-const IconPlus = (id) => (
-  <svg>
-    <use xlinkHref={`../../../assets/sprite.svg#${id}`} />
-  </svg>
-);
-
-const IconArrow = (id) => (
-  <svg>
-    <use xlinkHref={`../../../assets/sprite.svg#${id}`} />
-  </svg>
-);
-
-const IconEdit = (id) => (
-  <svg>
-    <use xlinkHref={`../../../assets/sprite.svg#${id}`} />
-  </svg>
-);
-
-const IconDelete = (id) => (
-  <svg>
-    <use xlinkHref={`../../../assets/sprite.svg#${id}`} />
-  </svg>
-);
+import { FaPlus } from "react-icons/fa6";
 
 export default function Card() {
   const dispatch = useDispatch();
-  const cards = useSelector(selectCard);
+  const cards = useSelector(selectCards);
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
 
@@ -77,7 +52,13 @@ export default function Card() {
   };
 
   const startEditCard = (card) => {
-    setEditingCard(card);
+    setEditingCard({
+      id: card.id.toString(),
+      title: card.title,
+      description: card.description,
+      calendar: new Date(card.calendar),
+      priority: card.priority,
+    });
     setEditCardModalIsOpen(true);
   };
 
@@ -114,68 +95,146 @@ export default function Card() {
     return <div className={css.error}>Error: {error}</div>;
   }
 
+  const PRIORITIES = {
+    WITHOUT: "Without priority",
+    LOW: "Low",
+    MEDIUM: "Medium",
+    HIGH: "High",
+  };
+
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <div>
-        <ul className={css.list}>
-          {isLoading ? (
-            <div className={css.loading}>Loading...</div>
-          ) : (
-            cards.map((card) => {
-              <li className={css.item} key={card.id}>
-                <h3 className={css.title}>{card.title}</h3>
-                <p className={css.text}>{card.description} </p>
-                <div className={css.container}>
-                  <div>
-                    <h4 className={css.subtitle}>Priority</h4>
-                    <label className={css.label}>
-                      <input className={css.input} type="checkbox" />
-                      {card.priority}
+    <div className={css.container}>
+      <ul className={css.list}>
+        {isLoading ? (
+          <div className={css.loading}>Loading...</div>
+        ) : (
+          cards.map((card) => (
+            <li
+              className={`${css.item} ${
+                card.priority === PRIORITIES.WITHOUT
+                  ? css.priorityWithout
+                  : card.priority === PRIORITIES.LOW
+                  ? css.priorityLow
+                  : card.priority === PRIORITIES.MEDIUM
+                  ? css.priorityMedium
+                  : card.priority === PRIORITIES.HIGH
+                  ? css.priorityHigh
+                  : ""
+              }`}
+              key={card.id}
+            >
+              <h3 className={css.title}>{card.title}</h3>
+              <p className={css.text}>{card.description} </p>
+              <div className={css.subcontainer}>
+                <div>
+                  <h4 className={css.subtitle}>Priority</h4>
+                  {card.priority === PRIORITIES.WITHOUT && (
+                    <label className={`${css.priority} ${css.priorityWithout}`}>
+                      <input
+                        type="radio"
+                        name="priority"
+                        value={PRIORITIES.WITHOUT}
+                        checked={card.priority === PRIORITIES.WITHOUT}
+                        readOnly
+                      />
+                      <span className={css.radioCustom}></span>
                     </label>
-                  </div>
-
-                  <div>
-                    <h4 className={css.subtitle}>Deadline</h4>
-                    <DatePicker defaultValue={new Date()} />
-                  </div>
-
-                  <div className={css.iconContainer}>
-                    <button>
-                      <IconArrow id="icon-arrow-circle-broken-right" />
-                    </button>
-                    <button onClick={() => startEditCard(card)}>
-                      <IconEdit className={css.edit} id="icon-pencil" />
-                    </button>
-                    <button onClick={() => handleDeleteCard(card.id)}>
-                      <IconDelete className={css.delete} id="icon-trash" />
-                    </button>
-                  </div>
+                  )}
+                  {card.priority === PRIORITIES.LOW && (
+                    <label className={`${css.priority} ${css.priorityLow}`}>
+                      <input
+                        type="radio"
+                        name="priority"
+                        value={PRIORITIES.LOW}
+                        checked={card.priority === PRIORITIES.LOW}
+                        readOnly
+                      />
+                      <span className={css.radioCustom}></span>
+                    </label>
+                  )}
+                  {card.priority === PRIORITIES.MEDIUM && (
+                    <label className={`${css.priority} ${css.priorityMedium}`}>
+                      <input
+                        type="radio"
+                        name="priority"
+                        value={PRIORITIES.MEDIUM}
+                        checked={card.priority === PRIORITIES.MEDIUM}
+                        readOnly
+                      />
+                      <span className={css.radioCustom}></span>
+                    </label>
+                  )}
+                  {card.priority === PRIORITIES.HIGH && (
+                    <label className={`${css.priority} ${css.priorityHigh}`}>
+                      <input
+                        type="radio"
+                        name="priority"
+                        value={PRIORITIES.HIGH}
+                        checked={card.priority === PRIORITIES.HIGH}
+                        readOnly
+                      />
+                      <span className={css.radioCustom}></span>
+                    </label>
+                  )}
                 </div>
-              </li>;
-            })
-          )}
-        </ul>
 
-        <button className={css.button}>
-          <IconPlus className={css.plus} id="icon-plus" />
-          Add Card
-        </button>
+                <div>
+                  <h4 className={css.subtitle}>Deadline</h4>
+                </div>
 
-        <AddCardModal
-          isOpen={addCardModalIsOpen}
-          onClose={() => setAddCardModalIsOpen(false)}
-          onSubmit={handleAddCard}
-          cardId={cardId}
-        />
+                <div className={css.iconContainer}>
+                  <button className={css.iconButtons}>
+                    <svg className={css.move} width="16" height="16">
+                      <use href="/sprite.svg#icon-arrow-circle-broken-right" />
+                    </svg>
+                  </button>
+                  <button
+                    className={css.iconButtons}
+                    onClick={() => startEditCard(card)}
+                  >
+                    <svg className={css.edit} width="16" height="16">
+                      <use href="/sprite.svg#icon-pencil" />
+                    </svg>
+                  </button>
+                  <button
+                    className={css.iconButtons}
+                    onClick={() => handleDeleteCard(card.id)}
+                  >
+                    <svg className={css.delete} width="16" height="16">
+                      <use href="/sprite.svg#icon-trash" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </li>
+          ))
+        )}
+      </ul>
 
-        <EditCardModal
-          isOpen={editCardModalIsOpen}
-          onClose={() => setEditCardModalIsOpen(false)}
-          onSubmit={handleEditCard}
-          cardId={cardId}
-          editingCard={editingCard}
-        />
-      </div>
-    </LocalizationProvider>
+      <button
+        className={css.button}
+        onClick={() => setAddCardModalIsOpen(true)}
+      >
+        <FaPlus className={css.plusModal} />
+        Add another card
+      </button>
+
+      <AddCardModal
+        isOpen={addCardModalIsOpen}
+        onClose={() => setAddCardModalIsOpen(false)}
+        onSubmit={handleAddCard}
+        cardId={cardId}
+      />
+
+      <EditCardModal
+        isOpen={editCardModalIsOpen}
+        onClose={() => setEditCardModalIsOpen(false)}
+        onSubmit={(values, formikHelpers) =>
+          handleEditCard(values, formikHelpers)
+        }
+        cardId={cardId}
+        editingCard={editingCard}
+      />
+    </div>
   );
 }

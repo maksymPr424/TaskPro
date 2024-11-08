@@ -1,72 +1,47 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { LOCAL_STORAGE_CARDS_KEY } from "./cardSlice";
 
-const getStorageCardData = () => {
-    const data = localStorage.getItem(LOCAL_STORAGE_CARDS_KEY);
-    return data ? JSON.parse(data) : [];
+const serializeCard = (card) => ({
+    ...card,
+    calendar: card.calendar instanceof Date ? card.calendar.toISOString() : card.calendar,
+});
+
+const loadCardsFromStorage = () => {
+    const saved = localStorage.getItem(LOCAL_STORAGE_CARDS_KEY);
+    return saved ? JSON.parse(saved) : [];
 };
 
-const setStorageCardData = (data) => {
-    localStorage.setItem(LOCAL_STORAGE_CARDS_KEY, JSON.stringify(data));
-}
+const saveCardsToStorage = (cards) => {
+    localStorage.setItem(LOCAL_STORAGE_CARDS_KEY, JSON.stringify(cards));
+};
 
-export const getCard = createAsyncThunk(
-    "cards/getCard",
-    async (_, thunkAPI) => {
-        try {
-            const data = getStorageCardData();
-            return data;
-        } catch (e) {
-            return thunkAPI.rejectWithValue(e.message);
-        }
-    }
-);
+export const getCard = createAsyncThunk("cards/getCard", async () => {
+    const cards = loadCardsFromStorage();
+    return cards.map(serializeCard);
+});
 
-export const addCard = createAsyncThunk(
-    "cards/addCard",
-    async ({ title, description, calendar, priority }, thunkAPI) => {
-        try {
-            const cards = getStorageCardData();
-            const newCard = {
-                id: Date.now(),
-                title,
-                description,
-                calendar,
-                priority
-            };
-            const updateCards = [...cards, newCard];
-            setStorageCardData(updateCards);
-            return newCard;
-        } catch (e) {
-            return thunkAPI.rejectWithValue(e.message);
-        }
-    }
-);
+export const addCard = createAsyncThunk("cards/addCard", async (card) => {
+    const cards = loadCardsFromStorage();
+    const newCard = serializeCard({ ...card, id: Date.now() });
+    cards.push(newCard);
+    saveCardsToStorage(cards);
+    return newCard;
+});
 
-export const editCard = createAsyncThunk(
-    "cards/editCard",
-    async ({ id, title, description, calendar, priority }, thunkAPI) => {
-        try {
-            const cards = getStorageCardData();
-            const updateCards = cards.map(card => card.id === id ? { ...card, title, description, calendar, priority } : card);
-            setStorageCardData(updateCards);
-            return { id, title, description, calendar, priority };
-        } catch (e) {
-            return thunkAPI.rejectWithValue(e.message);
-        }
+export const editCard = createAsyncThunk("cards/editCard", async (updatedCard) => {
+    const cards = loadCardsFromStorage();
+    const index = cards.findIndex((card) => card.id === updatedCard.id);
+    if (index !== -1) {
+        cards[index] = serializeCard(updatedCard);
+        saveCardsToStorage(cards);
+        return cards[index];
     }
-);
+    throw new Error("Card not found");
+});
 
-export const deleteCard = createAsyncThunk(
-    "cards/deleteCard",
-    async (id, thunkAPI) => {
-        try {
-            const cards = getStorageCardData()
-            const updateCards = cards.filter(card => card.id !== id);
-            setStorageCardData(updateCards);
-            return { id };
-        } catch (e) {
-            return thunkAPI.rejectWithValue(e.message);
-        }
-    }
-);
+export const deleteCard = createAsyncThunk("cards/deleteCard", async (cardId) => {
+    const cards = loadCardsFromStorage();
+    const updatedCards = cards.filter((card) => card.id !== cardId);
+    saveCardsToStorage(updatedCards);
+    return cardId;
+});

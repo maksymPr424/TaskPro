@@ -16,6 +16,7 @@ import {
 import { selectBoards } from "../../redux/boards/selectors.js";
 import { clearBoards } from "../../redux/boards/slice.js";
 import { logoutUser } from "../../redux/auth/operations.js";
+import cactus from "../../img/flower-pot.png";
 
 export default function Sidebar() {
   const dispatch = useDispatch();
@@ -172,11 +173,7 @@ export default function Sidebar() {
       </Tabs>
 
       <div className={css.sidebarHelp}>
-        <img
-          className={css.sidebarHelpImg}
-          src="../../../public/flower-pot.png"
-          alt="Help"
-        />
+        <img className={css.sidebarHelpImg} src={cactus} alt="Help" />
         <p className={css.sidebarHelpText}>
           If you need help with{" "}
           <span className={css.sidebarHelpTextSpan}>TaskPro</span>, check out

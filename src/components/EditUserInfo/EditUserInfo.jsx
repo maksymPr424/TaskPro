@@ -1,11 +1,21 @@
-// EditProfileModal.jsx
 import React, { useState } from "react";
 import Modal from "react-modal";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import styles from "./EditUserInfo.module.css";
 import icon from "../../assets/sprite.svg";
-import defaultPhoto from "../../img/user.jpg";
+import {
+  updateUserPhoto,
+  updateUserProfile,
+} from "../../redux/header/operationsHeader.js";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectUserStatus,
+  selectUserTheme,
+} from "../../redux/header/selectors";
+import toast, { Toaster } from "react-hot-toast";
+import { defaultImages } from "../../constants/global.js";
+import { Blocks } from "react-loader-spinner";
 
 Modal.setAppElement("#root");
 
@@ -17,12 +27,51 @@ const EditProfileModal = ({ isOpen, onRequestClose }) => {
       .max(50, "Name must be less than 50 chars"),
     email: Yup.string().email("Invalid email").required("Email is required"),
     password: Yup.string()
-      .required("Password is required")
       .min(6, "Password must be at least 6 characters")
-      .max(50, "Password must be less than 50 chars"),
+      .max(50, "Password must be less than 50 chars")
+      .notRequired(),
   });
 
+  const dispatch = useDispatch();
+  const status = useSelector(selectUserStatus);
+  const userProfile = useSelector((state) => state.userProfile.data);
+  const [uploadedPhoto, setUploadedPhoto] = useState(userProfile?.photoUrl);
   const [showPassword, setShowPassword] = useState(false);
+  const formikUserProfile = {
+    name: userProfile?.name,
+    email: userProfile?.email,
+    password: "",
+  };
+  const theme = useSelector(selectUserTheme);
+
+  function getDefaultImage() {
+    return defaultImages[theme] || defaultImages.light;
+  }
+
+  const handlePhotoChange = async (event) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      const allowedTypes = ["image/png", "image/jpg", "image/jpeg"];
+      if (!allowedTypes.includes(file.type)) {
+        toast.error("Acceptable file formats: PNG, JPG, JPEG.");
+        return;
+      }
+      const maxSizeInMB = 5;
+      const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
+      if (file.size > maxSizeInBytes) {
+        toast.error(`The file size must not exceed ${maxSizeInMB} mb.`);
+        return;
+      }
+      const formData = new FormData();
+      formData.append("photo", file);
+
+      const result = await dispatch(updateUserPhoto(formData));
+      if (updateUserPhoto.fulfilled.match(result)) {
+        setUploadedPhoto(result.payload.photoUrl);
+      }
+    }
+  };
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -42,24 +91,60 @@ const EditProfileModal = ({ isOpen, onRequestClose }) => {
       </button>
       <h2 className={styles.modalTitle}>Edit profile</h2>
       <div className={styles.profileImageContainer}>
-        <img src={defaultPhoto} alt="Profile" className={styles.profileImage} />
-        <button className={styles.isOpenFoto}>
+        <img
+          src={uploadedPhoto || getDefaultImage()}
+          alt="Profile"
+          className={styles.profileImage}
+        />
+        <input
+          id="fileInput"
+          type="file"
+          accept="image/*"
+          onChange={handlePhotoChange}
+          className={styles.hiddenFileInput}
+        />
+        {status === "loading" && (
+          <div>
+            <Blocks
+              height="25"
+              width="25"
+              color="#4fa94d"
+              ariaLabel="blocks-loading"
+              wrapperStyle={{}}
+              wrapperClass="blocks-wrapper"
+              visible={true}
+            />
+          </div>
+        )}
+        <label htmlFor="fileInput" className={styles.isOpenFoto}>
           <svg className={styles.openIcon}>
             <use href={`${icon}#add+`}></use>
           </svg>
-        </button>
+        </label>
       </div>
+
       <Formik
-        initialValues={{
-          name: "",
-          email: "",
-          password: "",
-        }}
+        initialValues={formikUserProfile}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
-          console.log(values);
+        onSubmit={(newObj) => {
+          const updatedFields = {};
+
+          for (const key in newObj) {
+            if (newObj[key] !== formikUserProfile[key]) {
+              updatedFields[key] = newObj[key];
+            }
+          }
+
+          if (Object.keys(updatedFields).length === 0) {
+            toast.error("No changes were made");
+            return;
+          }
+
+          dispatch(updateUserProfile(updatedFields));
           onRequestClose();
         }}
+        validateOnBlur={true}
+        validateOnChange={false}
       >
         {() => (
           <Form className={styles.formContainer}>
@@ -75,13 +160,11 @@ const EditProfileModal = ({ isOpen, onRequestClose }) => {
                 className={styles.errorMessage}
               />
             </label>
-
             <label className={styles.label}>
               <Field
                 name="email"
                 type="email"
                 placeholder="Enter your email"
-                pattern="([A-z0-9_.-]{1,})@([A-z0-9_.-]{1,}).([A-z]{2,8})"
                 className={styles.inputField}
               />
               <ErrorMessage
@@ -90,7 +173,6 @@ const EditProfileModal = ({ isOpen, onRequestClose }) => {
                 className={styles.errorMessage}
               />
             </label>
-
             <label className={styles.label}>
               <div className={styles.passwordContainer}>
                 <Field
@@ -105,9 +187,8 @@ const EditProfileModal = ({ isOpen, onRequestClose }) => {
                   }`}
                   onClick={togglePasswordVisibility}
                 >
-                  <use href={`${icon}#eye`} />
+                  <use href={`${icon}#eye`}></use>
                 </svg>
-
                 <ErrorMessage
                   name="password"
                   component="div"
@@ -115,13 +196,13 @@ const EditProfileModal = ({ isOpen, onRequestClose }) => {
                 />
               </div>
             </label>
-
             <button type="submit" className={styles.submitButton}>
               Send
             </button>
           </Form>
         )}
       </Formik>
+      <Toaster />
     </Modal>
   );
 };

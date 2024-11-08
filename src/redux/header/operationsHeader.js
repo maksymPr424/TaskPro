@@ -1,13 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// In updateUserTheme action
 const updateUserTheme = createAsyncThunk(
   "user/updateTheme",
 
   async (theme, { getState, rejectWithValue }) => {
-    // console.log("Requested theme:", theme); // Debugging statement
-
     const { auth } = getState();
 
     try {
@@ -17,19 +14,60 @@ const updateUserTheme = createAsyncThunk(
         {
           headers: {
             // Authorization: `Bearer ${auth.accessToken}`,
-            Authorization: `Bearer pLNesN1NxbxE5TkNLS20ISfePAm3TBVw5FdnALhT`,
+            Authorization: `Bearer `,
             "Content-Type": "application/json",
           },
         }
       );
 
-      // console.log("API response theme:", response.data); // Debugging statement
       return response.data;
     } catch (error) {
-      console.error("Error updating theme:", error); // Debugging statement
+      console.error("Error updating theme:", error);
       return rejectWithValue(error.response?.data || "Failed to update theme");
     }
   }
 );
 
-export default updateUserTheme;
+const updateUserProfile = createAsyncThunk(
+  "user/updateProfile",
+  async (userProfile, { rejectWithValue }) => {
+    try {
+      const response = await axios.patch(
+        "https://task-pro-back-kri0.onrender.com/user",
+        userProfile,
+        {
+          headers: {
+            Authorization: `Bearer `,
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+const updateUserPhoto = createAsyncThunk(
+  "user/updatePhoto",
+  async (formData, { rejectWithValue }) => {
+    try {
+      const response = await axios.patch(
+        "https://task-pro-back-kri0.onrender.com/user",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer `,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export { updateUserTheme, updateUserProfile, updateUserPhoto };

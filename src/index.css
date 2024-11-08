@@ -1,4 +1,3 @@
-
 @font-face {
   font-family: mediumFont;
   src: url(./fonts/Poppins-Medium.ttf);
@@ -18,7 +17,55 @@
   font-family: regularFont sans-serif;
 }
 
-@media (prefers-color-scheme: light) {
+:root {
+  --base-green-violet: #bedbb0;
+  --active-green-violet: #9dc888;
+  --text: #000000;
+  --text-heder: #161616;
+  --background: #ffffff;
+  --background-heder: #ffffff;
+  --no-active: #ffffff80;
+  --without-priority: #ffffff4d;
+  --low-priority: #8fa1d0;
+  --medium-priority: #e09cb5;
+  --logout-plus-active: #bedbb0;
+  --logout-plus-no-active: #9dc888;
+  --favicon-color: #fff;
+  --add-foto-heder: #bedbb0;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --text: #161616;
+  --background: #ffffff;
+  --background-heder: #FCFCFC;
+  --text-heder: #161616;
+  --add-foto-heder: #bedbb0;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --text: #ffffff;
+  --background: #161616;
+  --background-heder: #161616;
+  --text-heder: #ffffff;
+  --add-foto-heder: #bedbb0;
+}
+
+[data-theme="violet"] {
+  color-scheme: violet;
+  --text: #ffffff;
+  --background: #ecedfd;
+  --base-green-violet: #7b7ede;
+  --active-green-violet: #5255bc;
+  --logout-plus-active: #b8bcfd;
+  --logout-plus-no-active: #fff;
+  --background-heder: #ffffff;
+  --text-heder: #161616;
+  --add-foto-heder: #ECEDFD;
+}
+
+/* @media (prefers-color-scheme: light) {
   :root {
     font-family: semiBoldFont, mediumFont, regularFont sans-serif;
 
@@ -69,4 +116,4 @@
     --logout-plus-active: #b8bcfd;
     --logout-plus-no-active: #fff;
   }
-}
+} */

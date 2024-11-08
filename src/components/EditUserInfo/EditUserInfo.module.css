@@ -1,11 +1,12 @@
 .modalOverlay {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(21, 21, 21, 0.50);
+    ;
 }
 
 .modalContent {
     width: 335px;
     height: 440px;
-    background: #FCFCFC;
+    background: var(--background-heder);
     padding: 14px;
     border-radius: 8px;
     box-shadow: 0px 4px 16px rgba(22, 24, 35, 0.06);
@@ -34,7 +35,7 @@
     text-align: left;
     margin-left: 10px;
     margin-top: 10px;
-    color: #161616;
+    color: var(--text-heder);
     font-family: mediumFont;
     font-size: 18px;
     font-style: normal;
@@ -55,30 +56,18 @@
 .profileImage {
     width: 68px;
     height: 68px;
-    border-radius: 50%;
+    border-radius: 8%;
 }
 
-.imageUploadButton {
-    position: absolute;
-    bottom: 0;
-    right: 5px;
-    background: #FCFCFC;
-    border: 2px solid #4CAF50;
-    color: #4CAF50;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
 .formContainer {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+
+}
+
+.formContainer:not(:last-child) {
+    gap: 14px;
 }
 
 .label {
@@ -90,21 +79,26 @@
 
 .inputField {
     padding: 12px;
-    border: 1px solid #ccc;
+    padding-left: 18px;
+    border: 1px solid var(--base-green-violet);
     border-radius: 8px;
-    color: #161616;
     font-family: regularFont;
+    color: var(--text-heder);
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
     letter-spacing: -0.28px;
+    margin: 0px 10px;
     transition: border-color 0.3s ease;
 }
 
-/* Стили фокуса для input */
+.inputField::placeholder {
+    color: #8f8f8f;
+}
+
 .inputField:focus {
-    border: 1px solid #BEDBB0;
+    border: 1px solid var(--active-green-violet);
     outline: none;
 }
 
@@ -112,12 +106,13 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    margin-bottom: 10px;
 }
 
 .passwordVisibilityToggle {
     position: absolute;
     top: 50%;
-    right: 10px;
+    right: 25px;
     transform: translateY(-50%);
     width: 18px;
     height: 18px;
@@ -125,9 +120,8 @@
 }
 
 .submitButton {
-    background-color: #BEDBB0;
-    ;
-    color: #161616;
+    background-color: var(--base-green-violet);
+    color: var(--text);
     font-family: mediumFont;
     font-size: 14px;
     font-style: normal;
@@ -139,23 +133,26 @@
     padding: 12px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    min-width: 287px;
+    margin: auto;
 }
 
 .submitButton:hover {
-    background-color: #45a049;
+    background-color: var(--active-green-violet);
 }
 
 .errorMessage {
     color: red;
     font-size: 14px;
     margin-top: 4px;
+    margin-left: 17px;
 }
 
 
 .isOpenFoto {
     width: 24px;
     height: 24px;
-    background-color: #C2DFB3;
+    background-color: var(--add-foto-heder);
     border-radius: 8px;
     border: none;
     display: flex;
@@ -175,14 +172,22 @@
 }
 
 .isOpenFoto:hover {
-    background-color: #9DC888;
+    background-color: var(--active-green-violet);
 }
 
-.isOpenFoto:hover .openIcon {
-    fill: #9DC888;
+
+
+
+.hiddenFileInput {
+    display: none;
 }
 
-.passwordVisibilityToggle.visible {
-    fill: #4CAF50;
-    stroke: #45a049;
+@media screen and (min-width: 768px) {
+    .modalContent {
+        width: 400px;
+    }
+
+    .submitButton {
+        min-width: 352px;
+    }
 }

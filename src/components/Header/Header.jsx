@@ -1,43 +1,17 @@
-import React, { useState } from "react";
-import { Menu, MenuItem, styled } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import styles from "./Header.module.css";
 import icon from "../../assets/sprite.svg";
 import defaultPhoto from "../../img/user.jpg";
 import EditUserInfo from "../EditUserInfo/EditUserInfo";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUserTheme } from "../../redux/header/selectors.js";
-import updateUserTheme from "../../redux/header/operationsHeader.js";
-
-const THEMS = ["light", "dark", "violet"];
-
-const CustomMenu = styled(Menu)(({ theme }) => ({
-  "& .MuiPaper-root": {
-    border: "1px solid",
-    borderColor: "#BEDBB0 !important",
-    boxShadow: "none",
-    borderRadius: "8px",
-    width: "100px",
-    margin: "18px 0px",
-    maxHeight: "107px",
-    overflow: "hidden",
-  },
-}));
-
-const CustomMenuItem = styled(MenuItem)(({ theme, isselected }) => ({
-  fontSize: "14px",
-  height: "21px",
-  fontWeight: "400",
-  minHeight: "21px",
-  marginBottom: "4px",
-  color: isselected ? "aquamarine" : "#161616",
-  lineHeight: "normal",
-  letterSpacing: "-0.28px",
-  backgroundColor: "transparent !important",
-  fontFamily: "mediumFont",
-  "&:hover": {
-    backgroundColor: "transparent",
-  },
-}));
+import {
+  selectUserData,
+  selectUserTheme,
+} from "../../redux/header/selectors.js";
+import { updateUserTheme } from "../../redux/header/operationsHeader.js";
+import { CustomMenuItem, CustomMenu } from "./HeaderCustumMemu.jsx";
+import { themes } from "../../constants/global.js";
+import { defaultImages } from "../../constants/global.js";
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -45,13 +19,17 @@ const Header = () => {
   const dispatch = useDispatch();
   const theme = useSelector(selectUserTheme);
   const status = useSelector((state) => state.user.status);
+  const userData = useSelector(selectUserData);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  // console.log("Current theme:", theme); // Debugging: Check the theme value
+  useEffect(() => {
+    document.body.setAttribute("data-theme", theme);
+  }, [theme]);
 
   const handleThemeSelect = (selectedTheme) => {
     if (status !== "loading") {
       dispatch(updateUserTheme(selectedTheme));
-      setAnchorEl(null); // Close menu after theme selection
+      setAnchorEl(null);
     }
   };
 
@@ -71,11 +49,20 @@ const Header = () => {
     setIsModalOpen(false);
   };
 
+  function getDefaultImage() {
+    return defaultImages[theme] || defaultImages.light;
+  }
+
   console.log(theme);
+
+  const handleSidebarToggle = () => {
+    setIsSidebarOpen((prev) => !prev);
+    console.log("Слайдбар открыт/закрыт");
+  };
 
   return (
     <div className={styles.header}>
-      <div className={styles.menuIcon}>
+      <div className={styles.menuIcon} onClick={handleSidebarToggle}>
         <svg>
           <use href={`${icon}#pop`}></use>
         </svg>
@@ -100,13 +87,12 @@ const Header = () => {
           "aria-labelledby": "theme-button",
         }}
       >
-        {THEMS.map((item) => (
+        {themes.map((item) => (
           <CustomMenuItem
             key={item}
             onClick={() => handleThemeSelect(item)}
             isselected={theme === item ? "true" : undefined}
           >
-            {/* {item} */}
             {item.charAt(0).toUpperCase() + item.slice(1)}
           </CustomMenuItem>
         ))}
@@ -117,11 +103,18 @@ const Header = () => {
         onClick={handleModalOpen}
         style={{ cursor: "pointer" }}
       >
-        <span className={styles.userName}>User</span>
-        <img src={defaultPhoto} alt="User Photo" className={styles.userPhoto} />
+        <span className={styles.userName}>{userData.name || "User"}</span>
+        <img
+          src={userData.photoUrl || getDefaultImage()}
+          alt="User Photo"
+          className={styles.userPhoto}
+        />
       </div>
 
       <EditUserInfo isOpen={isModalOpen} onRequestClose={handleModalClose} />
+      {isSidebarOpen && (
+        <div className={styles.sidebarPlaceholder}>Slidebar</div>
+      )}
     </div>
   );
 };

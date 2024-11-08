@@ -4,9 +4,9 @@
     padding: 0 20px;
     width: 375px;
     height: 60px;
-    background-color: #fcfcfc;
-    border-bottom: 1px solid #e0e0e0;
+    background: var(--background-heder);
     box-sizing: border-box;
+    margin: auto;
 }
 
 .menuIcon {
@@ -15,15 +15,13 @@
     justify-content: space-between;
     width: 24px;
     height: 24px;
-    fill: none;
     cursor: pointer;
-    stroke: none;
 }
 
 
 
 .theme {
-    color: rgba(22, 22, 22, 0.80);
+    color: var(--text-heder);
     font-family: semiBoltFont;
     font-size: 14px;
     font-style: normal;
@@ -59,6 +57,7 @@
 .userInfo {
     display: flex;
     align-items: center;
+
 }
 
 .userPhoto {
@@ -66,10 +65,11 @@
     height: 32px;
     border-radius: 8%;
     margin-right: 8px;
+
 }
 
 .userName {
-    color: #161616;
+    color: var(--text-heder);
     font-family: semiBoltFont;
     font-size: 14px;
     font-style: normal;
@@ -77,4 +77,40 @@
     line-height: normal;
     letter-spacing: -0.28px;
     margin-right: 8px;
+}
+
+@media screen and (min-width: 768px) {
+    .header {
+        width: 768px;
+        height: 68px;
+        padding: 0 32px;
+    }
+
+    .menuIcon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .theme {
+        margin-left: 511px;
+    }
+}
+
+/* ===================== */
+
+@media screen and (min-width: 1180px) {
+    .header {
+        width: 1180px;
+        padding: 0%;
+        justify-content: flex-end;
+        margin-right: 24px;
+    }
+
+    .menuIcon {
+        display: none;
+    }
+
+    .userInfo {
+        margin-right: 24px;
+    }
 }

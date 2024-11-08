@@ -3,10 +3,13 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../redux/auth/operations.js";
 // import svgSprite from "../../../public/sprite.svg";
 import * as Yup from "yup";
+import { selectError } from "../../redux/auth/selectors.js";
+import { selectIsLoading } from "../../redux/auth/selectors.js";
+import Loader from "../Loader/Loader.jsx";
 
 const validateRegisterFormSchema = Yup.object().shape({
   name: Yup.string()
@@ -37,6 +40,8 @@ const validateRegisterFormSchema = Yup.object().shape({
 export default function RegisterForm() {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const dispatch = useDispatch();
+  const regError = useSelector(selectError);
+  const isLoading = useSelector(selectIsLoading);
 
   const defaultValues = {
     name: "",
@@ -55,28 +60,27 @@ export default function RegisterForm() {
     mode: "onSubmit",
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = data => {
     dispatch(registerUser(data));
     reset();
   };
 
   return (
     <div className={styles.formWrapper}>
+      {isLoading && <Loader style={{ top: "110%" }} />}
       <nav className={styles.navigation}>
         <NavLink
           className={({ isActive }) =>
             `${styles.navLink} ${isActive ? styles.activeLink : ""}`
           }
-          to="/auth/register"
-        >
+          to='/auth/register'>
           Registration
         </NavLink>
         <NavLink
           className={({ isActive }) =>
             `${styles.navLink} ${isActive ? styles.activeLink : ""}`
           }
-          to="/auth/login"
-        >
+          to='/auth/login'>
           Log In
         </NavLink>
       </nav>
@@ -85,8 +89,8 @@ export default function RegisterForm() {
           <label className={styles.label}>
             <input
               {...register("name")}
-              type="text"
-              placeholder="Enter your name"
+              type='text'
+              placeholder='Enter your name'
               className={`${styles.input} ${
                 errors.name ? styles.inputError : ""
               }`}
@@ -98,8 +102,8 @@ export default function RegisterForm() {
           <label className={styles.label}>
             <input
               {...register("email")}
-              type="text"
-              placeholder="Enter your email"
+              type='text'
+              placeholder='Enter your email'
               className={`${styles.input} ${
                 errors.email ? styles.inputError : ""
               }`}
@@ -112,7 +116,7 @@ export default function RegisterForm() {
             <input
               {...register("password")}
               type={isPasswordVisible ? "text" : "password"}
-              placeholder="Create a password"
+              placeholder='Create a password'
               className={`${styles.input} ${
                 errors.password ? styles.inputError : ""
               }`}
@@ -122,32 +126,34 @@ export default function RegisterForm() {
             )}
             <span
               className={styles.togglePasswordWrapper}
-              onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-            >
+              onClick={() => setIsPasswordVisible(!isPasswordVisible)}>
               {isPasswordVisible ? (
                 <svg
                   className={styles.togglePasswordIcon}
-                  width="18"
-                  height="18"
-                >
-                  <use href="/sprite.svg#eye-off" />
+                  width='18'
+                  height='18'>
+                  <use href='/sprite.svg#eye-off' />
                 </svg>
               ) : (
                 <svg
                   className={styles.togglePasswordIcon}
-                  width="18"
-                  height="18"
-                >
-                  <use href="/sprite.svg#eye" />
+                  width='18'
+                  height='18'>
+                  <use href='/sprite.svg#eye' />
                 </svg>
               )}
             </span>
           </label>
         </div>
-        <button type="submit" className={styles.button}>
+        <button type='submit' className={styles.button}>
           Register Now
         </button>
       </form>
+      {regError && (
+        <div className={styles.errorWrapper}>
+          <p className={styles.regError}>{regError}</p>
+        </div>
+      )}
     </div>
   );
 }

@@ -11,15 +11,12 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { userThemeReducer } from "./header/slice.js";
-import { userProfileReducer } from "./header/slice.js";
 
 const persistConfig = {
   key: "auth_token",
   version: 1,
   storage,
   whitelist: ["token"],
-
 };
 
 const persistConfigUser = {
@@ -34,16 +31,13 @@ const persistConfigUserProfile = {
   version: 1,
   storage,
   whitelist: ["user"],
-  
 };
 
 export const store = configureStore({
   reducer: {
     auth: persistReducer(persistConfig, authReducer),
-    user: persistReducer(persistConfigUser, userThemeReducer),
-    userProfile: persistReducer(persistConfigUserProfile, userProfileReducer),
   },
-  middleware: getDefaultMiddleware =>
+  middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
@@ -52,4 +46,3 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
-

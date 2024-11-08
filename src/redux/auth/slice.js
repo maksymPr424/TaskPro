@@ -23,12 +23,12 @@ const slice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    clearError: state => {
+    clearError: (state) => {
       state.error = null;
       state.refreshError = null;
     },
   },
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
       .addCase(registerUser.fulfilled, (state, action) => {
         state.user.name = action.payload.name;
@@ -63,7 +63,7 @@ const slice = createSlice({
         state.user.email = action.payload.email;
         state.isRefreshing = false;
       })
-      .addCase(refreshUser.pending, state => {
+      .addCase(refreshUser.pending, (state) => {
         state.isRefreshing = true;
       })
       .addCase(refreshUser.rejected, (state, action) => {
@@ -79,15 +79,18 @@ const slice = createSlice({
 
         state.token = null;
       })
-      .addCase(logoutUser.pending, state => {
+      .addCase(logoutUser.pending, (state) => {
         state.isLoading = true;
+      })
+      .addCase(logoutUser.rejected, () => {
+        return initialState;
       })
       .addCase(logoutUser.fulfilled, () => {
         return initialState;
       })
       .addMatcher(
         isAnyOf(registerUser.pending, loginUser.pending, refreshUser.pending),
-        state => {
+        (state) => {
           state.error = null;
           state.refreshError = null;
           state.isLoading = true;
@@ -99,7 +102,7 @@ const slice = createSlice({
           loginUser.fulfilled,
           refreshUser.fulfilled
         ),
-        state => {
+        (state) => {
           state.isLoggedIn = true;
           state.error = null;
           state.refreshError = null;
@@ -112,7 +115,7 @@ const slice = createSlice({
           loginUser.rejected,
           refreshUser.rejected
         ),
-        state => {
+        (state) => {
           state.isLoading = false;
           state.isLoggedIn = false;
           state.isRefreshing = false;

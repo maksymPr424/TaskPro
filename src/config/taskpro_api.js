@@ -1,8 +1,14 @@
 import axios from "axios";
 
+const isProduction = import.meta.env.VITE_IS_PRODUCTION === "true";
+const API_URL = import.meta.env.VITE_API_URL;
+const LOCALHOST = import.meta.env.VITE_LOCALHOST_URL;
+
+const baseURL = isProduction ? API_URL : LOCALHOST;
+
 export const taskpro_api = axios.create({
-  // baseURL: "https://task-pro-back-kri0.onrender.com/",
-  baseURL: "http://localhost:3000/",
+  baseURL,
+  withCredentials: true,
 });
 
 export const setToken = token => {

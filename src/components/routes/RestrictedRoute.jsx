@@ -17,7 +17,11 @@ export default function RestrictedRoute({ children }) {
     if (refreshError) {
       setModalOpen(true);
     }
-  }, [refreshError]);
+
+    if (!isLoggedIn && !refreshError) {
+      setShouldRedirect(true);
+    }
+  }, [refreshError, isLoggedIn]);
 
   const handleCloseModal = () => {
     setModalOpen(false);

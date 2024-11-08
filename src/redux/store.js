@@ -11,6 +11,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import { boardsReducer } from "./boards/slice";
 
 const persistConfig = {
   key: "auth_token",
@@ -22,6 +23,7 @@ const persistConfig = {
 export const store = configureStore({
   reducer: {
     auth: persistReducer(persistConfig, authReducer),
+    boards: persistReducer(persistConfig, boardsReducer),
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

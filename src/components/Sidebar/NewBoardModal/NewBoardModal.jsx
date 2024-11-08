@@ -6,8 +6,8 @@ import css from "./NewBoardModal.module.css";
 
 Modal.setAppElement("#root");
 
-const icons = ["icon1", "icon2", "icon3", "icon4", "icon5", "icon6", "icon7", "icon8"];
-const backgrounds = ["bg1", "bg2", "bg3", "bg4", "bg5", "bg6", "bg7", "bg8", "bg9", "bg10", "bg11", "bg12", "bg13", "bg14", "bg15", "bg16"];
+const icons = ["project", "star", "loading", "puzzle", "container", "lightning", "colors", "hexagon"];
+const backgrounds = ["no-background", "three", "nightSky", "palmLeaves", "cloudySky", "violetCircle", "boat", "pinkFlowers", "halfMoon", "rockyCoast", "fullMoon", "balloon", "canyon", "yacht", "balloons", "trailer"];
 
 const NewBoardModal = ({ isOpen, onClose, onCreateBoard }) => {
   const initialValues = {
@@ -32,21 +32,17 @@ const NewBoardModal = ({ isOpen, onClose, onCreateBoard }) => {
       className={css.modalContent}
       overlayClassName={css.modalOverlay}
       contentLabel="New Board Modal"
-      ariaHideApp={false}
-    >
+      ariaHideApp={false}>
       <button className={css.closeButton} onClick={onClose}>×</button>
-      <h2 className={css.modalName}>New board</h2>
-      {/*------------------------------------------------------  */}
+      <h3 className={css.modalName}>New board</h3>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(values, { resetForm }) => {
           onCreateBoard(values);
-          resetForm(); 
+          resetForm();
           onClose();
-        }}
-
-      >
+        }}>
         {({ setFieldValue, values }) => (
           <Form>
             <Field
@@ -56,10 +52,9 @@ const NewBoardModal = ({ isOpen, onClose, onCreateBoard }) => {
               className={css.input}
             />
             <ErrorMessage name="title" component="p" className={css.error} />
-
             <div className={css.iconsSection}>
-              {/* ------------------------------------- */}
               <p className={css.sectionName}>Icons</p>
+
               <div className={css.iconOptions}>
                 {icons.map((icon, index) => (
                   <label key={index} className={css.iconLabel}>
@@ -77,7 +72,6 @@ const NewBoardModal = ({ isOpen, onClose, onCreateBoard }) => {
                 ))}
               </div>
             </div>
-
             <div className={css.backgroundSection}>
               <p className={css.sectionName}>Background</p>
               <div className={css.backgroundOptions}>
@@ -92,18 +86,14 @@ const NewBoardModal = ({ isOpen, onClose, onCreateBoard }) => {
                     />
                     <div
                       className={`${css.backgroundOption} ${bg === values.background ? css.selected : ""}`}
-                      style={{ backgroundImage: `url(/src/assets/${bg}.jpg)` }}
-                    ></div>
+                      style={{ backgroundImage: `url(/src/assets/${bg}.jpg)` }} >
+                    </div>
                   </label>
                 ))}
               </div>
             </div>
-
             <button type="submit" className={css.createButton}>
-              {/* <svg className={css.createIcon}>
-                <use href="/src/assets/plus.svg#plus"></use>
-              </svg> */}
-              + 
+              <span className={css.modalPlus}>+</span>
               Create
             </button>
           </Form>

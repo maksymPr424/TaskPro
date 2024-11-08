@@ -45,7 +45,6 @@ const NeedHelpModal = ({ isOpen, onClose }) => {
         ×
       </button>
       <h2 className={css.modalName}>Need help</h2>
-
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -60,7 +59,6 @@ const NeedHelpModal = ({ isOpen, onClose }) => {
               className={css.input}
             />
             <ErrorMessage name="email" component="p" className={css.error} />
-
             <Field
               as="textarea"
               name="comment"
@@ -68,9 +66,7 @@ const NeedHelpModal = ({ isOpen, onClose }) => {
               className={css.textarea}
             />
             <ErrorMessage name="comment" component="p" className={css.error} />
-
             {submitError && <p className={css.error}>{submitError}</p>}
-
             <button type="submit" className={css.sendButton} aria-label="Send help request">
               Send
             </button>

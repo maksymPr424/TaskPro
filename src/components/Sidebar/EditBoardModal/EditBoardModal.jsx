@@ -4,9 +4,8 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import css from "./EditBoardModal.module.css";
 
-const icons = ["icon1", "icon2", "icon3", "icon4", "icon5", "icon6", "icon7", "icon8"];
-const backgrounds = ["bg1", "bg2", "bg3", "bg4", "bg5", "bg6", "bg7", "bg8", "bg9", "bg10", "bg11", "bg12", "bg13", "bg14", "bg15", "bg16"];
-
+const icons = ["project", "star", "loading", "puzzle", "container", "lightning", "colors", "hexagon"];
+const backgrounds = ["no-background", "three", "nightSky", "palmLeaves", "cloudySky", "violetCircle", "boat", "pinkFlowers", "halfMoon", "rockyCoast", "fullMoon", "balloon", "canyon", "yacht", "balloons", "trailer"];
 
 const EditBoardModal = ({ isOpen, boardData, onClose, onSaveChanges }) => {
   const initialValues = {
@@ -39,7 +38,7 @@ const EditBoardModal = ({ isOpen, boardData, onClose, onSaveChanges }) => {
         validationSchema={validationSchema}
         onSubmit={(values) => {
           onSaveChanges({
-            id: boardData.id,
+            _id: boardData._id,
             title: values.title,
             icon: values.icon,
             background: values.background,
@@ -56,7 +55,6 @@ const EditBoardModal = ({ isOpen, boardData, onClose, onSaveChanges }) => {
               className={css.input}
             />
             <ErrorMessage name="title" component="p" className={css.error} />
-
             <div className={css.iconsSection}>
               <p className={css.sectionName}>Icons</p>
               <div className={css.iconOptions}>
@@ -97,12 +95,8 @@ const EditBoardModal = ({ isOpen, boardData, onClose, onSaveChanges }) => {
                 ))}
               </div>
             </div>
-
             <button type="submit" className={css.saveButton}>
-              {/* <svg className={css.saveIcon}>
-                <use href="/src/assets/edit.svg#edit"></use>
-              </svg> */}
-              + 
+              <span className={css.modalPlus}>+</span>
               Save
             </button>
           </Form>
@@ -115,7 +109,7 @@ const EditBoardModal = ({ isOpen, boardData, onClose, onSaveChanges }) => {
 EditBoardModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   boardData: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
     title: PropTypes.string,
     icon: PropTypes.string,
     background: PropTypes.string,

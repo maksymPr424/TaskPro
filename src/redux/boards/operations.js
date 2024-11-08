@@ -1,40 +1,46 @@
-import axios from "axios";
-import { addBoard, deleteBoard, setBoards, updateBoard } from "./slice.js";
 
-const API_URL = 'https://672566a8c39fedae05b4ab3d.mockapi.io/boards';
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { setToken, taskpro_api } from "../../config/taskpro_api.js";
 
-export const fetchBoards = () => async dispatch => {
+export const fetchBoards = createAsyncThunk('board/fetchBoards', async (_, { getState, rejectWithValue }) => {
+  const state = getState();
+  setToken(state.auth.token);
   try {
-    const response = await axios.get(API_URL);
-    dispatch(setBoards(response.data));
+    const response = await taskpro_api.get('/board');
+    return response.data;
   } catch (error) {
-    console.error("Failed fetchBoards:", error);
+    console.error('Error fetching boards:', error);
+    return rejectWithValue(error.response.data);
   }
-};
+});
 
-export const createBoard = newBoard => async dispatch => {
+export const createBoard = createAsyncThunk('board/createBoard', async (newBoard, { rejectWithValue }) => {
   try {
-    const response = await axios.post(API_URL, newBoard);
-    dispatch(addBoard(response.data));
+    const response = await taskpro_api.post('/board', newBoard);
+    return response.data;
   } catch (error) {
-    console.error("Faled newBoard:", error);
+    console.error('Error creating board:', error);
+    return rejectWithValue(error.response.data);
   }
-};
+});
 
-export const editBoard = updatedBoard => async dispatch => {
+export const editBoard = createAsyncThunk('board/editBoard', async (updatedBoard, { rejectWithValue }) => {
+  const { _id, ...restOfBoard } = updatedBoard;
   try {
-    const response = await axios.put(`${API_URL}/${updatedBoard.id}`, updatedBoard);
-    dispatch(updateBoard(response.data));
+    const response = await taskpro_api.patch(`/board/${_id}`, restOfBoard);
+    return response.data;
   } catch (error) {
-    console.error("Failed updatedBoard:", error);
+    console.error('Error editing board:', error);
+    return rejectWithValue(error.response.data);
   }
-};
+});
 
-export const removeBoard = boardId => async dispatch => {
+export const removeBoard = createAsyncThunk('board/removeBoard', async (boardId, { rejectWithValue }) => {
   try {
-    await axios.delete(`${API_URL}/${boardId}`);
-    dispatch(deleteBoard(boardId));
+    await taskpro_api.delete(`/board/${boardId}`);
+    return boardId;
   } catch (error) {
-    console.error("removeBoard:", error);
+    console.error('Error deleting board:', error);
+    return rejectWithValue(error.response.data);
   }
-};
+});

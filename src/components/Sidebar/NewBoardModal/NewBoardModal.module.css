@@ -1,55 +1,3 @@
-
-  /* Reset styles */
-  
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-    margin: 0;
-    padding: 0;
-}
-
-p:last-child {
-
-  margin: 0;
-  padding: 0;
-}
-
-ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-a {
-    margin: 0;
-    padding: 0;
-  color: currentColor;
-  text-decoration: none;
-}
-
-button {
-  cursor: pointer;
-  margin: 0;
-  padding: 0;
-}
-
-img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
-@font-face {
-    font-family: 'Poppins';
-    src: url('/src/fonts/Poppins-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-  }
-/* ------------------------- */
-
 .modalOverlay {
     position: fixed;
     top: 0;
@@ -57,26 +5,20 @@ img {
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.8);
-    /* display: flex; */
-    /* align-items: center; */
-    /* justify-content: center; */
     z-index: 1000;
 }
 
 .modalContent {
     position: absolute;
-    top: 5%;
-    left: 30%;
+    top: 0;
+    left: 0;
     width: 335px;
-/* height: 433px; */
-border-radius: 8px;
-border: 1px solid rgba(190, 219, 176, 0.50);
-background: #151515;
+    border-radius: 8px;
+    border: 1px solid rgba(190, 219, 176, 0.50);
+    background: #151515;
     padding: 24px;
-    /* position: relative; */
     display: flex;
     flex-direction: column;
-    /* gap: 16px; */
 }
 
 .closeButton {
@@ -89,34 +31,47 @@ background: #151515;
     color: #ffffff;
     cursor: pointer;
 }
+
 .modalName {
     color: #FFF;
-font-family: Poppins;
-font-size: 18px;
-font-style: normal;
-font-weight: 500;
-line-height: normal;
-letter-spacing: -0.36px;
-/* text-align: left; */
-margin-bottom: 24px;
+    font-family: Poppins;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.36px;
+    margin-bottom: 24px;
 }
+
 .input {
     padding: 14px 18px;
     width: 100%;
     border-radius: 8px;
     border: 1px solid #BEDBB0;
-    opacity: 0.4;
     background: #1F1F1F;
     box-shadow: 0px 4px 16px 0px rgba(22, 22, 22, 0.08);
     margin-bottom: 24px;
-    color: #FFF;
-font-family: Poppins;
-font-size: 14px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-letter-spacing: -0.28px;
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 }
+
+.input:hover {
+    border: 1px solid #9DC888;
+}
+
+.input:focus {
+    border: 1px solid #9DC888;
+}
+
+.input::placeholder {
+    color: #FFFFFF;
+    opacity: 0.4;
+    letter-spacing: -0.02em;
+}
+
 .error {
     color: rgb(254, 98, 98);
     font-family: Poppins;
@@ -125,7 +80,6 @@ letter-spacing: -0.28px;
     font-weight: 400;
     line-height: normal;
     letter-spacing: -0.28px;
-
 }
 
 .sectionName {
@@ -138,70 +92,66 @@ letter-spacing: -0.28px;
     letter-spacing: -0.28px;
     margin-bottom: 14px;
 }
-/* .iconsSection, .backgroundSection {
-    text-align: left;
-
-} */
 
 .iconOptions {
     display: flex;
     gap: 8px;
-    justify-content:left;
-margin-bottom: 24px;
+    justify-content: left;
+    margin-bottom: 24px;
 }
 
 .backgroundOptions {
     display: flex;
     flex-wrap: wrap;
     gap: 4px;
-    justify-content:left;
-margin-bottom: 40px;
-max-width: 278px;
-    
+    justify-content: left;
+    margin-bottom: 40px;
+    max-width: 278px;
 }
 
-.iconLabel, .backgroundLabel {
+.iconLabel,
+.backgroundLabel {
     display: flex;
     align-items: center;
-    
 }
 
 .hiddenInput {
     display: none;
 }
 
-
 .iconOption {
     border: 1px solid #605f5f;
     width: 18px;
-height: 18px;
+    height: 18px;
     cursor: pointer;
     border-radius: 4px;
 }
+
 .backgroundOption {
     border: 1px solid #605f5f;
     width: 28px;
-height: 28px;
+    height: 28px;
     cursor: pointer;
     border-radius: 4px;
 }
+
 .iconOption {
     fill: #bbbbbb;
 }
 
-.iconOption.selected, .backgroundOption.selected {
+.iconOption.selected,
+.backgroundOption.selected {
     border: 2px solid #00ff88;
 }
 
-
 .createButton {
     display: flex;
-width: 287px;
-padding: 10px 0px 11px 0px;
-justify-content: center;
-align-items: center;
-border-radius: 8px;
-background: #BEDBB0;
+    width: 287px;
+    padding: 10px 0px 11px 0px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    background: #BEDBB0;
     cursor: pointer;
     color: #161616;
     font-family: Poppins;
@@ -213,11 +163,26 @@ background: #BEDBB0;
     border: none;
 }
 
-.createIcon {
-    width: 28px;
-    height: 28px;
-    flex-shrink: 0;
+.createButton:hover {
+    background-color: #9DC888;
+}
+
+.modalPlus {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: rgba(22, 22, 22, 1);
+    color: rgba(255, 255, 255, 1);
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+    font-weight: 900;
+    margin-right: 8px;
+    border-radius: 6px;
+}
+
+@media screen and (min-width: 768px) {
+    .modalContent {
+        width: 350px;
+    }
 }

@@ -68,10 +68,8 @@ const cardSlice = createSlice({
             .addCase(deleteCard.fulfilled, (state, action) => {
                 state.loading = false;
                 state.error = null;
-                const index = state.items.findIndex(
-                    ({ id }) => id === action.payload.id
-                );
-                state.items.splice(index, 1);
+                state.items = action.payload;
+
                 saveToStorageCard(state.items);
             })
             .addCase(deleteCard.rejected, handleRejectedCard)

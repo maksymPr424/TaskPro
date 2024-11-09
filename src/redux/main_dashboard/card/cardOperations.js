@@ -3,16 +3,28 @@ import { LOCAL_STORAGE_CARDS_KEY } from "./cardSlice";
 
 const serializeCard = (card) => ({
     ...card,
+    id: card.id || Date.now(),
+    columnId: card.columnId,
     calendar: card.calendar instanceof Date ? card.calendar.toISOString() : card.calendar,
+});
+
+const deserializeCard = (card) => ({
+    ...card,
+
+    calendar: card.calendar ? new Date(card.calendar) : null,
 });
 
 const loadCardsFromStorage = () => {
     const saved = localStorage.getItem(LOCAL_STORAGE_CARDS_KEY);
-    return saved ? JSON.parse(saved) : [];
+    if (!saved) return [];
+
+    const cards = JSON.parse(saved);
+    return cards.map(deserializeCard);
 };
 
 const saveCardsToStorage = (cards) => {
-    localStorage.setItem(LOCAL_STORAGE_CARDS_KEY, JSON.stringify(cards));
+    const serializedCards = cards.map(serializeCard);
+    localStorage.setItem(LOCAL_STORAGE_CARDS_KEY, JSON.stringify(serializedCards));
 };
 
 export const getCard = createAsyncThunk("cards/getCard", async () => {
@@ -22,10 +34,18 @@ export const getCard = createAsyncThunk("cards/getCard", async () => {
 
 export const addCard = createAsyncThunk("cards/addCard", async (card) => {
     const cards = loadCardsFromStorage();
-    const newCard = serializeCard({ ...card, id: Date.now() });
+
+    const newCard = serializeCard({
+        ...card,
+        id: Date.now(),
+        columnId: card.columnId,
+        createdAt: new Date()
+    });
+
     cards.push(newCard);
     saveCardsToStorage(cards);
-    return newCard;
+
+    return deserializeCard(newCard);
 });
 
 export const editCard = createAsyncThunk("cards/editCard", async (updatedCard) => {
@@ -43,5 +63,6 @@ export const deleteCard = createAsyncThunk("cards/deleteCard", async (cardId) =>
     const cards = loadCardsFromStorage();
     const updatedCards = cards.filter((card) => card.id !== cardId);
     saveCardsToStorage(updatedCards);
-    return cardId;
+
+    return updatedCards;
 });

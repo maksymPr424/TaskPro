@@ -14,8 +14,11 @@ const PRIORITIES = {
 };
 
 const cardSchema = Yup.object().shape({
-  title: Yup.string().min(3, "Too Short").max(20, "Too long"),
-  description: Yup.string().min(3, "Too Short").max(100, "Too long"),
+  title: Yup.string()
+    .min(3, "Too Short")
+    .max(100, "Too long")
+    .required("Required"),
+  description: Yup.string().min(3, "Too Short").max(300, "Too long"),
   calendar: Yup.date().min(new Date()),
   priority: Yup.string().oneOf(Object.values(PRIORITIES)),
 });
@@ -23,18 +26,12 @@ const cardSchema = Yup.object().shape({
 export const EditCardModal = ({
   isOpen,
   onClose,
-  onSubmit: submitHandler,
+  onSubmit,
   cardId,
   editingCard,
 }) => {
-  const handleSubmit = (values, { resetForm }) => {
-    const serializedValues = {
-      ...values,
-      calendar: values.calendar.toISOString(),
-    };
-    submitHandler(serializedValues);
-    resetForm();
-  };
+  if (!editingCard) return null;
+
   return (
     <Modal className={css.addModal} isOpen={isOpen} onRequestClose={onClose}>
       <h2 className={css.modalTitle}>Edit card</h2>
@@ -45,17 +42,16 @@ export const EditCardModal = ({
       </button>
       <Formik
         initialValues={{
-          title: editingCard?.title || "",
-          description: editingCard?.description || "",
-          calendar: editingCard?.calendar
+          title: editingCard.title || "",
+          description: editingCard.description || "",
+          calendar: editingCard.calendar
             ? new Date(editingCard.calendar)
             : new Date(),
-          priority: editingCard?.priority || PRIORITIES.WITHOUT,
+          priority: editingCard.priority || PRIORITIES.WITHOUT,
         }}
         validationSchema={cardSchema}
-        onSubmit={(values, formikHelpers) =>
-          handleSubmit(values, formikHelpers)
-        }
+        onSubmit={(values, formikHelpers) => onSubmit(values, formikHelpers)}
+        enableReinitialize
       >
         {({ setFieldValue, values }) => (
           <Form>
@@ -63,8 +59,10 @@ export const EditCardModal = ({
             <ErrorMessage className={css.error} name="title" component="span" />
 
             <Field
-              className={css.modalInputTitle}
-              type="textarea"
+              className={css.textarea}
+              as="textarea"
+              cols="30"
+              rows="10"
               name="description"
               id={cardId}
             />
@@ -74,12 +72,42 @@ export const EditCardModal = ({
               component="span"
             />
 
-            <div className={css.priority}>
+            <div className={css.priorityContainer}>
               <h3 className={css.modalSubtitle}>Priority</h3>
-              <Field type="radio" name="priority" value="Without priority" />
-              <Field type="radio" name="priority" value="Low" />
-              <Field type="radio" name="priority" value="Medium" />
-              <Field type="radio" name="priority" value="High" />
+              <div className={css.priority}>
+                <label className={css.priorityWithout}>
+                  <Field
+                    type="radio"
+                    name="priority"
+                    value={PRIORITIES.WITHOUT}
+                    className={css.priorityInput}
+                  />
+                </label>
+                <label className={css.priorityLow}>
+                  <Field
+                    type="radio"
+                    name="priority"
+                    value={PRIORITIES.LOW}
+                    className={css.priorityInput}
+                  />
+                </label>
+                <label className={css.priorityMedium}>
+                  <Field
+                    type="radio"
+                    name="priority"
+                    value={PRIORITIES.MEDIUM}
+                    className={css.priorityInput}
+                  />
+                </label>
+                <label className={css.priorityHigh}>
+                  <Field
+                    type="radio"
+                    name="priority"
+                    value={PRIORITIES.HIGH}
+                    className={css.priorityInput}
+                  />
+                </label>
+              </div>
             </div>
 
             <div>
@@ -99,7 +127,7 @@ export const EditCardModal = ({
             </div>
 
             <button className={css.modalButton} type="submit">
-              <svg className={css.plus} width="14" height="14">
+              <svg className={css.plusModal} width="14" height="14">
                 <use href="/sprite.svg#icon-plus" />
               </svg>
               Edit

@@ -12,6 +12,10 @@ ul {
   margin: 0;
 }
 
+button {
+  cursor: pointer;
+}
+
 .loading {
   text-align: center;
   padding: 20px;
@@ -82,19 +86,17 @@ span {
   width: 100%;
   border-radius: 8px;
   background: var(--background-task);
-  border-left: 4px solid red;
   padding: 14px 20px;
-  position: relative;
 }
 
-.item::after {
+/* .item::after {
   position: absolute;
   content: "";
   bottom: 60px;
   width: 88%;
   height: 1px;
   background-color: var(--without-priority);
-}
+} */
 
 .title {
   color: var(--text);
@@ -111,6 +113,17 @@ span {
   font-size: 12px;
   line-height: 1.33;
   letter-spacing: -0.02em;
+  position: relative;
+}
+
+.text::after {
+  position: absolute;
+  content: "";
+  bottom: -14px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--without-priority);
 }
 
 .label {
@@ -148,11 +161,14 @@ span {
   background: inherit;
 }
 
+.priorityContainer {
+  margin-top: 24px;
+  margin-bottom: 14px;
+}
+
 .priority {
   display: flex;
   gap: 8px;
-  margin-top: 24px;
-  margin-bottom: 14px;
 }
 
 .subcontainer {
@@ -166,6 +182,7 @@ span {
   border: 1px solid var(--border-modal-card);
   background: var(--background-task-modal);
   width: 100%;
+  max-width: 375px;
   padding: 24px;
   position: relative;
 }
@@ -219,68 +236,124 @@ span {
   font-family: var(--regularFont, Poppins);
   font-size: 12px;
   letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+
+.textarea {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 8px;
+  border: 1px solid var(--border-input-modal);
+  opacity: 0.4;
+  background: var(--background-input-modal);
+  box-shadow: 0px 4px 16px 0px rgba(22, 22, 22, 0.08);
+  color: var(--text);
+  font-family: var(--regularFont, Poppins);
+  letter-spacing: -0.02em;
 }
 
 .modalButton {
-  margin-top: 40px;
-  width: 100%;
   display: flex;
+  width: 100%;
+  padding: 10px 0px;
   justify-content: center;
   align-items: center;
-  color: var(--base-green-violet);
+  color: var(--text-button-modal);
   font-family: var(--mediumFont, Poppins);
   letter-spacing: -0.02em;
-  padding: 10px 0px;
   gap: 8px;
+  margin-top: 40px;
+  border-radius: 8px;
+  background: var(--border-input);
+  border: none;
 }
 
-.priority {
-  position: relative;
-  display: inline-block;
-  margin: 10px;
+.datepicker {
+  width: 80px;
   cursor: pointer;
 }
 
-/* Сховуємо стандартну радіо кнопку */
-.priority input[type="radio"] {
-  position: absolute;
-  opacity: 0;
+.deadlineText {
+  font-size: 10px;
+  color: var(--border-input);
+  margin-top: 4px;
 }
 
-/* Стилі для кастомного кола */
-.radioCustom {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background-color: var(
-    --without-priority
-  ); /* Колір для незаповненого інпуту */
-  transition: background-color 0.3s;
+.plusModal {
+  background-color: var(--text-button-modal);
+  color: var(--icon-modal);
+  width: 28px;
+  height: 28px;
+  padding: 7px;
+  border-radius: 6px;
+}
+
+.priorityWithoutItem {
+  border-left: 4px solid var(--without-priority);
+}
+
+.priorityLowItem {
+  border-left: 4px solid var(--low-priority);
+}
+
+.priorityMediumItem {
+  border-left: 4px solid var(--medium-priority);
+}
+
+.priorityHighItem {
+  border-left: 4px solid #bedbb0;
+}
+
+.priorityWithout,
+.priorityLow,
+.priorityMedium,
+.priorityHigh {
+  position: relative;
   display: inline-block;
-  margin-right: 8px;
 }
 
-/* Кольори для кожного пріоритету */
-.priorityWithout input:checked ~ .radioCustom {
-  background-color: var(--without-priority); /* Без пріоритету */
+.priorityWithout input[type="radio"],
+.priorityLow input[type="radio"],
+.priorityMedium input[type="radio"],
+.priorityHigh input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  outline: none;
+  cursor: pointer;
 }
 
-.priorityLow input:checked ~ .radioCustom {
-  background-color: var(--low-priority); /* Низький пріоритет */
+.priorityWithout input[type="radio"] {
+  background-color: var(--without-priority);
 }
 
-.priorityMedium input:checked ~ .radioCustom {
-  background-color: var(--medium-priority); /* Середній пріоритет */
+.priorityLow input[type="radio"] {
+  background-color: var(--low-priority);
 }
 
-.priorityHigh input:checked ~ .radioCustom {
-  background-color: var(--high-priority); /* Високий пріоритет */
+.priorityMedium input[type="radio"] {
+  background-color: var(--medium-priority);
 }
+
+.priorityHigh input[type="radio"] {
+  background-color: #bedbb0;
+}
+
+.priorityWithout input[type="radio"]:checked,
+.priorityLow input[type="radio"]:checked,
+.priorityMedium input[type="radio"]:checked,
+.priorityHigh input[type="radio"]:checked {
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
 @media screen and (min-width: 768px) {
   .addModal {
     width: 334px;
     position: fixed;
-    top: 300px;
+    top: 350px;
     left: 390px;
     transform: translate(-50%, -50%);
   }

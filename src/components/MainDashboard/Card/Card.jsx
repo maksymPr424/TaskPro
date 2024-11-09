@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
-  selectCards,
   selectError,
   selectIsLoading,
 } from "../../../redux/main_dashboard/card/cardSelectors";
@@ -15,10 +14,14 @@ import css from "./Card.module.css";
 import { AddCardModal } from "./CardModals/AddCardModal";
 import { EditCardModal } from "./CardModals/EditCardModal";
 import { FaPlus } from "react-icons/fa6";
+import PropTypes from "prop-types";
 
-export default function Card() {
+export default function Card({ columnId }) {
   const dispatch = useDispatch();
-  const cards = useSelector(selectCards);
+
+  const cards = useSelector((state) =>
+    state.cards.items.filter((card) => card.columnId === columnId)
+  );
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
 
@@ -32,19 +35,17 @@ export default function Card() {
     dispatch(getCard());
   }, [dispatch]);
 
-  const handleAddCard = (values, { resetForm }) => {
+  const handleAddCard = (values) => {
     dispatch(
       addCard({
-        title: values.title,
-        description: values.description,
-        calendar: values.calendar,
-        priority: values.priority,
+        ...values,
+        columnId,
+        calendar: values.calendar ? new Date(values.calendar) : null,
       })
     )
       .unwrap()
       .then(() => {
         setAddCardModalIsOpen(false);
-        resetForm();
       })
       .catch((error) => {
         console.error("Failed to add card:", error);
@@ -53,30 +54,36 @@ export default function Card() {
 
   const startEditCard = (card) => {
     setEditingCard({
-      id: card.id.toString(),
+      id: card.id,
       title: card.title,
       description: card.description,
-      calendar: new Date(card.calendar),
+      calendar: card.calendar ? new Date(card.calendar) : null,
       priority: card.priority,
+      columnId: card.columnId,
     });
     setEditCardModalIsOpen(true);
   };
 
-  const handleEditCard = (values, { resetForm }) => {
-    dispatch(
-      editCard({
-        id: editingCard.id,
-        title: values.title,
-        description: values.description,
-        calendar: values.calendar,
-        priority: values.priority,
-      })
-    )
+  const handleEditCard = (values) => {
+    if (!editingCard?.id) {
+      console.error("No card selected for editing");
+      return;
+    }
+
+    const updatedCard = {
+      id: editingCard.id,
+      title: values.title,
+      description: values.description,
+      calendar: values.calendar ? new Date(values.calendar) : null,
+      priority: values.priority,
+      columnId: columnId,
+    };
+
+    dispatch(editCard(updatedCard))
       .unwrap()
       .then(() => {
         setEditCardModalIsOpen(false);
         setEditingCard(null);
-        resetForm();
       })
       .catch((error) => {
         console.error("Failed to edit card:", error);
@@ -112,13 +119,13 @@ export default function Card() {
             <li
               className={`${css.item} ${
                 card.priority === PRIORITIES.WITHOUT
-                  ? css.priorityWithout
+                  ? css.priorityWithoutItem
                   : card.priority === PRIORITIES.LOW
-                  ? css.priorityLow
+                  ? css.priorityLowItem
                   : card.priority === PRIORITIES.MEDIUM
-                  ? css.priorityMedium
+                  ? css.priorityMediumItem
                   : card.priority === PRIORITIES.HIGH
-                  ? css.priorityHigh
+                  ? css.priorityHighItem
                   : ""
               }`}
               key={card.id}
@@ -128,58 +135,76 @@ export default function Card() {
               <div className={css.subcontainer}>
                 <div>
                   <h4 className={css.subtitle}>Priority</h4>
-                  {card.priority === PRIORITIES.WITHOUT && (
-                    <label className={`${css.priority} ${css.priorityWithout}`}>
-                      <input
-                        type="radio"
-                        name="priority"
-                        value={PRIORITIES.WITHOUT}
-                        checked={card.priority === PRIORITIES.WITHOUT}
-                        readOnly
-                      />
-                      <span className={css.radioCustom}></span>
-                    </label>
-                  )}
-                  {card.priority === PRIORITIES.LOW && (
-                    <label className={`${css.priority} ${css.priorityLow}`}>
-                      <input
-                        type="radio"
-                        name="priority"
-                        value={PRIORITIES.LOW}
-                        checked={card.priority === PRIORITIES.LOW}
-                        readOnly
-                      />
-                      <span className={css.radioCustom}></span>
-                    </label>
-                  )}
-                  {card.priority === PRIORITIES.MEDIUM && (
-                    <label className={`${css.priority} ${css.priorityMedium}`}>
-                      <input
-                        type="radio"
-                        name="priority"
-                        value={PRIORITIES.MEDIUM}
-                        checked={card.priority === PRIORITIES.MEDIUM}
-                        readOnly
-                      />
-                      <span className={css.radioCustom}></span>
-                    </label>
-                  )}
-                  {card.priority === PRIORITIES.HIGH && (
-                    <label className={`${css.priority} ${css.priorityHigh}`}>
-                      <input
-                        type="radio"
-                        name="priority"
-                        value={PRIORITIES.HIGH}
-                        checked={card.priority === PRIORITIES.HIGH}
-                        readOnly
-                      />
-                      <span className={css.radioCustom}></span>
-                    </label>
-                  )}
+                  <label className={css[`priority${card.priority}`]}>
+                    <input
+                      type="radio"
+                      name="priority"
+                      value={card.priority}
+                      checked={true}
+                      readOnly
+                    />
+                  </label>
                 </div>
 
                 <div>
                   <h4 className={css.subtitle}>Deadline</h4>
+                  <p className={css.deadlineText}>
+                    {(() => {
+                      const date = new Date(card.calendar);
+                      date.setHours(0, 0, 0, 0);
+
+                      const today = new Date();
+                      today.setHours(0, 0, 0, 0);
+
+                      const tomorrow = new Date(today);
+                      tomorrow.setDate(tomorrow.getDate() + 1);
+
+                      const dayAfterTomorrow = new Date(today);
+                      dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 2);
+
+                      const startOfWeek = new Date(today);
+                      startOfWeek.setDate(today.getDate() - today.getDay());
+                      const endOfWeek = new Date(startOfWeek);
+                      endOfWeek.setDate(startOfWeek.getDate() + 6);
+
+                      if (date.getTime() === today.getTime()) {
+                        return `Today, ${date.toLocaleDateString("en-US", {
+                          day: "numeric",
+                          month: "long",
+                        })}`;
+                      } else if (date.getTime() === tomorrow.getTime()) {
+                        return `Tomorrow, ${date.toLocaleDateString("en-US", {
+                          day: "numeric",
+                          month: "long",
+                        })}`;
+                      } else if (
+                        date.getTime() === dayAfterTomorrow.getTime()
+                      ) {
+                        return `Day after tomorrow, ${date.toLocaleDateString(
+                          "en-US",
+                          {
+                            day: "numeric",
+                            month: "long",
+                          }
+                        )}`;
+                      } else if (date > today && date <= endOfWeek) {
+                        return `This week, ${date.toLocaleDateString("en-US", {
+                          day: "numeric",
+                          month: "long",
+                        })}`;
+                      } else if (date > endOfWeek) {
+                        return `Next week, ${date.toLocaleDateString("en-US", {
+                          day: "numeric",
+                          month: "long",
+                        })}`;
+                      }
+
+                      return date.toLocaleDateString("en-US", {
+                        day: "numeric",
+                        month: "long",
+                      });
+                    })()}
+                  </p>
                 </div>
 
                 <div className={css.iconContainer}>
@@ -229,12 +254,15 @@ export default function Card() {
       <EditCardModal
         isOpen={editCardModalIsOpen}
         onClose={() => setEditCardModalIsOpen(false)}
-        onSubmit={(values, formikHelpers) =>
-          handleEditCard(values, formikHelpers)
-        }
+        onSubmit={handleEditCard}
         cardId={cardId}
         editingCard={editingCard}
       />
     </div>
   );
 }
+
+Card.propTypes = {
+  columnId: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
+};

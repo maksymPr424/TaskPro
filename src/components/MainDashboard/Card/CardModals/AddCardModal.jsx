@@ -16,9 +16,9 @@ const PRIORITIES = {
 const cardSchema = Yup.object().shape({
   title: Yup.string()
     .min(3, "Too Short")
-    .max(20, "Too long")
+    .max(100, "Too long")
     .required("Required"),
-  description: Yup.string().min(3, "Too Short").max(100, "Too long"),
+  description: Yup.string().min(3, "Too Short").max(300, "Too long"),
   calendar: Yup.date().min(new Date()),
   priority: Yup.string().oneOf(Object.values(PRIORITIES)),
 });
@@ -47,8 +47,10 @@ export const AddCardModal = ({ isOpen, onClose, onSubmit, cardId }) => {
           <ErrorMessage className={css.error} name="title" component="span" />
 
           <Field
-            className={css.modalInputTitle}
-            type="textarea"
+            className={css.textarea}
+            as="textarea"
+            cols="30"
+            rows="10"
             name="description"
             id={cardId}
           />
@@ -58,24 +60,42 @@ export const AddCardModal = ({ isOpen, onClose, onSubmit, cardId }) => {
             component="span"
           />
 
-          <div className={css.priority}>
+          <div className={css.priorityContainer}>
             <h3 className={css.modalSubtitle}>Priority</h3>
-            <label>
-              <Field type="radio" name="priority" value={PRIORITIES.WITHOUT} />
-              Without priority
-            </label>
-            <label>
-              <Field type="radio" name="priority" value={PRIORITIES.LOW} />
-              Low
-            </label>
-            <label>
-              <Field type="radio" name="priority" value={PRIORITIES.MEDIUM} />
-              Medium
-            </label>
-            <label>
-              <Field type="radio" name="priority" value={PRIORITIES.HIGH} />
-              High
-            </label>
+            <div className={css.priority}>
+              <label className={css.priorityWithout}>
+                <Field
+                  type="radio"
+                  name="priority"
+                  value={PRIORITIES.WITHOUT}
+                  className={css.priorityInput}
+                />
+              </label>
+              <label className={css.priorityLow}>
+                <Field
+                  type="radio"
+                  name="priority"
+                  value={PRIORITIES.LOW}
+                  className={css.priorityInput}
+                />
+              </label>
+              <label className={css.priorityMedium}>
+                <Field
+                  type="radio"
+                  name="priority"
+                  value={PRIORITIES.MEDIUM}
+                  className={css.priorityInput}
+                />
+              </label>
+              <label className={css.priorityHigh}>
+                <Field
+                  type="radio"
+                  name="priority"
+                  value={PRIORITIES.HIGH}
+                  className={css.priorityInput}
+                />
+              </label>
+            </div>
           </div>
 
           <div>
@@ -94,7 +114,7 @@ export const AddCardModal = ({ isOpen, onClose, onSubmit, cardId }) => {
           </div>
 
           <button className={css.modalButton} type="submit">
-            <svg className={css.plus} width="14" height="14">
+            <svg className={css.plusModal} width="14" height="14">
               <use href="/sprite.svg#icon-plus" />
             </svg>
             Add

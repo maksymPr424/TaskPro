@@ -107,7 +107,7 @@ export default function MainDashboard() {
                   </button>
                 </div>
               </div>
-              <Card className={css.tasks} />
+              <Card className={css.tasks} columnId={column.id} />
             </li>
           ))
         )}

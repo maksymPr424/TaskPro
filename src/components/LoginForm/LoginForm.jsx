@@ -14,6 +14,7 @@ import {
 
 import * as Yup from "yup";
 import Loader from "../Loader/Loader.jsx";
+import { setBoards } from "../../redux/boards/slice.js";
 
 const validateLoginFormSchema = Yup.object().shape({
   email: Yup.string()
@@ -55,8 +56,11 @@ export default function LoginForm() {
     mode: "onSubmit",
   });
 
-  const onSubmit = data => {
-    dispatch(loginUser(data));
+  const onSubmit = async data => {
+    const response = await dispatch(loginUser(data)).unwrap();
+    if (response?.boardsData) {
+      dispatch(setBoards(response.boardsData));
+    }
     reset();
   };
 

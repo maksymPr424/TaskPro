@@ -10,7 +10,9 @@ import { Toaster } from "react-hot-toast";
 import Loader from "./Loader/Loader.jsx";
 import { selectIsRefreshing, selectToken } from "../redux/auth/selectors.js";
 const WelcomePage = lazy(() => import("../pages/WelcomePage/WelcomePage"));
-const AuthPage = lazy(() => import("../pages/AuthPage/AuthPage"));
+// const AuthPage = lazy(() => import("../pages/AuthPage/AuthPage"));
+import AuthPage from "../pages/AuthPage/AuthPage.jsx";
+import { setBoards } from "../redux/boards/slice.js";
 const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
 const ScreensPage = lazy(() => import("../pages/ScreensPage/ScreensPage"));
 
@@ -20,9 +22,16 @@ function App() {
   const isRefreshing = useSelector(selectIsRefreshing);
 
   useEffect(() => {
-    if (token) {
-      dispatch(refreshUser());
-    }
+    const fetchUserData = async () => {
+      if (token) {
+        const response = await dispatch(refreshUser()).unwrap();
+        if (response?.boardsData) {
+          dispatch(setBoards(response.payload.boardsData));
+        }
+      }
+    };
+
+    fetchUserData();
   }, [dispatch, token]);
 
   return (

@@ -14,7 +14,7 @@ const updateUserTheme = createAsyncThunk(
         {
           headers: {
             // Authorization: `Bearer ${auth.accessToken}`,
-            Authorization: `Bearer `,
+            Authorization: `Bearer /QYy5Z19KZDuJlhEeGj0JbQ4mjaDoEcwRqRGBGSy`,
             "Content-Type": "application/json",
           },
         }
@@ -37,7 +37,7 @@ const updateUserProfile = createAsyncThunk(
         userProfile,
         {
           headers: {
-            Authorization: `Bearer `,
+            Authorization: `Bearer /QYy5Z19KZDuJlhEeGj0JbQ4mjaDoEcwRqRGBGSy`,
           },
         }
       );
@@ -58,7 +58,7 @@ const updateUserPhoto = createAsyncThunk(
         formData,
         {
           headers: {
-            Authorization: `Bearer `,
+            Authorization: `Bearer /QYy5Z19KZDuJlhEeGj0JbQ4mjaDoEcwRqRGBGSy`,
             "Content-Type": "multipart/form-data",
           },
         }

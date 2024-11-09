@@ -77,9 +77,28 @@ const EditProfileModal = ({ isOpen, onRequestClose }) => {
     setShowPassword((prev) => !prev);
   };
 
+  const modal = {
+    content: {
+      position: "fixed",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      zIndex: 1000,
+    },
+    overlay: {
+      position: "fixed",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      zIndex: 999,
+    },
+  };
+
   return (
     <Modal
       isOpen={isOpen}
+      style={styles.modal}
       onRequestClose={onRequestClose}
       className={styles.modalContent}
       overlayClassName={styles.modalOverlay}
@@ -178,21 +197,34 @@ const EditProfileModal = ({ isOpen, onRequestClose }) => {
                 <Field
                   name="password"
                   type={showPassword ? "text" : "password"}
-                  placeholder="Enter your password"
+                  placeholder="Update your password"
                   className={styles.inputField}
                 />
-                <svg
-                  className={`${styles.passwordVisibilityToggle} ${
-                    showPassword ? styles.visible : ""
-                  }`}
-                  onClick={togglePasswordVisibility}
-                >
-                  <use href={`${icon}#eye`}></use>
-                </svg>
+                <div className={styles.passwordVisibilityToggle}>
+                  {showPassword ? (
+                    <svg
+                      className={styles.togglePasswordIcon}
+                      width="18"
+                      height="18"
+                      onClick={togglePasswordVisibility}
+                    >
+                      <use href="/sprite.svg#eye-off" />
+                    </svg>
+                  ) : (
+                    <svg
+                      className={styles.togglePasswordIcon}
+                      width="18"
+                      height="18"
+                      onClick={togglePasswordVisibility}
+                    >
+                      <use href="/sprite.svg#eye" />
+                    </svg>
+                  )}
+                </div>
                 <ErrorMessage
                   name="password"
                   component="div"
-                  className={styles.errorMessage}
+                  className={styles.errorMessagePassword}
                 />
               </div>
             </label>

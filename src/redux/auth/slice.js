@@ -10,6 +10,8 @@ const initialState = {
   user: {
     name: "",
     email: "",
+    theme: "",
+    photoUrl: null,
   },
   token: null,
   isLoggedIn: false,
@@ -23,12 +25,12 @@ const slice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    clearError: (state) => {
+    clearError: state => {
       state.error = null;
       state.refreshError = null;
     },
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
       .addCase(registerUser.fulfilled, (state, action) => {
         state.user.name = action.payload.name;
@@ -47,6 +49,8 @@ const slice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.user.name = action.payload.name;
         state.user.email = action.payload.email;
+        state.user.theme = action.payload.theme;
+        state.user.photoUrl = action.payload.photoUrl;
         state.token = action.payload.accessToken;
       })
       .addCase(loginUser.rejected, (state, action) => {
@@ -61,9 +65,11 @@ const slice = createSlice({
       .addCase(refreshUser.fulfilled, (state, action) => {
         state.user.name = action.payload.name;
         state.user.email = action.payload.email;
+        state.user.theme = action.payload.theme;
+        state.user.photoUrl = action.payload.photoUrl;
         state.isRefreshing = false;
       })
-      .addCase(refreshUser.pending, (state) => {
+      .addCase(refreshUser.pending, state => {
         state.isRefreshing = true;
       })
       .addCase(refreshUser.rejected, (state, action) => {
@@ -79,7 +85,7 @@ const slice = createSlice({
 
         state.token = null;
       })
-      .addCase(logoutUser.pending, (state) => {
+      .addCase(logoutUser.pending, state => {
         state.isLoading = true;
       })
       .addCase(logoutUser.rejected, () => {
@@ -90,7 +96,7 @@ const slice = createSlice({
       })
       .addMatcher(
         isAnyOf(registerUser.pending, loginUser.pending, refreshUser.pending),
-        (state) => {
+        state => {
           state.error = null;
           state.refreshError = null;
           state.isLoading = true;
@@ -102,7 +108,7 @@ const slice = createSlice({
           loginUser.fulfilled,
           refreshUser.fulfilled
         ),
-        (state) => {
+        state => {
           state.isLoggedIn = true;
           state.error = null;
           state.refreshError = null;
@@ -115,7 +121,7 @@ const slice = createSlice({
           loginUser.rejected,
           refreshUser.rejected
         ),
-        (state) => {
+        state => {
           state.isLoading = false;
           state.isLoggedIn = false;
           state.isRefreshing = false;

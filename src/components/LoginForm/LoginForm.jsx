@@ -1,5 +1,5 @@
 import styles from "./LoginForm.module.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -39,8 +39,6 @@ export default function LoginForm() {
   const dispatch = useDispatch();
   const loginError = useSelector(selectError);
   const isLoading = useSelector(selectIsLoading);
-  const isLoggedIn = useSelector(selectIsLoggedIn);
-  const navigate = useNavigate();
 
   const {
     register,
@@ -63,12 +61,6 @@ export default function LoginForm() {
     }
     reset();
   };
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate("/home");
-    }
-  }, [isLoggedIn, navigate]);
 
   return (
     <div className={styles.formWrapper}>

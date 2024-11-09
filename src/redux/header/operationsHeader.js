@@ -31,11 +31,6 @@ const updateUserProfile = createAsyncThunk(
       const response = await taskpro_api.patch(
         "https://task-pro-back-kri0.onrender.com/user",
         userProfile,
-        {
-          headers: {
-            Authorization: `Bearer /QYy5Z19KZDuJlhEeGj0JbQ4mjaDoEcwRqRGBGSy`,
-          },
-        }
       );
 
       return response.data;
@@ -53,13 +48,7 @@ const updateUserPhoto = createAsyncThunk(
     try {
       const response = await taskpro_api.patch(
         "https://task-pro-back-kri0.onrender.com/user",
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer /QYy5Z19KZDuJlhEeGj0JbQ4mjaDoEcwRqRGBGSy`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
+        formData
       );
       return response.data;
     } catch (error) {

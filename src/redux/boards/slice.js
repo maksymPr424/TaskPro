@@ -30,13 +30,15 @@ const boardsSlice = createSlice({
     },
     clearBoards: state => {
       state.boards = [];
+      state.lastActiveBoard = null;
     },
   },
 
   extraReducers: builder => {
     builder
       .addCase(fetchBoards.fulfilled, (state, action) => {
-        state.boards = action.payload;
+        state.lastActiveBoard = action.payload.lastActiveBoard;
+        state.boards = action.payload.boards;
       })
       .addCase(removeBoard.fulfilled, (state, action) => {
         state.boards = state.boards.filter(

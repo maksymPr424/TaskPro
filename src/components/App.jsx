@@ -12,7 +12,7 @@ import { selectIsRefreshing, selectToken } from "../redux/auth/selectors.js";
 const WelcomePage = lazy(() => import("../pages/WelcomePage/WelcomePage"));
 // const AuthPage = lazy(() => import("../pages/AuthPage/AuthPage"));
 import AuthPage from "../pages/AuthPage/AuthPage.jsx";
-import { setBoards } from "../redux/boards/slice.js";
+import { clearBoards, setBoards } from "../redux/boards/slice.js";
 const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
 const ScreensPage = lazy(() => import("../pages/ScreensPage/ScreensPage"));
 
@@ -26,7 +26,8 @@ function App() {
       if (token) {
         const response = await dispatch(refreshUser()).unwrap();
         if (response?.boardsData) {
-          dispatch(setBoards(response.payload.boardsData));
+          dispatch(clearBoards);
+          dispatch(setBoards(response.boardsData));
         }
       }
     };

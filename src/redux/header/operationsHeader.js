@@ -1,23 +1,17 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { setToken, taskpro_api } from "../../config/taskpro_api";
 
 const updateUserTheme = createAsyncThunk(
   "user/updateTheme",
 
   async (theme, { getState, rejectWithValue }) => {
     const { auth } = getState();
+    setToken(auth.token);
 
     try {
-      const response = await axios.patch(
+      const response = await taskpro_api.patch(
         "https://task-pro-back-kri0.onrender.com/user/",
-        { theme },
-        {
-          headers: {
-            // Authorization: `Bearer ${auth.accessToken}`,
-            Authorization: `Bearer /QYy5Z19KZDuJlhEeGj0JbQ4mjaDoEcwRqRGBGSy`,
-            "Content-Type": "application/json",
-          },
-        }
+        { theme }
       );
 
       return response.data;
@@ -30,9 +24,11 @@ const updateUserTheme = createAsyncThunk(
 
 const updateUserProfile = createAsyncThunk(
   "user/updateProfile",
-  async (userProfile, { rejectWithValue }) => {
+  async (userProfile, { getState, rejectWithValue }) => {
+    const { auth } = getState();
+    setToken(auth.token);
     try {
-      const response = await axios.patch(
+      const response = await taskpro_api.patch(
         "https://task-pro-back-kri0.onrender.com/user",
         userProfile,
         {
@@ -51,9 +47,11 @@ const updateUserProfile = createAsyncThunk(
 
 const updateUserPhoto = createAsyncThunk(
   "user/updatePhoto",
-  async (formData, { rejectWithValue }) => {
+  async (formData, { getState, rejectWithValue }) => {
+    const { auth } = getState();
+    setToken(auth.token);
     try {
-      const response = await axios.patch(
+      const response = await taskpro_api.patch(
         "https://task-pro-back-kri0.onrender.com/user",
         formData,
         {

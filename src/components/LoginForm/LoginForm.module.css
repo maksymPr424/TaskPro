@@ -1,0 +1,165 @@
+.formWrapper {
+  position: relative;
+  padding: 24px;
+  background-color: #151515;
+  border-radius: 8px;
+  width: 335px;
+  @media screen and (max-width: 320px) {
+    width: 300px;
+    padding: 20px;
+  }
+  @media screen and (min-width: 768px) {
+    width: 424px;
+    padding: 40px;
+  }
+}
+
+.navigation {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 40px;
+}
+
+.navLink {
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff;
+  opacity: 0.3;
+  letter-spacing: -0.02em;
+  line-height: normal;
+  transition: all 0.2s ease;
+  &:hover {
+    color: #bedbb0;
+    opacity: 100%;
+  }
+  &::focus {
+    opacity: 100%;
+  }
+}
+
+.activeLink {
+  opacity: 100%;
+  color: #ffffff;
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.label {
+  position: relative;
+}
+
+.input {
+  border: 1px solid #bedbb063;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  line-height: normal;
+  outline: none;
+  color: #fff;
+  background-color: #1f1f1f;
+  border-radius: 8px;
+  width: 100%;
+  padding: 14px 18px;
+  box-shadow: 0px 4px 16px 0px rgba(22, 22, 22, 0.08);
+  transition: all 0.2s ease;
+  &:hover {
+    border: 1px solid #bedbb084;
+    &::placeholder {
+      opacity: 50%;
+    }
+  }
+  &:focus {
+    border: 1px solid #bedbb097;
+    &::placeholder {
+      opacity: 60%;
+    }
+  }
+}
+
+.input::placeholder {
+  color: #fff;
+  opacity: 40%;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  transition: all 0.2s ease;
+}
+
+.inputError {
+  border: 1px solid rgba(241, 202, 202, 0.591);
+  transition: all 0.2s ease;
+  &:hover {
+    border: 1px solid rgba(241, 202, 202, 0.826);
+  }
+  &:focus {
+    border: 1px solid rgba(241, 197, 197, 0.753);
+  }
+}
+
+.error {
+  position: absolute;
+  top: 65%;
+  left: 0;
+  color: rgb(241, 155, 155);
+  letter-spacing: -0.02em;
+  font-size: 10px;
+  margin-top: 2px;
+  margin-left: 8px;
+}
+
+.button {
+  width: 100%;
+  color: #161616;
+  height: 49px;
+  padding: 14px 0px;
+  border-radius: 8px;
+  background-color: #bedbb0;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.button:hover,
+.button:focus {
+  background-color: #9dc888;
+}
+
+.togglePasswordWrapper {
+  display: flex;
+  border: none;
+  background-color: transparent;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.togglePasswordIcon {
+  cursor: pointer;
+  stroke: #ffffff;
+  opacity: 30%;
+  fill: none;
+  transition: all 0.1s ease;
+  &:hover {
+    opacity: 60%;
+  }
+}
+
+.errorWrapper {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  top: 100%;
+  right: 0;
+  left: 0;
+}
+.loginError {
+  color: rgb(208 114 114);
+}

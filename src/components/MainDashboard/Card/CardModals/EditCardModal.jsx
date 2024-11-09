@@ -116,7 +116,7 @@ export const EditCardModal = ({
                 selected={values.calendar}
                 onChange={(date) => setFieldValue("calendar", date)}
                 className={css.datepicker}
-                dateFormat="dd/MM/yyyy"
+                dateFormat="EEEE, MMMM, d"
                 minDate={new Date()}
               />
               <ErrorMessage

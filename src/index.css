@@ -1,28 +1,39 @@
+
 @font-face {
-  font-family: regularFont;
-  src: url(./fonts/Poppins-Regular.ttf);
+  font-family: "Poppins";
+  src: url("../fonts/Poppins-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("./fonts/Poppins-Regular.ttf") format("truetype");
   font-weight: 400;
+  font-style: normal;
 }
 
 @font-face {
-  font-family: mediumFont;
-  src: url(./fonts/Poppins-Medium.ttf);
+  font-family: "Poppins";
+  src: url("./fonts/Poppins-Medium.ttf") format("truetype");
   font-weight: 500;
+  font-style: normal;
 }
 
 @font-face {
-  font-family: semiBoltFont;
-  src: url(./fonts/Poppins-SemiBold.ttf);
+  font-family: "Poppins";
+  src: url("./fonts/Poppins-SemiBold.ttf") format("truetype");
   font-weight: 600;
+  font-style: normal;
 }
 
 * {
-  font-family: regularFont sans-serif;
+  font-family: Poppins, sans-serif;
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    font-family: semiBoldFont, mediumFont, regularFont sans-serif;
+    font-family: Poppins, mediumFont, regularFont sans-serif;
 
     color-scheme: light;
     --base-green-violet: #bedbb0;
@@ -109,3 +120,111 @@
     --icon-modal: #161616;
   }
 }
+
+.ReactModal__Overlay {
+  opacity: 0;
+  transition: opacity 200ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+}
+
+/* Reset styles */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: currentColor;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+button {
+  cursor: pointer;
+}
+
+input {
+  outline: none;
+}
+
+input::placeholder {
+  color: #fff;
+}
+
+/* new */
+
+::before,
+::after {
+  animation: none;
+  transition: none;
+}
+
+html,
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+input,
+button,
+textarea {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  outline: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* .container {
+  max-width: 375px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 768px;
+    padding: 0 20px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+    padding: 0 20px;
+  }
+} */

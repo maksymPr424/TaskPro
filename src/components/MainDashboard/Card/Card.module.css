@@ -173,6 +173,7 @@ span {
 
 .subcontainer {
   display: flex;
+  justify-content: space-between;
   /* align-items: flex-end; */
   gap: 8px;
   margin-top: 28px;
@@ -183,7 +184,8 @@ span {
   border: 1px solid var(--border-modal-card);
   background: var(--background-task-modal);
   width: 100%;
-  max-width: 375px;
+  max-width: 300px;
+  margin: 40px auto 0;
   padding: 24px;
   position: relative;
 }
@@ -270,8 +272,13 @@ span {
 }
 
 .datepicker {
-  width: 80px;
+  width: 100%;
   cursor: pointer;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: var(--border-input-modal);
+  
 }
 
 .deadlineText {
@@ -352,10 +359,11 @@ span {
 
 @media screen and (min-width: 768px) {
   .addModal {
-    width: 334px;
-    position: fixed;
+    max-width: 350px;
+    margin: 60px auto;
+    /* position: fixed;
     top: 350px;
-    left: 390px;
-    transform: translate(-50%, -50%);
+    left: 390px; */
+    /* transform: translate(-50%, -50%); */
   }
 }

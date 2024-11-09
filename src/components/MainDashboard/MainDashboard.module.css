@@ -20,13 +20,14 @@ ul {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+  justify-content: space-between;
   width: max-content;
-  min-width: 320px;
-  max-width: 375px;
-  width: 100%;
-  overflow-x: auto;
+  max-width: 320px;
   padding: 0 20px;
   gap: 20px;
+  overflow-x: auto;
+  margin: 0 auto;
+  position: relative;
 }
 
 button {
@@ -34,7 +35,7 @@ button {
 }
 
 .button {
-  flex-shrink: 0;
+  /* flex-shrink: 0; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -46,7 +47,9 @@ button {
   color: var(--text-column);
   font-family: var(--mediumFont, Poppins);
   letter-spacing: -0.02em;
-  width: 100vw;
+  min-width: 280px;
+  max-width: 280px;
+  width: 100%;
   gap: 8px;
 }
 
@@ -62,7 +65,8 @@ button {
 .modal {
   border-radius: 8px;
   width: 100%;
-  max-width: 375px;
+  max-width: 300px;
+  margin: 80px auto 0;
   background: var(--background-task-modal);
   position: relative;
   padding: 24px;
@@ -160,24 +164,41 @@ span {
 .columnsContainer {
   flex-shrink: 0;
   display: flex;
+  justify-content: space-between;
+  /* width: 100%; */
   gap: 20px;
-  max-width: 335px;
+  /* overflow-x: auto; */
+  /* padding: 0 20px; */
 }
 
 .columnItem {
   flex-shrink: 0;
-  /* min-width: 290px; */
-  /* max-width: 290px; */
+  max-width: 280px;
+  min-width: 280px;
   width: 100%;
 }
 
 .column {
+  width: 100%;
   display: flex;
   padding: 18px 20px 17px 20px;
   justify-content: space-between;
   align-items: center;
   border-radius: 8px;
   background: var(--background-button);
+}
+
+@media screen and (min-width: 375px) {
+  .columnItem,
+  .button {
+    min-width: 335px;
+    max-width: 335px;
+    width: 100%;
+  }
+
+  .container {
+    max-width: 375px;
+  }
 }
 
 .titleColumn {
@@ -201,15 +222,39 @@ span {
 }
 
 @media screen and (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+
   .button {
     width: 334px;
   }
 
   .modal {
-    position: fixed;
+    /* position: fixed;
     top: 300px;
     left: 390px;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); */
+  }
+
+  .columnItem {
+    width: 334px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .container {
+    margin: 0;
+    max-width: 1064px;
+  }
+
+  .button {
+    width: 334px;
+  }
+
+  .modal {
+    margin: 0 auto;
+    transform: translateY(200px);
   }
 
   .columnItem {

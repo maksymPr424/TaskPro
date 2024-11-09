@@ -24,6 +24,41 @@ const cardSchema = Yup.object().shape({
 });
 
 export const AddCardModal = ({ isOpen, onClose, onSubmit, cardId }) => {
+  const formatDate = (date) => {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    const nextWeek = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+    nextWeek.setDate(today.getDate() + 7);
+
+    const isSameDay = (date1, date2) =>
+      date1.getDate() === date2.getDate() &&
+      date1.getMonth() === date2.getMonth() &&
+      date1.getFullYear() === date2.getFullYear();
+
+    if (isSameDay(date, today)) {
+      return `Today, ${date.toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+      })}`;
+    } else if (isSameDay(date, tomorrow)) {
+      return `Tomorrow, ${date.toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+      })}`;
+    } else if (isSameDay(date, nextWeek)) {
+      return `Next week, ${date.toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+      })}`;
+    } else {
+      return date.toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+      });
+    }
+  };
+
   return (
     <Modal className={css.addModal} isOpen={isOpen} onRequestClose={onClose}>
       <h2 className={css.modalTitle}>Add card</h2>
@@ -106,8 +141,21 @@ export const AddCardModal = ({ isOpen, onClose, onSubmit, cardId }) => {
                   selected={form.values.calendar}
                   onChange={(date) => form.setFieldValue("calendar", date)}
                   className={css.datepicker}
-                  dateFormat="dd/MM/yyyy"
+                  dateFormat="EEEE, MMMM, d"
                   minDate={new Date()}
+                  customInput={
+                    <input
+                      // readOnly={true}
+                      value={
+                        form.values.calendar
+                          ? formatDate(form.values.calendar)
+                          : ""
+                      }
+                      placeholder="Select a date"
+                      readOnly
+                      className={css.datepickerInput}
+                    />
+                  }
                 />
               )}
             </Field>

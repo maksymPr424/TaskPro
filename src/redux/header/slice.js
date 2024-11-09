@@ -14,7 +14,6 @@ const userSlice = createSlice({
     status: "idle", // idle | loading | succeeded | failed
     error: null,
   },
-  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(updateUserTheme.pending, (state) => {

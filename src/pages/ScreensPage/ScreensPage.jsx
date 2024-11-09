@@ -1,3 +1,9 @@
+import Header from "../../components/Header/Header";
+
 export default function ScreensPage() {
-  return <h2>Content Screens Page</h2>;
+  return (
+    <>
+      <Header />
+    </>
+  );
 }

@@ -1,6 +1,14 @@
 .modalOverlay {
     background-color: transparent;
-    ;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .modalContent {
@@ -13,6 +21,7 @@
     box-shadow: 0px 4px 16px rgba(22, 24, 35, 0.06);
     position: relative;
     margin: auto;
+    overflow: hidden
 }
 
 .closeButton {

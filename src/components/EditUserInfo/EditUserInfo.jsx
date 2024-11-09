@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -77,28 +77,21 @@ const EditProfileModal = ({ isOpen, onRequestClose }) => {
     setShowPassword((prev) => !prev);
   };
 
-  const modal = {
-    content: {
-      position: "fixed",
-      top: "50%",
-      left: "50%",
-      transform: "translate(-50%, -50%)",
-      zIndex: 1000,
-    },
-    overlay: {
-      position: "fixed",
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      zIndex: 999,
-    },
-  };
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen]);
 
   return (
     <Modal
       isOpen={isOpen}
-      style={styles.modal}
       onRequestClose={onRequestClose}
       className={styles.modalContent}
       overlayClassName={styles.modalOverlay}

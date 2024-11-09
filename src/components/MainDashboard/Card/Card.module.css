@@ -79,7 +79,7 @@ span {
   gap: 8px;
   max-height: 80vh;
   overflow-y: auto;
-  padding-right: 10px;
+  /* padding-right: 10px; */
 }
 
 .item {
@@ -148,7 +148,7 @@ span {
 }
 
 .iconContainer {
-  margin-left: auto;
+  /* margin-left: auto; */
   display: flex;
   gap: 8px;
   align-items: flex-end;
@@ -173,6 +173,7 @@ span {
 
 .subcontainer {
   display: flex;
+  /* align-items: flex-end; */
   gap: 8px;
   margin-top: 28px;
 }

@@ -51,7 +51,7 @@
   color-scheme: light;
   --text: #161616;
   --background: #ffffff;
-  --background-heder: #FCFCFC;
+  --background-heder: #fcfcfc;
   --text-heder: #161616;
   --add-foto-heder: #bedbb0;
 }
@@ -75,7 +75,7 @@
   --logout-plus-no-active: #fff;
   --background-heder: #ffffff;
   --text-heder: #161616;
-  --add-foto-heder: #ECEDFD;
+  --add-foto-heder: #ecedfd;
 }
 
 /* @media (prefers-color-scheme: light) {

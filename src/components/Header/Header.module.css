@@ -1,115 +1,122 @@
 .header {
-    display: flex;
-    align-items: center;
-    padding: 0 20px;
-    width: 375px;
-    height: 60px;
-    background: var(--background-heder);
-    box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  min-width: 320px;
+  max-width: 375px;
+  width: 100%;
+  height: 60px;
+  background: var(--background-heder);
+  position: relative;
+}
+
+.rightHeader {
+  display: flex;
 }
 
 .menuIcon {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
 }
 
-
-
 .theme {
-    color: var(--text-heder);
-    font-family: semiBoltFont;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    letter-spacing: -0.28px;
-    margin-left: 150px;
-    display: flex;
-    align-items: center;
+  color: var(--text-heder);
+  font-family: semiBoltFont;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+  /* margin-left: 150px; */
+  display: flex;
+  align-items: center;
 }
 
 .menuIcon2 {
-    width: 16px;
-    height: 16px;
-    fill: currentColor;
-    margin-right: 14px;
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+  margin-right: 14px;
 }
-
 
 .profile {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
-
 .avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .userInfo {
-    display: flex;
-    align-items: center;
-
+  display: flex;
+  align-items: center;
 }
 
 .userPhoto {
-    width: 32px;
-    height: 32px;
-    border-radius: 8%;
-    margin-right: 8px;
-
+  width: 32px;
+  height: 32px;
+  border-radius: 8%;
+  margin-right: 8px;
 }
 
 .userName {
-    color: var(--text-heder);
-    font-family: semiBoltFont;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    letter-spacing: -0.28px;
-    margin-right: 8px;
+  color: var(--text-heder);
+  font-family: semiBoltFont;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+  margin-right: 8px;
+}
+
+.sidebarPlaceholder {
+  top: 60px;
+  left: 0;
+  position: absolute;
 }
 
 @media screen and (min-width: 768px) {
-    .header {
-        width: 768px;
-        height: 68px;
-        padding: 0 32px;
-    }
+  .header {
+    max-width: 768px;
+    height: 68px;
+    padding: 0 32px;
+  }
 
-    .menuIcon {
-        width: 32px;
-        height: 32px;
-    }
+  .menuIcon {
+    width: 32px;
+    height: 32px;
+  }
 
-    .theme {
-        margin-left: 511px;
-    }
+  .theme {
+    margin-left: 511px;
+  }
 }
 
 /* ===================== */
 
 @media screen and (min-width: 1180px) {
-    .header {
-        width: 1180px;
-        padding: 0%;
-        justify-content: flex-end;
-        margin-right: 24px;
-    }
+  .header {
+    width: 1180px;
+    padding: 0%;
+    justify-content: flex-end;
+    margin-right: 24px;
+  }
 
-    .menuIcon {
-        display: none;
-    }
+  .menuIcon {
+    display: none;
+  }
 
-    .userInfo {
-        margin-right: 24px;
-    }
+  .userInfo {
+    margin-right: 24px;
+  }
 }

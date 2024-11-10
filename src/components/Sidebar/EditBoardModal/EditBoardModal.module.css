@@ -4,17 +4,18 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: #000000cc;
     z-index: 1000;
 }
 
 .modalContent {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: fixed;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 335px;
     border-radius: 8px;
-    border: 1px solid rgba(190, 219, 176, 0.50);
+    border: 1px solid var(--logout-plus-active);
     background: #151515;
     padding: 24px;
     display: flex;
@@ -28,12 +29,12 @@
     background: none;
     border: none;
     font-size: 24px;
-    color: #ffffff;
+    color: var(--text);
     cursor: pointer;
 }
 
 .modalName {
-    color: #FFF;
+    color: var(--text);
     font-family: Poppins;
     font-size: 18px;
     font-style: normal;
@@ -44,12 +45,13 @@
 }
 
 .input {
+    color: var(--text);
     padding: 14px 18px;
     width: 100%;
     border-radius: 8px;
-    border: 1px solid #BEDBB0;
+    border: 1px solid var(--logout-plus-active);
     background: #1F1F1F;
-    box-shadow: 0px 4px 16px 0px rgba(22, 22, 22, 0.08);
+    box-shadow: 0px 4px 16px 0px #16161614;
     margin-bottom: 24px;
     font-family: Poppins;
     font-size: 14px;
@@ -59,21 +61,21 @@
 }
 
 .input:hover {
-    border: 1px solid #9DC888;
+    border: 1px solid var(--logout-plus-no-active);
 }
 
 .input:focus {
-    border: 1px solid #9DC888;
+    border: 1px solid var(--logout-plus-no-active);
 }
 
 .input::placeholder {
-    color: #FFFFFF;
+    color: var(--text);
     opacity: 0.4;
     letter-spacing: -0.02em;
 }
 
 .error {
-    color: rgb(254, 98, 98);
+    color: #fe6262;
     font-family: Poppins;
     font-size: 12px;
     font-style: normal;
@@ -83,7 +85,7 @@
 }
 
 .sectionName {
-    color: #FFF;
+    color: var(--text);
     font-family: Poppins;
     font-size: 14px;
     font-style: normal;
@@ -98,6 +100,20 @@
     gap: 8px;
     justify-content: left;
     margin-bottom: 24px;
+}
+
+.iconOption {
+    width: 18px;
+    height: 18px;
+    stroke: var(--text);
+    opacity: 0.5;
+    fill: transparent;
+    cursor: pointer;
+}
+
+.iconOption.selected {
+    stroke: var(--text);
+    opacity: 1;
 }
 
 .backgroundOptions {
@@ -119,31 +135,24 @@
     display: none;
 }
 
-.iconOption {
-    border: 1px solid #605f5f;
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
-    border-radius: 4px;
+
+.backgroundOptions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    justify-content: left;
+    margin-bottom: 40px;
+    max-width: 278px;
 }
 
 .backgroundOption {
-    border: 1px solid #605f5f;
     width: 28px;
     height: 28px;
     cursor: pointer;
     border-radius: 4px;
-}
-
-.iconOption {
-    fill: #bbbbbb;
-}
-
-.iconOption.selected,
-.backgroundOption.selected {
-    border: 2px solid #00ff88;
-}
-
+    background-size: cover;
+  }
+  
 .saveButton {
     display: flex;
     width: 287px;
@@ -151,9 +160,9 @@
     justify-content: center;
     align-items: center;
     border-radius: 8px;
-    background: #BEDBB0;
+    background: var(--logout-plus-active);
     cursor: pointer;
-    color: #161616;
+    color: var(--background);
     font-family: Poppins;
     font-size: 14px;
     font-style: normal;
@@ -164,19 +173,19 @@
 }
 
 .saveButton:hover {
-    background-color: #9DC888;
+    background-color: var(--logout-plus-no-active);
 }
 
 .modalPlus {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(22, 22, 22, 1);
-    color: rgba(255, 255, 255, 1);
+    background-color: var(--background);
+    color: var(--text);
     width: 28px;
     height: 28px;
-    font-size: 14px;
-    font-weight: 900;
+    height: 28px;
+    font-size: 12px;
     margin-right: 8px;
     border-radius: 6px;
 }

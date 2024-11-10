@@ -6,7 +6,7 @@
 }
 
 .sidebar {
-  font-family: semiBoltFont;
+  height: 100vh;
   background-color: #121212;
   color: #FFF;
   font-family: Poppins;
@@ -19,16 +19,18 @@
   padding-top: 18px;
   border: solid 1px #BEDBB0;
   border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .sidebarLogo {
-  width: 104px;
+  width: 150px;
   height: 32px;
-  display: inline-flex;
-  justify-content: center;
+  display: flex;
   align-items: center;
   gap: 8px;
-  margin: 0 14px 70px 14px;
+  margin: 0 14px 60px 14px;
 }
 
 .sidebarLogoIcon {
@@ -101,15 +103,17 @@
 }
 
 .tabsContainer {
-  height: 183px;
   width: 225px;
-  margin-bottom: auto;
+  min-height: 61px;
+  max-height: 400px;
 }
 
 .tabsScrollContainer {
   overflow-y: auto;
-  max-height: 183px;
+  min-height: 61px;
+  max-height: 200px;
 }
+
 
 .tabsScrollContainer::-webkit-scrollbar {
   width: 3px;
@@ -139,7 +143,9 @@
   border-radius: 0;
   position: relative;
 }
-
+/* .tabList {
+  width: 225px;
+} */
 .boardTabSpan {
   width: 4px;
   height: 61px;
@@ -152,7 +158,6 @@
 
 .tab[aria-selected="true"] {
   background: rgba(31, 31, 31, 0.4);
-
   .boardTitle {
     color: #FFF;
   }
@@ -224,6 +229,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border: none;
 }
 
 .boardTitle {
@@ -358,15 +364,15 @@
   }
 
   .tabsContainer {
-    height: 359px;
+    /* height: 359px; */
     width: 260px;
-    margin-bottom: auto;
+    /* margin-bottom: auto; */
   }
 
   .tabsScrollContainer {
     overflow-y: auto;
     max-height: 359px;
-  }
+  } 
 
   .tab {
     padding: 20px 14px 20px 24px;
@@ -404,3 +410,96 @@ letter-spacing: -0.28px;
 /* @media screen and (min-width: 1280px){
 
 } */
+
+
+@media (max-height: 740px) {
+  .sidebarLogo {
+    margin: 0 14px 20px 14px;
+  }
+  .tabsContainer {
+    min-height: 61px;
+    max-height: 122px;
+  }
+  
+  .tabsScrollContainer {
+    overflow-y: auto;
+    min-height: 61px;
+    max-height: 122px;
+  }
+}
+
+@media (min-height: 740px) {
+  .sidebarLogo {
+    margin: 0 14px 30px 14px;
+  }
+  .tabsContainer {
+    min-height: 61px;
+    max-height: 183px;
+  }
+  
+  .tabsScrollContainer {
+    overflow-y: auto;
+    min-height: 61px;
+    max-height: 183px;
+  }
+}
+@media (min-height: 820px){
+  .sidebarLogo {
+    margin: 0 14px 40px 14px;
+  }
+  .tabsContainer {
+    min-height: 61px;
+    max-height: 290px;
+  }
+  
+  .tabsScrollContainer {
+    overflow-y: auto;
+    min-height: 61px;
+    max-height: 290px;
+  }
+}
+@media (min-height: 900px){
+  .sidebarLogo {
+    margin: 0 14px 60px 14px;
+  }
+  .tabsContainer {
+    min-height: 61px;
+    max-height: 350px;
+  }
+  
+  .tabsScrollContainer {
+    overflow-y: auto;
+    min-height: 61px;
+    max-height: 350px;
+  }
+}
+@media (min-height: 950px){
+  .sidebarLogo {
+    margin: 0 14px 50px 14px;
+  }
+  .tabsContainer {
+    min-height: 61px;
+    max-height: 390px;
+  }
+  
+  .tabsScrollContainer {
+    overflow-y: auto;
+    min-height: 61px;
+    max-height: 390px;
+  }
+}
+@media (min-height: 1000px){
+  .sidebarLogo {
+    margin: 0 14px 60px 14px;
+  }
+  .tabsContainer {
+    min-height: 61px;
+    max-height: 440px;
+  }
+  
+  .tabsScrollContainer {
+    overflow-y: auto;
+    min-height: 61px;
+    max-height: 440px;
+  }
+}

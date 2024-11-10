@@ -4,18 +4,19 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: #000000cc;
   z-index: 1000;
 }
 
 
 .modalContent {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 335px;
   border-radius: 8px;
-  border: 1px solid rgba(190, 219, 176, 0.50);
+  border: 1px solid var(--logout-plus-active);
   background: #151515;
   padding: 24px;
   display: flex;
@@ -29,12 +30,12 @@
   background: none;
   border: none;
   font-size: 24px;
-  color: #ffffff;
+  color: var(--text);
   cursor: pointer;
 }
 
 .modalName {
-  color: #FFF;
+  color: var(--text);
   font-family: Poppins;
   font-size: 18px;
   font-style: normal;
@@ -46,10 +47,11 @@
 
 .input,
 .textarea {
+  color: var(--text);
   padding: 14px 18px;
   width: 100%;
   border-radius: 8px;
-  border: 1px solid #BEDBB0;
+  border: 1px solid var(--logout-plus-active);
   background: #1F1F1F;
   box-shadow: 0px 4px 16px 0px rgba(22, 22, 22, 0.08);
   margin-bottom: 24px;
@@ -62,16 +64,16 @@
 
 .input:hover,
 .textarea:hover {
-  border: 1px solid #9DC888;
+  border: 1px solid var(--logout-plus-no-active);
 }
 
 .input:focus,
 .textarea:focus {
-  border: 1px solid #9DC888;
+  border: 1px solid var(--logout-plus-no-active);
 }
 
 .input::placeholder {
-  color: #FFFFFF;
+  color: var(--text);
   opacity: 0.4;
   letter-spacing: -0.02em;
 }
@@ -100,7 +102,7 @@
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  background: #BEDBB0;
+  background: var(--logout-plus-active);
   cursor: pointer;
   color: #161616;
   font-family: Poppins;
@@ -113,7 +115,7 @@
 }
 
 .sendButton:hover {
-  background-color: #9DC888;
+  background-color: var(--logout-plus-no-active);
 }
 
 @media screen and (min-width: 768px) {

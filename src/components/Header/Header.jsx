@@ -18,7 +18,7 @@ import Sidebar from "../Sidebar/Sidebar.jsx";
 import ModalWindow from "../Modal/Modal.jsx";
 import { Modal } from "@mui/material";
 
-const Header = () => {
+const Header = ({ onSidebarToggle }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
@@ -73,12 +73,14 @@ const Header = () => {
   };
 
   const handleSidebarToggle = () => {
-    setIsSidebarOpen((prev) => !prev);
+    if (onSidebarToggle) {
+      onSidebarToggle(); // Вызов функции из пропа
+    }
   };
 
   return (
     <div className={styles.header}>
-      <div className={styles.menuIcon} onClick={handleOpenSidebar}>
+      <div className={styles.menuIcon} onClick={handleSidebarToggle}>
         <svg>
           <use href={`${icon}#pop`}></use>
         </svg>

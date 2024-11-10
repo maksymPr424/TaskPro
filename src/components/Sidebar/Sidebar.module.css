@@ -5,6 +5,11 @@
   font-style: normal;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
 .sidebar {
   font-family: semiBoltFont;
   background-color: #121212;
@@ -19,6 +24,15 @@
   padding-top: 18px;
   border: solid 1px #BEDBB0;
   border-radius: 16px;
+  position: absolute;
+  top: 0;
+  left: -300px;
+  transition: left 0.3s ease;
+  z-index: 1000;
+}
+
+.sidebar.open {
+  left: 0;
 }
 
 .sidebarLogo {
@@ -392,8 +406,9 @@
   .sidebarHelpTextSpan {
     font-size: 14px;
     line-height: 20px;
-letter-spacing: -0.28px;
+    letter-spacing: -0.28px;
   }
+
   .tabFlex {
     display: flex;
     justify-content: space-between;
@@ -401,6 +416,10 @@ letter-spacing: -0.28px;
 }
 
 
-/* @media screen and (min-width: 1280px){
-
-} */
+@media screen and (min-width: 1440px) {
+  .sidebar {
+    position: relative;
+    left: 0;
+    top: 0;
+  }
+}

@@ -1,1 +1,11 @@
+   .container {
+       position: relative;
+   }
 
+   @media screen and (min-width: 1440px) {
+       .container {
+           display: flex;
+           flex-direction: row-reverse;
+           justify-content: left;
+       }
+   }

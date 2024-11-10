@@ -2,16 +2,16 @@ import { useState, useId, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import css from "./MainDashboard.module.css";
 import {
-  getColumn,
   addColumn,
   deleteColumn,
   editColumn,
-} from "../../redux/main_dashboard/column/columnOperations";
+} from "../../redux/boards/operations";
 import {
   selectColumns,
   selectIsLoading,
   selectError,
-} from "../../redux/main_dashboard/column/columnSelectors";
+  selectActiveBoardId,
+} from "../../redux/boards/selectors";
 import { AddColumnModal } from "./ColumnModals/AddColumnModal";
 import { EditColumnModal } from "./ColumnModals/EditColumnModal";
 import Card from "./Card/Card";
@@ -25,6 +25,8 @@ export default function MainDashboard() {
   const columns = useSelector(selectColumns);
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
+  const boardId = useSelector(selectActiveBoardId);
+
 
   const [addModalIsOpen, setAddModalIsOpen] = useState(false);
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
@@ -32,12 +34,8 @@ export default function MainDashboard() {
 
   const columnId = useId();
 
-  useEffect(() => {
-    dispatch(getColumn());
-  }, [dispatch]);
-
   const handleAddColumn = (values, { resetForm }) => {
-    dispatch(addColumn({ title: values.title }))
+    dispatch(addColumn({ title: values.title, boardId }))
       .unwrap()
       .then(() => {
         setAddModalIsOpen(false);
@@ -54,7 +52,9 @@ export default function MainDashboard() {
   };
 
   const handleEditColumn = (values, { resetForm }) => {
-    dispatch(editColumn({ id: editingColumn.id, title: values.title }))
+    dispatch(
+      editColumn({ id: editingColumn._id, title: values.title, boardId })
+    )
       .unwrap()
       .then(() => {
         setEditModalIsOpen(false);
@@ -67,6 +67,8 @@ export default function MainDashboard() {
   };
 
   const handleDeleteColumn = (id) => {
+    console.log(id);
+
     dispatch(deleteColumn(id))
       .unwrap()
       .catch((error) => {
@@ -85,7 +87,7 @@ export default function MainDashboard() {
           <div className={css.loading}>Loading...</div>
         ) : (
           columns.map((column) => (
-            <li className={css.columnItem} key={column.id}>
+            <li className={css.columnItem} key={column._id}>
               <div className={css.column}>
                 <h3 className={css.titleColumn}>{column.title}</h3>
                 <div className={css.columnButtons}>
@@ -94,12 +96,12 @@ export default function MainDashboard() {
                     onClick={() => startEditColumn(column)}
                   >
                     <svg className={css.edit} width="16" height="16">
-                      <use href="/sprite.svg#icon-pencil" />
+                      <use href="/sprite.svg#pencil" />
                     </svg>
                   </button>
                   <button
                     className={css.deleteButton}
-                    onClick={() => handleDeleteColumn(column.id)}
+                    onClick={() => handleDeleteColumn(column._id)}
                   >
                     <svg className={css.delete} width="16" height="16">
                       <use href="/sprite.svg#icon-trash" />
@@ -107,7 +109,7 @@ export default function MainDashboard() {
                   </button>
                 </div>
               </div>
-              <Card className={css.tasks} columnId={column.id} />
+              <Card className={css.tasks} columnId={column._id} />
             </li>
           ))
         )}

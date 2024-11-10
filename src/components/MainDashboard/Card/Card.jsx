@@ -1,46 +1,64 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
+  selectActiveBoardId,
+  selectColumns,
   selectError,
   selectIsLoading,
-} from "../../../redux/main_dashboard/card/cardSelectors";
+} from "../../../redux/boards/selectors";
 import { useEffect, useId, useState } from "react";
 import {
   addCard,
   deleteCard,
   editCard,
-  getCard,
-} from "../../../redux/main_dashboard/card/cardOperations";
+  editCardColumn,
+} from "../../../redux/boards/operations";
 import css from "./Card.module.css";
 import { AddCardModal } from "./CardModals/AddCardModal";
 import { EditCardModal } from "./CardModals/EditCardModal";
 import { FaPlus } from "react-icons/fa6";
 import PropTypes from "prop-types";
+import { format } from "date-fns";
+import { ChangeColumnModal } from "./CardModals/ChangeColumnModal";
 
 export default function Card({ columnId }) {
   const dispatch = useDispatch();
 
-  const cards = useSelector((state) =>
-    state.cards.items.filter((card) => card.columnId === columnId)
-  );
+  const boardId = useSelector(selectActiveBoardId);
+
+  const cards = useSelector(selectColumns).filter(
+    ({ _id }) => _id === columnId
+  )[0].tasks;
+
+  // console.log(cards);
+
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
 
   const [addCardModalIsOpen, setAddCardModalIsOpen] = useState(false);
   const [editCardModalIsOpen, setEditCardModalIsOpen] = useState(false);
+  const [editCardColumnModalIsOpen, setEditCardColumnModalIsOpen] =
+    useState(false);
   const [editingCard, setEditingCard] = useState(null);
 
   const cardId = useId();
 
-  useEffect(() => {
-    dispatch(getCard());
-  }, [dispatch]);
-
   const handleAddCard = (values) => {
+    const priority = values.priority.toLowerCase();
+
+    const taskData = {
+      title: values.title,
+      content: values.content,
+      deadline: new Date(values.deadline),
+      priority,
+      // calendar: values.calendar ? new Date(values.calendar) : null,
+    };
+
+    if (!taskData.content) delete taskData.content;
     dispatch(
       addCard({
-        ...values,
+        boardId,
         columnId,
-        calendar: values.calendar ? new Date(values.calendar) : null,
+        taskData,
       })
     )
       .unwrap()
@@ -52,31 +70,68 @@ export default function Card({ columnId }) {
       });
   };
 
-  const startEditCard = (card) => {
+  const startEditCardColumn = (card) => {
     setEditingCard({
-      id: card.id,
+      id: card._id,
+    });
+    setEditCardColumnModalIsOpen(true);
+  };
+
+  const startEditCard = (card) => {
+    const priority = card.priority.toLowerCase();
+    setEditingCard({
+      id: card._id,
       title: card.title,
-      description: card.description,
-      calendar: card.calendar ? new Date(card.calendar) : null,
-      priority: card.priority,
-      columnId: card.columnId,
+      content: card.content,
+      deadline: new Date(card.deadline),
+      priority,
     });
     setEditCardModalIsOpen(true);
   };
 
-  const handleEditCard = (values) => {
-    if (!editingCard?.id) {
-      console.error("No card selected for editing");
-      return;
-    }
+  const handleEditColumnCard = (values) => {
+    console.log(values);
 
-    const updatedCard = {
-      id: editingCard.id,
+    dispatch(
+      editCardColumn({
+        taskId: values.taskId,
+        updateData: {
+          columnId: values.columnId,
+          oldColumnId: values.oldColumnId,
+        },
+      })
+    )
+      .unwrap()
+      .then(() => {
+        setEditCardColumnModalIsOpen(false);
+        setEditingCard(null);
+      })
+      .catch((error) => {
+        console.error("Failed to move card:", error);
+      });
+  };
+
+  const handleEditCard = (values) => {
+    // if (!editingCard?._id) {
+    //   console.error("No card selected for editing");
+    //   return;
+    // }
+
+    const priority = values.priority.toLowerCase();
+
+    const updateData = {
       title: values.title,
-      description: values.description,
-      calendar: values.calendar ? new Date(values.calendar) : null,
-      priority: values.priority,
-      columnId: columnId,
+      content: values.content,
+      deadline: values.deadline
+        ? new Date(values.deadline)
+        : new Date(Date.now() + 24 * 60 * 60 * 1000),
+      priority: priority || PRIORITIES.WITHOUT,
+    };
+
+    if (!updateData.content) delete updateData.content;
+    const updatedCard = {
+      taskId: editingCard.id,
+      updateData,
     };
 
     dispatch(editCard(updatedCard))
@@ -90,8 +145,8 @@ export default function Card({ columnId }) {
       });
   };
 
-  const handleDeleteCard = (id) => {
-    dispatch(deleteCard(id))
+  const handleDeleteCard = (taskId) => {
+    dispatch(deleteCard({ columnId, taskId }))
       .unwrap()
       .catch((error) => {
         console.error("Failed to delete card:", error);
@@ -103,10 +158,10 @@ export default function Card({ columnId }) {
   }
 
   const PRIORITIES = {
-    WITHOUT: "Without priority",
-    LOW: "Low",
-    MEDIUM: "Medium",
-    HIGH: "High",
+    NONE: "none",
+    LOW: "low",
+    MEDIUM: "medium",
+    HIGH: "high",
   };
 
   return (
@@ -118,8 +173,8 @@ export default function Card({ columnId }) {
           cards.map((card) => (
             <li
               className={`${css.item} ${
-                card.priority === PRIORITIES.WITHOUT
-                  ? css.priorityWithoutItem
+                card.priority === PRIORITIES.NONE
+                  ? css.priorityNoneItem
                   : card.priority === PRIORITIES.LOW
                   ? css.priorityLowItem
                   : card.priority === PRIORITIES.MEDIUM
@@ -128,7 +183,7 @@ export default function Card({ columnId }) {
                   ? css.priorityHighItem
                   : ""
               }`}
-              key={card.id}
+              key={card._id}
             >
               <h3 className={css.title}>{card.title}</h3>
               <p className={css.text}>{card.description} </p>
@@ -142,6 +197,7 @@ export default function Card({ columnId }) {
                       value={card.priority}
                       checked={true}
                       readOnly
+                      disabled
                     />
                   </label>
                 </div>
@@ -149,66 +205,15 @@ export default function Card({ columnId }) {
                 <div>
                   <h4 className={css.subtitle}>Deadline</h4>
                   <p className={css.deadlineText}>
-                    {(() => {
-                      const date = new Date(card.calendar);
-                      date.setHours(0, 0, 0, 0);
-
-                      const today = new Date();
-                      today.setHours(0, 0, 0, 0);
-
-                      const tomorrow = new Date(today);
-                      tomorrow.setDate(tomorrow.getDate() + 1);
-
-                      const dayAfterTomorrow = new Date(today);
-                      dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 2);
-
-                      const startOfWeek = new Date(today);
-                      startOfWeek.setDate(today.getDate() - today.getDay());
-                      const endOfWeek = new Date(startOfWeek);
-                      endOfWeek.setDate(startOfWeek.getDate() + 6);
-
-                      if (date.getTime() === today.getTime()) {
-                        return `Today, ${date.toLocaleDateString("en-US", {
-                          day: "numeric",
-                          month: "long",
-                        })}`;
-                      } else if (date.getTime() === tomorrow.getTime()) {
-                        return `Tomorrow, ${date.toLocaleDateString("en-US", {
-                          day: "numeric",
-                          month: "long",
-                        })}`;
-                      } else if (
-                        date.getTime() === dayAfterTomorrow.getTime()
-                      ) {
-                        return `Day after tomorrow, ${date.toLocaleDateString(
-                          "en-US",
-                          {
-                            day: "numeric",
-                            month: "long",
-                          }
-                        )}`;
-                      } else if (date > today && date <= endOfWeek) {
-                        return `This week, ${date.toLocaleDateString("en-US", {
-                          day: "numeric",
-                          month: "long",
-                        })}`;
-                      } else if (date > endOfWeek) {
-                        return `Next week, ${date.toLocaleDateString("en-US", {
-                          day: "numeric",
-                          month: "long",
-                        })}`;
-                      }
-
-                      return date.toLocaleDateString("en-US", {
-                        day: "numeric",
-                        month: "long",
-                      });
-                    })()}
+                    {format(new Date(Date.parse(card.deadline)), "d/MM/yy")}
                   </p>
                 </div>
 
                 <div className={css.iconContainer}>
-                  <button className={css.iconButtons}>
+                  <button
+                    className={css.iconButtons}
+                    onClick={() => startEditCardColumn(card)}
+                  >
                     <svg className={css.move} width="16" height="16">
                       <use href="/sprite.svg#icon-arrow-circle-broken-right" />
                     </svg>
@@ -218,12 +223,12 @@ export default function Card({ columnId }) {
                     onClick={() => startEditCard(card)}
                   >
                     <svg className={css.edit} width="16" height="16">
-                      <use href="/sprite.svg#icon-pencil" />
+                      <use href="/sprite.svg#pencil" />
                     </svg>
                   </button>
                   <button
                     className={css.iconButtons}
-                    onClick={() => handleDeleteCard(card.id)}
+                    onClick={() => handleDeleteCard(card._id)}
                   >
                     <svg className={css.delete} width="16" height="16">
                       <use href="/sprite.svg#icon-trash" />
@@ -258,11 +263,13 @@ export default function Card({ columnId }) {
         cardId={cardId}
         editingCard={editingCard}
       />
+      <ChangeColumnModal
+        isOpen={editCardColumnModalIsOpen}
+        onClose={() => setEditCardColumnModalIsOpen(false)}
+        onSubmit={handleEditColumnCard}
+        columnId={columnId}
+        editingCard={editingCard}
+      />
     </div>
   );
 }
-
-Card.propTypes = {
-  columnId: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
-    .isRequired,
-};

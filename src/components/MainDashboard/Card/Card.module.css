@@ -77,7 +77,7 @@ span {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  max-height: 80vh;
+  max-height: 65vh;
   overflow-y: auto;
   /* padding-right: 10px; */
 }
@@ -278,7 +278,6 @@ span {
   border: none;
   outline: none;
   color: var(--border-input-modal);
-  
 }
 
 .deadlineText {
@@ -296,7 +295,7 @@ span {
   border-radius: 6px;
 }
 
-.priorityWithoutItem {
+.priorityNoneItem {
   border-left: 4px solid var(--without-priority);
 }
 
@@ -312,18 +311,18 @@ span {
   border-left: 4px solid #bedbb0;
 }
 
-.priorityWithout,
-.priorityLow,
-.priorityMedium,
-.priorityHigh {
+.prioritynone,
+.prioritylow,
+.prioritymedium,
+.priorityhigh {
   position: relative;
   display: inline-block;
 }
 
-.priorityWithout input[type="radio"],
-.priorityLow input[type="radio"],
-.priorityMedium input[type="radio"],
-.priorityHigh input[type="radio"] {
+.prioritynone input[type="radio"],
+.prioritylow input[type="radio"],
+.prioritymedium input[type="radio"],
+.priorityhigh input[type="radio"] {
   appearance: none;
   -webkit-appearance: none;
   width: 12px;
@@ -334,26 +333,26 @@ span {
   cursor: pointer;
 }
 
-.priorityWithout input[type="radio"] {
+.prioritynone input[type="radio"] {
   background-color: var(--without-priority);
 }
 
-.priorityLow input[type="radio"] {
+.prioritylow input[type="radio"] {
   background-color: var(--low-priority);
 }
 
-.priorityMedium input[type="radio"] {
+.prioritymedium input[type="radio"] {
   background-color: var(--medium-priority);
 }
 
-.priorityHigh input[type="radio"] {
+.priorityhigh input[type="radio"] {
   background-color: #bedbb0;
 }
 
-.priorityWithout input[type="radio"]:checked,
-.priorityLow input[type="radio"]:checked,
-.priorityMedium input[type="radio"]:checked,
-.priorityHigh input[type="radio"]:checked {
+.prioritynone input[type="radio"]:checked,
+.prioritylow input[type="radio"]:checked,
+.prioritymedium input[type="radio"]:checked,
+.priorityhigh input[type="radio"]:checked {
   border: 2px solid rgba(255, 255, 255, 0.3);
 }
 

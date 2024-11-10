@@ -7,10 +7,10 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const PRIORITIES = {
-  WITHOUT: "Without priority",
-  LOW: "Low",
-  MEDIUM: "Medium",
-  HIGH: "High",
+  WITHOUT: "none",
+  LOW: "low",
+  MEDIUM: "medium",
+  HIGH: "high",
 };
 
 const cardSchema = Yup.object().shape({
@@ -19,7 +19,7 @@ const cardSchema = Yup.object().shape({
     .max(100, "Too long")
     .required("Required"),
   description: Yup.string().min(3, "Too Short").max(300, "Too long"),
-  calendar: Yup.date().min(new Date()),
+  deadline: Yup.date().min(new Date()),
   priority: Yup.string().oneOf(Object.values(PRIORITIES)),
 });
 
@@ -70,9 +70,9 @@ export const AddCardModal = ({ isOpen, onClose, onSubmit, cardId }) => {
       <Formik
         initialValues={{
           title: "",
-          description: "",
-          calendar: new Date(),
-          priority: PRIORITIES.WITHOUT,
+          content: "",
+          deadline: new Date(),
+          priority: PRIORITIES.NONE,
         }}
         validationSchema={cardSchema}
         onSubmit={(values, formikHelpers) => onSubmit(values, formikHelpers)} // Передаємо formikHelpers у onSubmit
@@ -86,27 +86,23 @@ export const AddCardModal = ({ isOpen, onClose, onSubmit, cardId }) => {
             as="textarea"
             cols="30"
             rows="10"
-            name="description"
+            name="content"
             id={cardId}
           />
-          <ErrorMessage
-            className={css.error}
-            name="description"
-            component="span"
-          />
+          <ErrorMessage className={css.error} name="content" component="span" />
 
           <div className={css.priorityContainer}>
             <h3 className={css.modalSubtitle}>Priority</h3>
             <div className={css.priority}>
-              <label className={css.priorityWithout}>
+              <label className={css.prioritynone}>
                 <Field
                   type="radio"
                   name="priority"
-                  value={PRIORITIES.WITHOUT}
+                  value={PRIORITIES.NONE}
                   className={css.priorityInput}
                 />
               </label>
-              <label className={css.priorityLow}>
+              <label className={css.prioritylow}>
                 <Field
                   type="radio"
                   name="priority"
@@ -114,7 +110,7 @@ export const AddCardModal = ({ isOpen, onClose, onSubmit, cardId }) => {
                   className={css.priorityInput}
                 />
               </label>
-              <label className={css.priorityMedium}>
+              <label className={css.prioritymedium}>
                 <Field
                   type="radio"
                   name="priority"
@@ -122,7 +118,7 @@ export const AddCardModal = ({ isOpen, onClose, onSubmit, cardId }) => {
                   className={css.priorityInput}
                 />
               </label>
-              <label className={css.priorityHigh}>
+              <label className={css.priorityhigh}>
                 <Field
                   type="radio"
                   name="priority"
@@ -135,20 +131,20 @@ export const AddCardModal = ({ isOpen, onClose, onSubmit, cardId }) => {
 
           <div>
             <h3 className={css.modalSubtitle}>Deadline</h3>
-            <Field name="calendar">
+            <Field name="deadline">
               {({ form }) => (
                 <DatePicker
-                  selected={form.values.calendar}
-                  onChange={(date) => form.setFieldValue("calendar", date)}
+                  selected={form.values.deadline}
+                  onChange={(date) => form.setFieldValue("deadline", date)}
                   className={css.datepicker}
-                  dateFormat="EEEE, MMMM, d"
+                  dateFormat="MMMM, d"
                   minDate={new Date()}
                   customInput={
                     <input
                       // readOnly={true}
                       value={
-                        form.values.calendar
-                          ? formatDate(form.values.calendar)
+                        form.values.deadline
+                          ? formatDate(form.values.deadline)
                           : ""
                       }
                       placeholder="Select a date"
@@ -173,9 +169,9 @@ export const AddCardModal = ({ isOpen, onClose, onSubmit, cardId }) => {
   );
 };
 
-AddCardModal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  cardId: PropTypes.string.isRequired,
-};
+// AddCardModal.propTypes = {
+//   isOpen: PropTypes.bool.isRequired,
+//   onClose: PropTypes.func.isRequired,
+//   onSubmit: PropTypes.func.isRequired,
+//   cardId: PropTypes.string.isRequired,
+// };

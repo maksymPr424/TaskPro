@@ -1,4 +1,4 @@
-
+import { configureStore } from "@reduxjs/toolkit";
 import { authReducer } from "./auth/slice";
 import {
   persistStore,
@@ -12,8 +12,6 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { boardsReducer } from "./boards/slice";
-import { configureStore } from "@reduxjs/toolkit";
-
 const persistConfig = {
   key: "auth_token",
   version: 1,
@@ -26,7 +24,7 @@ export const store = configureStore({
     auth: persistReducer(persistConfig, authReducer),
     boards: persistReducer(persistConfig, boardsReducer),
   },
-  middleware: getDefaultMiddleware =>
+  middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
@@ -35,4 +33,3 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
-

@@ -7,10 +7,10 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const PRIORITIES = {
-  WITHOUT: "Without priority",
-  LOW: "Low",
-  MEDIUM: "Medium",
-  HIGH: "High",
+  NONE: "none",
+  LOW: "low",
+  MEDIUM: "medium",
+  HIGH: "high",
 };
 
 const cardSchema = Yup.object().shape({
@@ -19,8 +19,8 @@ const cardSchema = Yup.object().shape({
     .max(100, "Too long")
     .required("Required"),
   description: Yup.string().min(3, "Too Short").max(300, "Too long"),
-  calendar: Yup.date().min(new Date()),
-  priority: Yup.string().oneOf(Object.values(PRIORITIES)),
+  calendar: Yup.date().min(new Date()).optional(),
+  priority: Yup.string().oneOf(Object.values(PRIORITIES)).optional(),
 });
 
 export const EditCardModal = ({
@@ -42,12 +42,10 @@ export const EditCardModal = ({
       </button>
       <Formik
         initialValues={{
-          title: editingCard.title || "",
-          description: editingCard.description || "",
-          calendar: editingCard.calendar
-            ? new Date(editingCard.calendar)
-            : new Date(),
-          priority: editingCard.priority || PRIORITIES.WITHOUT,
+          title: editingCard.title,
+          content: editingCard.content || "",
+          deadline: new Date(editingCard.deadline),
+          priority: editingCard.priority,
         }}
         validationSchema={cardSchema}
         onSubmit={(values, formikHelpers) => onSubmit(values, formikHelpers)}
@@ -75,15 +73,15 @@ export const EditCardModal = ({
             <div className={css.priorityContainer}>
               <h3 className={css.modalSubtitle}>Priority</h3>
               <div className={css.priority}>
-                <label className={css.priorityWithout}>
+                <label className={css.prioritynone}>
                   <Field
                     type="radio"
                     name="priority"
-                    value={PRIORITIES.WITHOUT}
-                    className={css.priorityInput}
+                    value={PRIORITIES.NONE}
+                    className={`${css.priorityInput}`}
                   />
                 </label>
-                <label className={css.priorityLow}>
+                <label className={css.prioritylow}>
                   <Field
                     type="radio"
                     name="priority"
@@ -91,7 +89,7 @@ export const EditCardModal = ({
                     className={css.priorityInput}
                   />
                 </label>
-                <label className={css.priorityMedium}>
+                <label className={css.prioritymedium}>
                   <Field
                     type="radio"
                     name="priority"
@@ -99,7 +97,7 @@ export const EditCardModal = ({
                     className={css.priorityInput}
                   />
                 </label>
-                <label className={css.priorityHigh}>
+                <label className={css.priorityhigh}>
                   <Field
                     type="radio"
                     name="priority"
@@ -113,10 +111,10 @@ export const EditCardModal = ({
             <div>
               <h3 className={css.modalSubtitle}>Deadline</h3>
               <DatePicker
-                selected={values.calendar}
-                onChange={(date) => setFieldValue("calendar", date)}
+                selected={values.deadline}
+                onChange={(date) => setFieldValue("deadline", date)}
                 className={css.datepicker}
-                dateFormat="EEEE, MMMM, d"
+                dateFormat="MMMM, d"
                 minDate={new Date()}
               />
               <ErrorMessage
@@ -139,19 +137,19 @@ export const EditCardModal = ({
   );
 };
 
-EditCardModal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  cardId: PropTypes.string.isRequired,
-  editingCard: PropTypes.shape({
-    id: PropTypes.string,
-    title: PropTypes.string,
-    description: PropTypes.string,
-    priority: PropTypes.oneOf(Object.values(PRIORITIES)),
-    calendar: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.instanceOf(Date),
-    ]),
-  }),
-};
+// EditCardModal.propTypes = {
+//   isOpen: PropTypes.bool.isRequired,
+//   onClose: PropTypes.func.isRequired,
+//   onSubmit: PropTypes.func.isRequired,
+//   cardId: PropTypes.string.isRequired,
+//   editingCard: PropTypes.shape({
+//     id: PropTypes.string,
+//     title: PropTypes.string,
+//     description: PropTypes.string,
+//     priority: PropTypes.oneOf(Object.values(PRIORITIES)),
+//     calendar: PropTypes.oneOfType([
+//       PropTypes.string,
+//       PropTypes.instanceOf(Date),
+//     ]),
+//   }),
+// };

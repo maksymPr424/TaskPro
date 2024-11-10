@@ -30,6 +30,11 @@ ul {
   position: relative;
 }
 
+.changeColumnBtn {
+  display: flex;
+  justify-content: space-between;
+}
+
 button {
   cursor: pointer;
 }
@@ -176,6 +181,7 @@ span {
   max-width: 280px;
   min-width: 280px;
   width: 100%;
+  padding-bottom: 20px;
 }
 
 .column {
@@ -186,6 +192,41 @@ span {
   align-items: center;
   border-radius: 8px;
   background: var(--background-button);
+}
+
+.modalChangeColumn {
+  min-width: 135px;
+  max-width: max-content;
+}
+
+.changeColumnList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.changeColumnBtn {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.columnsTitle {
+  color: inherit;
+}
+
+.move {
+  stroke: inherit;
+}
+
+.active {
+  color: var(--base-green-violet);
+}
+
+.active use {
+  stroke: var(--base-green-violet);
 }
 
 @media screen and (min-width: 375px) {

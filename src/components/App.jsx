@@ -26,7 +26,7 @@ function App() {
       if (token) {
         const response = await dispatch(refreshUser()).unwrap();
         if (response?.boardsData) {
-          dispatch(clearBoards);
+          dispatch(clearBoards());
           dispatch(setBoards(response.boardsData));
         }
       }
@@ -61,29 +61,13 @@ function App() {
               }
             />
             <Route
-              path='/home'
+              path='/home/:boardName?'
               element={
                 <RestrictedRoute>
                   <HomePage />
                 </RestrictedRoute>
               }
             />
-            <Route
-              path='/home/:boardName'
-              element={
-                <RestrictedRoute>
-                  <ScreensPage />
-                </RestrictedRoute>
-              }
-            />
-            {/* <Route
-            path="/screen"
-            element={
-              <RestrictedRoute>
-                <ScreensPage />
-              </RestrictedRoute>
-            }
-          /> */}
             <Route path='*' element={<NotFoundPage />} />
           </Routes>
         </Suspense>

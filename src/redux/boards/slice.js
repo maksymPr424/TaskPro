@@ -4,7 +4,10 @@ import { fetchBoards, removeBoard } from "./operations";
 const boardsSlice = createSlice({
   name: "boards",
   initialState: {
-    lastActiveBoard: null,
+    lastActiveBoard: {
+      _id: null,
+      title: null,
+    },
     boards: [],
     loading: false,
     error: null,
@@ -13,6 +16,10 @@ const boardsSlice = createSlice({
     setBoards: (state, action) => {
       state.lastActiveBoard = action.payload.lastActiveBoard;
       state.boards = action.payload.boards;
+    },
+    setLastActiveBoard: (state, action) => {
+      const { boardId, title } = action.payload;
+      state.lastActiveBoard = { _id: boardId, title };
     },
     addBoard: (state, action) => {
       state.boards.push(action.payload);
@@ -53,6 +60,12 @@ const boardsSlice = createSlice({
   },
 });
 
-export const { setBoards, addBoard, updateBoard, deleteBoard, clearBoards } =
-  boardsSlice.actions;
+export const {
+  setBoards,
+  setLastActiveBoard,
+  addBoard,
+  updateBoard,
+  deleteBoard,
+  clearBoards,
+} = boardsSlice.actions;
 export const boardsReducer = boardsSlice.reducer;

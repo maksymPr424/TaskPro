@@ -1,5 +1,5 @@
 import styles from "./LoginForm.module.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -14,6 +14,7 @@ import {
 
 import * as Yup from "yup";
 import Loader from "../Loader/Loader.jsx";
+import { setBoards } from "../../redux/boards/slice.js";
 
 const validateLoginFormSchema = Yup.object().shape({
   email: Yup.string()
@@ -38,8 +39,6 @@ export default function LoginForm() {
   const dispatch = useDispatch();
   const loginError = useSelector(selectError);
   const isLoading = useSelector(selectIsLoading);
-  const isLoggedIn = useSelector(selectIsLoggedIn);
-  const navigate = useNavigate();
 
   const {
     register,
@@ -55,16 +54,13 @@ export default function LoginForm() {
     mode: "onSubmit",
   });
 
-  const onSubmit = data => {
-    dispatch(loginUser(data));
+  const onSubmit = async data => {
+    const response = await dispatch(loginUser(data)).unwrap();
+    if (response?.boardsData) {
+      dispatch(setBoards(response.boardsData));
+    }
     reset();
   };
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate("/home");
-    }
-  }, [isLoggedIn, navigate]);
 
   return (
     <div className={styles.formWrapper}>

@@ -1,29 +1,29 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import {
   selectActiveBoardId,
   selectColumns,
   selectError,
   selectIsLoading,
-} from "../../../redux/boards/selectors";
-import { useEffect, useId, useState } from "react";
+} from '../../../redux/boards/selectors';
+import { useId, useRef, useState } from 'react';
 import {
   addCard,
   deleteCard,
   editCard,
   editCardColumn,
-} from "../../../redux/boards/operations";
-import css from "./Card.module.css";
-import { AddCardModal } from "./CardModals/AddCardModal";
-import { EditCardModal } from "./CardModals/EditCardModal";
-import { FaPlus } from "react-icons/fa6";
-import { format } from "date-fns";
-import { ChangeColumnModal } from "./CardModals/ChangeColumnModal";
+} from '../../../redux/boards/operations';
+import css from './Card.module.css';
+import { AddCardModal } from './CardModals/AddCardModal';
+import { EditCardModal } from './CardModals/EditCardModal';
+import { FaPlus } from 'react-icons/fa6';
+import { format } from 'date-fns';
+import { ChangeColumnModal } from './CardModals/ChangeColumnModal';
 import {
   deleteTask,
   updateTask,
   updateTaskColumn,
-} from "../../../redux/boards/slice";
-import { ExpandableCard } from "../ExpandableCard";
+} from '../../../redux/boards/slice';
+import { ExpandableCard } from '../ExpandableCard';
 
 export default function Card({ columnId }) {
   const dispatch = useDispatch();
@@ -43,7 +43,10 @@ export default function Card({ columnId }) {
     useState(false);
   const [editingCard, setEditingCard] = useState(null);
   const [editingCardColumn, setEditingCardColumn] = useState(null);
-
+  const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
+  // const cardRef = useRef();
+  const moveCardButtonRefs = useRef([]);
+  const moveCardButtonRef = useRef();
   const cardId = useId();
 
   const handleAddCard = (values) => {
@@ -69,15 +72,19 @@ export default function Card({ columnId }) {
         setAddCardModalIsOpen(false);
       })
       .catch((error) => {
-        console.error("Failed to add card:", error);
+        console.error('Failed to add card:', error);
       });
   };
 
-  const startEditCardColumn = (card) => {
-    setEditingCardColumn({
-      id: card._id,
-    });
+  const startEditCardColumn = (card, index) => {
+    setEditingCardColumn({ id: card._id });
     setEditCardColumnModalIsOpen(true);
+
+    const buttonRef = moveCardButtonRefs.current[index];
+    if (buttonRef) {
+      const { top, left, height } = buttonRef.getBoundingClientRect();
+      setModalPosition({ top: top + height + 10, left });
+    }
   };
 
   const startEditCard = (card) => {
@@ -115,7 +122,7 @@ export default function Card({ columnId }) {
     )
       .unwrap()
       .catch((error) => {
-        console.error("Failed to move card:", error);
+        console.error('Failed to move card:', error);
       });
   };
 
@@ -150,7 +157,7 @@ export default function Card({ columnId }) {
     dispatch(editCard(updatedCard))
       .unwrap()
       .catch((error) => {
-        console.error("Failed to edit card:", error);
+        console.error('Failed to edit card:', error);
       });
   };
 
@@ -159,7 +166,7 @@ export default function Card({ columnId }) {
     dispatch(deleteCard({ columnId, taskId }))
       .unwrap()
       .catch((error) => {
-        console.error("Failed to delete card:", error);
+        console.error('Failed to delete card:', error);
       });
   };
 
@@ -168,14 +175,14 @@ export default function Card({ columnId }) {
   }
 
   const PRIORITIES = {
-    NONE: "none",
-    LOW: "low",
-    MEDIUM: "medium",
-    HIGH: "high",
+    NONE: 'none',
+    LOW: 'low',
+    MEDIUM: 'medium',
+    HIGH: 'high',
   };
 
   const sectionStyles = {
-    position: "relative",
+    position: 'relative',
   };
 
   const makeFirstLetterBig = (string) =>
@@ -187,7 +194,7 @@ export default function Card({ columnId }) {
         {isLoading ? (
           <div className={css.loading}>Loading...</div>
         ) : (
-          cards.map((card) => (
+          cards.map((card, index) => (
             <li
               className={`${css.item} ${
                 card.priority === PRIORITIES.NONE
@@ -198,11 +205,10 @@ export default function Card({ columnId }) {
                   ? css.priorityMediumItem
                   : card.priority === PRIORITIES.HIGH
                   ? css.priorityHighItem
-                  : ""
+                  : ''
               }`}
               key={card._id}
-              style={sectionStyles}
-            >
+              style={sectionStyles}>
               <h3 className={css.title}>{card.title}</h3>
               <ExpandableCard {...card} />
               <div className={css.subcontainer}>
@@ -212,11 +218,10 @@ export default function Card({ columnId }) {
                     <label
                       className={`${css.priorityLabel} ${
                         css[`priority${card.priority}`]
-                      }`}
-                    >
+                      }`}>
                       <input
-                        type="radio"
-                        name="priority"
+                        type='radio'
+                        name='priority'
                         value={card.priority}
                         checked={true}
                         readOnly
@@ -231,34 +236,32 @@ export default function Card({ columnId }) {
                   <div>
                     <h4 className={css.subtitle}>Deadline</h4>
                     <p className={css.deadlineText}>
-                      {format(new Date(Date.parse(card.deadline)), "d/MM/yy")}
+                      {format(new Date(Date.parse(card.deadline)), 'd/MM/yy')}
                     </p>
                   </div>
                 </div>
 
                 <div className={css.iconContainer}>
                   <button
+                    ref={(el) => (moveCardButtonRefs.current[index] = el)}
                     className={css.iconButtons}
-                    onClick={() => startEditCardColumn(card)}
-                  >
-                    <svg className={css.move} width="16" height="16">
-                      <use href="/sprite.svg#icon-arrow-circle-broken-right" />
+                    onClick={() => startEditCardColumn(card, index)}>
+                    <svg className={css.move} width='16' height='16'>
+                      <use href='/sprite.svg#icon-arrow-circle-broken-right' />
                     </svg>
                   </button>
                   <button
                     className={css.iconButtons}
-                    onClick={() => startEditCard(card)}
-                  >
-                    <svg className={css.edit} width="16" height="16">
-                      <use href="/sprite.svg#pencil" />
+                    onClick={() => startEditCard(card)}>
+                    <svg className={css.edit} width='16' height='16'>
+                      <use href='/sprite.svg#pencil' />
                     </svg>
                   </button>
                   <button
                     className={css.iconButtons}
-                    onClick={() => handleDeleteCard(card._id)}
-                  >
-                    <svg className={css.delete} width="16" height="16">
-                      <use href="/sprite.svg#trash" />
+                    onClick={() => handleDeleteCard(card._id)}>
+                    <svg className={css.delete} width='16' height='16'>
+                      <use href='/sprite.svg#trash' />
                     </svg>
                   </button>
                 </div>
@@ -270,6 +273,8 @@ export default function Card({ columnId }) {
                   onSubmit={handleEditColumnCard}
                   columnId={columnId}
                   editingCard={editingCardColumn}
+                  contentLabel='ChangeColumnModal'
+                  position={modalPosition}
                 />
               </div>
             </li>
@@ -279,8 +284,7 @@ export default function Card({ columnId }) {
 
       <button
         className={css.button}
-        onClick={() => setAddCardModalIsOpen(true)}
-      >
+        onClick={() => setAddCardModalIsOpen(true)}>
         <FaPlus className={css.plusModal} />
         Add another card
       </button>

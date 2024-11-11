@@ -17,6 +17,8 @@ import { EditColumnModal } from "./ColumnModals/EditColumnModal";
 import Card from "./Card/Card";
 import { FaPlus } from "react-icons/fa6";
 import ReactModal from "react-modal";
+import Loader from "../Loader/Loader";
+import { deleteColumnSpeed, updateColumn } from "../../redux/boards/slice";
 
 ReactModal.setAppElement("#root");
 
@@ -27,7 +29,6 @@ export default function MainDashboard() {
   const error = useSelector(selectError);
   const boardId = useSelector(selectActiveBoardId);
 
-
   const [addModalIsOpen, setAddModalIsOpen] = useState(false);
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
   const [editingColumn, setEditingColumn] = useState(null);
@@ -35,10 +36,14 @@ export default function MainDashboard() {
   const columnId = useId();
 
   const handleAddColumn = (values, { resetForm }) => {
+    // dispatch(addColumnSpeed({ title: values.title }));
+    // resetForm();
+    setAddModalIsOpen(false);
+
     dispatch(addColumn({ title: values.title, boardId }))
       .unwrap()
       .then(() => {
-        setAddModalIsOpen(false);
+        // setAddModalIsOpen(false);
         resetForm();
       })
       .catch((error) => {
@@ -52,13 +57,15 @@ export default function MainDashboard() {
   };
 
   const handleEditColumn = (values, { resetForm }) => {
+    dispatch(updateColumn({ id: editingColumn._id, title: values.title }));
+
+    setEditModalIsOpen(false);
+    setEditingColumn(null);
     dispatch(
       editColumn({ id: editingColumn._id, title: values.title, boardId })
     )
       .unwrap()
       .then(() => {
-        setEditModalIsOpen(false);
-        setEditingColumn(null);
         resetForm();
       })
       .catch((error) => {
@@ -67,8 +74,7 @@ export default function MainDashboard() {
   };
 
   const handleDeleteColumn = (id) => {
-    console.log(id);
-
+    dispatch(deleteColumnSpeed(id));
     dispatch(deleteColumn(id))
       .unwrap()
       .catch((error) => {
@@ -84,7 +90,9 @@ export default function MainDashboard() {
     <div className={css.container}>
       <ul className={css.columnsContainer}>
         {isLoading ? (
-          <div className={css.loading}>Loading...</div>
+          <div className={css.loading}>
+            <Loader />
+          </div>
         ) : (
           columns.map((column) => (
             <li className={css.columnItem} key={column._id}>

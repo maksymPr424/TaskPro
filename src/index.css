@@ -1,4 +1,3 @@
-
 @font-face {
   font-family: "Poppins";
   src: url("../fonts/Poppins-Light.ttf") format("truetype");
@@ -33,7 +32,7 @@
 
 @media (prefers-color-scheme: light) {
   :root {
-    font-family: Poppins, mediumFont, regularFont sans-serif;
+    font-family: Poppins sans-serif;
 
     color-scheme: light;
     --base-green-violet: #bedbb0;

@@ -87,6 +87,7 @@ span {
   border-radius: 8px;
   background: var(--background-task);
   padding: 14px 20px;
+  /* position: relative; */
 }
 
 /* .item::after {

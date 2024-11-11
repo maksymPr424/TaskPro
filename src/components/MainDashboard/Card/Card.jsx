@@ -16,9 +16,13 @@ import css from "./Card.module.css";
 import { AddCardModal } from "./CardModals/AddCardModal";
 import { EditCardModal } from "./CardModals/EditCardModal";
 import { FaPlus } from "react-icons/fa6";
-import PropTypes from "prop-types";
 import { format } from "date-fns";
 import { ChangeColumnModal } from "./CardModals/ChangeColumnModal";
+import {
+  deleteTask,
+  updateTask,
+  updateTaskColumn,
+} from "../../../redux/boards/slice";
 
 export default function Card({ columnId }) {
   const dispatch = useDispatch();
@@ -29,7 +33,7 @@ export default function Card({ columnId }) {
     ({ _id }) => _id === columnId
   )[0].tasks;
 
-  // console.log(cards);
+  console.log(cards);
 
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
@@ -39,6 +43,7 @@ export default function Card({ columnId }) {
   const [editCardColumnModalIsOpen, setEditCardColumnModalIsOpen] =
     useState(false);
   const [editingCard, setEditingCard] = useState(null);
+  const [editingCardColumn, setEditingCardColumn] = useState(null);
 
   const cardId = useId();
 
@@ -71,7 +76,7 @@ export default function Card({ columnId }) {
   };
 
   const startEditCardColumn = (card) => {
-    setEditingCard({
+    setEditingCardColumn({
       id: card._id,
     });
     setEditCardColumnModalIsOpen(true);
@@ -83,14 +88,23 @@ export default function Card({ columnId }) {
       id: card._id,
       title: card.title,
       content: card.content,
-      deadline: new Date(card.deadline),
+      deadline: new Date(card.deadline).toISOString(),
       priority,
     });
     setEditCardModalIsOpen(true);
   };
 
   const handleEditColumnCard = (values) => {
-    console.log(values);
+    dispatch(
+      updateTaskColumn({
+        taskId: editingCardColumn.id,
+        columnId: values.columnId,
+        oldColumnId: values.oldColumnId,
+      })
+    );
+
+    setEditCardColumnModalIsOpen(false);
+    setEditingCard(null);
 
     dispatch(
       editCardColumn({
@@ -102,10 +116,6 @@ export default function Card({ columnId }) {
       })
     )
       .unwrap()
-      .then(() => {
-        setEditCardColumnModalIsOpen(false);
-        setEditingCard(null);
-      })
       .catch((error) => {
         console.error("Failed to move card:", error);
       });
@@ -134,18 +144,20 @@ export default function Card({ columnId }) {
       updateData,
     };
 
+    dispatch(updateTask({ taskId: editingCard.id, columnId, updateData }));
+
+    setEditCardModalIsOpen(false);
+    setEditingCard(null);
+
     dispatch(editCard(updatedCard))
       .unwrap()
-      .then(() => {
-        setEditCardModalIsOpen(false);
-        setEditingCard(null);
-      })
       .catch((error) => {
         console.error("Failed to edit card:", error);
       });
   };
 
   const handleDeleteCard = (taskId) => {
+    dispatch(deleteTask({ columnId, taskId }));
     dispatch(deleteCard({ columnId, taskId }))
       .unwrap()
       .catch((error) => {
@@ -236,6 +248,14 @@ export default function Card({ columnId }) {
                   </button>
                 </div>
               </div>
+
+              <ChangeColumnModal
+                isOpen={editCardColumnModalIsOpen}
+                onClose={() => setEditCardColumnModalIsOpen(false)}
+                onSubmit={handleEditColumnCard}
+                columnId={columnId}
+                editingCard={editingCardColumn}
+              />
             </li>
           ))
         )}
@@ -248,14 +268,6 @@ export default function Card({ columnId }) {
         <FaPlus className={css.plusModal} />
         Add another card
       </button>
-
-      <AddCardModal
-        isOpen={addCardModalIsOpen}
-        onClose={() => setAddCardModalIsOpen(false)}
-        onSubmit={handleAddCard}
-        cardId={cardId}
-      />
-
       <EditCardModal
         isOpen={editCardModalIsOpen}
         onClose={() => setEditCardModalIsOpen(false)}
@@ -263,12 +275,11 @@ export default function Card({ columnId }) {
         cardId={cardId}
         editingCard={editingCard}
       />
-      <ChangeColumnModal
-        isOpen={editCardColumnModalIsOpen}
-        onClose={() => setEditCardColumnModalIsOpen(false)}
-        onSubmit={handleEditColumnCard}
-        columnId={columnId}
-        editingCard={editingCard}
+      <AddCardModal
+        isOpen={addCardModalIsOpen}
+        onClose={() => setAddCardModalIsOpen(false)}
+        onSubmit={handleAddCard}
+        cardId={cardId}
       />
     </div>
   );

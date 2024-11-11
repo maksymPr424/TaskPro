@@ -59,6 +59,60 @@ const boardsSlice = createSlice({
         (board) => board._id !== action.payload
       );
     },
+    updateColumn: (state, action) => {
+      const index = state.lastActiveBoard.columns.findIndex(
+        (column) => column._id === action.payload.id
+      );
+      state.lastActiveBoard.columns[index].title = action.payload.title;
+    },
+    deleteColumnSpeed: (state, action) => {
+      state.lastActiveBoard.columns = state.lastActiveBoard.columns.filter(
+        (column) => column._id !== action.payload
+      );
+    },
+    updateTask: (state, action) => {
+      const indexColumn = state.lastActiveBoard.columns.findIndex(
+        (column) => column._id === action.payload.columnId
+      );
+      const index = state.lastActiveBoard.columns[indexColumn].tasks.findIndex(
+        (task) => task._id === action.payload.taskId
+      );
+      state.lastActiveBoard.columns[indexColumn].tasks[index] = {
+        ...state.lastActiveBoard.columns[indexColumn].tasks[index],
+        ...action.payload.updateData,
+      };
+    },
+    updateTaskColumn: (state, action) => {
+      const { columnId, oldColumnId, taskId } = action.payload;
+
+      const columnIndex = state.lastActiveBoard.columns.findIndex(
+        (column) => column._id === columnId
+      );
+      const oldColumnIndex = state.lastActiveBoard.columns.findIndex(
+        (column) => column._id === oldColumnId
+      );
+
+      const taskIndex = state.lastActiveBoard.columns[
+        oldColumnIndex
+      ].tasks.findIndex((task) => task._id === taskId);
+
+      state.lastActiveBoard.columns[columnIndex].tasks.push({
+        ...state.lastActiveBoard.columns[oldColumnIndex].tasks[taskIndex],
+        columnId,
+      });
+console.log(123);
+
+      state.lastActiveBoard.columns[oldColumnIndex].tasks.splice(taskIndex, 1);
+    },
+    deleteTask: (state, action) => {
+      const indexColumn = state.lastActiveBoard.columns.findIndex(
+        (column) => column._id === action.payload.columnId
+      );
+      const index = state.lastActiveBoard.columns[indexColumn].tasks.findIndex(
+        (task) => task._id === action.payload.taskId
+      );
+      state.lastActiveBoard.columns[indexColumn].tasks.splice(index, 1);
+    },
     clearBoards: (state) => {
       state.boards = [];
       state.lastActiveBoard = null;
@@ -79,60 +133,33 @@ const boardsSlice = createSlice({
       .addCase(removeBoard.rejected, (state, action) => {
         state.error = action.payload;
       })
-      .addCase(addColumn.pending, handlePending)
       .addCase(addColumn.fulfilled, (state, action) => {
-        state.loading = false;
-        state.error = null;
-        state.lastActiveBoard.columns.push(action.payload);
-        // saveToStorage(state.items);
+        state.lastActiveBoard.columns.push({ ...action.payload, tasks: [] });
       })
       .addCase(addColumn.rejected, handleRejected)
-      .addCase(editColumn.pending, handlePending)
-      .addCase(editColumn.fulfilled, (state, action) => {
-        state.loading = false;
-        state.error = null;
-        state.lastActiveBoard.columns = state.lastActiveBoard.columns.map(
-          (column) => {
-            if (column._id === action.payload._id) {
-              column.title = action.payload.title;
-            }
-            return column;
-          }
+      .addCase(editColumn.rejected, (state, action) => {
+        const columnId = state.lastActiveBoard.columns.findIndex(
+          (column) => column._id === action.payload._id
         );
-
-        // saveToStorage(state.items);
+        state.lastActiveBoard.columns[columnId] = action.payload;
       })
-      .addCase(editColumn.rejected, handleRejected)
-      .addCase(deleteColumn.pending, handlePending)
-      .addCase(deleteColumn.fulfilled, (state, action) => {
-        state.loading = false;
-        state.error = null;
-        state.lastActiveBoard.columns = state.lastActiveBoard.columns.filter(
-          (column) => column._id !== action.payload
+      .addCase(deleteColumn.rejected, (state, action) => {
+        const index = state.lastActiveBoard.columns.findIndex(
+          (column) => column._id === action.payload.id
         );
-
-        // saveToStorage(state.items);
+        state.lastActiveBoard.columns.splice(index, 1);
       })
-      .addCase(deleteColumn.rejected, handleRejected)
-      .addCase(addCard.pending, handlePending)
+      .addCase(addCard.pending)
       .addCase(addCard.fulfilled, (state, action) => {
-        state.loading = false;
-        state.error = null;
-
         const columnIndex = state.lastActiveBoard.columns.findIndex(
           (column) => column._id === action.payload.columnId
         );
 
         state.lastActiveBoard.columns[columnIndex].tasks.push(action.payload);
-        // saveToStorageCard(state.items);
       })
       .addCase(addCard.rejected, handleRejected)
 
-      .addCase(editCard.pending, handlePending)
-      .addCase(editCard.fulfilled, (state, action) => {
-        state.loading = false;
-        state.error = null;
-
+      .addCase(editCard.rejected, (state, action) => {
         const columnIndex = state.lastActiveBoard.columns.findIndex(
           (column) => column._id === action.payload.columnId
         );
@@ -144,57 +171,21 @@ const boardsSlice = createSlice({
         state.lastActiveBoard.columns[columnIndex].tasks[taskIndex] =
           action.payload;
       })
-      .addCase(editCard.rejected, handleRejected)
-      .addCase(editCardColumn.pending, handlePending)
-      .addCase(editCardColumn.fulfilled, (state, action) => {
-        state.loading = false;
-        state.error = null;
-
-        const columnIndex = state.lastActiveBoard.columns.findIndex(
-          (column) => column._id === action.payload.taskData.columnId
-        );
-        const oldColumnIndex = state.lastActiveBoard.columns.findIndex(
-          (column) => column._id === action.payload.oldColumnId
-        );
-
-        const taskIndex = state.lastActiveBoard.columns[
-          oldColumnIndex
-        ].tasks.findIndex((task) => task._id === action.payload.taskData._id);
-
-        state.lastActiveBoard.columns[oldColumnIndex].tasks.splice(
-          taskIndex,
-          1
-        );
-
-        state.lastActiveBoard.columns[columnIndex].tasks.push(
-          action.payload.taskData
-        );
-      })
-      .addCase(editCardColumn.rejected, handleRejected)
-
-      .addCase(deleteCard.pending, handlePending)
-      .addCase(deleteCard.fulfilled, (state, action) => {
-        state.loading = false;
-        state.error = null;
-
-        const columnId = action.payload.columnId;
-        const taskId = action.payload.taskId;
-        const columnIndex = state.lastActiveBoard.columns.findIndex(
-          (column) => column._id === columnId
-        );
-
-        const taskIndex = state.lastActiveBoard.columns[
-          columnIndex
-        ].tasks.findIndex((task) => task._id === taskId);
-
-        state.lastActiveBoard.columns[columnIndex].tasks.splice(taskIndex, 1);
-
-        // saveToStorageCard(state.items);
-      })
-      .addCase(deleteCard.rejected, handleRejected);
+      .addCase(editCardColumn.rejected)
+      .addCase(deleteCard.rejected);
   },
 });
 
-export const { setBoards, addBoard, updateBoard, deleteBoard, clearBoards } =
-  boardsSlice.actions;
+export const {
+  setBoards,
+  addBoard,
+  updateBoard,
+  deleteBoard,
+  updateColumn,
+  deleteColumnSpeed,
+  updateTask,
+  updateTaskColumn,
+  deleteTask,
+  clearBoards,
+} = boardsSlice.actions;
 export const boardsReducer = boardsSlice.reducer;

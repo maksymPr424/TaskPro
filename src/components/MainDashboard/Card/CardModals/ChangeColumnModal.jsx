@@ -10,11 +10,14 @@ export const ChangeColumnModal = ({
   columnId,
   editingCard,
 }) => {
+  if (!editingCard) return null;
+
   const columns = useSelector(selectColumns);
 
   return (
     <Modal
       className={`${css.modal} ${css.modalChangeColumn}`}
+      overlayClassName={css.modalOverlay}
       isOpen={isOpen}
       onRequestClose={onClose}
     >

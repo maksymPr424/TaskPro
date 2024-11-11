@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, isPlain } from "@reduxjs/toolkit";
 import { authReducer } from "./auth/slice";
 import {
   persistStore,
@@ -19,6 +19,10 @@ const persistConfig = {
   whitelist: ["token"],
 };
 
+const isSerializable = (value) => {
+  return isPlain(value) || value instanceof Date;
+};
+
 export const store = configureStore({
   reducer: {
     auth: persistReducer(persistConfig, authReducer),
@@ -28,6 +32,7 @@ export const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        isSerializable,
       },
     }),
 });

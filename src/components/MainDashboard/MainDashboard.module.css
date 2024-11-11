@@ -77,6 +77,10 @@ button {
   padding: 24px;
 }
 
+.modalOverlay {
+  background-color: transparent;
+}
+
 .title {
   color: var(--text-column);
   font-family: var(--mediumFont, Poppins);
@@ -195,8 +199,11 @@ span {
 }
 
 .modalChangeColumn {
-  min-width: 135px;
+  min-width: 160px;
   max-width: max-content;
+  position: fixed;
+  top: 0;
+  right: 25px;
 }
 
 .changeColumnList {
@@ -218,7 +225,11 @@ span {
 }
 
 .move {
-  stroke: inherit;
+  stroke: var(--without-priority);
+}
+
+.move use {
+  stroke: var(--without-priority);
 }
 
 .active {

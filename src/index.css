@@ -1,27 +1,27 @@
 @font-face {
-  font-family: "Poppins";
-  src: url("../fonts/Poppins-Light.ttf") format("truetype");
+  font-family: 'Poppins';
+  src: url('../fonts/Poppins-Light.ttf') format('truetype');
   font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Poppins";
-  src: url("./fonts/Poppins-Regular.ttf") format("truetype");
+  font-family: 'Poppins';
+  src: url('./fonts/Poppins-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Poppins";
-  src: url("./fonts/Poppins-Medium.ttf") format("truetype");
+  font-family: 'Poppins';
+  src: url('./fonts/Poppins-Medium.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Poppins";
-  src: url("./fonts/Poppins-SemiBold.ttf") format("truetype");
+  font-family: 'Poppins';
+  src: url('./fonts/Poppins-SemiBold.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
 }
@@ -48,7 +48,7 @@
   --my-dashboard-svg: rgba(22, 22, 22, 0.5);
 }
 
-[data-theme="light"] {
+[data-theme='light'] {
   color-scheme: light;
   --text: #161616;
   --background: #ffffff;
@@ -93,9 +93,12 @@
   --text-button-modal: #161616;
   --icon-modal: #fff;
   --no-active: #161616b3;
+  --move-button: #161616;
+  --move-button-active: #bedbb0;
+  --move-button-hover: #9bbc8b;
 }
 
-[data-theme="dark"] {
+[data-theme='dark'] {
   color-scheme: dark;
   --text: #ffffff;
   --background: #161616;
@@ -140,9 +143,12 @@
   --text-button-modal: #161616;
   --icon-modal: #fff;
   --no-active: #ffffff80;
+  --move-button: rgba(255, 255, 255, 0.5);
+  --move-button-active: #bedbb0;
+  --move-button-hover: #a0b794;
 }
 
-[data-theme="violet"] {
+[data-theme='violet'] {
   color-scheme: violet;
   --text: #161616;
   --background: #ecedfd;
@@ -189,6 +195,9 @@
   --text-button-modal: #fff;
   --icon-modal: #161616;
   --no-active: #161616b3;
+  --move-button: #161616;
+  --move-button-active: #5255bc;
+  --move-button-hover: #424594;
 }
 
 .scrollContainer::-webkit-scrollbar {

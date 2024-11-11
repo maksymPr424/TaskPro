@@ -40,7 +40,7 @@ export const ChangeColumnModal = ({
         },
       }}>
       <Box sx={modalStyles}>
-        <p className={css.modalMoveHeading}>Select a column:</p>
+        <p className={css.modalMoveHeading}>Move task to:</p>
         <ul className={css.changeColumnList}>
           {columns.map(({ _id, title }) => (
             <li key={_id} className={css.changeColumnItem}>
@@ -56,11 +56,8 @@ export const ChangeColumnModal = ({
                   })
                 }>
                 <p className={css.columnsTitle}>{title}</p>
-                <svg className={css.move} width='16' height='16'>
-                  <use
-                    className={css.move}
-                    href='/sprite.svg#icon-arrow-circle-broken-right'
-                  />
+                <svg className={css.moveIcon} width='16' height='16'>
+                  <use href='/sprite.svg#icon-arrow-circle-broken-right' />
                 </svg>
               </button>
             </li>

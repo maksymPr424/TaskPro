@@ -180,10 +180,7 @@ span {
   flex-shrink: 0;
   display: flex;
   justify-content: space-between;
-  /* width: 100%; */
   gap: 20px;
-  /* overflow-x: auto; */
-  /* padding: 0 20px; */
 }
 
 .columnItem {
@@ -213,21 +210,27 @@ span {
 }
 
 .changeColumnBtn {
+  width: 100%;
   display: flex;
   gap: 8px;
+  justify-content: space-between;
   align-items: center;
+  transition: all 0.2s ease;
 }
 
 .columnsTitle {
   color: inherit;
 }
 
-.move {
-  stroke: var(--without-priority);
+.moveIcon {
+  stroke: var(--move-button);
+  transition: all 0.2s ease;
 }
 
-.move use {
-  stroke: var(--without-priority);
+.changeColumnItem:hover .changeColumnBtn,
+.changeColumnItem:hover .moveIcon {
+  stroke: var(--move-button-hover);
+  color: var(--move-button-hover);
 }
 
 .active {
@@ -280,13 +283,6 @@ span {
     width: 334px;
   }
 
-  .modal {
-    /* position: fixed;
-    top: 300px;
-    left: 390px;
-    transform: translate(-50%, -50%); */
-  }
-
   .columnItem {
     width: 334px;
   }
@@ -314,4 +310,5 @@ span {
 
 .modalMoveHeading {
   max-width: 210px;
+  color: var(--text);
 }

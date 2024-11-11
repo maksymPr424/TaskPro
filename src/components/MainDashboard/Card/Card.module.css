@@ -1,0 +1,401 @@
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul {
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+.loading {
+  text-align: center;
+  padding: 20px;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  padding: 20px;
+}
+
+.container {
+  margin-top: 20px;
+}
+
+span {
+  color: red;
+  font-size: 8px;
+  margin-top: 8px;
+}
+
+.button {
+  display: flex;
+  width: 100%;
+  padding: 14px 0px;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-button-modal);
+  font-family: var(--mediumFont, Poppins);
+  letter-spacing: -0.02em;
+  gap: 8px;
+  margin-top: 24px;
+  border-radius: 8px;
+  background: var(--border-input);
+  border: none;
+}
+
+.modalTitle {
+  margin-bottom: 24px;
+}
+
+.plusModal {
+  background-color: var(--text-button-modal);
+  color: var(--icon-modal);
+  width: 28px;
+  height: 28px;
+  padding: 7px;
+  border-radius: 6px;
+}
+
+.leftCardInfo {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.edit,
+.delete,
+.move {
+  stroke: var(--my-dashboard-svg);
+  fill: transparent;
+}
+
+.edit:hover,
+.delete:hover,
+.move:hover {
+  stroke: var(--base-green-violet);
+  fill: transparent;
+}
+
+.list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 65vh;
+  overflow-y: auto;
+  /* padding-right: 10px; */
+}
+
+.item {
+  width: 100%;
+  border-radius: 8px;
+  background: var(--background-task);
+  padding: 14px 20px;
+  height: max-content;
+  position: relative;
+}
+
+/* .item::after {
+  position: absolute;
+  content: "";
+  bottom: 60px;
+  width: 88%;
+  height: 1px;
+  background-color: var(--without-priority);
+} */
+
+.title {
+  color: var(--text);
+  font-family: "Poppins", sans-serif;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.text {
+  color: var(--no-active);
+  text-overflow: ellipsis;
+  white-space: wrap;
+  font-family: var(--mediumFont, Poppins);
+  font-size: 12px;
+  line-height: 1.33;
+  letter-spacing: -0.02em;
+  position: relative;
+}
+
+.getMoreInfo {
+  margin-left: 20px;
+}
+
+.text::after {
+  position: absolute;
+  content: "";
+  bottom: -14px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--my-boards);
+}
+
+.label {
+  color: var(--text);
+  font-family: var(--mediumFont, Poppins);
+  font-size: 10px;
+  letter-spacing: -0.002em;
+}
+
+.input {
+  width: 12px;
+  height: 12px;
+  margin-right: 4px;
+}
+
+.subtitle {
+  color: var(--no-active);
+  font-family: var(--mediumFont, Poppins);
+  font-size: 8px;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+
+.iconContainer {
+  /* margin-left: auto; */
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.iconButtons {
+  border: none;
+  width: 16px;
+  height: 16px;
+  background: inherit;
+}
+
+.priorityContainer {
+  margin-top: 24px;
+  margin-bottom: 14px;
+}
+
+.priority {
+  display: flex;
+  gap: 8px;
+}
+
+.subcontainer {
+  display: flex;
+  justify-content: space-between;
+  /* align-items: flex-end; */
+  gap: 8px;
+  margin-top: 28px;
+}
+
+.addModal {
+  border-radius: 8px;
+  border: 1px solid var(--border-modal-card);
+  background: var(--background-task-modal);
+  width: 100%;
+  max-width: 300px;
+  margin: 40px auto 0;
+  padding: 24px;
+  position: relative;
+}
+
+.close {
+  stroke: var(--text);
+}
+
+.closeButton {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  border: none;
+  background: var(--background-task-modal);
+}
+
+.columnButton {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modalTitle {
+  color: var(--text);
+  font-family: var(--mediumFont, Poppins);
+  font-size: 18px;
+  letter-spacing: -0.02em;
+}
+
+.modalInputTitle {
+  width: 100%;
+  padding: 14px 0;
+  padding-left: 18px;
+  border-radius: 8px;
+  border: 1px solid var(--border-input-modal);
+  opacity: 0.4;
+  background: var(--background-input-modal);
+  box-shadow: 0px 4px 16px 0px rgba(22, 22, 22, 0.08);
+  color: var(--text);
+  font-family: "Poppins", sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.modalInputTitle:not(:last-child) {
+  margin-bottom: 14px;
+}
+
+.modalSubtitle {
+  color: var(--no-active);
+  font-family: var(--regularFont, Poppins);
+  font-size: 12px;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+
+.textarea {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 8px;
+  border: 1px solid var(--border-input-modal);
+  opacity: 0.4;
+  background: var(--background-input-modal);
+  box-shadow: 0px 4px 16px 0px rgba(22, 22, 22, 0.08);
+  color: var(--text);
+  font-family: var(--regularFont, Poppins);
+  letter-spacing: -0.02em;
+}
+
+.modalButton {
+  display: flex;
+  width: 100%;
+  padding: 10px 0px;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-button-modal);
+  font-family: var(--mediumFont, Poppins);
+  letter-spacing: -0.02em;
+  gap: 8px;
+  margin-top: 40px;
+  border-radius: 8px;
+  background: var(--border-input);
+  border: none;
+}
+
+.datepicker {
+  width: 100%;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: var(--border-input-modal);
+}
+
+.deadlineText {
+  font-size: 10px;
+  color: var(--text);
+  margin-top: 4px;
+}
+
+.plusModal {
+  background-color: var(--text-button-modal);
+  color: var(--icon-modal);
+  width: 28px;
+  height: 28px;
+  padding: 7px;
+  border-radius: 6px;
+}
+
+.priorityNoneItem {
+  border-left: 4px solid var(--my-boards);
+}
+
+.priorityLowItem {
+  border-left: 4px solid var(--low-priority);
+}
+
+.priorityMediumItem {
+  border-left: 4px solid var(--medium-priority);
+}
+
+.priorityHighItem {
+  border-left: 4px solid #bedbb0;
+}
+
+.prioritynone,
+.prioritylow,
+.prioritymedium,
+.priorityhigh {
+  position: relative;
+  display: inline-block;
+}
+
+.prioritynone input[type="radio"],
+.prioritylow input[type="radio"],
+.prioritymedium input[type="radio"],
+.priorityhigh input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  outline: none;
+  cursor: pointer;
+}
+
+.prioritynone input[type="radio"] {
+  background-color: var(--my-boards);
+}
+
+.prioritylow input[type="radio"] {
+  background-color: var(--low-priority);
+}
+
+.prioritymedium input[type="radio"] {
+  background-color: var(--medium-priority);
+}
+
+.priorityhigh input[type="radio"] {
+  background-color: #bedbb0;
+}
+
+.prioritynone input[type="radio"]:checked,
+.prioritylow input[type="radio"]:checked,
+.prioritymedium input[type="radio"]:checked,
+.priorityhigh input[type="radio"]:checked {
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.priorityLabel {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+}
+
+.priorityLabelText {
+  font-size: 11px;
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .addModal {
+    max-width: 350px;
+    margin: 60px auto;
+    /* position: fixed;
+    top: 350px;
+    left: 390px; */
+    /* transform: translate(-50%, -50%); */
+  }
+}

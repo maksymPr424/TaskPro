@@ -1,16 +1,14 @@
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
+import MainDashboard from "../../components/MainDashboard/MainDashboard";
+import css from "./ScreensPage.module.css";
 import HeaderDashboard from "../../components/HeaderDashboard/HeaderDashboard.jsx";
 
 export default function ScreensPage() {
-  const { boardId } = useParams();
-  const boardName = useSelector(
-    (state) => state.board.boards?.find((board) => board.id === boardId)?.name
-  );
-
+  const { boardName } = useParams();
   return (
-    <div>
-      <HeaderDashboard boardName={boardName || "Board not found"} />
-    </div>
+    <>
+      <HeaderDashboard boardName={boardName} />
+      <MainDashboard />
+    </>
   );
 }

@@ -1,40 +1,225 @@
 @font-face {
-  font-family: mediumFont;
-  src: url(./fonts/Poppins-Medium.ttf);
+  font-family: "Poppins";
+  src: url("../fonts/Poppins-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
 }
 
 @font-face {
-  font-family: regularFont;
-  src: url(./fonts/Poppins-Regular.ttf);
+  font-family: "Poppins";
+  src: url("./fonts/Poppins-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
 }
 
 @font-face {
-  font-family: semiBoltFont;
-  src: url(./fonts/Poppins-SemiBold.ttf);
+  font-family: "Poppins";
+  src: url("./fonts/Poppins-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("./fonts/Poppins-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
 }
 
 * {
-  font-family: regularFont sans-serif;
-  font-weight: 500;
+  font-family: Poppins, sans-serif;
 }
 
-@media (prefers-color-scheme: light) {
+:root {
+  --base-green-violet: #bedbb0;
+  --active-green-violet: #9dc888;
+  --text: #000000;
+  --text-heder: #161616;
+  --background: #ffffff;
+  --background-heder: #ffffff;
+  --no-active: rgba(255, 255, 255, 0.502);
+  --without-priority: #ffffff80;
+  --low-priority: #8fa1d0;
+  --medium-priority: #e09cb5;
+  --logout-plus-active: #bedbb0;
+  --logout-plus-no-active: #9dc888;
+  --favicon-color: #fff;
+  --add-foto-heder: #bedbb0;
+  --my-dashboard-svg: rgba(22, 22, 22, 0.5);
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --text: #161616;
+  --background: #ffffff;
+  --background-heder: #fcfcfc;
+  --text-heder: #161616;
+  --add-foto-heder: #bedbb0;
+  /* sidebar */
+  --back-sidebar: #ffffff;
+  --my-boards: rgba(22, 22, 22, 0.5);
+  --my-boards-btn: #bedbb0;
+  --my-boards-btn-hover: #9dc888;
+  --board-selected: rgb(246, 246, 247, 0.4);
+  --help-bg: #f6f6f7;
+  --help-span: #bedbb0;
+  --help-button: #161616;
+  --logout: #bedbb0;
+  --logout-hover: #9dc888;
+  /* modal */
+  --modal-border: #fcfcfc;
+  --modal-bg: #fcfcfc;
+  --modal-input: #fcfcfc;
+  --modal-input-border: #bedbb066;
+  --modal-input-border-hover-focus: #bedbb0;
+  --icons: rgba(22, 22, 22, 0.5);
+  --modal-button-text: #161616;
+  --modal-button-bg: #bedbb0;
+  --modal-button-bg-hover: #9dc888;
+  --modal-button-plus: #ffffff;
+
+  /* dashboard */
+
+  --card-button-text: #161616;
+  --background-task: #fff;
+  --border-modal-card: #fcfcfc;
+  --border-input-modal: #bedbb0;
+
+  --background-button: #fff;
+  --text-column: #161616;
+  --background-task-modal: #fcfcfc;
+  --border-input: #bedbb0;
+  --background-input-modal: #ffffff;
+  --text-button-modal: #161616;
+  --icon-modal: #fff;
+  --no-active: #161616b3;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --text: #ffffff;
+  --background: #161616;
+  --background-heder: #161616;
+  --text-heder: #ffffff;
+  --add-foto-heder: #bedbb0;
+  /* sidebar */
+  --back-sidebar: #121212;
+  --my-boards: rgba(255, 255, 255, 0.5);
+  --my-boards-btn: #bedbb0;
+  --my-boards-btn-hover: #9dc888;
+  --board-selected: rgb(31, 31, 31, 0.4);
+  --help-bg: #1f1f1f;
+  --help-span: #bedbb0;
+  --help-button: #ffffff;
+  --logout: #bedbb0;
+  --logout-hover: #9dc888;
+  /* modal */
+  --modal-border: #bedbb080;
+  --modal-bg: #151515;
+  --modal-input: #1f1f1f;
+  --modal-input-border: #bedbb066;
+  --modal-input-border-hover-focus: #bedbb0;
+  --icons: rgba(255, 255, 255, 0.5);
+  --modal-button-text: #161616;
+  --modal-button-bg: #bedbb0;
+  --modal-button-bg-hover: #9dc888;
+  --modal-button-plus: #ffffff;
+  --without-priority-icon: #ffffff80;
+  /* dashboard */
+
+  --card-button-text: #161616;
+  --background-task: #121212;
+  --border-modal-card: rgba(190, 219, 176, 0.5);
+  --border-input-modal: #bedbb0;
+
+  --background-input-modal: #1f1f1f;
+  --background-button: #121212;
+  --text-column: #fff;
+  --background-task-modal: #151515;
+  --border-input: #bedbb0;
+  --text-button-modal: #161616;
+  --icon-modal: #fff;
+  --no-active: #ffffff80;
+}
+
+[data-theme="violet"] {
+  color-scheme: violet;
+  --text: #161616;
+  --background: #ecedfd;
+  --base-green-violet: #7b7ede;
+  --active-green-violet: #5255bc;
+  --logout-plus-active: #b8bcfd;
+  --logout-plus-no-active: #fff;
+  --background-heder: #ffffff;
+  --text-heder: #161616;
+  --add-foto-heder: #ecedfd;
+  /* sidebar */
+  --back-sidebar: #5255bc;
+  --my-boards: rgba(255, 255, 255, 0.5);
+  --my-boards-btn: #b8bcfd;
+  --my-boards-btn-hover: #979cea;
+  --board-selected: #ffffff80;
+  --help-bg: #ecedfd66;
+  --help-span: #5255bc;
+  --help-button: #ffffff;
+  --logout: #ffffff;
+  --logout-hover: #b8bcfd;
+  /* modal */
+  --modal-border: #fcfcfc;
+  --modal-bg: #fcfcfc;
+  --modal-input: #fcfcfc;
+  --modal-input-border: #5255bc66;
+  --modal-input-border-hover-focus: #5255bc;
+  --icons: rgba(22, 22, 22, 0.5);
+  --modal-button-text: #ffffff;
+  --modal-button-bg: #5255bc;
+  --modal-button-bg-hover: #7b7ede;
+  --modal-button-plus: #161616;
+  /* dashboard */
+  --card-button-text: #fff;
+  --background-task: #fff;
+  --border-modal-card: #fcfcfc;
+  --border-input-modal: #5255bc;
+
+  --background-button: #fff;
+  --text-column: #161616;
+  --background-task-modal: #fcfcfc;
+  --border-input: #5255bc;
+  --background-input-modal: #ecedfd;
+  --text-button-modal: #fff;
+  --icon-modal: #161616;
+  --no-active: #161616b3;
+}
+
+/* @media (prefers-color-scheme: light) {
   :root {
-    font-family: semiBoldFont, mediumFont, regularFont sans-serif;
+    font-family: Poppins sans-serif;
 
     color-scheme: light;
     --base-green-violet: #bedbb0;
     --active-green-violet: #9dc888;
     --text: #161616;
-    --background: #ffffff;
+    --background: #f6f6f7;
     --no-active: #ffffff80;
     --without-priority: #ffffff4d;
     --low-priority: #8fa1d0;
     --medium-priority: #e09cb5;
+    --high-priority: #bedbb0;
     --logout-plus-active: #bedbb0;
     --logout-plus-no-active: #9dc888;
     --favicon-color: #fff;
-    --background-board: #f6f6f7;
+    --card-button-text: #161616;
+    --background-task: #fff;
+    --border-modal-card: #fcfcfc;
+    --border-input-modal: #bedbb0;
+
+    --background-button: #fff;
+    --text-column: #161616;
+    --background-task-modal: #fcfcfc;
+    --border-input: #bedbb0;
+    --background-input-modal: #ffffff;
+    --text-button-modal: #161616;
+    --icon-modal: #fff;
   }
 }
 
@@ -45,14 +230,25 @@
     --base-green-violet: #bedbb0;
     --active-green-violet: #9dc888;
     --text: #ffffff;
-    --background: #161616;
+    --background: #1f1f1f;
     --no-active: #ffffff80;
     --without-priority: #ffffff4d;
     --low-priority: #8fa1d0;
     --medium-priority: #e09cb5;
     --logout-plus-active: #bedbb0;
     --logout-plus-no-active: #9dc888;
-    --background-board: #1f1f1f;
+    --card-button-text: #161616;
+    --background-task: #121212;
+    --border-modal-card: rgba(190, 219, 176, 0.5);
+    --border-input-modal: #bedbb0;
+
+    --background-input-modal: #1f1f1f;
+    --background-button: #121212;
+    --text-column: #fff;
+    --background-task-modal: #151515;
+    --border-input: #bedbb0;
+    --text-button-modal: #161616;
+    --icon-modal: #fff;
   }
 }
 
@@ -70,15 +266,36 @@
     --active-green-violet: #5255bc;
     --logout-plus-active: #b8bcfd;
     --logout-plus-no-active: #fff;
-    --background-board: #ecedfd;
+    --card-button-text: #fff;
+    --background-task: #fff;
+    --border-modal-card: #fcfcfc;
+    --border-input-modal: #5255bc;
+
+    --background-button: #fff;
+    --text-column: #161616;
+    --background-task-modal: #fcfcfc;
+    --border-input: #5255bc;
+    --background-input-modal: #ecedfd;
+    --text-button-modal: #fff;
+    --icon-modal: #161616;
   }
+
+} */
+
+.ReactModal__Overlay {
+  opacity: 0;
+  transition: opacity 200ms ease-in-out;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
+.ReactModal__Overlay--after-open {
+  opacity: 1;
 }
 
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+}
+
+/* Reset styles */
 h1,
 h2,
 h3,
@@ -89,16 +306,26 @@ p {
   margin: 0;
 }
 
+p:last-child {
+  margin-bottom: 0;
+}
+
 ul,
 ol {
-  list-style-type: none;
   margin: 0;
   padding: 0;
+  list-style: none;
+}
+
+a {
+  color: currentColor;
+  text-decoration: none;
 }
 
 img {
   display: block;
   max-width: 100%;
+  height: auto;
 }
 
 button {

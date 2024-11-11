@@ -1,4 +1,4 @@
-// import icons from "../../assets/sprite.svg";
+import icons from "../../assets/sprite.svg";
 import { useDispatch, useSelector } from "react-redux";
 import s from "./FilterDropdown.module.css";
 import {
@@ -22,9 +22,9 @@ export default function FilterDropdown({ onClose }) {
   return (
     <div className={s.dropdown}>
       <button className={s.closeButton} onClick={onClose}>
-        {/* <svg className={s.closeIcon}>
-          <use href={`${icons}#icon-Close`}></use>
-        </svg> */}
+        <svg className={s.closeIcon}>
+          <use href={`${icons}#x`}></use>
+        </svg>
       </button>
       <h3 className={s.titleFilter}>Filters</h3>
       <div className={s.subtitle}>

@@ -1,0 +1,500 @@
+@font-face {
+  font-family: 'Poppins';
+  src: url('/src/fonts/Poppins-Regular.ttf') format('truetype');
+}
+/* @font-face {
+  font-family: 'Poppins';
+  src: url('/src/fonts/Poppins-Regular.ttf') format('truetype');
+
+  font-weight: normal;
+  font-style: normal;
+} */
+
+.sidebar {
+  height: 100vh;
+  background-color: var(--back-sidebar);
+  color: var(--text);
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.04em;
+  width: 225px;
+  padding-top: 18px;
+  /* border: solid 1px #bedbb0; */
+  /* border-radius: 16px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: absolute;
+  top: 0;
+  /* left: -300px; */
+  transition: left 0.3s ease;
+  z-index: 1000;
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.sidebarLogo {
+  width: 150px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 14px 60px 14px;
+}
+
+.sidebarLogoIcon {
+  display: flex;
+  justify-content: center;
+  fill: #ffffff;
+  height: 32px;
+  width: 32px;
+}
+
+.sidebarLogoName {
+  color: var(--text);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.014em;
+}
+
+.sidebarBoards {
+  color: var(--my-boards);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.24px;
+  margin: 0 14px 8px 14px;
+}
+
+.sidebarCreate {
+  padding: 14px 2px 14px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: solid 1px var(--my-boards);
+  border-bottom: solid 1px var(--my-boards);
+  margin: 0 14px 40px 14px;
+}
+
+.sidebarCreateText {
+  color: var(--text);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+  width: 76px;
+}
+
+.sidebarCreateButton {
+  width: 40px;
+  height: 36px;
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--modal-button-text);
+  flex-shrink: 0;
+  border-radius: 6px;
+  border: none;
+  background-color: var(--my-boards-btn);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebarCreateButton:hover {
+  background-color: var(--my-boards-btn-hover);
+}
+
+.tabsContainer {
+  width: 225px;
+  min-height: 61px;
+  max-height: 400px;
+}
+
+.tabsScrollContainer {
+  overflow-y: auto;
+  min-height: 61px;
+  max-height: 200px;
+}
+
+.tabsScrollContainer::-webkit-scrollbar {
+  width: 3px;
+}
+
+.tabsScrollContainer::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tabsScrollContainer::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.tabsScrollContainer::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.tabsScrollContainer::-webkit-scrollbar-button {
+  display: none;
+}
+
+.tab {
+  height: 61px;
+  cursor: pointer;
+  padding: 20px 14px 20px 14px;
+  border-radius: 0;
+  position: relative;
+}
+
+.boardTabSpan {
+  width: 4px;
+  height: 61px;
+  border-radius: 4px 0px 0px 4px;
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.tab[aria-selected='true'] {
+  background: var(--board-selected);
+  .boardTitle {
+    color: var(--text);
+  }
+
+  .boardIconMain {
+    width: 18px;
+    height: 18px;
+    stroke: var(--text);
+    fill: transparent;
+  }
+
+  .boardIcon {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    stroke: var(--my-boards);
+    fill: transparent;
+  }
+
+  .boardTabSpan {
+    width: 4px;
+    height: 61px;
+    border-radius: 4px 0px 0px 4px;
+    background-color: var(--add-foto-heder);
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  .editButton,
+  .deleteButton {
+    display: block;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+}
+
+.editButton,
+.deleteButton {
+  display: none;
+}
+
+.boardIcon {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  stroke: transparent;
+  fill: transparent;
+}
+
+.tabFlex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.boardIconMain {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  stroke: var(--my-boards);
+  fill: transparent;
+}
+
+.boardItemMain {
+  gap: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
+.boardTitle {
+  color: var(--my-boards);
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.28px;
+}
+
+.boardButtons {
+  display: flex;
+  gap: 8px;
+}
+
+.sidebarHelp {
+  width: 197px;
+  height: 238px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: var(--help-bg);
+  padding: 14px 14px 15px 15px;
+  margin: 0 14px 24px 14px;
+}
+
+.sidebarHelpImg {
+  width: 54px;
+  height: 78px;
+  margin-bottom: 14px;
+}
+
+.sidebarHelpText {
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: -0.24px;
+  margin-bottom: 18px;
+}
+
+.sidebarHelpTextSpan {
+  color: var(--help-span);
+  font-family: Poppins;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: -0.24px;
+}
+
+.sidebarHelpButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100px;
+  height: 20px;
+  color: var(--help-button);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.015em;
+  border: none;
+  border-radius: 8px;
+  background-color: none;
+  padding: 0;
+}
+
+.sidebarHelpIcon {
+  width: 20px;
+  height: 20px;
+  stroke: var(--help-button);
+  fill: transparent;
+  transition: stroke 0.5s ease;
+}
+
+.sidebarLogoutButton {
+  margin-left: 24px;
+  margin-bottom: 24px;
+  display: flex;
+  width: 105px;
+  height: 32px;
+  align-items: center;
+  gap: 14px;
+  color: var(--help-button);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.015em;
+  border: none;
+  border-radius: 8px;
+  background-color: inherit;
+  padding: 0;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.sidebarLogoutButton:hover {
+  transform: translateX(16px);
+}
+
+.sidebarLogoutSvg {
+  width: 32px;
+  height: 32px;
+  stroke: var(--logout);
+  fill: transparent;
+  transition: stroke 0.5s ease;
+}
+
+.sidebarLogoutButton:hover .sidebarLogoutSvg {
+  stroke: var(--logout-hover);
+}
+
+@media screen and (min-width: 768px) {
+  .sidebar {
+    width: 260px;
+    padding-top: 24px;
+  }
+
+  .sidebarBoards {
+    margin: 0 14px 8px 24px;
+  }
+
+  .sidebarCreate {
+    margin: 0 14px 40px 24px;
+  }
+
+  .tabsContainer {
+    /* height: 359px; */
+    width: 260px;
+    /* margin-bottom: auto; */
+  }
+
+  .tabsScrollContainer {
+    overflow-y: auto;
+    max-height: 359px;
+  }
+
+  .tab {
+    padding: 20px 14px 20px 24px;
+  }
+
+  .sidebarHelp {
+    width: 212px;
+    height: 272px;
+    padding: 20px;
+    margin: 0 24px 24px 24px;
+  }
+
+  .sidebarHelpText {
+    width: 172px;
+    height: 102px;
+    font-size: 14px;
+    line-height: 20px;
+    /* 142.857% */
+    letter-spacing: -0.28px;
+  }
+
+  .sidebarHelpTextSpan {
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.28px;
+  }
+
+  .tabFlex {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+@media (max-height: 740px) {
+  .sidebarLogo {
+    margin: 0 14px 20px 14px;
+  }
+  .tabsContainer {
+    min-height: 61px;
+    max-height: 122px;
+  }
+
+  .tabsScrollContainer {
+    overflow-y: auto;
+    min-height: 61px;
+    max-height: 122px;
+  }
+}
+
+@media (min-height: 740px) {
+  .sidebarLogo {
+    margin: 0 14px 30px 14px;
+  }
+  .tabsContainer {
+    min-height: 61px;
+    max-height: 183px;
+  }
+
+  .tabsScrollContainer {
+    overflow-y: auto;
+    min-height: 61px;
+    max-height: 183px;
+  }
+}
+@media (min-height: 820px) {
+  .sidebarLogo {
+    margin: 0 14px 40px 14px;
+  }
+  .tabsContainer {
+    min-height: 61px;
+    max-height: 290px;
+  }
+
+  .tabsScrollContainer {
+    overflow-y: auto;
+    min-height: 61px;
+    max-height: 290px;
+  }
+}
+@media (min-height: 900px) {
+  .sidebarLogo {
+    margin: 0 14px 60px 14px;
+  }
+  .tabsContainer {
+    min-height: 61px;
+    max-height: 350px;
+  }
+
+  .tabsScrollContainer {
+    overflow-y: auto;
+    min-height: 61px;
+    max-height: 350px;
+  }
+}
+@media (min-height: 950px) {
+  .sidebarLogo {
+    margin: 0 14px 50px 14px;
+  }
+  .tabsContainer {
+    min-height: 61px;
+    max-height: 390px;
+  }
+
+  .tabsScrollContainer {
+    overflow-y: auto;
+    min-height: 61px;
+    max-height: 390px;
+  }
+}
+@media (min-height: 1000px) {
+  .sidebarLogo {
+    margin: 0 14px 60px 14px;
+  }
+  .tabsContainer {
+    min-height: 61px;
+    max-height: 440px;
+  }
+
+  .tabsScrollContainer {
+    overflow-y: auto;
+    min-height: 61px;
+    max-height: 440px;
+  }
+}

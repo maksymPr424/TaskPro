@@ -1,14 +1,16 @@
 @font-face {
-  font-family: 'Poppins';
-  src: url('/src/fonts/Poppins-Regular.ttf') format('truetype');
+  font-family: "Poppins";
+  src: url("/src/fonts/Poppins-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 .sidebar {
+  position: absolute;
+  top: 0;
   font-family: semiBoltFont;
   background-color: #121212;
-  color: #FFF;
+  color: #fff;
   font-family: Poppins;
   font-size: 16px;
   font-style: normal;
@@ -17,7 +19,7 @@
   letter-spacing: -0.04em;
   width: 225px;
   padding-top: 18px;
-  border: solid 1px #BEDBB0;
+  border: solid 1px #bedbb0;
   border-radius: 16px;
 }
 
@@ -34,13 +36,13 @@
 .sidebarLogoIcon {
   display: flex;
   justify-content: center;
-  fill: #FFFFFF;
+  fill: #ffffff;
   height: 32px;
   width: 32px;
 }
 
 .sidebarLogoName {
-  color: #FFF;
+  color: #fff;
   font-family: Poppins;
   font-size: 16px;
   font-style: normal;
@@ -50,7 +52,7 @@
 }
 
 .sidebarBoards {
-  color: rgba(255, 255, 255, 0.50);
+  color: rgba(255, 255, 255, 0.5);
   font-family: Poppins;
   font-size: 12px;
   font-style: normal;
@@ -65,13 +67,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: solid 1px rgba(255, 255, 255, 0.10);
-  border-bottom: solid 1px rgba(255, 255, 255, 0.10);
+  border-top: solid 1px rgba(255, 255, 255, 0.1);
+  border-bottom: solid 1px rgba(255, 255, 255, 0.1);
   margin: 0 14px 40px 14px;
 }
 
 .sidebarCreateText {
-  color: #FFF;
+  color: #fff;
   font-family: Poppins;
   font-size: 14px;
   font-style: normal;
@@ -90,14 +92,14 @@
   flex-shrink: 0;
   border-radius: 6px;
   border: none;
-  background-color: #BEDBB0;
+  background-color: #bedbb0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .sidebarCreateButton:hover {
-  background-color: #9DC888;
+  background-color: #9dc888;
 }
 
 .tabsContainer {
@@ -154,7 +156,7 @@
   background: rgba(31, 31, 31, 0.4);
 
   .boardTitle {
-    color: #FFF;
+    color: #fff;
   }
 
   .boardIconMain {
@@ -176,7 +178,7 @@
     width: 4px;
     height: 61px;
     border-radius: 4px 0px 0px 4px;
-    background-color: #BEDBB0;
+    background-color: #bedbb0;
     position: absolute;
     top: 0;
     right: 0;
@@ -218,7 +220,6 @@
   fill: transparent;
 }
 
-
 .boardItemMain {
   gap: 4px;
   display: flex;
@@ -227,7 +228,7 @@
 }
 
 .boardTitle {
-  color: rgba(255, 255, 255, 0.50);
+  color: rgba(255, 255, 255, 0.5);
   font-family: Poppins;
   font-size: 14px;
   font-style: normal;
@@ -246,7 +247,7 @@
   height: 238px;
   flex-shrink: 0;
   border-radius: 8px;
-  background: #1F1F1F;
+  background: #1f1f1f;
   padding: 14px 14px 15px 15px;
   margin: 0 14px 24px 14px;
 }
@@ -258,7 +259,7 @@
 }
 
 .sidebarHelpText {
-  color: #FFF;
+  color: #fff;
   font-family: Poppins;
   font-size: 12px;
   font-style: normal;
@@ -269,7 +270,7 @@
 }
 
 .sidebarHelpTextSpan {
-  color: #BEDBB0;
+  color: #bedbb0;
   font-family: Poppins;
   font-size: 12px;
   font-style: normal;
@@ -284,7 +285,7 @@
   gap: 8px;
   width: 100px;
   height: 20px;
-  color: #FFF;
+  color: #fff;
   font-family: Poppins;
   font-size: 12px;
   font-style: normal;
@@ -313,7 +314,7 @@
   height: 32px;
   align-items: center;
   gap: 14px;
-  color: #FFF;
+  color: #fff;
   font-family: Poppins;
   font-size: 12px;
   font-style: normal;
@@ -340,7 +341,7 @@
 }
 
 .sidebarLogoutButton:hover .sidebarLogoutSvg {
-  stroke: #BEDBB0;
+  stroke: #bedbb0;
 }
 
 @media screen and (min-width: 768px) {
@@ -386,20 +387,18 @@
     line-height: 20px;
     /* 142.857% */
     letter-spacing: -0.28px;
-
   }
 
   .sidebarHelpTextSpan {
     font-size: 14px;
     line-height: 20px;
-letter-spacing: -0.28px;
+    letter-spacing: -0.28px;
   }
   .tabFlex {
     display: flex;
     justify-content: space-between;
   }
 }
-
 
 /* @media screen and (min-width: 1280px){
 

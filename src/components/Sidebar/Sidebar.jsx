@@ -18,7 +18,7 @@ import { clearBoards, setLastActiveBoard } from "../../redux/boards/slice.js";
 import { logoutUser } from "../../redux/auth/operations.js";
 import cactus from "../../img/flower-pot.png";
 
-export default function Sidebar() {
+export default function Sidebar({ className }) {
   const dispatch = useDispatch();
   const boards = useSelector(selectBoards);
   const [isNewBoardModalOpen, setIsNewBoardModalOpen] = useState(false);
@@ -87,7 +87,8 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className={css.sidebar}>
+    // <aside className={css.sidebar}>
+    <aside className={`${className} ${css.sidebar}`}>
       <div className={css.sidebarLogo}>
         <svg className={css.sidebarLogoIcon}>
           <use href='/sprite.svg#taskpro_logo'></use>

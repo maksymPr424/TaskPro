@@ -1,1 +1,9 @@
+.sidebar {
+  display: none;
+}
 
+@media (min-width: 1440px) {
+  .sidebar {
+    display: block;
+  }
+}

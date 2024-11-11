@@ -14,7 +14,7 @@ const WelcomePage = lazy(() => import("../pages/WelcomePage/WelcomePage"));
 import AuthPage from "../pages/AuthPage/AuthPage.jsx";
 import { clearBoards, setBoards } from "../redux/boards/slice.js";
 const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
-const ScreensPage = lazy(() => import("../pages/ScreensPage/ScreensPage"));
+// const ScreensPage = lazy(() => import("../pages/ScreensPage/ScreensPage"));
 
 function App() {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ function App() {
       if (token) {
         const response = await dispatch(refreshUser()).unwrap();
         if (response?.boardsData) {
-          dispatch(clearBoards);
+          dispatch(clearBoards());
           dispatch(setBoards(response.boardsData));
         }
       }
@@ -61,30 +61,14 @@ function App() {
               }
             />
             <Route
-              path="/home"
+              path='/home/:boardName?'
               element={
                 <RestrictedRoute>
                   <HomePage />
                 </RestrictedRoute>
               }
             />
-            <Route
-              path="/home/:boardName"
-              element={
-                <RestrictedRoute>
-                  <ScreensPage />
-                </RestrictedRoute>
-              }
-            />
-            {/* <Route
-            path="/screen"
-            element={
-              <RestrictedRoute>
-                <ScreensPage />
-              </RestrictedRoute>
-            }
-          /> */}
-            <Route path="*" element={<NotFoundPage />} />
+            <Route path='*' element={<NotFoundPage />} />
           </Routes>
         </Suspense>
       )}

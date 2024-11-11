@@ -1,14 +1,14 @@
-@font-face {
+/* @font-face {
   font-family: 'Poppins';
   src: url('/src/fonts/Poppins-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
-}
+} */
 
 .sidebar {
-  font-family: semiBoltFont;
-  background-color: #121212;
-  color: #FFF;
+  height: 100vh;
+  background-color: var(--back-sidebar);
+  color: var(--text);
   font-family: Poppins;
   font-size: 16px;
   font-style: normal;
@@ -17,18 +17,27 @@
   letter-spacing: -0.04em;
   width: 225px;
   padding-top: 18px;
-  border: solid 1px #BEDBB0;
-  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: absolute;
+  top: 0;
+  left: -300px;
+  transition: left 0.3s ease;
+  z-index: 1000;
+}
+
+.sidebar.open {
+  left: 0;
 }
 
 .sidebarLogo {
-  width: 104px;
+  width: 150px;
   height: 32px;
-  display: inline-flex;
-  justify-content: center;
+  display: flex;
   align-items: center;
   gap: 8px;
-  margin: 0 14px 70px 14px;
+  margin: 0 14px 60px 14px;
 }
 
 .sidebarLogoIcon {
@@ -40,8 +49,7 @@
 }
 
 .sidebarLogoName {
-  color: #FFF;
-  font-family: Poppins;
+  color: var(--text);
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
@@ -50,8 +58,7 @@
 }
 
 .sidebarBoards {
-  color: rgba(255, 255, 255, 0.50);
-  font-family: Poppins;
+  color: var(--my-boards);
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
@@ -65,14 +72,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: solid 1px rgba(255, 255, 255, 0.10);
-  border-bottom: solid 1px rgba(255, 255, 255, 0.10);
+  border-top: solid 1px var(--my-boards);
+  border-bottom: solid 1px var(--my-boards);
   margin: 0 14px 40px 14px;
 }
 
 .sidebarCreateText {
-  color: #FFF;
-  font-family: Poppins;
+  color: var(--text);
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -86,30 +92,32 @@
   height: 36px;
   font-size: 20px;
   font-weight: 900;
-  color: #121212;
+  color: var(--modal-button-text);
   flex-shrink: 0;
   border-radius: 6px;
   border: none;
-  background-color: #BEDBB0;
+  background-color: var(--my-boards-btn);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .sidebarCreateButton:hover {
-  background-color: #9DC888;
+  background-color: var(--my-boards-btn-hover);
 }
 
 .tabsContainer {
-  height: 183px;
   width: 225px;
-  margin-bottom: auto;
+  min-height: 61px;
+  max-height: 400px;
 }
 
 .tabsScrollContainer {
   overflow-y: auto;
-  max-height: 183px;
+  min-height: 61px;
+  max-height: 200px;
 }
+
 
 .tabsScrollContainer::-webkit-scrollbar {
   width: 3px;
@@ -151,16 +159,15 @@
 }
 
 .tab[aria-selected="true"] {
-  background: rgba(31, 31, 31, 0.4);
-
+  background: var(--board-selected);
   .boardTitle {
-    color: #FFF;
+    color: var(--text);
   }
 
   .boardIconMain {
     width: 18px;
     height: 18px;
-    stroke: #fff;
+    stroke: var(--text);
     fill: transparent;
   }
 
@@ -168,7 +175,7 @@
     width: 16px;
     height: 16px;
     display: flex;
-    stroke: rgba(255, 255, 255, 0.5);
+    stroke: var(--my-boards);
     fill: transparent;
   }
 
@@ -176,7 +183,7 @@
     width: 4px;
     height: 61px;
     border-radius: 4px 0px 0px 4px;
-    background-color: #BEDBB0;
+    background-color: var(--add-foto-heder);
     position: absolute;
     top: 0;
     right: 0;
@@ -214,7 +221,7 @@
   width: 18px;
   height: 18px;
   display: flex;
-  stroke: rgba(255, 255, 255, 0.5);
+  stroke: var(--my-boards);
   fill: transparent;
 }
 
@@ -224,10 +231,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border: none;
 }
 
 .boardTitle {
-  color: rgba(255, 255, 255, 0.50);
+  color: var(--my-boards);
   font-family: Poppins;
   font-size: 14px;
   font-style: normal;
@@ -246,7 +254,7 @@
   height: 238px;
   flex-shrink: 0;
   border-radius: 8px;
-  background: #1F1F1F;
+  background: var(--help-bg);
   padding: 14px 14px 15px 15px;
   margin: 0 14px 24px 14px;
 }
@@ -258,10 +266,8 @@
 }
 
 .sidebarHelpText {
-  color: #FFF;
-  font-family: Poppins;
+  color: var(--text);
   font-size: 12px;
-  font-style: normal;
   font-weight: 400;
   line-height: 16px;
   letter-spacing: -0.24px;
@@ -269,7 +275,7 @@
 }
 
 .sidebarHelpTextSpan {
-  color: #BEDBB0;
+  color: var(--help-span);
   font-family: Poppins;
   font-size: 12px;
   font-style: normal;
@@ -284,23 +290,21 @@
   gap: 8px;
   width: 100px;
   height: 20px;
-  color: #FFF;
-  font-family: Poppins;
+  color: var(--help-button);
   font-size: 12px;
-  font-style: normal;
   font-weight: 500;
   line-height: normal;
   letter-spacing: -0.015em;
   border: none;
   border-radius: 8px;
-  background-color: inherit;
+  background-color: none;
   padding: 0;
 }
 
 .sidebarHelpIcon {
   width: 20px;
   height: 20px;
-  stroke: #fff;
+  stroke: var(--help-button);
   fill: transparent;
   transition: stroke 0.5s ease;
 }
@@ -313,10 +317,8 @@
   height: 32px;
   align-items: center;
   gap: 14px;
-  color: #FFF;
-  font-family: Poppins;
+  color: var(--help-button);
   font-size: 12px;
-  font-style: normal;
   font-weight: 500;
   line-height: normal;
   letter-spacing: -0.015em;
@@ -334,13 +336,13 @@
 .sidebarLogoutSvg {
   width: 32px;
   height: 32px;
-  stroke: rgba(190, 219, 176, 1);
+  stroke: var(--logout);
   fill: transparent;
   transition: stroke 0.5s ease;
 }
 
 .sidebarLogoutButton:hover .sidebarLogoutSvg {
-  stroke: #BEDBB0;
+  stroke: var(--logout-hover);
 }
 
 @media screen and (min-width: 768px) {
@@ -358,15 +360,15 @@
   }
 
   .tabsContainer {
-    height: 359px;
+    /* height: 359px; */
     width: 260px;
-    margin-bottom: auto;
+    /* margin-bottom: auto; */
   }
 
   .tabsScrollContainer {
     overflow-y: auto;
     max-height: 359px;
-  }
+  } 
 
   .tab {
     padding: 20px 14px 20px 24px;
@@ -392,8 +394,9 @@
   .sidebarHelpTextSpan {
     font-size: 14px;
     line-height: 20px;
-letter-spacing: -0.28px;
+    letter-spacing: -0.28px;
   }
+
   .tabFlex {
     display: flex;
     justify-content: space-between;
@@ -401,6 +404,102 @@ letter-spacing: -0.28px;
 }
 
 
-/* @media screen and (min-width: 1280px){
+@media screen and (min-width: 1440px) {
+  .sidebar {
+    position: relative;
+    left: 0;
+    top: 0;
+  }
+}
 
-} */
+@media (max-height: 740px) {
+  .sidebarLogo {
+    margin: 0 14px 20px 14px;
+  }
+  .tabsContainer {
+    min-height: 61px;
+    max-height: 122px;
+  }
+  
+  .tabsScrollContainer {
+    overflow-y: auto;
+    min-height: 61px;
+    max-height: 122px;
+  }
+}
+
+@media (min-height: 740px) {
+  .sidebarLogo {
+    margin: 0 14px 30px 14px;
+  }
+  .tabsContainer {
+    min-height: 61px;
+    max-height: 183px;
+  }
+  
+  .tabsScrollContainer {
+    overflow-y: auto;
+    min-height: 61px;
+    max-height: 183px;
+  }
+}
+@media (min-height: 820px){
+  .sidebarLogo {
+    margin: 0 14px 40px 14px;
+  }
+  .tabsContainer {
+    min-height: 61px;
+    max-height: 290px;
+  }
+  
+  .tabsScrollContainer {
+    overflow-y: auto;
+    min-height: 61px;
+    max-height: 290px;
+  }
+}
+@media (min-height: 900px){
+  .sidebarLogo {
+    margin: 0 14px 60px 14px;
+  }
+  .tabsContainer {
+    min-height: 61px;
+    max-height: 350px;
+  }
+  
+  .tabsScrollContainer {
+    overflow-y: auto;
+    min-height: 61px;
+    max-height: 350px;
+  }
+}
+@media (min-height: 950px){
+  .sidebarLogo {
+    margin: 0 14px 50px 14px;
+  }
+  .tabsContainer {
+    min-height: 61px;
+    max-height: 390px;
+  }
+  
+  .tabsScrollContainer {
+    overflow-y: auto;
+    min-height: 61px;
+    max-height: 390px;
+  }
+}
+@media (min-height: 1000px){
+  .sidebarLogo {
+    margin: 0 14px 60px 14px;
+  }
+  .tabsContainer {
+    min-height: 61px;
+    max-height: 440px;
+  }
+  
+  .tabsScrollContainer {
+    overflow-y: auto;
+    min-height: 61px;
+    max-height: 440px;
+  }
+}

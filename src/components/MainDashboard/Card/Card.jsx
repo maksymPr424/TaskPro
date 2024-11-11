@@ -178,7 +178,8 @@ export default function Card({ columnId }) {
     position: "relative",
   };
 
-  
+  const makeFirstLetterBig = (string) =>
+    string.charAt(0).toUpperCase() + string.slice(1);
 
   return (
     <div className={css.container}>
@@ -208,7 +209,11 @@ export default function Card({ columnId }) {
                 <div className={css.leftCardInfo}>
                   <div>
                     <h4 className={css.subtitle}>Priority</h4>
-                    <label className={css[`priority${card.priority}`]}>
+                    <label
+                      className={`${css.priorityLabel} ${
+                        css[`priority${card.priority}`]
+                      }`}
+                    >
                       <input
                         type="radio"
                         name="priority"
@@ -217,9 +222,12 @@ export default function Card({ columnId }) {
                         readOnly
                         disabled
                       />
+                      <p className={css.priorityLabelText}>
+                        {makeFirstLetterBig(card.priority)}
+                      </p>
                     </label>
                   </div>
-  
+
                   <div>
                     <h4 className={css.subtitle}>Deadline</h4>
                     <p className={css.deadlineText}>
@@ -250,7 +258,7 @@ export default function Card({ columnId }) {
                     onClick={() => handleDeleteCard(card._id)}
                   >
                     <svg className={css.delete} width="16" height="16">
-                      <use href="/sprite.svg#icon-trash" />
+                      <use href="/sprite.svg#trash" />
                     </svg>
                   </button>
                 </div>

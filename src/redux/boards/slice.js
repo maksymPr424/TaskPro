@@ -12,9 +12,9 @@ import {
 } from "./operations";
 // import { LOCAL_STORAGE_COLUMNS_KEY } from "../main_dashboard/column/columnSlice";
 
-const handlePending = (state) => {
-  state.loading = true;
-};
+// const handlePending = (state) => {
+//   state.loading = true;
+// };
 
 const handleRejected = (state, action) => {
   state.loading = false;
@@ -33,7 +33,11 @@ const handleRejected = (state, action) => {
 const boardsSlice = createSlice({
   name: "boards",
   initialState: {
-    lastActiveBoard: null,
+    lastActiveBoard: {
+      _id: null,
+      title: null,
+      columns: [],
+    },
     boards: [],
     loading: false,
     error: null,
@@ -42,6 +46,10 @@ const boardsSlice = createSlice({
     setBoards: (state, action) => {
       state.lastActiveBoard = action.payload.lastActiveBoard;
       state.boards = action.payload.boards;
+    },
+    setLastActiveBoard: (state, action) => {
+      const { boardId, title } = action.payload;
+      state.lastActiveBoard = { _id: boardId, title };
     },
     addBoard: (state, action) => {
       state.boards.push(action.payload);
@@ -100,7 +108,7 @@ const boardsSlice = createSlice({
         ...state.lastActiveBoard.columns[oldColumnIndex].tasks[taskIndex],
         columnId,
       });
-console.log(123);
+      console.log(123);
 
       state.lastActiveBoard.columns[oldColumnIndex].tasks.splice(taskIndex, 1);
     },
@@ -186,6 +194,7 @@ export const {
   updateTask,
   updateTaskColumn,
   deleteTask,
+  setLastActiveBoard,
   clearBoards,
 } = boardsSlice.actions;
 export const boardsReducer = boardsSlice.reducer;

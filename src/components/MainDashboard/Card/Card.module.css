@@ -75,13 +75,15 @@ span {
 .edit,
 .delete,
 .move {
-  stroke: var(--without-priority);
+  stroke: var(--my-dashboard-svg);
+  fill: transparent;
 }
 
 .edit:hover,
 .delete:hover,
 .move:hover {
   stroke: var(--base-green-violet);
+  fill: transparent;
 }
 
 .list {
@@ -141,7 +143,7 @@ span {
   left: 0;
   width: 100%;
   height: 1px;
-  background-color: var(--without-priority);
+  background-color: var(--my-boards);
 }
 
 .label {
@@ -300,7 +302,7 @@ span {
 
 .deadlineText {
   font-size: 10px;
-  color: var(--border-input);
+  color: var(--text);
   margin-top: 4px;
 }
 
@@ -314,7 +316,7 @@ span {
 }
 
 .priorityNoneItem {
-  border-left: 4px solid var(--without-priority);
+  border-left: 4px solid var(--my-boards);
 }
 
 .priorityLowItem {
@@ -352,7 +354,7 @@ span {
 }
 
 .prioritynone input[type="radio"] {
-  background-color: var(--without-priority);
+  background-color: var(--my-boards);
 }
 
 .prioritylow input[type="radio"] {
@@ -372,6 +374,19 @@ span {
 .prioritymedium input[type="radio"]:checked,
 .priorityhigh input[type="radio"]:checked {
   border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.priorityLabel {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+}
+
+.priorityLabelText {
+  font-size: 11px;
+  margin: 0;
+  padding: 0;
 }
 
 @media screen and (min-width: 768px) {

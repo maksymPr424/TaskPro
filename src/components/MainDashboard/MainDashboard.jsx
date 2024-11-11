@@ -112,7 +112,7 @@ export default function MainDashboard() {
                     onClick={() => handleDeleteColumn(column._id)}
                   >
                     <svg className={css.delete} width="16" height="16">
-                      <use href="/sprite.svg#icon-trash" />
+                      <use href="/sprite.svg#trash" />
                     </svg>
                   </button>
                 </div>

@@ -35,7 +35,6 @@ export const editBoard = createAsyncThunk(
     const { _id, ...restOfBoard } = updatedBoard;
     try {
       const response = await taskpro_api.patch(`/board/${_id}`, restOfBoard);
-
       return response.data;
     } catch (error) {
       console.error("Error editing board:", error);

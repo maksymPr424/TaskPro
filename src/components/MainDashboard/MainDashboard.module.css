@@ -169,7 +169,12 @@ span {
 
 .edit,
 .delete {
-  stroke: var(--without-priority);
+  stroke: var(--my-dashboard-svg);
+  fill: transparent;
+}
+.edit:hover,
+.delete:hover {
+  stroke: var(--base-green-violet);
 }
 
 .tasks {

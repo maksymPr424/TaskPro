@@ -28,7 +28,7 @@ export default function HomePage() {
 
   return (
     <>
-      <Header />
+      <Header fetchActiveBoard={fetchActiveBoard} />
       <Sidebar className={styles.sidebar} fetchActiveBoard={fetchActiveBoard} />
       <div className={styles.dashboardContainer}>
         {boardName ? isLoading ? <Loader /> : <ScreensPage /> : <BeforeStart />}

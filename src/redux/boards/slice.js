@@ -165,7 +165,6 @@ const boardsSlice = createSlice({
         );
         state.lastActiveBoard.columns.splice(index, 1);
       })
-      .addCase(addCard.pending)
       .addCase(addCard.fulfilled, (state, action) => {
         const columnIndex = state.lastActiveBoard.columns.findIndex(
           (column) => column._id === action.payload.columnId

@@ -23,7 +23,7 @@ import {
   selectUserTheme,
 } from "../../redux/header/selectors.js";
 
-const Header = () => {
+const Header = ({ fetchActiveBoard }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
@@ -75,6 +75,7 @@ const Header = () => {
   const handleCloseSidebar = () => {
     setIsSidebarOpen(false);
   };
+
 
   return (
     <div className={styles.header}>
@@ -146,7 +147,7 @@ const Header = () => {
               outline: "none",
             }}
           >
-            <Sidebar />
+            <Sidebar fetchActiveBoard={fetchActiveBoard} />
           </Box>
         </Modal>
       )}

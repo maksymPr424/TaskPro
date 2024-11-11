@@ -2,12 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   addCard,
   addColumn,
+  createBoard,
   deleteCard,
   deleteColumn,
   editCard,
   editCardColumn,
   editColumn,
   fetchBoards,
+  fetchLastActiveBoard,
   removeBoard,
 } from "./operations";
 // import { LOCAL_STORAGE_COLUMNS_KEY } from "../main_dashboard/column/columnSlice";
@@ -36,7 +38,6 @@ const boardsSlice = createSlice({
     lastActiveBoard: {
       _id: null,
       title: null,
-      columns: [],
     },
     boards: [],
     loading: false,
@@ -44,7 +45,8 @@ const boardsSlice = createSlice({
   },
   reducers: {
     setBoards: (state, action) => {
-      state.lastActiveBoard = action.payload.lastActiveBoard;
+      state.lastActiveBoard =
+        action.payload.lastActiveBoard || action.payload.boards[0];
       state.boards = action.payload.boards;
     },
     setLastActiveBoard: (state, action) => {
@@ -132,6 +134,12 @@ const boardsSlice = createSlice({
       .addCase(fetchBoards.fulfilled, (state, action) => {
         state.lastActiveBoard = action.payload.lastActiveBoard;
         state.boards = action.payload.boards;
+      })
+      .addCase(createBoard.fulfilled, (state, action) => {
+        state.lastActiveBoard = action.payload;
+      })
+      .addCase(fetchLastActiveBoard.fulfilled, (state, action) => {
+        state.lastActiveBoard = action.payload;
       })
       .addCase(removeBoard.fulfilled, (state, action) => {
         state.boards = state.boards.filter(

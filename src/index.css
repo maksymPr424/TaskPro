@@ -50,6 +50,8 @@
 
 [data-theme="light"] {
   color-scheme: light;
+  --logo-color: #fff;
+  --logo-background: #1f1f1f;
   --text: #161616;
   --background: #ffffff;
   --background-heder: #fcfcfc;
@@ -93,12 +95,16 @@
   --text-button-modal: #161616;
   --icon-modal: #fff;
   --no-active: #161616b3;
+  --my-dashboard-svg: rgba(22, 22, 22, 0.5);
 }
 
 [data-theme="dark"] {
   color-scheme: dark;
+  --logo-background: #1f1f1f;
+  --logo-color: #fff;
+
   --text: #ffffff;
-  --background: #161616;
+  --background: #1f1f1f;
   --background-heder: #161616;
   --text-heder: #ffffff;
   --add-foto-heder: #bedbb0;
@@ -140,11 +146,14 @@
   --text-button-modal: #161616;
   --icon-modal: #fff;
   --no-active: #ffffff80;
+  --my-dashboard-svg: rgb(255, 255, 255, 0.5);
 }
 
 [data-theme="violet"] {
   color-scheme: violet;
-  --text: #161616;
+  --logo-background: #ecedfd;
+  --logo-color: #5255bc;
+  --text: #ffffff;
   --background: #ecedfd;
   --base-green-violet: #7b7ede;
   --active-green-violet: #5255bc;
@@ -189,26 +198,52 @@
   --text-button-modal: #fff;
   --icon-modal: #161616;
   --no-active: #161616b3;
+  --my-dashboard-svg: rgba(22, 22, 22, 0.5);
+}
+
+html,
+body {
+  background-color: var(--background);
+  scrollbar-width: 1px;
+  scrollbar-color: var(--text) transparent;
+  scrollbar-arrow-color: transparent;
 }
 
 .scrollContainer::-webkit-scrollbar {
-  width: 3px;
+  width: 1px !important;
+  height: 1px !important;
 }
 
 .scrollContainer::-webkit-scrollbar-track {
-  background: transparent;
+  background: transparent !important;
 }
 
 .scrollContainer::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 10px;
+  background: var(--no-active) !important;
+  border-radius: 10px !important;
 }
 
 .scrollContainer::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: transparent !important;
 }
 
 .scrollContainer::-webkit-scrollbar-button {
+  display: none !important;
+}
+
+::-webkit-scrollbar-button:vertical:start:decrement {
+  display: none;
+}
+
+::-webkit-scrollbar-button:vertical:end:increment {
+  display: none;
+}
+
+::-webkit-scrollbar-button:horizontal:start:decrement {
+  display: none;
+}
+
+::-webkit-scrollbar-button:horizontal:end:increment {
   display: none;
 }
 

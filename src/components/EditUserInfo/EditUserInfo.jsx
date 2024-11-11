@@ -16,24 +16,29 @@ import {
 import toast, { Toaster } from "react-hot-toast";
 import { defaultImages } from "../../constants/global.js";
 import { Blocks } from "react-loader-spinner";
+import { selectTheme } from "../../redux/auth/selectors.js";
 
 Modal.setAppElement("#root");
 
 const EditProfileModal = ({ isOpen, onRequestClose }) => {
   const validationSchema = Yup.object({
     name: Yup.string()
-      .required("Name is required")
       .min(3, "Name must be more than 3 chars!")
       .max(50, "Name must be less than 50 chars"),
-    email: Yup.string().email("Invalid email").required("Email is required"),
+    email: Yup.string().email("Invalid email"),
     password: Yup.string()
       .min(6, "Password must be at least 6 characters")
       .max(50, "Password must be less than 50 chars")
       .notRequired(),
-  });
+  }).test(
+    "at-least-one-field",
+    "At least one field must be filled out",
+    (values) => !!(values.name || values.email || values.password)
+  );
 
   const dispatch = useDispatch();
-  const status = useSelector(selectUserStatus);
+  const status =
+    useSelector(selectUserStatus) || useSelector((state) => state.user.status);
   const userProfile = useSelector((state) => state.userProfile.data);
   const [uploadedPhoto, setUploadedPhoto] = useState(userProfile?.photoUrl);
   const [showPassword, setShowPassword] = useState(false);
@@ -42,7 +47,7 @@ const EditProfileModal = ({ isOpen, onRequestClose }) => {
     email: userProfile?.email,
     password: "",
   };
-  const theme = useSelector(selectUserTheme);
+  const theme = useSelector(selectUserTheme) || useSelector(selectTheme);
 
   function getDefaultImage() {
     return defaultImages[theme] || defaultImages.light;

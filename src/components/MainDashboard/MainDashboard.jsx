@@ -88,7 +88,7 @@ export default function MainDashboard() {
 
   return (
     <div className={css.container}>
-      <ul className={css.columnsContainer}>
+      <ul className={`${css.columnsContainer} scrollContainer`}>
         {isLoading ? (
           <div className={css.loading}>
             <Loader />

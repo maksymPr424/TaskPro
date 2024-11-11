@@ -191,6 +191,27 @@
   --no-active: #161616b3;
 }
 
+.scrollContainer::-webkit-scrollbar {
+  width: 3px;
+}
+
+.scrollContainer::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollContainer::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.scrollContainer::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.scrollContainer::-webkit-scrollbar-button {
+  display: none;
+}
+
 /* @media (prefers-color-scheme: light) {
   :root {
     font-family: Poppins sans-serif;

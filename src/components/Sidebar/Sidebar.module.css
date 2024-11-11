@@ -1,6 +1,6 @@
 @font-face {
-  font-family: 'Poppins';
-  src: url('/src/fonts/Poppins-Regular.ttf') format('truetype');
+  font-family: "Poppins";
+  src: url("/src/fonts/Poppins-Regular.ttf") format("truetype");
 }
 /* @font-face {
   font-family: 'Poppins';
@@ -11,6 +11,7 @@
 } */
 
 .sidebar {
+  overflow-y: auto;
   height: 100vh;
   background-color: var(--back-sidebar);
   color: var(--text);
@@ -164,7 +165,7 @@
   right: 0;
 }
 
-.tab[aria-selected='true'] {
+.tab[aria-selected="true"] {
   background: var(--board-selected);
   .boardTitle {
     color: var(--text);

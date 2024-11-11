@@ -1,6 +1,12 @@
+
+@font-face {
+  font-family: "Poppins";
+  src: url("/src/fonts/Poppins-Regular.ttf") format("truetype");
+}
 /* @font-face {
   font-family: 'Poppins';
   src: url('/src/fonts/Poppins-Regular.ttf') format('truetype');
+
   font-weight: normal;
   font-style: normal;
 } */
@@ -17,6 +23,8 @@
   letter-spacing: -0.04em;
   width: 225px;
   padding-top: 18px;
+  border: solid 1px #bedbb0;
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -43,7 +51,7 @@
 .sidebarLogoIcon {
   display: flex;
   justify-content: center;
-  fill: #FFFFFF;
+  fill: #ffffff;
   height: 32px;
   width: 32px;
 }
@@ -225,7 +233,6 @@
   fill: transparent;
 }
 
-
 .boardItemMain {
   gap: 4px;
   display: flex;
@@ -388,7 +395,6 @@
     line-height: 20px;
     /* 142.857% */
     letter-spacing: -0.28px;
-
   }
 
   .sidebarHelpTextSpan {
@@ -403,14 +409,6 @@
   }
 }
 
-
-@media screen and (min-width: 1440px) {
-  .sidebar {
-    position: relative;
-    left: 0;
-    top: 0;
-  }
-}
 
 @media (max-height: 740px) {
   .sidebarLogo {

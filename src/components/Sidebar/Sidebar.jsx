@@ -18,7 +18,7 @@ import { clearBoards, setLastActiveBoard } from "../../redux/boards/slice.js";
 import { logoutUser } from "../../redux/auth/operations.js";
 import cactus from "../../img/flower-pot.png";
 
-export default function Sidebar() {
+export default function Sidebar({ className }) {
   const dispatch = useDispatch();
   const boards = useSelector(selectBoards);
   const [isNewBoardModalOpen, setIsNewBoardModalOpen] = useState(false);
@@ -26,7 +26,7 @@ export default function Sidebar() {
   const [isEditBoardModalOpen, setIsEditBoardModalOpen] = useState(false);
   const [isNeedHelpModalOpen, setIsNeedHelpModalOpen] = useState(false);
   const navigate = useNavigate();
- 
+  
   const handleOpenNewBoardModal = () => setIsNewBoardModalOpen(true);
   const handleCloseNewBoardModal = () => setIsNewBoardModalOpen(false);
   const handleOpenNeedHelpModal = () => setIsNeedHelpModalOpen(true);
@@ -86,7 +86,8 @@ export default function Sidebar() {
     dispatch(setLastActiveBoard({ boardId, title: boardTitle }));
   };
   return (
-    <aside className={css.sidebar}>
+
+    <aside className={`${className} ${css.sidebar}`}>
       <div>
         <div className={css.sidebarLogo}>
           <svg className={css.sidebarLogoIcon}>
@@ -136,7 +137,6 @@ export default function Sidebar() {
             </TabList>
             {boards.map((board) => (
               <TabPanel key={board._id} className={css.tabPanel}>
-                {/* Панель для каждой доски */}
               </TabPanel>
             ))}
           </div>

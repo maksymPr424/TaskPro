@@ -22,7 +22,7 @@ export const CustomMenuItem = styled(MenuItem)(({ theme, isselected }) => ({
   lineHeight: "normal",
   letterSpacing: "-0.28px",
   backgroundColor: "transparent",
-  fontFamily: "mediumFont",
+  fontFamily: "Poppins",
   "&:hover": {
     backgroundColor: "transparent",
   },

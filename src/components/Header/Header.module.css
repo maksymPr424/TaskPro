@@ -4,7 +4,7 @@
   align-items: center;
   padding: 0 20px;
   min-width: 320px;
-  max-width: 375px;
+  /* max-width: 375px; */
   width: 100%;
   height: 60px;
   background: var(--background-heder);
@@ -26,7 +26,7 @@
 
 .theme {
   color: var(--text-heder);
-  font-family: semiBoltFont;
+  font-family: "Poppins", sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -70,7 +70,6 @@
 
 .userName {
   color: var(--text-heder);
-  font-family: semiBoltFont;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -85,9 +84,13 @@
   position: absolute;
 }
 
+.sidebarModal {
+  overflow-y: auto;
+}
+
 @media screen and (min-width: 768px) {
   .header {
-    max-width: 768px;
+    /* max-width: 768px; */
     height: 68px;
     padding: 0 32px;
   }
@@ -96,17 +99,13 @@
     width: 32px;
     height: 32px;
   }
-
-  .theme {
-    margin-left: 511px;
-  }
 }
 
 /* ===================== */
 
 @media screen and (min-width: 1180px) {
   .header {
-    width: 1180px;
+    /* width: 1180px;  */
     padding: 0%;
     justify-content: flex-end;
     margin-right: 24px;

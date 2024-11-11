@@ -18,7 +18,7 @@ export const ChangeColumnModal = ({
     position: 'absolute',
     top: position.top,
     left: position.left,
-    padding: '20px',
+    padding: '18px',
     backgroundColor: 'var(--background)',
     borderRadius: '8px',
     zIndex: 1300,

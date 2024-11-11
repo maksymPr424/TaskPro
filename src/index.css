@@ -1,27 +1,27 @@
 @font-face {
-  font-family: 'Poppins';
-  src: url('../fonts/Poppins-Light.ttf') format('truetype');
+  font-family: "Poppins";
+  src: url("../fonts/Poppins-Light.ttf") format("truetype");
   font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Poppins';
-  src: url('./fonts/Poppins-Regular.ttf') format('truetype');
+  font-family: "Poppins";
+  src: url("./fonts/Poppins-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Poppins';
-  src: url('./fonts/Poppins-Medium.ttf') format('truetype');
+  font-family: "Poppins";
+  src: url("./fonts/Poppins-Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Poppins';
-  src: url('./fonts/Poppins-SemiBold.ttf') format('truetype');
+  font-family: "Poppins";
+  src: url("./fonts/Poppins-SemiBold.ttf") format("truetype");
   font-weight: 600;
   font-style: normal;
 }
@@ -48,12 +48,12 @@
   --my-dashboard-svg: rgba(22, 22, 22, 0.5);
 }
 
-[data-theme='light'] {
+[data-theme="light"] {
   color-scheme: light;
   --logo-color: #fff;
   --logo-background: #1f1f1f;
   --text: #161616;
-  --background: #ffffff;
+  --background: #e5e5e5;
   --background-heder: #fcfcfc;
   --text-heder: #161616;
   --add-foto-heder: #bedbb0;
@@ -101,7 +101,7 @@
   --my-dashboard-svg: rgba(22, 22, 22, 0.5);
 }
 
-[data-theme='dark'] {
+[data-theme="dark"] {
   color-scheme: dark;
   --logo-background: #1f1f1f;
   --logo-color: #fff;
@@ -153,10 +153,9 @@
   --move-button-active: #bedbb0;
   --move-button-hover: #a0b794;
   --my-dashboard-svg: rgb(255, 255, 255, 0.5);
-
 }
 
-[data-theme='violet'] {
+[data-theme="violet"] {
   color-scheme: violet;
   --logo-background: #ecedfd;
   --logo-color: #5255bc;

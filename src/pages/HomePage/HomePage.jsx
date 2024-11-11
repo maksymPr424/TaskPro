@@ -13,6 +13,7 @@ export default function HomePage() {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const { boardName } = useParams();
+
   const fetchActiveBoard = async (boardId) => {
     setIsLoading(true);
 
@@ -21,7 +22,7 @@ export default function HomePage() {
       .catch((err) => {
         console.log(err);
       });
-      
+
     setIsLoading(false);
   };
 

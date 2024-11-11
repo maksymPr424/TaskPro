@@ -139,7 +139,7 @@ const boardsSlice = createSlice({
         state.lastActiveBoard = action.payload;
       })
       .addCase(fetchLastActiveBoard.fulfilled, (state, action) => {
-        state.lastActiveBoard = action.payload;
+        state.lastActiveBoard = {columns: action.payload.columns, ...action.payload._doc};
       })
       .addCase(removeBoard.fulfilled, (state, action) => {
         state.boards = state.boards.filter(

@@ -200,6 +200,8 @@ span {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  overflow-y: auto;
+  max-height: 75px;
 }
 
 .changeColumnBtn {
@@ -264,7 +266,6 @@ span {
 }
 
 @media screen and (min-width: 768px) {
-
   .button {
     width: 334px;
   }
@@ -295,5 +296,5 @@ span {
 
 .modalMoveHeading {
   max-width: 210px;
-  color: var(--text);
+  color: var(--heder--text);
 }

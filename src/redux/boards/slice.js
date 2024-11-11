@@ -26,22 +26,24 @@ const boardsSlice = createSlice({
     },
     updateBoard: (state, action) => {
       const index = state.boards.findIndex(
-        board => board._id === action.payload._id
+        (board) => board._id === action.payload._id
       );
       if (index !== -1) {
         state.boards[index] = { ...state.boards[index], ...action.payload };
       }
     },
     deleteBoard: (state, action) => {
-      state.boards = state.boards.filter(board => board._id !== action.payload);
+      state.boards = state.boards.filter(
+        (board) => board._id !== action.payload
+      );
     },
-    clearBoards: state => {
+    clearBoards: (state) => {
       state.boards = [];
       state.lastActiveBoard = null;
     },
   },
 
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
       .addCase(fetchBoards.fulfilled, (state, action) => {
         state.lastActiveBoard = action.payload.lastActiveBoard;
@@ -49,7 +51,7 @@ const boardsSlice = createSlice({
       })
       .addCase(removeBoard.fulfilled, (state, action) => {
         state.boards = state.boards.filter(
-          board => board._id !== action.payload
+          (board) => board._id !== action.payload
         );
       })
       .addCase(removeBoard.rejected, (state, action) => {

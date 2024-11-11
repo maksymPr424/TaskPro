@@ -1,0 +1,31 @@
+<svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<symbol id="icon-Logo" viewBox="0 0 24 32">
+<path fill="var(--background)" style="fill: var(--background, #fff)" d="M6.663 30.054c0.489-2.543 0.905-5.22 1.494-7.897 0.29-1.401-0.063-1.999-1.63-1.892s-3.313 0.053-4.979 0c-1.666-0.054-1.965-0.892-1.005-2.088 4.726-5.836 9.506-11.6 14.268-17.347 0.534-0.651 1.15-1.115 2.028-0.625s0.697 1.098 0.552 1.829c-0.525 2.677-0.96 5.354-1.539 7.978-0.299 1.356 0.091 1.838 1.503 1.785 1.417-0.071 2.837-0.071 4.255 0 0.806 0 1.865-0.419 2.281 0.678s-0.462 1.562-0.905 2.213c-1.811 2.231-3.645 4.459-5.504 6.684-2.722 3.248-5.423 6.484-8.102 9.709-0.525 0.633-1.114 1.142-2.010 0.821s-0.706-1.080-0.706-1.847z"></path>
+</symbol>
+<symbol id="pop" viewBox="0 0 24 24" fill= "var(--text)">
+  <path d="M3 12H21" stroke="var(--text-heder)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M3 6H21" stroke="var(--text-heder)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M3 18H21" stroke="var(--text-heder)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</symbol>
+<symbol id="str" width="16" height="17" viewBox="0 0 16 17" fill="none">
+  <path d="M4 6.5L8 10.5L12 6.5" stroke="var(--text-heder)" stroke-opacity="0.8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</symbol>
+<symbol id="x" width="18" height="18" viewBox="0 0 18 18" fill="none">
+  <path d="M13.5 4.5L4.5 13.5" stroke="var(--text-heder)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M4.5 4.5L13.5 13.5" stroke="var(--text-heder)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</symbol>
+<symbol id="add" width="24" height="24" viewBox="0 0 24 24" fill="none">
+  <path d="M18 0H6C2.68629 0 0 2.68629 0 6V18C0 21.3137 2.68629 24 6 24H18C21.3137 24 24 21.3137 24 18V6C24 2.68629 21.3137 0 18 0Z" fill="var(--base-green-violet)"/>
+</symbol>
+<symbol id="add+" width="10" height="10" viewBox="0 0 10 10" fill="none">
+  <path d="M5 2.0835V7.91683" stroke="#161616" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M2.0835 5H7.91683" stroke="#161616" stroke-linecap="round" stroke-linejoin="round"/>
+</symbol>
+<symbol id="eye" width="18" height="18" viewBox="0 0 18 18" fill="none">
+<path d="M0.75 9C0.75 9 3.75 3 9 3C14.25 3 17.25 9 17.25 9C17.25 9 14.25 15 9 15C3.75 15 0.75 9 0.75 9Z" stroke="var(--text)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M9 11.25C10.2426 11.25 11.25 10.2426 11.25 9C11.25 7.75736 10.2426 6.75 9 6.75C7.75736 6.75 6.75 7.75736 6.75 9C6.75 10.2426 7.75736 11.25 9 11.25Z" stroke="var(--text)" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+</symbol>
+
+</defs>
+</svg>

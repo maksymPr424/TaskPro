@@ -18,7 +18,7 @@ import { clearBoards, setLastActiveBoard } from "../../redux/boards/slice.js";
 import { logoutUser } from "../../redux/auth/operations.js";
 import cactus from "../../img/flower-pot.png";
 
-export default function Sidebar() {
+export default function Sidebar({ isOpen }) {
   const dispatch = useDispatch();
   const boards = useSelector(selectBoards);
   const [isNewBoardModalOpen, setIsNewBoardModalOpen] = useState(false);
@@ -32,7 +32,7 @@ export default function Sidebar() {
   const handleOpenNeedHelpModal = () => setIsNeedHelpModalOpen(true);
   const handleCloseNeedHelpModal = () => setIsNeedHelpModalOpen(false);
 
-  const handleOpenEditBoardModal = board => {
+  const handleOpenEditBoardModal = (board) => {
     if (board) {
       setSelectedBoard(board);
       setIsEditBoardModalOpen(true);
@@ -43,13 +43,13 @@ export default function Sidebar() {
     setSelectedBoard(null);
   };
 
-  const handleCreateBoard = async newBoard => {
+  const handleCreateBoard = async (newBoard) => {
     await dispatch(createBoard(newBoard));
     await dispatch(fetchBoards());
     setIsNewBoardModalOpen(false);
   };
 
-  const handleSaveBoardChanges = async updatedBoard => {
+  const handleSaveBoardChanges = async (updatedBoard) => {
     if (!updatedBoard._id) {
       console.error("Cannot save changes: ID is undefined");
       return;
@@ -59,7 +59,7 @@ export default function Sidebar() {
     setIsEditBoardModalOpen(false);
   };
 
-  const handleDeleteBoard = async boardId => {
+  const handleDeleteBoard = async (boardId) => {
     if (!boardId) {
       console.error("Cannot delete board: ID is undefined");
       return;
@@ -78,7 +78,7 @@ export default function Sidebar() {
       console.error("Error during logout:", error);
     }
   };
-  const handleSendHelpRequest = helpData => {
+  const handleSendHelpRequest = (helpData) => {
     console.log("Help request sent:", helpData);
     setIsNeedHelpModalOpen(false);
   };
@@ -87,10 +87,10 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className={css.sidebar}>
+    <aside className={`${css.sidebar} ${isOpen ? css.open : ""}`}>
       <div className={css.sidebarLogo}>
         <svg className={css.sidebarLogoIcon}>
-          <use href='/sprite.svg#taskpro_logo'></use>
+          <use href="/sprite.svg#taskpro_logo"></use>
         </svg>
         <h1 className={css.sidebarLogoName}>Task Pro</h1>
       </div>
@@ -99,25 +99,27 @@ export default function Sidebar() {
         <p className={css.sidebarCreateText}>Create a new board</p>
         <button
           className={css.sidebarCreateButton}
-          onClick={handleOpenNewBoardModal}>
+          onClick={handleOpenNewBoardModal}
+        >
           +
         </button>
       </div>
       <Tabs className={css.tabsContainer}>
         <div className={css.tabsScrollContainer}>
           <TabList className={css.tabList}>
-            {boards.map(board => (
+            {boards.map((board) => (
               <Tab
                 key={board._id}
                 className={css.tab}
-                onClick={() => handleNavigateToBoard(board._id, board.title)}>
+                onClick={() => handleNavigateToBoard(board._id, board.title)}
+              >
                 <div className={css.tabFlex}>
                   <div className={css.boardTabSpan}></div>
                   <div className={css.boardItemMain}>
                     <span>
                       {board.icon && (
                         <svg className={css.boardIconMain}>
-                          <use href='/sprite.svg#trash'></use>
+                          <use href="/sprite.svg#trash"></use>
                         </svg>
                       )}
                     </span>
@@ -125,23 +127,25 @@ export default function Sidebar() {
                   </div>
                   <div className={css.boardButtons}>
                     <button
-                      onClick={e => {
+                      onClick={(e) => {
                         e.stopPropagation();
                         handleOpenEditBoardModal(board);
                       }}
-                      className={css.editButton}>
+                      className={css.editButton}
+                    >
                       <svg className={css.boardIcon}>
-                        <use href='/sprite.svg#pencil'></use>
+                        <use href="/sprite.svg#pencil"></use>
                       </svg>
                     </button>
                     <button
-                      onClick={e => {
+                      onClick={(e) => {
                         e.stopPropagation();
                         handleDeleteBoard(board._id);
                       }}
-                      className={css.deleteButton}>
+                      className={css.deleteButton}
+                    >
                       <svg className={css.boardIcon}>
-                        <use href='/sprite.svg#trash'></use>
+                        <use href="/sprite.svg#trash"></use>
                       </svg>
                     </button>
                   </div>
@@ -149,7 +153,7 @@ export default function Sidebar() {
               </Tab>
             ))}
           </TabList>
-          {boards.map(board => (
+          {boards.map((board) => (
             <TabPanel key={board._id} className={css.tabPanel}>
               {/* Панель для каждой доски */}
             </TabPanel>
@@ -158,7 +162,7 @@ export default function Sidebar() {
       </Tabs>
 
       <div className={css.sidebarHelp}>
-        <img className={css.sidebarHelpImg} src={cactus} alt='Help' />
+        <img className={css.sidebarHelpImg} src={cactus} alt="Help" />
         <p className={css.sidebarHelpText}>
           If you need help with{" "}
           <span className={css.sidebarHelpTextSpan}>TaskPro</span>, check out
@@ -166,16 +170,17 @@ export default function Sidebar() {
         </p>
         <button
           className={css.sidebarHelpButton}
-          onClick={handleOpenNeedHelpModal}>
+          onClick={handleOpenNeedHelpModal}
+        >
           <svg className={css.sidebarHelpIcon}>
-            <use href='/sprite.svg#help'></use>
+            <use href="/sprite.svg#help"></use>
           </svg>{" "}
           Need help?
         </button>
       </div>
       <button className={css.sidebarLogoutButton} onClick={handleLogout}>
         <svg className={css.sidebarLogoutSvg}>
-          <use href='/sprite.svg#logout'></use>
+          <use href="/sprite.svg#logout"></use>
         </svg>
         Log out
       </button>

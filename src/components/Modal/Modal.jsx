@@ -27,7 +27,8 @@ export default function ModalWindow({ isOpen, onClose, children }) {
       isOpen={isOpen}
       onRequestClose={onClose}
       style={customStyles}
-      contentLabel='ModalWindow'>
+      contentLabel="ModalWindow"
+    >
       <span onClick={onClose} className={styles.closeButton}>
         <svg className={styles.icon}>
           <use href={`${sprite}#close_icon`} />

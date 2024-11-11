@@ -27,13 +27,18 @@ const Header = ({ fetchActiveBoard }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
-  const theme = useSelector(selectUserTheme) || useSelector(selectTheme);
-  const status =
-    useSelector(selectUserStatus) || useSelector((state) => state.user.status);
-  const name = useSelector(selectUserName) || useSelector(selectName);
 
-  const photoUrl =
-    useSelector(selectUserPhotoUrl) || useSelector(selectPhotoUrl);
+  const authTheme = useSelector(selectTheme);
+  const theme = useSelector(selectUserTheme) || authTheme;
+
+  const authStatus = useSelector((state) => state.user.status);
+  const status = useSelector(selectUserStatus) || authStatus;
+
+  const authName = useSelector(selectName);
+  const name = useSelector(selectUserName) || authName;
+
+  const authPhoto = useSelector(selectPhotoUrl);
+  const photoUrl = useSelector(selectUserPhotoUrl) || authPhoto;
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
@@ -75,7 +80,6 @@ const Header = ({ fetchActiveBoard }) => {
   const handleCloseSidebar = () => {
     setIsSidebarOpen(false);
   };
-
 
   return (
     <div className={styles.header}>

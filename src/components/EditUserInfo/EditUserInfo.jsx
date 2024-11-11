@@ -10,13 +10,19 @@ import {
 } from "../../redux/header/operationsHeader.js";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  selectUserData,
   selectUserStatus,
   selectUserTheme,
 } from "../../redux/header/selectors";
 import toast, { Toaster } from "react-hot-toast";
 import { defaultImages } from "../../constants/global.js";
 import { Blocks } from "react-loader-spinner";
-import { selectTheme } from "../../redux/auth/selectors.js";
+import {
+  selectEmail,
+  selectName,
+  selectPhotoUrl,
+  selectTheme,
+} from "../../redux/auth/selectors.js";
 
 Modal.setAppElement("#root");
 
@@ -37,9 +43,24 @@ const EditProfileModal = ({ isOpen, onRequestClose }) => {
   );
 
   const dispatch = useDispatch();
-  const status =
-    useSelector(selectUserStatus) || useSelector((state) => state.user.status);
-  const userProfile = useSelector((state) => state.userProfile.data);
+
+  const authStatus = useSelector((state) => state.user.status);
+  const status = useSelector(selectUserStatus) || authStatus;
+
+  const name = useSelector(selectName);
+  const email = useSelector(selectEmail);
+  const photoUrl = useSelector(selectPhotoUrl);
+  const authData = { name, email, photoUrl };
+
+  const localData = useSelector(selectUserData);
+  
+  let userProfile = [];
+  if (localData.email === "") {
+    userProfile = authData;
+  } else {
+    userProfile = localData;
+  }
+
   const [uploadedPhoto, setUploadedPhoto] = useState(userProfile?.photoUrl);
   const [showPassword, setShowPassword] = useState(false);
   const formikUserProfile = {
@@ -47,7 +68,9 @@ const EditProfileModal = ({ isOpen, onRequestClose }) => {
     email: userProfile?.email,
     password: "",
   };
-  const theme = useSelector(selectUserTheme) || useSelector(selectTheme);
+
+  const authTheme = useSelector(selectTheme);
+  const theme = useSelector(selectUserTheme) || authTheme;
 
   function getDefaultImage() {
     return defaultImages[theme] || defaultImages.light;

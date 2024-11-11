@@ -1,0 +1,30 @@
+.info {
+  font-size: 12px;
+  color: var(--no-active);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 0 20px;
+  transform: translateY(-50%) translateX(-50%);
+  max-width: 335px;
+  text-align: center;
+}
+
+.active {
+  font-size: 12px;
+  color: var(--base-green-violet);
+}
+
+@media screen and (min-width: 768px) {
+  .info {
+    /* position: absolute;
+      top: 0;
+      left: -300px; */
+    max-width: 486px;
+    font-size: 14px;
+  }
+
+  .active {
+    font-size: 14px;
+  }
+}

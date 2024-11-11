@@ -1,7 +1,7 @@
-import Modal from "react-modal";
-import css from "../../MainDashboard.module.css";
-import { useSelector } from "react-redux";
-import { selectColumns } from "../../../../redux/boards/selectors";
+import { Modal, Backdrop, Box } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { selectColumns } from '../../../../redux/boards/selectors';
+import css from '../../MainDashboard.module.css';
 
 export const ChangeColumnModal = ({
   isOpen,
@@ -9,65 +9,61 @@ export const ChangeColumnModal = ({
   onSubmit,
   columnId,
   editingCard,
+  position,
 }) => {
+  const columns = useSelector(selectColumns);
   if (!editingCard) return null;
 
-  const columns = useSelector(selectColumns);
-
   const modalStyles = {
-    overlay: {
-      backgroundColor: "transparent",
-      position: "fixed",
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-    },
-    content: {
-      position: "unset",
-      top: 0 + "px",
-      left: 0 + "px",
-      // width: "300px",
-      // backgroundColor: "white",
-      // padding: "20px",
-      // borderRadius: "8px",
-    },
+    position: 'absolute',
+    top: position.top,
+    left: position.left,
+    padding: '18px',
+    backgroundColor: 'var(--background)',
+    borderRadius: '8px',
+    zIndex: 1300,
+    boxShadow: 3,
   };
 
   return (
     <Modal
-      className={`${css.modal} ${css.modalChangeColumn}`}
-      // overlayClassName={css.modalOverlay}
-      isOpen={isOpen}
-      onRequestClose={onClose}
-      style={modalStyles}
-    >
-      <ul className={css.changeColumnList}>
-        {columns.map(({ _id, title }) => (
-          <li key={_id} className={css.changeColumnItem}>
-            <button
-              className={`${css.changeColumnBtn} ${
-                columnId === _id ? css.active : ""
-              }`}
-              onClick={() =>
-                onSubmit({
-                  columnId: _id,
-                  taskId: editingCard.id,
-                  oldColumnId: columnId,
-                })
-              }
-            >
-              <p className={css.columnsTitle}>{title}</p>
-              <svg className={css.move} width="16" height="16">
-                <use
-                  className={css.move}
-                  href="/sprite.svg#icon-arrow-circle-broken-right"
-                />
-              </svg>
-            </button>
-          </li>
-        ))}
-      </ul>
+      open={isOpen}
+      onClose={onClose}
+      aria-labelledby='change-column-modal'
+      aria-describedby='modal-to-change-column'
+      slots={{ backdrop: Backdrop }}
+      slotProps={{
+        backdrop: {
+          sx: {
+            backgroundColor: 'rgba(0, 0, 0, 0.05)',
+          },
+        },
+      }}>
+      <Box sx={modalStyles}>
+        <p className={css.modalMoveHeading}>Move task to:</p>
+        <ul className={css.changeColumnList}>
+          {columns.map(({ _id, title }) => (
+            <li key={_id} className={css.changeColumnItem}>
+              <button
+                className={`${css.changeColumnBtn} ${
+                  columnId === _id ? css.active : ''
+                }`}
+                onClick={() =>
+                  onSubmit({
+                    columnId: _id,
+                    taskId: editingCard.id,
+                    oldColumnId: columnId,
+                  })
+                }>
+                <p className={css.columnsTitle}>{title}</p>
+                <svg className={css.moveIcon} width='16' height='16'>
+                  <use href='/sprite.svg#icon-arrow-circle-broken-right' />
+                </svg>
+              </button>
+            </li>
+          ))}
+        </ul>
+      </Box>
     </Modal>
   );
 };

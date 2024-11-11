@@ -3,10 +3,6 @@ ul {
   padding: 0;
 }
 
-body {
-  background-color: gray;
-}
-
 h1,
 h2,
 h3,
@@ -21,18 +17,11 @@ ul {
   flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
-  width: max-content;
-  max-width: 320px;
   padding: 0 20px;
   gap: 20px;
   overflow-x: auto;
   margin: 0 auto;
   position: relative;
-}
-
-.changeColumnBtn {
-  display: flex;
-  justify-content: space-between;
 }
 
 button {
@@ -128,7 +117,6 @@ button {
 span {
   color: red;
   font-size: 8px;
-  margin-top: 8px;
 }
 
 .modalButton {
@@ -185,10 +173,7 @@ span {
   flex-shrink: 0;
   display: flex;
   justify-content: space-between;
-  /* width: 100%; */
   gap: 20px;
-  /* overflow-x: auto; */
-  /* padding: 0 20px; */
 }
 
 .columnItem {
@@ -210,29 +195,37 @@ span {
 }
 
 .changeColumnList {
+  margin-top: 16px;
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  overflow-y: auto;
+  max-height: 75px;
 }
 
 .changeColumnBtn {
-  display: flex;
   width: 100%;
-  align-items: center;
+  display: flex;
+  gap: 8px;
   justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s ease;
 }
 
 .columnsTitle {
   color: inherit;
 }
 
-.move {
-  stroke: var(--without-priority);
+.moveIcon {
+  stroke: var(--move-button);
+  transition: all 0.2s ease;
 }
 
-.move use {
-  stroke: var(--without-priority);
+.changeColumnItem:hover .changeColumnBtn,
+.changeColumnItem:hover .moveIcon {
+  stroke: var(--move-button-hover);
+  color: var(--move-button-hover);
 }
 
 .active {
@@ -249,10 +242,6 @@ span {
     min-width: 335px;
     max-width: 335px;
     width: 100%;
-  }
-
-  .container {
-    max-width: 375px;
   }
 }
 
@@ -277,19 +266,8 @@ span {
 }
 
 @media screen and (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
-
   .button {
     width: 334px;
-  }
-
-  .modal {
-    /* position: fixed;
-    top: 300px;
-    left: 390px;
-    transform: translate(-50%, -50%); */
   }
 
   .columnItem {
@@ -300,7 +278,6 @@ span {
 @media screen and (min-width: 1440px) {
   .container {
     margin: 0;
-    max-width: 1064px;
   }
 
   .button {
@@ -315,4 +292,9 @@ span {
   .columnItem {
     width: 334px;
   }
+}
+
+.modalMoveHeading {
+  max-width: 210px;
+  color: var(--heder--text);
 }

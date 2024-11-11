@@ -2,17 +2,14 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { setToken, taskpro_api } from "../../config/taskpro_api";
 
 const updateUserTheme = createAsyncThunk(
-  "user/updateTheme",
+  "user/updateUserTheme",
 
   async (theme, { getState, rejectWithValue }) => {
     const { auth } = getState();
     setToken(auth.token);
 
     try {
-      const response = await taskpro_api.patch(
-        "https://task-pro-back-kri0.onrender.com/user/",
-        { theme }
-      );
+      const response = await taskpro_api.patch("/user", { theme });
 
       return response.data;
     } catch (error) {
@@ -23,15 +20,12 @@ const updateUserTheme = createAsyncThunk(
 );
 
 const updateUserProfile = createAsyncThunk(
-  "user/updateProfile",
+  "user/updateUserProfile",
   async (userProfile, { getState, rejectWithValue }) => {
     const { auth } = getState();
     setToken(auth.token);
     try {
-      const response = await taskpro_api.patch(
-        "https://task-pro-back-kri0.onrender.com/user",
-        userProfile,
-      );
+      const response = await taskpro_api.patch("/user", userProfile);
 
       return response.data;
     } catch (error) {
@@ -41,15 +35,12 @@ const updateUserProfile = createAsyncThunk(
 );
 
 const updateUserPhoto = createAsyncThunk(
-  "user/updatePhoto",
+  "user/updateUserPhoto",
   async (formData, { getState, rejectWithValue }) => {
     const { auth } = getState();
     setToken(auth.token);
     try {
-      const response = await taskpro_api.patch(
-        "https://task-pro-back-kri0.onrender.com/user",
-        formData
-      );
+      const response = await taskpro_api.patch("/user", formData);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

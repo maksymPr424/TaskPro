@@ -16,6 +16,23 @@ export const fetchBoards = createAsyncThunk(
   }
 );
 
+export const fetchLastActiveBoard = createAsyncThunk(
+  "board/fetchLastActiveBoard",
+  async (id, { getState, rejectWithValue }) => {
+    const state = getState();
+    setToken(state.auth.token);
+    console.log(id);
+
+    try {
+      const response = await taskpro_api.get(`/board/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching boards:", error);
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 export const createBoard = createAsyncThunk(
   "board/createBoard",
   async (newBoard, { rejectWithValue }) => {
@@ -61,6 +78,7 @@ export const addColumn = createAsyncThunk(
   async (newColumn, { getState, rejectWithValue }) => {
     const state = getState();
     setToken(state.auth.token);
+    
     try {
       const res = await taskpro_api.post("/columns", { ...newColumn });
 

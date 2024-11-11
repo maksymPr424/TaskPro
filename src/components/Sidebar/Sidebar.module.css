@@ -1,6 +1,6 @@
 @font-face {
-  font-family: 'Poppins';
-  src: url('/src/fonts/Poppins-Regular.ttf') format('truetype');
+  font-family: "Poppins";
+  src: url("/src/fonts/Poppins-Regular.ttf") format("truetype");
 }
 /* @font-face {
   font-family: 'Poppins';
@@ -50,7 +50,8 @@
 .sidebarLogoIcon {
   display: flex;
   justify-content: center;
-  fill: #ffffff;
+  fill: var(--logo-color);
+  --color1: var(--logo-background);
   height: 32px;
   width: 32px;
 }
@@ -117,6 +118,7 @@
   width: 225px;
   min-height: 61px;
   max-height: 400px;
+  margin-bottom: 10px;
 }
 
 .tabsScrollContainer {
@@ -164,7 +166,7 @@
   right: 0;
 }
 
-.tab[aria-selected='true'] {
+.tab[aria-selected="true"] {
   background: var(--board-selected);
   .boardTitle {
     color: var(--text);
@@ -236,6 +238,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
   border: none;
 }
 
@@ -367,7 +370,6 @@
   .tabsContainer {
     /* height: 359px; */
     width: 260px;
-    /* margin-bottom: auto; */
   }
 
   .tabsScrollContainer {

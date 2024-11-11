@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { useSelector, useDispatch } from "react-redux";
@@ -13,12 +13,15 @@ import {
   fetchBoards,
   removeBoard,
 } from "../../redux/boards/operations.js";
-import { selectBoards } from "../../redux/boards/selectors.js";
+import {
+  selectBoards,
+  selectLastActiveBoard,
+} from "../../redux/boards/selectors.js";
 import { clearBoards, setLastActiveBoard } from "../../redux/boards/slice.js";
 import { logoutUser } from "../../redux/auth/operations.js";
 import cactus from "../../img/flower-pot.png";
 
-export default function Sidebar({ className }) {
+export default function Sidebar({ className, fetchActiveBoard }) {
   const dispatch = useDispatch();
   const boards = useSelector(selectBoards);
   const [isNewBoardModalOpen, setIsNewBoardModalOpen] = useState(false);
@@ -26,13 +29,22 @@ export default function Sidebar({ className }) {
   const [isEditBoardModalOpen, setIsEditBoardModalOpen] = useState(false);
   const [isNeedHelpModalOpen, setIsNeedHelpModalOpen] = useState(false);
   const navigate = useNavigate();
-  
+  const lastActiveBoard = useSelector(selectLastActiveBoard);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const index =
+      boards.findIndex(({ _id }) => _id === lastActiveBoard?._id) || 0;
+    setActiveIndex(index);
+    console.log(index);
+  }, [activeIndex, boards, lastActiveBoard?._id]);
+
   const handleOpenNewBoardModal = () => setIsNewBoardModalOpen(true);
   const handleCloseNewBoardModal = () => setIsNewBoardModalOpen(false);
   const handleOpenNeedHelpModal = () => setIsNeedHelpModalOpen(true);
   const handleCloseNeedHelpModal = () => setIsNeedHelpModalOpen(false);
 
-  const handleOpenEditBoardModal = board => {
+  const handleOpenEditBoardModal = (board) => {
     if (board) {
       setSelectedBoard(board);
       setIsEditBoardModalOpen(true);
@@ -43,13 +55,13 @@ export default function Sidebar({ className }) {
     setSelectedBoard(null);
   };
 
-  const handleCreateBoard = async newBoard => {
+  const handleCreateBoard = async (newBoard) => {
     await dispatch(createBoard(newBoard));
     await dispatch(fetchBoards());
     setIsNewBoardModalOpen(false);
   };
 
-  const handleSaveBoardChanges = async updatedBoard => {
+  const handleSaveBoardChanges = async (updatedBoard) => {
     if (!updatedBoard._id) {
       console.error("Cannot save changes: ID is undefined");
       return;
@@ -59,7 +71,7 @@ export default function Sidebar({ className }) {
     setIsEditBoardModalOpen(false);
   };
 
-  const handleDeleteBoard = async boardId => {
+  const handleDeleteBoard = async (boardId) => {
     if (!boardId) {
       console.error("Cannot delete board: ID is undefined");
       return;
@@ -78,7 +90,7 @@ export default function Sidebar({ className }) {
       console.error("Error during logout:", error);
     }
   };
-  const handleSendHelpRequest = helpData => {
+  const handleSendHelpRequest = (helpData) => {
     console.log("Help request sent:", helpData);
     setIsNeedHelpModalOpen(false);
   };
@@ -86,7 +98,6 @@ export default function Sidebar({ className }) {
     dispatch(setLastActiveBoard({ boardId, title: boardTitle }));
   };
   return (
-
     <aside className={`${className} ${css.sidebar}`}>
       <div>
         <div className={css.sidebarLogo}>
@@ -98,15 +109,25 @@ export default function Sidebar({ className }) {
         <h4 className={css.sidebarBoards}>My boards</h4>
         <div className={css.sidebarCreate}>
           <p className={css.sidebarCreateText}>Create a new board</p>
-          <button className={css.sidebarCreateButton} onClick={handleOpenNewBoardModal}>
+          <button
+            className={css.sidebarCreateButton}
+            onClick={handleOpenNewBoardModal}
+          >
             +
           </button>
         </div>
-        <Tabs className={css.tabsContainer}>
+        <Tabs className={css.tabsContainer} selected={activeIndex}>
           <div className={css.tabsScrollContainer}>
             <TabList className={css.tabList}>
               {boards.map((board) => (
-                <Tab key={board._id} className={css.tab} onClick={() => handleNavigateToBoard(board._id, board.title)}>
+                <Tab
+                  key={board._id}
+                  className={css.tab}
+                  onClick={() => {
+                    handleNavigateToBoard(board._id, board.title);
+                    fetchActiveBoard(board._id);
+                  }}
+                >
                   <div className={css.tabFlex}>
                     <div className={css.boardTabSpan}></div>
                     <div className={css.boardItemMain}>
@@ -120,12 +141,24 @@ export default function Sidebar({ className }) {
                       <span className={css.boardTitle}>{board.title}</span>
                     </div>
                     <div className={css.boardButtons}>
-                      <button onClick={(e) => { e.stopPropagation(); handleOpenEditBoardModal(board); }} className={css.editButton}>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleOpenEditBoardModal(board);
+                        }}
+                        className={css.editButton}
+                      >
                         <svg className={css.boardIcon}>
                           <use href="/sprite.svg#pencil"></use>
                         </svg>
                       </button>
-                      <button onClick={(e) => { e.stopPropagation(); handleDeleteBoard(board._id); }} className={css.deleteButton}>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDeleteBoard(board._id);
+                        }}
+                        className={css.deleteButton}
+                      >
                         <svg className={css.boardIcon}>
                           <use href="/sprite.svg#trash"></use>
                         </svg>
@@ -136,8 +169,7 @@ export default function Sidebar({ className }) {
               ))}
             </TabList>
             {boards.map((board) => (
-              <TabPanel key={board._id} className={css.tabPanel}>
-              </TabPanel>
+              <TabPanel key={board._id} className={css.tabPanel}></TabPanel>
             ))}
           </div>
         </Tabs>
@@ -145,19 +177,28 @@ export default function Sidebar({ className }) {
 
       <div>
         <div className={css.sidebarHelp}>
-          <img className={css.sidebarHelpImg} src={cactus} alt='Help' />
+          <img className={css.sidebarHelpImg} src={cactus} alt="Help" />
           <p className={css.sidebarHelpText}>
-            If you need help with <span className={css.sidebarHelpTextSpan}>TaskPro</span>, check out our support resources or reach out to our customer support team.
+            If you need help with{" "}
+            <span className={css.sidebarHelpTextSpan}>TaskPro</span>, check out
+            our support resources or reach out to our customer support team.
           </p>
-          <button className={css.sidebarHelpButton} onClick={handleOpenNeedHelpModal}>
+          <button
+            className={css.sidebarHelpButton}
+            onClick={handleOpenNeedHelpModal}
+          >
             <svg className={css.sidebarHelpIcon}>
               <use href="/sprite.svg#help"></use>
-            </svg>  Need help?</button>
+            </svg>{" "}
+            Need help?
+          </button>
         </div>
         <button className={css.sidebarLogoutButton} onClick={handleLogout}>
           <svg className={css.sidebarLogoutSvg}>
             <use href="/sprite.svg#logout"></use>
-          </svg>Log out</button>
+          </svg>
+          Log out
+        </button>
       </div>
 
       <NewBoardModal

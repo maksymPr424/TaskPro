@@ -10,31 +10,57 @@ import {
 } from "../../redux/header/operationsHeader.js";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  selectUserData,
   selectUserStatus,
   selectUserTheme,
 } from "../../redux/header/selectors";
 import toast, { Toaster } from "react-hot-toast";
 import { defaultImages } from "../../constants/global.js";
 import { Blocks } from "react-loader-spinner";
+import {
+  selectEmail,
+  selectName,
+  selectPhotoUrl,
+  selectTheme,
+} from "../../redux/auth/selectors.js";
 
 Modal.setAppElement("#root");
 
 const EditProfileModal = ({ isOpen, onRequestClose }) => {
   const validationSchema = Yup.object({
     name: Yup.string()
-      .required("Name is required")
       .min(3, "Name must be more than 3 chars!")
       .max(50, "Name must be less than 50 chars"),
-    email: Yup.string().email("Invalid email").required("Email is required"),
+    email: Yup.string().email("Invalid email"),
     password: Yup.string()
       .min(6, "Password must be at least 6 characters")
       .max(50, "Password must be less than 50 chars")
       .notRequired(),
-  });
+  }).test(
+    "at-least-one-field",
+    "At least one field must be filled out",
+    (values) => !!(values.name || values.email || values.password)
+  );
 
   const dispatch = useDispatch();
-  const status = useSelector(selectUserStatus);
-  const userProfile = useSelector((state) => state.userProfile.data);
+
+  const authStatus = useSelector((state) => state.user.status);
+  const status = useSelector(selectUserStatus) || authStatus;
+
+  const name = useSelector(selectName);
+  const email = useSelector(selectEmail);
+  const photoUrl = useSelector(selectPhotoUrl);
+  const authData = { name, email, photoUrl };
+
+  const localData = useSelector(selectUserData);
+  
+  let userProfile = [];
+  if (localData.email === "") {
+    userProfile = authData;
+  } else {
+    userProfile = localData;
+  }
+
   const [uploadedPhoto, setUploadedPhoto] = useState(userProfile?.photoUrl);
   const [showPassword, setShowPassword] = useState(false);
   const formikUserProfile = {
@@ -42,7 +68,9 @@ const EditProfileModal = ({ isOpen, onRequestClose }) => {
     email: userProfile?.email,
     password: "",
   };
-  const theme = useSelector(selectUserTheme);
+
+  const authTheme = useSelector(selectTheme);
+  const theme = useSelector(selectUserTheme) || authTheme;
 
   function getDefaultImage() {
     return defaultImages[theme] || defaultImages.light;

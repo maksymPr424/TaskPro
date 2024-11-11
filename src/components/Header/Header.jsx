@@ -17,7 +17,7 @@ import { setUserTheme } from "../../redux/auth/slice.js";
 import Sidebar from "../Sidebar/Sidebar.jsx";
 import { Modal, Box } from "@mui/material";
 
-const Header = () => {
+const Header = ({ onSidebarToggle }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
@@ -63,16 +63,15 @@ const Header = () => {
 
   const handleOpenSidebar = () => {
     setIsSidebarOpen(true);
-    console.log("open sidebar");
   };
   const handleCloseSidebar = () => {
-    console.log("close sidebar");
     setIsSidebarOpen(false);
+
   };
 
   return (
     <div className={styles.header}>
-      <div className={styles.menuIcon} onClick={handleOpenSidebar}>
+      <div className={styles.menuIcon} onClick={handleSidebarToggle}>
         <svg>
           <use href={`${icon}#pop`}></use>
         </svg>

@@ -4,19 +4,20 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: #000000cc;
   z-index: 1000;
 }
 
 
 .modalContent {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 335px;
   border-radius: 8px;
-  border: 1px solid rgba(190, 219, 176, 0.50);
-  background: #151515;
+  border: 1px solid var(--modal-border);
+  background-color: var(--modal-bg);
   padding: 24px;
   display: flex;
   flex-direction: column;
@@ -29,12 +30,12 @@
   background: none;
   border: none;
   font-size: 24px;
-  color: #ffffff;
+  color: var(--text-heder);
   cursor: pointer;
 }
 
 .modalName {
-  color: #FFF;
+  color: var(--text-heder);
   font-family: Poppins;
   font-size: 18px;
   font-style: normal;
@@ -46,11 +47,12 @@
 
 .input,
 .textarea {
+  color: var(--text-heder);
   padding: 14px 18px;
   width: 100%;
   border-radius: 8px;
-  border: 1px solid #BEDBB0;
-  background: #1F1F1F;
+  border: 1px solid var(--modal-input-border);
+  background: var(--modal-input);
   box-shadow: 0px 4px 16px 0px rgba(22, 22, 22, 0.08);
   margin-bottom: 24px;
   font-family: Poppins;
@@ -62,17 +64,16 @@
 
 .input:hover,
 .textarea:hover {
-  border: 1px solid #9DC888;
+  border: 1px solid var(--modal-input-border-hover-focus);
 }
 
 .input:focus,
 .textarea:focus {
-  border: 1px solid #9DC888;
+  border: 1px solid var(--modal-input-border-hover-focus);
 }
 
 .input::placeholder {
-  color: #FFFFFF;
-  opacity: 0.4;
+  color: var(--icons);
   letter-spacing: -0.02em;
 }
 
@@ -95,14 +96,14 @@
 
 .sendButton {
   display: flex;
-  width: 287px;
+  /* width: 287px; */
   padding: 10px 0px 11px 0px;
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  background: #BEDBB0;
+  background: var(--modal-button-bg);
   cursor: pointer;
-  color: #161616;
+  color: var(--modal-button-text);
   font-family: Poppins;
   font-size: 14px;
   font-style: normal;
@@ -113,11 +114,15 @@
 }
 
 .sendButton:hover {
-  background-color: #9DC888;
+  background-color: var(--modal-button-bg-hover);
 }
 
 @media screen and (min-width: 768px) {
   .modalContent {
     width: 400px;
+  }
+
+  .sendButton{
+    width: 352px;
   }
 }

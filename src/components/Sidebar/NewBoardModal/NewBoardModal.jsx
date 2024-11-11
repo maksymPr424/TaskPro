@@ -7,13 +7,30 @@ import css from "./NewBoardModal.module.css";
 Modal.setAppElement("#root");
 
 const icons = ["project", "star", "loading", "puzzle", "container", "lightning", "colors", "hexagon"];
-const backgrounds = ["no-background", "three", "nightSky", "palmLeaves", "cloudySky", "violetCircle", "boat", "pinkFlowers", "halfMoon", "rockyCoast", "fullMoon", "balloon", "canyon", "yacht", "balloons", "trailer"];
+const backgrounds = [
+  { name: "no-background", imageUrl: "/src/img/no-background.png" },
+  { name: "pinkFlowers", imageUrl: "/src/img/pinkFlowers.png" },
+  { name: "nightSky", imageUrl: "/src/img/nightSky.png" },
+  { name: "three", imageUrl: "/src/img/three.png" },
+  { name: "halfMoon", imageUrl: "/src/img/halfMoon.png" },
+  { name: "palmLeaves", imageUrl: "/src/img/palmLeaves.png" },
+  { name: "cloudySky", imageUrl: "/src/img/cloudySky.png" },
+  { name: "rockyCoast", imageUrl: "/src/img/rockyCoast.png" },
+  { name: "violetCircle", imageUrl: "/src/img/violetCircle.png" },
+  { name: "fullMoon", imageUrl: "/src/img/fullMoon.png" },
+  { name: "yacht", imageUrl: "/src/img/yacht.png" },
+  { name: "balloon", imageUrl: "/src/img/balloon.png" },
+  { name: "canyon", imageUrl: "/src/img/canyon.png" },
+  { name: "boat", imageUrl: "/src/img/boat.png" },
+  { name: "balloons", imageUrl: "/src/img/balloons.png" },
+  { name: "trailer", imageUrl: "/src/img/trailer.png" },
+];
 
 const NewBoardModal = ({ isOpen, onClose, onCreateBoard }) => {
   const initialValues = {
     title: "",
     icon: icons[0],
-    background: backgrounds[0],
+    background: backgrounds[0].name,
   };
 
   const validationSchema = Yup.object({
@@ -35,6 +52,7 @@ const NewBoardModal = ({ isOpen, onClose, onCreateBoard }) => {
       ariaHideApp={false}>
       <button className={css.closeButton} onClick={onClose}>×</button>
       <h3 className={css.modalName}>New board</h3>
+
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -42,7 +60,8 @@ const NewBoardModal = ({ isOpen, onClose, onCreateBoard }) => {
           onCreateBoard(values);
           resetForm();
           onClose();
-        }}>
+        }}
+      >
         {({ setFieldValue, values }) => (
           <Form>
             <Field
@@ -52,6 +71,7 @@ const NewBoardModal = ({ isOpen, onClose, onCreateBoard }) => {
               className={css.input}
             />
             <ErrorMessage name="title" component="p" className={css.error} />
+
             <div className={css.iconsSection}>
               <p className={css.sectionName}>Icons</p>
 
@@ -65,13 +85,16 @@ const NewBoardModal = ({ isOpen, onClose, onCreateBoard }) => {
                       onChange={() => setFieldValue("icon", icon)}
                       className={css.hiddenInput}
                     />
-                    <svg className={`${css.iconOption} ${icon === values.icon ? css.selected : ""}`}>
-                      <use href={`/src/assets/${icon}.svg#${icon}`}></use>
+                    <svg
+                      className={`${css.iconOption} ${icon === values.icon ? css.selected : ""}`}
+                    >
+                      <use href={`/boards.svg#${icon}`}></use>
                     </svg>
                   </label>
                 ))}
               </div>
             </div>
+
             <div className={css.backgroundSection}>
               <p className={css.sectionName}>Background</p>
               <div className={css.backgroundOptions}>
@@ -80,18 +103,20 @@ const NewBoardModal = ({ isOpen, onClose, onCreateBoard }) => {
                     <Field
                       type="radio"
                       name="background"
-                      value={bg}
-                      onChange={() => setFieldValue("background", bg)}
+                      value={bg.name}
+                      onChange={() => setFieldValue("background", bg.name)}
                       className={css.hiddenInput}
                     />
                     <div
-                      className={`${css.backgroundOption} ${bg === values.background ? css.selected : ""}`}
-                      style={{ backgroundImage: `url(/src/assets/${bg}.jpg)` }} >
-                    </div>
+                      className={`${css.backgroundOption} ${bg.name === values.background ? css.selected : ""}`}
+                      style={{ backgroundImage: `url(${bg.imageUrl})` }}
+                    ></div>
+
                   </label>
                 ))}
               </div>
             </div>
+
             <button type="submit" className={css.createButton}>
               <span className={css.modalPlus}>+</span>
               Create

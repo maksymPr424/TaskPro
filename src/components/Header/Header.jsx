@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./Header.module.css";
 import icon from "../../assets/sprite.svg";
-import defaultPhoto from "../../img/user.jpg";
+// import defaultPhoto from "../../img/user.jpg";
 import EditUserInfo from "../EditUserInfo/EditUserInfo";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserTheme } from "../../redux/header/operationsHeader.js";
@@ -15,18 +15,15 @@ import {
 } from "../../redux/auth/selectors.js";
 import { setUserTheme } from "../../redux/auth/slice.js";
 import Sidebar from "../Sidebar/Sidebar.jsx";
-import ModalWindow from "../Modal/Modal.jsx";
-import { Modal } from "@mui/material";
+import { Modal, Box } from "@mui/material";
 
 const Header = ({ onSidebarToggle }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
   const theme = useSelector(selectTheme);
-  const status = useSelector((state) => state.user.status);
+  const status = useSelector(state => state.user.status);
   const name = useSelector(selectName);
-
-  const [isOpenSidebar, setOpenSidebar] = useState(false);
 
   const photoUrl = useSelector(selectPhotoUrl);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -35,7 +32,7 @@ const Header = ({ onSidebarToggle }) => {
     document.body.setAttribute("data-theme", theme);
   }, [theme]);
 
-  const handleThemeSelect = (selectedTheme) => {
+  const handleThemeSelect = selectedTheme => {
     if (status !== "loading") {
       dispatch(updateUserTheme(selectedTheme));
       dispatch(setUserTheme(selectedTheme));
@@ -44,7 +41,7 @@ const Header = ({ onSidebarToggle }) => {
     }
   };
 
-  const handleMenuClick = (event) => {
+  const handleMenuClick = event => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -65,17 +62,11 @@ const Header = ({ onSidebarToggle }) => {
   }
 
   const handleOpenSidebar = () => {
-    setOpenSidebar(true);
-    console.log(123);
+    setIsSidebarOpen(true);
   };
   const handleCloseSidebar = () => {
-    setOpenSidebar(null);
-  };
+    setIsSidebarOpen(false);
 
-  const handleSidebarToggle = () => {
-    if (onSidebarToggle) {
-      onSidebarToggle(); // Вызов функции из пропа
-    }
   };
 
   return (
@@ -90,8 +81,7 @@ const Header = ({ onSidebarToggle }) => {
         <div
           className={styles.theme}
           onClick={handleMenuClick}
-          style={{ cursor: "pointer" }}
-        >
+          style={{ cursor: "pointer" }}>
           Theme
           <svg className={styles.menuIcon2}>
             <use href={`${icon}#str`}></use>
@@ -104,14 +94,12 @@ const Header = ({ onSidebarToggle }) => {
           onClose={handleMenuClose}
           MenuListProps={{
             "aria-labelledby": "theme-button",
-          }}
-        >
-          {themes.map((item) => (
+          }}>
+          {themes.map(item => (
             <CustomMenuItem
               key={item}
               onClick={() => handleThemeSelect(item)}
-              isselected={theme === item ? "true" : undefined}
-            >
+              isselected={theme === item ? "true" : undefined}>
               {item.charAt(0).toUpperCase() + item.slice(1)}
             </CustomMenuItem>
           ))}
@@ -120,12 +108,11 @@ const Header = ({ onSidebarToggle }) => {
         <div
           className={styles.userInfo}
           onClick={handleModalOpen}
-          style={{ cursor: "pointer" }}
-        >
+          style={{ cursor: "pointer" }}>
           <span className={styles.userName}>{name || "User"}</span>
           <img
             src={photoUrl || getDefaultImage()}
-            alt="User Photo"
+            alt='User Photo'
             className={styles.userPhoto}
           />
         </div>
@@ -133,11 +120,20 @@ const Header = ({ onSidebarToggle }) => {
       <EditUserInfo isOpen={isModalOpen} onRequestClose={handleModalClose} />
       {isSidebarOpen && (
         <Modal
-          isOpen={isOpenSidebar}
-          onRequestClose={handleCloseSidebar}
-          contentLabel="ModalWindow"
-        >
-          <Sidebar />
+          open={isSidebarOpen}
+          onClose={handleCloseSidebar}
+          aria-labelledby='sidebar-modal'
+          aria-describedby='sidebar-content'
+          sx={{
+            zIndex: 0,
+          }}>
+          <Box
+            sx={{
+              position: "fixed",
+              outline: "none",
+            }}>
+            <Sidebar />
+          </Box>
         </Modal>
       )}
     </div>

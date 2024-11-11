@@ -1,5 +1,3 @@
-import Sidebar from "../../components/Sidebar/Sidebar";
-
 import user_image from "../../assets/welcome_page_user_image.png";
 import styles from "./WelcomePage.module.css";
 // import svgSprite from "../../../public/sprite.svg";

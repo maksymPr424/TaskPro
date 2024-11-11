@@ -18,7 +18,7 @@ import { clearBoards, setLastActiveBoard } from "../../redux/boards/slice.js";
 import { logoutUser } from "../../redux/auth/operations.js";
 import cactus from "../../img/flower-pot.png";
 
-export default function Sidebar() {
+export default function Sidebar({ isOpen }) {
   const dispatch = useDispatch();
   const boards = useSelector(selectBoards);
   const [isNewBoardModalOpen, setIsNewBoardModalOpen] = useState(false);
@@ -32,7 +32,7 @@ export default function Sidebar() {
   const handleOpenNeedHelpModal = () => setIsNeedHelpModalOpen(true);
   const handleCloseNeedHelpModal = () => setIsNeedHelpModalOpen(false);
 
-  const handleOpenEditBoardModal = board => {
+  const handleOpenEditBoardModal = (board) => {
     if (board) {
       setSelectedBoard(board);
       setIsEditBoardModalOpen(true);
@@ -43,13 +43,13 @@ export default function Sidebar() {
     setSelectedBoard(null);
   };
 
-  const handleCreateBoard = async newBoard => {
+  const handleCreateBoard = async (newBoard) => {
     await dispatch(createBoard(newBoard));
     await dispatch(fetchBoards());
     setIsNewBoardModalOpen(false);
   };
 
-  const handleSaveBoardChanges = async updatedBoard => {
+  const handleSaveBoardChanges = async (updatedBoard) => {
     if (!updatedBoard._id) {
       console.error("Cannot save changes: ID is undefined");
       return;
@@ -59,7 +59,7 @@ export default function Sidebar() {
     setIsEditBoardModalOpen(false);
   };
 
-  const handleDeleteBoard = async boardId => {
+  const handleDeleteBoard = async (boardId) => {
     if (!boardId) {
       console.error("Cannot delete board: ID is undefined");
       return;
@@ -78,7 +78,7 @@ export default function Sidebar() {
       console.error("Error during logout:", error);
     }
   };
-  const handleSendHelpRequest = helpData => {
+  const handleSendHelpRequest = (helpData) => {
     console.log("Help request sent:", helpData);
     setIsNeedHelpModalOpen(false);
   };
@@ -149,8 +149,16 @@ export default function Sidebar() {
         <p className={css.sidebarHelpText}>
           If you need help with <span className={css.sidebarHelpTextSpan}>TaskPro</span>, check out our support resources or reach out to our customer support team.
         </p>
+        <button
+          className={css.sidebarHelpButton}
+          onClick={handleOpenNeedHelpModal}
+        >
         <button className={css.sidebarHelpButton} onClick={handleOpenNeedHelpModal}>
           <svg className={css.sidebarHelpIcon}>
+            <use href="/sprite.svg#help"></use>
+          </svg>{" "}
+          Need help?
+        </button>
             <use href="/public/sprite.svg#help"></use>
           </svg>  Need help?</button>
       </div>

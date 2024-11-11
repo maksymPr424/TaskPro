@@ -5,6 +5,11 @@
   font-style: normal;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
 .sidebar {
   height: 100vh;
   background-color: #121212;
@@ -22,6 +27,15 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: absolute;
+  top: 0;
+  left: -300px;
+  transition: left 0.3s ease;
+  z-index: 1000;
+}
+
+.sidebar.open {
+  left: 0;
 }
 
 .sidebarLogo {
@@ -398,8 +412,9 @@
   .sidebarHelpTextSpan {
     font-size: 14px;
     line-height: 20px;
-letter-spacing: -0.28px;
+    letter-spacing: -0.28px;
   }
+
   .tabFlex {
     display: flex;
     justify-content: space-between;

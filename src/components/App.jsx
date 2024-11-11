@@ -14,7 +14,7 @@ const WelcomePage = lazy(() => import("../pages/WelcomePage/WelcomePage"));
 import AuthPage from "../pages/AuthPage/AuthPage.jsx";
 import { clearBoards, setBoards } from "../redux/boards/slice.js";
 const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
-const ScreensPage = lazy(() => import("../pages/ScreensPage/ScreensPage"));
+// const ScreensPage = lazy(() => import("../pages/ScreensPage/ScreensPage"));
 
 function App() {
   const dispatch = useDispatch();
@@ -43,9 +43,9 @@ function App() {
       ) : (
         <Suspense fallback={<Loader />}>
           <Routes>
-            <Route path='/' element={<Navigate to='/welcome' replace />} />
+            <Route path="/" element={<Navigate to="/welcome" replace />} />
             <Route
-              path='welcome'
+              path="welcome"
               element={
                 <PublicRoute>
                   <WelcomePage />
@@ -53,7 +53,7 @@ function App() {
               }
             />
             <Route
-              path='auth/:id'
+              path="auth/:id"
               element={
                 <PublicRoute>
                   <AuthPage />

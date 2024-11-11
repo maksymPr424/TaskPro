@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, isPlain } from "@reduxjs/toolkit";
 import { authReducer } from "./auth/slice";
 import {
   persistStore,
@@ -12,6 +12,7 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { boardsReducer } from "./boards/slice";
+
 import { userThemeReducer } from "./header/slice.js";
 import { userProfileReducer } from "./header/slice.js";
 
@@ -21,6 +22,10 @@ const persistConfig = {
   storage,
   whitelist: ["token"],
 };
+
+
+const isSerializable = (value) => {
+  return isPlain(value) || value instanceof Date};
 
 const persistConfigUser = {
   key: "user",
@@ -34,6 +39,7 @@ const persistConfigUserProfile = {
   version: 1,
   storage,
   whitelist: ["user"],
+
 };
 
 export const store = configureStore({
@@ -47,6 +53,7 @@ export const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        isSerializable,
       },
     }),
 });

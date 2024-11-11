@@ -38,13 +38,14 @@
   --background: #ffffff;
   --background-heder: #ffffff;
   --no-active: rgba(255, 255, 255, 0.502);
-  --without-priority: #ffffff4d;
+  --without-priority: #ffffff80;
   --low-priority: #8fa1d0;
   --medium-priority: #e09cb5;
   --logout-plus-active: #bedbb0;
   --logout-plus-no-active: #9dc888;
   --favicon-color: #fff;
   --add-foto-heder: #bedbb0;
+  --my-dashboard-svg: rgba(22, 22, 22, 0.5);
 }
 
 [data-theme="light"] {
@@ -57,25 +58,41 @@
   /* sidebar */
   --back-sidebar: #ffffff;
   --my-boards: rgba(22, 22, 22, 0.5);
-  --my-boards-btn: #BEDBB0;
-  --my-boards-btn-hover: #9DC888;
-  --board-selected:rgb(246, 246, 247, 0.4);
-  --help-bg:#F6F6F7;
-  --help-span:#BEDBB0;
-  --help-button:#161616;
+  --my-boards-btn: #bedbb0;
+  --my-boards-btn-hover: #9dc888;
+  --board-selected: rgb(246, 246, 247, 0.4);
+  --help-bg: #f6f6f7;
+  --help-span: #bedbb0;
+  --help-button: #161616;
   --logout: #bedbb0;
-  --logout-hover: #9DC888;
-/* modal */
-  --modal-border:#fcfcfc;
+  --logout-hover: #9dc888;
+  /* modal */
+  --modal-border: #fcfcfc;
   --modal-bg: #fcfcfc;
-  --modal-input:#FCFCFC;
-  --modal-input-border:#bedbb066;
-  --modal-input-border-hover-focus:#BEDBB0;
-  --icons:rgba(22, 22, 22, 0.5);
+  --modal-input: #fcfcfc;
+  --modal-input-border: #bedbb066;
+  --modal-input-border-hover-focus: #bedbb0;
+  --icons: rgba(22, 22, 22, 0.5);
   --modal-button-text: #161616;
-  --modal-button-bg: #BEDBB0;
-  --modal-button-bg-hover: #9DC888;
+  --modal-button-bg: #bedbb0;
+  --modal-button-bg-hover: #9dc888;
   --modal-button-plus: #ffffff;
+
+  /* dashboard */
+
+  --card-button-text: #161616;
+  --background-task: #fff;
+  --border-modal-card: #fcfcfc;
+  --border-input-modal: #bedbb0;
+
+  --background-button: #fff;
+  --text-column: #161616;
+  --background-task-modal: #fcfcfc;
+  --border-input: #bedbb0;
+  --background-input-modal: #ffffff;
+  --text-button-modal: #161616;
+  --icon-modal: #fff;
+  --no-active: #161616b3;
 }
 
 [data-theme="dark"] {
@@ -88,30 +105,46 @@
   /* sidebar */
   --back-sidebar: #121212;
   --my-boards: rgba(255, 255, 255, 0.5);
-  --my-boards-btn: #BEDBB0;
-  --my-boards-btn-hover: #9DC888;
-  --board-selected:rgb(31, 31, 31, 0.4);
-  --help-bg:#1f1f1f;
-  --help-span:#BEDBB0;
-  --help-button:#ffffff;
+  --my-boards-btn: #bedbb0;
+  --my-boards-btn-hover: #9dc888;
+  --board-selected: rgb(31, 31, 31, 0.4);
+  --help-bg: #1f1f1f;
+  --help-span: #bedbb0;
+  --help-button: #ffffff;
   --logout: #bedbb0;
-  --logout-hover: #9DC888;
-/* modal */
-  --modal-border:#bedbb080;
+  --logout-hover: #9dc888;
+  /* modal */
+  --modal-border: #bedbb080;
   --modal-bg: #151515;
-  --modal-input:#1F1F1F;
-  --modal-input-border:#bedbb066;
-  --modal-input-border-hover-focus:#BEDBB0;
-  --icons:rgba(255, 255, 255, 0.5);
+  --modal-input: #1f1f1f;
+  --modal-input-border: #bedbb066;
+  --modal-input-border-hover-focus: #bedbb0;
+  --icons: rgba(255, 255, 255, 0.5);
   --modal-button-text: #161616;
-  --modal-button-bg: #BEDBB0;
-  --modal-button-bg-hover: #9DC888;
+  --modal-button-bg: #bedbb0;
+  --modal-button-bg-hover: #9dc888;
   --modal-button-plus: #ffffff;
+  --without-priority-icon: #ffffff80;
+  /* dashboard */
+
+  --card-button-text: #161616;
+  --background-task: #121212;
+  --border-modal-card: rgba(190, 219, 176, 0.5);
+  --border-input-modal: #bedbb0;
+
+  --background-input-modal: #1f1f1f;
+  --background-button: #121212;
+  --text-column: #fff;
+  --background-task-modal: #151515;
+  --border-input: #bedbb0;
+  --text-button-modal: #161616;
+  --icon-modal: #fff;
+  --no-active: #ffffff80;
 }
 
 [data-theme="violet"] {
   color-scheme: violet;
-  --text: #ffffff;
+  --text: #161616;
   --background: #ecedfd;
   --base-green-violet: #7b7ede;
   --active-green-violet: #5255bc;
@@ -120,46 +153,73 @@
   --background-heder: #ffffff;
   --text-heder: #161616;
   --add-foto-heder: #ecedfd;
-    /* sidebar */
-  --back-sidebar: #5255BC;
+  /* sidebar */
+  --back-sidebar: #5255bc;
   --my-boards: rgba(255, 255, 255, 0.5);
-  --my-boards-btn: #B8BCFD;
-  --my-boards-btn-hover: #979CEA;
-  --board-selected:#FFFFFF80;
-  --help-bg:#ECEDFD66;
-  --help-span:#5255BC;
-  --help-button:#ffffff;
+  --my-boards-btn: #b8bcfd;
+  --my-boards-btn-hover: #979cea;
+  --board-selected: #ffffff80;
+  --help-bg: #ecedfd66;
+  --help-span: #5255bc;
+  --help-button: #ffffff;
   --logout: #ffffff;
-  --logout-hover: #B8BCFD;
+  --logout-hover: #b8bcfd;
   /* modal */
-  --modal-border:#fcfcfc;
+  --modal-border: #fcfcfc;
   --modal-bg: #fcfcfc;
-  --modal-input:#FCFCFC;
-  --modal-input-border:#5255bc66;
-  --modal-input-border-hover-focus:#5255BC;
-  --icons:rgba(22, 22, 22, 0.5);
-  --modal-button-text: #FFFFFF;
-  --modal-button-bg: #5255BC;
-  --modal-button-bg-hover: #7B7EDE;
+  --modal-input: #fcfcfc;
+  --modal-input-border: #5255bc66;
+  --modal-input-border-hover-focus: #5255bc;
+  --icons: rgba(22, 22, 22, 0.5);
+  --modal-button-text: #ffffff;
+  --modal-button-bg: #5255bc;
+  --modal-button-bg-hover: #7b7ede;
   --modal-button-plus: #161616;
+  /* dashboard */
+  --card-button-text: #fff;
+  --background-task: #fff;
+  --border-modal-card: #fcfcfc;
+  --border-input-modal: #5255bc;
+
+  --background-button: #fff;
+  --text-column: #161616;
+  --background-task-modal: #fcfcfc;
+  --border-input: #5255bc;
+  --background-input-modal: #ecedfd;
+  --text-button-modal: #fff;
+  --icon-modal: #161616;
+  --no-active: #161616b3;
 }
 
 /* @media (prefers-color-scheme: light) {
   :root {
-    font-family: Poppins, mediumFont, regularFont sans-serif;
+    font-family: Poppins sans-serif;
 
     color-scheme: light;
     --base-green-violet: #bedbb0;
     --active-green-violet: #9dc888;
     --text: #161616;
-    --background: #ffffff;
+    --background: #f6f6f7;
     --no-active: #ffffff80;
     --without-priority: #ffffff4d;
     --low-priority: #8fa1d0;
     --medium-priority: #e09cb5;
+    --high-priority: #bedbb0;
     --logout-plus-active: #bedbb0;
     --logout-plus-no-active: #9dc888;
     --favicon-color: #fff;
+    --card-button-text: #161616;
+    --background-task: #fff;
+    --border-modal-card: #fcfcfc;
+    --border-input-modal: #bedbb0;
+
+    --background-button: #fff;
+    --text-column: #161616;
+    --background-task-modal: #fcfcfc;
+    --border-input: #bedbb0;
+    --background-input-modal: #ffffff;
+    --text-button-modal: #161616;
+    --icon-modal: #fff;
   }
 }
 
@@ -170,13 +230,25 @@
     --base-green-violet: #bedbb0;
     --active-green-violet: #9dc888;
     --text: #ffffff;
-    --background: #161616;
+    --background: #1f1f1f;
     --no-active: #ffffff80;
     --without-priority: #ffffff4d;
     --low-priority: #8fa1d0;
     --medium-priority: #e09cb5;
     --logout-plus-active: #bedbb0;
     --logout-plus-no-active: #9dc888;
+    --card-button-text: #161616;
+    --background-task: #121212;
+    --border-modal-card: rgba(190, 219, 176, 0.5);
+    --border-input-modal: #bedbb0;
+
+    --background-input-modal: #1f1f1f;
+    --background-button: #121212;
+    --text-column: #fff;
+    --background-task-modal: #151515;
+    --border-input: #bedbb0;
+    --text-button-modal: #161616;
+    --icon-modal: #fff;
   }
 }
 
@@ -194,6 +266,18 @@
     --active-green-violet: #5255bc;
     --logout-plus-active: #b8bcfd;
     --logout-plus-no-active: #fff;
+    --card-button-text: #fff;
+    --background-task: #fff;
+    --border-modal-card: #fcfcfc;
+    --border-input-modal: #5255bc;
+
+    --background-button: #fff;
+    --text-column: #161616;
+    --background-task-modal: #fcfcfc;
+    --border-input: #5255bc;
+    --background-input-modal: #ecedfd;
+    --text-button-modal: #fff;
+    --icon-modal: #161616;
   }
 
 } */

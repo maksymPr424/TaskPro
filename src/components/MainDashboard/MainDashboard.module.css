@@ -1,0 +1,318 @@
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+body {
+  background-color: gray;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul {
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: max-content;
+  max-width: 320px;
+  padding: 0 20px;
+  gap: 20px;
+  overflow-x: auto;
+  margin: 0 auto;
+  position: relative;
+}
+
+.changeColumnBtn {
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  cursor: pointer;
+}
+
+.button {
+  /* flex-shrink: 0; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 14px 0;
+  font-size: 14px;
+  border-radius: 8px;
+  border: none;
+  background: var(--background-button);
+  color: var(--text-column);
+  font-family: var(--mediumFont, Poppins);
+  letter-spacing: -0.02em;
+  min-width: 280px;
+  max-width: 280px;
+  width: 100%;
+  gap: 8px;
+}
+
+.plus {
+  width: 28px;
+  height: 28px;
+  padding: 7px;
+  border-radius: 6px;
+  color: var(--background-button);
+  background-color: var(--text-column);
+}
+
+.modal {
+  border-radius: 8px;
+  width: 100%;
+  max-width: 300px;
+  margin: 80px auto 0;
+  background: var(--background-task-modal);
+  position: relative;
+  padding: 24px;
+}
+
+.modalChangeColumn {
+  min-width: 160px;
+  max-width: max-content;
+  position: absolute;
+  top: 0;
+  right: 24px;
+  padding: 18px;
+  margin: 0;
+}
+
+.title {
+  color: var(--text-column);
+  font-family: var(--mediumFont, Poppins);
+  font-size: 18px;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+}
+
+.closeButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--background-task-modal);
+  border: none;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+}
+
+.close {
+  stroke: var(--text);
+}
+
+.input {
+  display: flex;
+  width: 100%;
+  padding: 14px 0;
+  padding-left: 18px;
+  align-items: center;
+  border-radius: 8px;
+  color: var(--text-column);
+  opacity: 0.4;
+  border: 1px solid var(--border-input);
+  outline: none;
+  background: var(--background-input-modal);
+  box-shadow: 0px 4px 16px 0px rgba(22, 22, 22, 0.08);
+}
+
+span {
+  color: red;
+  font-size: 8px;
+  margin-top: 8px;
+}
+
+.modalButton {
+  display: flex;
+  width: 100%;
+  padding: 10px 0px;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-button-modal);
+  font-family: var(--mediumFont, Poppins);
+  letter-spacing: -0.02em;
+  gap: 8px;
+  margin-top: 24px;
+  border-radius: 8px;
+  background: var(--border-input);
+  border: none;
+}
+
+.plusModal {
+  background-color: var(--text-button-modal);
+  color: var(--icon-modal);
+  width: 28px;
+  height: 28px;
+  padding: 7px;
+  border-radius: 6px;
+}
+
+.loading {
+  text-align: center;
+  padding: 20px;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  padding: 20px;
+}
+
+.edit,
+.delete {
+  stroke: var(--my-dashboard-svg);
+  fill: transparent;
+}
+.edit:hover,
+.delete:hover {
+  stroke: var(--base-green-violet);
+}
+
+.tasks {
+  margin-top: 14px;
+}
+
+.columnsContainer {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  /* width: 100%; */
+  gap: 20px;
+  /* overflow-x: auto; */
+  /* padding: 0 20px; */
+}
+
+.columnItem {
+  flex-shrink: 0;
+  max-width: 280px;
+  min-width: 280px;
+  width: 100%;
+  padding-bottom: 20px;
+}
+
+.column {
+  width: 100%;
+  display: flex;
+  padding: 18px 20px 17px 20px;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  background: var(--background-button);
+}
+
+.changeColumnList {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.changeColumnBtn {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.columnsTitle {
+  color: inherit;
+}
+
+.move {
+  stroke: var(--without-priority);
+}
+
+.move use {
+  stroke: var(--without-priority);
+}
+
+.active {
+  color: var(--base-green-violet);
+}
+
+.active use {
+  stroke: var(--base-green-violet);
+}
+
+@media screen and (min-width: 375px) {
+  .columnItem,
+  .button {
+    min-width: 335px;
+    max-width: 335px;
+    width: 100%;
+  }
+
+  .container {
+    max-width: 375px;
+  }
+}
+
+.titleColumn {
+  color: var(--text-column);
+  font-family: var(--mediumFont, Poppins);
+  font-size: 14px;
+  letter-spacing: -0.02em;
+}
+
+.editButton,
+.deleteButton {
+  width: 16px;
+  height: 16px;
+  border: none;
+  background: inherit;
+}
+
+.columnButtons {
+  display: flex;
+  gap: 8px;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+
+  .button {
+    width: 334px;
+  }
+
+  .modal {
+    /* position: fixed;
+    top: 300px;
+    left: 390px;
+    transform: translate(-50%, -50%); */
+  }
+
+  .columnItem {
+    width: 334px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .container {
+    margin: 0;
+    max-width: 1064px;
+  }
+
+  .button {
+    width: 334px;
+  }
+
+  .modal {
+    margin: 0 auto;
+    transform: translateY(200px);
+  }
+
+  .columnItem {
+    width: 334px;
+  }
+}

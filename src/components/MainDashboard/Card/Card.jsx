@@ -23,6 +23,7 @@ import {
   updateTask,
   updateTaskColumn,
 } from "../../../redux/boards/slice";
+import { ExpandableCard } from "../ExpandableCard";
 
 export default function Card({ columnId }) {
   const dispatch = useDispatch();
@@ -32,8 +33,6 @@ export default function Card({ columnId }) {
   const cards = useSelector(selectColumns).filter(
     ({ _id }) => _id === columnId
   )[0].tasks;
-
-  console.log(cards);
 
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
@@ -49,16 +48,15 @@ export default function Card({ columnId }) {
 
   const handleAddCard = (values) => {
     const priority = values.priority.toLowerCase();
+    console.log(values);
 
     const taskData = {
-      title: values.title,
-      content: values.content,
+      title: values.title.trim(),
+      content: values.content.trim(),
       deadline: new Date(values.deadline),
       priority,
-      // calendar: values.calendar ? new Date(values.calendar) : null,
     };
 
-    if (!taskData.content) delete taskData.content;
     dispatch(
       addCard({
         boardId,
@@ -86,8 +84,8 @@ export default function Card({ columnId }) {
     const priority = card.priority.toLowerCase();
     setEditingCard({
       id: card._id,
-      title: card.title,
-      content: card.content,
+      title: card.title.trim(),
+      content: card.content.trim(),
       deadline: new Date(card.deadline).toISOString(),
       priority,
     });
@@ -130,8 +128,8 @@ export default function Card({ columnId }) {
     const priority = values.priority.toLowerCase();
 
     const updateData = {
-      title: values.title,
-      content: values.content,
+      title: values.title.trim(),
+      content: values.content.trim(),
       deadline: values.deadline
         ? new Date(values.deadline)
         : new Date(Date.now() + 24 * 60 * 60 * 1000),
@@ -176,6 +174,12 @@ export default function Card({ columnId }) {
     HIGH: "high",
   };
 
+  const sectionStyles = {
+    position: "relative",
+  };
+
+  
+
   return (
     <div className={css.container}>
       <ul className={css.list}>
@@ -196,29 +200,32 @@ export default function Card({ columnId }) {
                   : ""
               }`}
               key={card._id}
+              style={sectionStyles}
             >
               <h3 className={css.title}>{card.title}</h3>
-              <p className={css.text}>{card.description} </p>
+              <ExpandableCard {...card} />
               <div className={css.subcontainer}>
-                <div>
-                  <h4 className={css.subtitle}>Priority</h4>
-                  <label className={css[`priority${card.priority}`]}>
-                    <input
-                      type="radio"
-                      name="priority"
-                      value={card.priority}
-                      checked={true}
-                      readOnly
-                      disabled
-                    />
-                  </label>
-                </div>
-
-                <div>
-                  <h4 className={css.subtitle}>Deadline</h4>
-                  <p className={css.deadlineText}>
-                    {format(new Date(Date.parse(card.deadline)), "d/MM/yy")}
-                  </p>
+                <div className={css.leftCardInfo}>
+                  <div>
+                    <h4 className={css.subtitle}>Priority</h4>
+                    <label className={css[`priority${card.priority}`]}>
+                      <input
+                        type="radio"
+                        name="priority"
+                        value={card.priority}
+                        checked={true}
+                        readOnly
+                        disabled
+                      />
+                    </label>
+                  </div>
+  
+                  <div>
+                    <h4 className={css.subtitle}>Deadline</h4>
+                    <p className={css.deadlineText}>
+                      {format(new Date(Date.parse(card.deadline)), "d/MM/yy")}
+                    </p>
+                  </div>
                 </div>
 
                 <div className={css.iconContainer}>
@@ -248,14 +255,15 @@ export default function Card({ columnId }) {
                   </button>
                 </div>
               </div>
-
-              <ChangeColumnModal
-                isOpen={editCardColumnModalIsOpen}
-                onClose={() => setEditCardColumnModalIsOpen(false)}
-                onSubmit={handleEditColumnCard}
-                columnId={columnId}
-                editingCard={editingCardColumn}
-              />
+              <div className={css.modalOpen}>
+                <ChangeColumnModal
+                  isOpen={editCardColumnModalIsOpen}
+                  onClose={() => setEditCardColumnModalIsOpen(false)}
+                  onSubmit={handleEditColumnCard}
+                  columnId={columnId}
+                  editingCard={editingCardColumn}
+                />
+              </div>
             </li>
           ))
         )}

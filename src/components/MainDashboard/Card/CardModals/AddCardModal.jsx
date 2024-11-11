@@ -16,9 +16,9 @@ const PRIORITIES = {
 const cardSchema = Yup.object().shape({
   title: Yup.string()
     .min(3, "Too Short")
-    .max(100, "Too long")
+    .max(20, "Too long")
     .required("Required"),
-  description: Yup.string().min(3, "Too Short").max(300, "Too long"),
+  content: Yup.string().min(3, "Too Short").max(300, "Too long"),
   deadline: Yup.date().min(new Date()),
   priority: Yup.string().oneOf(Object.values(PRIORITIES)),
 });
@@ -60,7 +60,17 @@ export const AddCardModal = ({ isOpen, onClose, onSubmit, cardId }) => {
   };
 
   return (
-    <Modal className={css.addModal} isOpen={isOpen} onRequestClose={onClose}>
+    <Modal
+      className={css.addModal}
+      isOpen={isOpen}
+      onRequestClose={onClose}
+      style={{
+        overlay: {
+          backgroundColor: "transparent",
+          zIndex: 10,
+        },
+      }}
+    >
       <h2 className={css.modalTitle}>Add card</h2>
       <button onClick={onClose} className={css.closeButton}>
         <svg className={css.close} width="18" height="18">
@@ -75,7 +85,7 @@ export const AddCardModal = ({ isOpen, onClose, onSubmit, cardId }) => {
           priority: PRIORITIES.NONE,
         }}
         validationSchema={cardSchema}
-        onSubmit={(values, formikHelpers) => onSubmit(values, formikHelpers)} // Передаємо formikHelpers у onSubmit
+        onSubmit={(values, formikHelpers) => onSubmit(values, formikHelpers)}
       >
         <Form>
           <Field className={css.modalInputTitle} name="title" id={cardId} />

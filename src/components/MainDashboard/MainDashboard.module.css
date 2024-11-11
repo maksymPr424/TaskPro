@@ -77,8 +77,14 @@ button {
   padding: 24px;
 }
 
-.modalOverlay {
-  background-color: transparent;
+.modalChangeColumn {
+  min-width: 160px;
+  max-width: max-content;
+  position: absolute;
+  top: 0;
+  right: 24px;
+  padding: 18px;
+  margin: 0;
 }
 
 .title {
@@ -196,14 +202,6 @@ span {
   align-items: center;
   border-radius: 8px;
   background: var(--background-button);
-}
-
-.modalChangeColumn {
-  min-width: 160px;
-  max-width: max-content;
-  position: fixed;
-  top: 0;
-  right: 25px;
 }
 
 .changeColumnList {

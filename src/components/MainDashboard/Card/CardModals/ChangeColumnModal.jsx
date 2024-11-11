@@ -14,12 +14,33 @@ export const ChangeColumnModal = ({
 
   const columns = useSelector(selectColumns);
 
+  const modalStyles = {
+    overlay: {
+      backgroundColor: "transparent",
+      position: "fixed",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+    },
+    content: {
+      position: "unset",
+      top: 0 + "px",
+      left: 0 + "px",
+      // width: "300px",
+      // backgroundColor: "white",
+      // padding: "20px",
+      // borderRadius: "8px",
+    },
+  };
+
   return (
     <Modal
       className={`${css.modal} ${css.modalChangeColumn}`}
-      overlayClassName={css.modalOverlay}
+      // overlayClassName={css.modalOverlay}
       isOpen={isOpen}
       onRequestClose={onClose}
+      style={modalStyles}
     >
       <ul className={css.changeColumnList}>
         {columns.map(({ _id, title }) => (

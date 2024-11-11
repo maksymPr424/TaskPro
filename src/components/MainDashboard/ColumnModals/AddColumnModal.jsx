@@ -15,7 +15,17 @@ const columnSchema = Yup.object().shape({
 
 export const AddColumnModal = ({ isOpen, onClose, onSubmit, columnId }) => {
   return (
-    <Modal className={css.modal} isOpen={isOpen} onRequestClose={onClose}>
+    <Modal
+      className={css.modal}
+      isOpen={isOpen}
+      onRequestClose={onClose}
+      style={{
+        overlay: {
+          backgroundColor: "transparent",
+          zIndex: 10,
+        },
+      }}
+    >
       <h2 className={css.title}>Add column</h2>
       <button className={css.closeButton} onClick={onClose}>
         <svg className={css.close} width="18" height="18">

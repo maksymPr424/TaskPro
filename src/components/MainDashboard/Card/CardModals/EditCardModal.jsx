@@ -16,11 +16,11 @@ const PRIORITIES = {
 const cardSchema = Yup.object().shape({
   title: Yup.string()
     .min(3, "Too Short")
-    .max(100, "Too long")
+    .max(20, "Too long")
     .required("Required"),
-  description: Yup.string().min(3, "Too Short").max(300, "Too long"),
-  calendar: Yup.date().min(new Date()).optional(),
-  priority: Yup.string().oneOf(Object.values(PRIORITIES)).optional(),
+  content: Yup.string().min(3, "Too Short").max(300, "Too long"),
+  deadline: Yup.date().min(new Date()),
+  priority: Yup.string().oneOf(Object.values(PRIORITIES)),
 });
 
 export const EditCardModal = ({
@@ -33,7 +33,17 @@ export const EditCardModal = ({
   if (!editingCard) return null;
 
   return (
-    <Modal className={css.addModal} isOpen={isOpen} onRequestClose={onClose}>
+    <Modal
+      className={css.addModal}
+      isOpen={isOpen}
+      onRequestClose={onClose}
+      style={{
+        overlay: {
+          backgroundColor: "transparent",
+          zIndex: 10,
+        },
+      }}
+    >
       <h2 className={css.modalTitle}>Edit card</h2>
       <button className={css.closeButton} onClick={onClose}>
         <svg className={css.close} width="18" height="18">
@@ -61,12 +71,12 @@ export const EditCardModal = ({
               as="textarea"
               cols="30"
               rows="10"
-              name="description"
+              name="content"
               id={cardId}
             />
             <ErrorMessage
               className={css.error}
-              name="description"
+              name="content"
               component="span"
             />
 

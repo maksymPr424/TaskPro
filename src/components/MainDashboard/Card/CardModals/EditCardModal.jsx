@@ -2,7 +2,6 @@ import * as Yup from "yup";
 import Modal from "react-modal";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import css from "../Card.module.css";
-import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 

@@ -5,6 +5,10 @@ import HeaderDashboard from "../../components/HeaderDashboard/HeaderDashboard.js
 
 export default function ScreensPage() {
   const { boardName } = useParams();
+  // const board = useSelector(
+  //   (state) => state.board.boards?.find((board) => board.id === boardName)?.name
+  // );
+
   return (
     <>
       <HeaderDashboard boardName={boardName} />

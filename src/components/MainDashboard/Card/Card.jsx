@@ -47,9 +47,11 @@ export default function Card({ columnId }) {
   const cardId = useId();
 
   const handleAddCard = (values) => {
+    if (!values.priority) {
+      values.priority = "none";
+    }
     const priority = values.priority.toLowerCase();
-    console.log(values);
-
+    
     const taskData = {
       title: values.title.trim(),
       content: values.content.trim(),

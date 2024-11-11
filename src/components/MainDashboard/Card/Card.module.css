@@ -115,7 +115,7 @@ span {
 } */
 
 .title {
-  color: var(--text);
+  color: var(--text-heder);
   font-family: "Poppins", sans-serif;
   letter-spacing: -0.02em;
   margin-bottom: 8px;
@@ -125,7 +125,7 @@ span {
   color: var(--no-active);
   text-overflow: ellipsis;
   white-space: wrap;
-  font-family: var(--mediumFont, Poppins);
+  font-family: "Poppins", sans-serif;
   font-size: 12px;
   line-height: 1.33;
   letter-spacing: -0.02em;
@@ -143,12 +143,12 @@ span {
   left: 0;
   width: 100%;
   height: 1px;
-  background-color: var(--my-boards);
+  background-color: var(--my-dashboard-svg);
 }
 
 .label {
-  color: var(--text);
-  font-family: var(--mediumFont, Poppins);
+  color: var(--text-heder);
+  font-family: "Poppins", sans-serif;
   font-size: 10px;
   letter-spacing: -0.002em;
 }
@@ -211,7 +211,7 @@ span {
 }
 
 .close {
-  stroke: var(--text);
+  stroke: var(--my-dashboard-svg);
 }
 
 .closeButton {
@@ -230,7 +230,7 @@ span {
 }
 
 .modalTitle {
-  color: var(--text);
+  color: var(--text-heder);
   font-family: var(--mediumFont, Poppins);
   font-size: 18px;
   letter-spacing: -0.02em;
@@ -245,7 +245,7 @@ span {
   opacity: 0.4;
   background: var(--background-input-modal);
   box-shadow: 0px 4px 16px 0px rgba(22, 22, 22, 0.08);
-  color: var(--text);
+  color: var(--text-heder);
   font-family: "Poppins", sans-serif;
   letter-spacing: -0.02em;
 }
@@ -256,7 +256,7 @@ span {
 
 .modalSubtitle {
   color: var(--no-active);
-  font-family: var(--regularFont, Poppins);
+  font-family: "Poppins", sans-serif;
   font-size: 12px;
   letter-spacing: -0.02em;
   margin-bottom: 4px;
@@ -270,8 +270,8 @@ span {
   opacity: 0.4;
   background: var(--background-input-modal);
   box-shadow: 0px 4px 16px 0px rgba(22, 22, 22, 0.08);
-  color: var(--text);
-  font-family: var(--regularFont, Poppins);
+  color: var(--text-heder) !important;
+  font-family: "Poppins", sans-serif;
   letter-spacing: -0.02em;
 }
 
@@ -302,7 +302,7 @@ span {
 
 .deadlineText {
   font-size: 10px;
-  color: var(--text);
+  color: var(--text-heder);
   margin-top: 4px;
 }
 
@@ -316,7 +316,7 @@ span {
 }
 
 .priorityNoneItem {
-  border-left: 4px solid var(--my-boards);
+  border-left: 4px solid var(--no-active);
 }
 
 .priorityLowItem {
@@ -354,7 +354,7 @@ span {
 }
 
 .prioritynone input[type="radio"] {
-  background-color: var(--my-boards);
+  background-color: var(--no-active);
 }
 
 .prioritylow input[type="radio"] {
@@ -387,6 +387,7 @@ span {
   font-size: 11px;
   margin: 0;
   padding: 0;
+  color: var(--text);
 }
 
 @media screen and (min-width: 768px) {

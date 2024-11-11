@@ -75,7 +75,8 @@ span {
 .edit,
 .delete,
 .move {
-  stroke: var(--my-dashboard-svg);
+  /* stroke: var(--my-dashboard-svg); */
+  stroke: var(--icons);
   fill: transparent;
 }
 
@@ -117,6 +118,7 @@ span {
 .title {
   color: var(--text-heder);
   font-family: "Poppins", sans-serif;
+
   letter-spacing: -0.02em;
   margin-bottom: 8px;
 }
@@ -138,7 +140,7 @@ span {
 
 .text::after {
   position: absolute;
-  content: "";
+  content: '';
   bottom: -14px;
   left: 0;
   width: 100%;
@@ -245,8 +247,10 @@ span {
   opacity: 0.4;
   background: var(--background-input-modal);
   box-shadow: 0px 4px 16px 0px rgba(22, 22, 22, 0.08);
+
   color: var(--text-heder);
   font-family: "Poppins", sans-serif;
+
   letter-spacing: -0.02em;
 }
 
@@ -339,10 +343,10 @@ span {
   display: inline-block;
 }
 
-.prioritynone input[type="radio"],
-.prioritylow input[type="radio"],
-.prioritymedium input[type="radio"],
-.priorityhigh input[type="radio"] {
+.prioritynone input[type='radio'],
+.prioritylow input[type='radio'],
+.prioritymedium input[type='radio'],
+.priorityhigh input[type='radio'] {
   appearance: none;
   -webkit-appearance: none;
   width: 12px;
@@ -357,22 +361,22 @@ span {
   background-color: var(--no-active);
 }
 
-.prioritylow input[type="radio"] {
+.prioritylow input[type='radio'] {
   background-color: var(--low-priority);
 }
 
-.prioritymedium input[type="radio"] {
+.prioritymedium input[type='radio'] {
   background-color: var(--medium-priority);
 }
 
-.priorityhigh input[type="radio"] {
+.priorityhigh input[type='radio'] {
   background-color: #bedbb0;
 }
 
-.prioritynone input[type="radio"]:checked,
-.prioritylow input[type="radio"]:checked,
-.prioritymedium input[type="radio"]:checked,
-.priorityhigh input[type="radio"]:checked {
+.prioritynone input[type='radio']:checked,
+.prioritylow input[type='radio']:checked,
+.prioritymedium input[type='radio']:checked,
+.priorityhigh input[type='radio']:checked {
   border: 2px solid rgba(255, 255, 255, 0.3);
 }
 

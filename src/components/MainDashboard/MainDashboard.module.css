@@ -24,11 +24,6 @@ ul {
   position: relative;
 }
 
-.changeColumnBtn {
-  display: flex;
-  justify-content: space-between;
-}
-
 button {
   cursor: pointer;
 }
@@ -203,6 +198,7 @@ span {
 }
 
 .changeColumnList {
+  margin-top: 16px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -211,9 +207,8 @@ span {
 
 .changeColumnBtn {
   display: flex;
-  width: 100%;
+  gap: 8px;
   align-items: center;
-  justify-content: space-between;
 }
 
 .columnsTitle {
@@ -300,4 +295,8 @@ span {
   .columnItem {
     width: 334px;
   }
+}
+
+.modalMoveHeading {
+  max-width: 210px;
 }

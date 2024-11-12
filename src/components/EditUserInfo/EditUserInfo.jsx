@@ -23,6 +23,9 @@ import {
   selectTheme,
 } from "../../redux/auth/selectors.js";
 
+import userWhite from "../../img/user-violet.jpg";
+import userDark from "../../img/user-dark.jpg";
+
 Modal.setAppElement("#root");
 
 const EditProfileModal = ({ isOpen, onRequestClose }) => {
@@ -46,9 +49,13 @@ const EditProfileModal = ({ isOpen, onRequestClose }) => {
   const authStatus = useSelector((state) => state.user.status);
   const status = useSelector(selectUserStatus) || authStatus;
 
+  const authTheme = useSelector(selectTheme);
+  const theme = useSelector(selectUserTheme) || authTheme;
+
   const name = useSelector(selectName);
   const email = useSelector(selectEmail);
-  const photoUrl = useSelector(selectPhotoUrl);
+  const noneImage = theme === "dark" ? userDark : userWhite;
+  const photoUrl = useSelector(selectPhotoUrl) || noneImage;
   const authData = { name, email, photoUrl };
 
   const localData = useSelector(selectUserData);
@@ -67,9 +74,6 @@ const EditProfileModal = ({ isOpen, onRequestClose }) => {
     email: userProfile?.email,
     password: "",
   };
-
-  const authTheme = useSelector(selectTheme);
-  const theme = useSelector(selectUserTheme) || authTheme;
 
   function getDefaultImage() {
     return defaultImages[theme] || defaultImages.light;

@@ -22,6 +22,9 @@ import {
   selectUserTheme,
 } from "../../redux/header/selectors.js";
 
+import userWhite from "../../img/user-violet.jpg";
+import userDark from "../../img/user-dark.jpg";
+
 const Header = ({ fetchActiveBoard }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -36,8 +39,10 @@ const Header = ({ fetchActiveBoard }) => {
   const authName = useSelector(selectName);
   const name = useSelector(selectUserName) || authName;
 
+  const noneImage = theme === "dark" ? userDark : userWhite;
+
   const authPhoto = useSelector(selectPhotoUrl);
-  const photoUrl = useSelector(selectUserPhotoUrl) || authPhoto;
+  const photoUrl = useSelector(selectUserPhotoUrl) || authPhoto || noneImage;
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {

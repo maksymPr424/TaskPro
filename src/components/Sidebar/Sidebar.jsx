@@ -102,7 +102,7 @@ export default function Sidebar({ className, fetchActiveBoard }) {
       <div>
         <div className={css.sidebarLogo}>
           <svg className={css.sidebarLogoIcon}>
-            <use href="/public/sprite.svg#taskpro_logo"></use>
+            <use href="/sprite.svg#taskpro_logo"></use>
           </svg>
           <h1 className={css.sidebarLogoName}>Task Pro</h1>
         </div>

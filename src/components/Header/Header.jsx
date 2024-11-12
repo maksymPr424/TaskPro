@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import styles from "./Header.module.css";
-import icon from "../../assets/sprite.svg";
 // import defaultPhoto from "../../img/user.jpg";
 import EditUserInfo from "../EditUserInfo/EditUserInfo";
 import { useDispatch, useSelector } from "react-redux";
@@ -84,8 +83,8 @@ const Header = ({ fetchActiveBoard }) => {
   return (
     <div className={styles.header}>
       <div className={styles.menuIcon} onClick={handleOpenSidebar}>
-        <svg>
-          <use href={`${icon}#pop`}></use>
+        <svg className={styles.icon}>
+          <use href="/sprite.svg#pop"></use>
         </svg>
       </div>
 
@@ -97,7 +96,7 @@ const Header = ({ fetchActiveBoard }) => {
         >
           Theme
           <svg className={styles.menuIcon2}>
-            <use href={`${icon}#str`}></use>
+            <use href="/sprite.svg#str"></use>
           </svg>
         </div>
 

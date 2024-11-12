@@ -12,21 +12,17 @@
   position: relative;
   padding: 0 20px;
   width: 100vw;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 74px);
 }
 
-@media screen and (min-width: 1440px) {
+@media screen and (min-width: 768px) {
   .dashboardContainer {
-    height: calc(100vh - 68px);
+    height: calc(100vh - 94px);
   }
 }
 
 @media screen and (min-width: 1440px) {
   .dashboardContainer {
-    /* position: absolute;
-    top: 0;
-    left: -300px; */
-    /* margin-right: 390px; */
     width: calc(100vw - 260px);
     margin-left: auto;
   }

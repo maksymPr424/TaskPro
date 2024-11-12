@@ -137,11 +137,6 @@ button {
   box-shadow: 0px 4px 16px 0px rgba(22, 22, 22, 0.08);
 }
 
-span {
-  color: red;
-  font-size: 8px;
-}
-
 .modalButton {
   display: flex;
   width: 100%;
@@ -319,5 +314,5 @@ span {
 
 .modalMoveHeading {
   max-width: 210px;
-  color: var(--heder--text);
+  color: var(--text-header);
 }

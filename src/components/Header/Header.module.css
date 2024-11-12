@@ -40,7 +40,7 @@
 .menuIcon2 {
   width: 16px;
   height: 16px;
-  fill: currentColor;
+  fill: var(--text-heder);
   margin-right: 14px;
 }
 
@@ -86,6 +86,12 @@
 
 .sidebarModal {
   overflow-y: auto;
+}
+
+.icon {
+  --color1: var(--text-heder);
+  stroke: var(--text-heder);
+  fill: var(--text-heder);
 }
 
 @media screen and (min-width: 768px) {

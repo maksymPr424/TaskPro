@@ -61,14 +61,14 @@ function App() {
               }
             />
             <Route
-              path='/home/:boardName?'
+              path="/home/:boardName?"
               element={
                 <RestrictedRoute>
                   <HomePage />
                 </RestrictedRoute>
               }
             />
-            <Route path='*' element={<NotFoundPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>
       )}

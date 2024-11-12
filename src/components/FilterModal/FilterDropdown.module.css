@@ -1,0 +1,118 @@
+.dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 1000;
+  width: 300px;
+  height: 234px;
+  border-radius: 8px;
+  border: 1px solid var(--base-green-violet);
+  background: var(--background-heder);
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.closeButton {
+  top: 14px;
+  right: 14px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+}
+
+.closeIcon {
+  width: 18px;
+  height: 18px;
+}
+
+.titleFilter {
+  color: var(--text-heder);
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.02;
+  padding-bottom: 14px;
+  margin: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.subtitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+}
+
+.label {
+  color: var(--text-heder);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.show {
+  color: var(--text-heder);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: -0.02;
+  text-decoration: underline;
+  background-color: transparent;
+  border: none;
+}
+
+.buttonsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.radioBtn {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin-right: 8px;
+  cursor: pointer;
+  position: relative;
+}
+
+.radioText input[type="radio"] {
+  display: none;
+}
+
+.radioBtn::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: transparent;
+  border-radius: 50%;
+}
+
+.radioText input[type="radio"]:checked + .radioBtn::before {
+  /* background-color: var(--base-green-violet); */
+  border: 3px solid var(--background-heder);
+}
+
+.radioText {
+  font-size: 12px;
+  letter-spacing: -0.02em;
+  color: var(--no-active);
+  display: flex;
+  align-items: center;
+}
+
+.radioText input[type="radio"]:checked ~ .radioLabel {
+  color: var(--text-heder);
+}
+
+/* .radioText .radioBtn:checked + .radioBtn + .radioLabel {
+  color: var(--no-active);
+} */

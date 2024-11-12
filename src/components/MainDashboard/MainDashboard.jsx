@@ -9,12 +9,12 @@ import {
   fetchBackground,
 } from '../../redux/boards/operations';
 import {
-  selectColumns,
   selectIsLoading,
   selectError,
   selectActiveBoardId,
   selectBackgroundUrls,
   selectBackground,
+  selectColumns,
 } from '../../redux/boards/selectors';
 import { AddColumnModal } from './ColumnModals/AddColumnModal';
 import { EditColumnModal } from './ColumnModals/EditColumnModal';
@@ -83,6 +83,7 @@ export default function MainDashboard() {
     dispatch(addColumn({ title: values.title, boardId }))
       .unwrap()
       .then(() => {
+        setAddModalIsOpen(false);
         resetForm();
       })
       .catch((error) => {

@@ -3,27 +3,51 @@ import * as Yup from "yup";
 import Modal from "react-modal";
 import PropTypes from "prop-types";
 import css from "./NewBoardModal.module.css";
-
 Modal.setAppElement("#root");
+import noBackground from "../../../img/no-background.png";
+import pinkFlowers from "../../../img/pinkFlowers.png";
+import nightSky from "../../../img/nightSky.png";
+import three from "../../../img/three.png";
+import halfMoon from "../../../img/halfMoon.png";
+import palmLeaves from "../../../img/palmLeaves.png";
+import cloudySky from "../../../img/cloudySky.png";
+import rockyCoast from "../../../img/rockyCoast.png";
+import violetCircle from "../../../img/violetCircle.png";
+import fullMoon from "../../../img/fullMoon.png";
+import yacht from "../../../img/yacht.png";
+import balloon from "../../../img/balloon.png";
+import canyon from "../../../img/canyon.png";
+import boat from "../../../img/boat.png";
+import balloons from "../../../img/balloons.png";
+import trailer from "../../../img/trailer.png";
 
-const icons = ["project", "star", "loading", "puzzle", "container", "lightning", "colors", "hexagon"];
+const icons = [
+  "project",
+  "star",
+  "loading",
+  "puzzle",
+  "container",
+  "lightning",
+  "colors",
+  "hexagon",
+];
 const backgrounds = [
-  { name: "no-background", imageUrl: "/src/img/no-background.png" },
-  { name: "pinkFlowers", imageUrl: "/src/img/pinkFlowers.png" },
-  { name: "nightSky", imageUrl: "/src/img/nightSky.png" },
-  { name: "three", imageUrl: "/src/img/three.png" },
-  { name: "halfMoon", imageUrl: "/src/img/halfMoon.png" },
-  { name: "palmLeaves", imageUrl: "/src/img/palmLeaves.png" },
-  { name: "cloudySky", imageUrl: "/src/img/cloudySky.png" },
-  { name: "rockyCoast", imageUrl: "/src/img/rockyCoast.png" },
-  { name: "violetCircle", imageUrl: "/src/img/violetCircle.png" },
-  { name: "fullMoon", imageUrl: "/src/img/fullMoon.png" },
-  { name: "yacht", imageUrl: "/src/img/yacht.png" },
-  { name: "balloon", imageUrl: "/src/img/balloon.png" },
-  { name: "canyon", imageUrl: "/src/img/canyon.png" },
-  { name: "boat", imageUrl: "/src/img/boat.png" },
-  { name: "balloons", imageUrl: "/src/img/balloons.png" },
-  { name: "trailer", imageUrl: "/src/img/trailer.png" },
+  { name: "no-background", imageUrl: noBackground },
+  { name: "pinkFlowers", imageUrl: pinkFlowers },
+  { name: "nightSky", imageUrl: nightSky },
+  { name: "three", imageUrl: three },
+  { name: "halfMoon", imageUrl: halfMoon },
+  { name: "palmLeaves", imageUrl: palmLeaves },
+  { name: "cloudySky", imageUrl: cloudySky },
+  { name: "rockyCoast", imageUrl: rockyCoast},
+  { name: "violetCircle", imageUrl: violetCircle },
+  { name: "fullMoon", imageUrl: fullMoon },
+  { name: "yacht", imageUrl: yacht },
+  { name: "balloon", imageUrl: balloon },
+  { name: "canyon", imageUrl: canyon },
+  { name: "boat", imageUrl: boat },
+  { name: "balloons", imageUrl: balloons },
+  { name: "trailer", imageUrl: trailer },
 ];
 
 const NewBoardModal = ({ isOpen, onClose, onCreateBoard }) => {
@@ -49,8 +73,11 @@ const NewBoardModal = ({ isOpen, onClose, onCreateBoard }) => {
       className={css.modalContent}
       overlayClassName={css.modalOverlay}
       contentLabel="New Board Modal"
-      ariaHideApp={false}>
-      <button className={css.closeButton} onClick={onClose}>×</button>
+      ariaHideApp={false}
+    >
+      <button className={css.closeButton} onClick={onClose}>
+        ×
+      </button>
       <h3 className={css.modalName}>New board</h3>
 
       <Formik
@@ -86,7 +113,9 @@ const NewBoardModal = ({ isOpen, onClose, onCreateBoard }) => {
                       className={css.hiddenInput}
                     />
                     <svg
-                      className={`${css.iconOption} ${icon === values.icon ? css.selected : ""}`}
+                      className={`${css.iconOption} ${
+                        icon === values.icon ? css.selected : ""
+                      }`}
                     >
                       <use href={`/boards.svg#${icon}`}></use>
                     </svg>
@@ -108,10 +137,11 @@ const NewBoardModal = ({ isOpen, onClose, onCreateBoard }) => {
                       className={css.hiddenInput}
                     />
                     <div
-                      className={`${css.backgroundOption} ${bg.name === values.background ? css.selected : ""}`}
+                      className={`${css.backgroundOption} ${
+                        bg.name === values.background ? css.selected : ""
+                      }`}
                       style={{ backgroundImage: `url(${bg.imageUrl})` }}
                     ></div>
-
                   </label>
                 ))}
               </div>

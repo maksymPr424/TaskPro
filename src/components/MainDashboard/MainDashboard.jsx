@@ -1,44 +1,83 @@
-import { useState, useId } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import css from "./MainDashboard.module.css";
+import { useState, useId, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import css from './MainDashboard.module.css';
 import {
   addColumn,
   deleteColumn,
   editColumn,
-} from "../../redux/boards/operations";
+  fetchBackground,
+} from '../../redux/boards/operations';
 import {
   selectIsLoading,
   selectError,
   selectActiveBoardId,
+  selectBackgroundUrls,
+  selectBackground,
   selectColumns,
-} from "../../redux/boards/selectors";
-import { AddColumnModal } from "./ColumnModals/AddColumnModal";
-import { EditColumnModal } from "./ColumnModals/EditColumnModal";
-import Card from "./Card/Card";
-import { FaPlus } from "react-icons/fa6";
-import ReactModal from "react-modal";
-import Loader from "../Loader/Loader";
-import { deleteColumnSpeed, updateColumn } from "../../redux/boards/slice";
+} from '../../redux/boards/selectors';
+import { AddColumnModal } from './ColumnModals/AddColumnModal';
+import { EditColumnModal } from './ColumnModals/EditColumnModal';
+import Card from './Card/Card';
+import { FaPlus } from 'react-icons/fa6';
+import ReactModal from 'react-modal';
+import Loader from '../Loader/Loader';
+import {
+  clearBackgroundUrls,
+  deleteColumnSpeed,
+  updateColumn,
+} from '../../redux/boards/slice';
 
-ReactModal.setAppElement("#root");
+ReactModal.setAppElement('#root');
 
 export default function MainDashboard() {
   const dispatch = useDispatch();
-
-  const columns = useSelector(selectColumns);
+  const columns = useSelector(selectColumns) || [];
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
   const boardId = useSelector(selectActiveBoardId);
-
   const [addModalIsOpen, setAddModalIsOpen] = useState(false);
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
   const [editingColumn, setEditingColumn] = useState(null);
-
+  const backgroundUrls = useSelector(selectBackgroundUrls);
+  const background = useSelector(selectBackground);
   const columnId = useId();
+  const { boardName } = useParams();
+
+  useEffect(() => {
+    if (boardName) {
+      if (background === 'no-background') {
+        dispatch(clearBackgroundUrls());
+        document.documentElement.style.setProperty('--desktop-bg', 'none');
+        document.documentElement.style.setProperty('--tablet-bg', 'none');
+        document.documentElement.style.setProperty('--mobile-bg', 'none');
+      } else {
+        dispatch(clearBackgroundUrls());
+        dispatch(fetchBackground(background));
+      }
+    }
+  }, [dispatch, boardName, background]);
+
+  console.log('MainDashboard rendered', { boardId, isLoading, error });
+
+  useEffect(() => {
+    if (backgroundUrls && backgroundUrls.length) {
+      document.documentElement.style.setProperty(
+        '--desktop-bg',
+        `url(${backgroundUrls[2]})`
+      );
+      document.documentElement.style.setProperty(
+        '--tablet-bg',
+        `url(${backgroundUrls[1]})`
+      );
+      document.documentElement.style.setProperty(
+        '--mobile-bg',
+        `url(${backgroundUrls[0]})`
+      );
+    }
+  }, [backgroundUrls]);
 
   const handleAddColumn = (values, { resetForm }) => {
-    // dispatch(addColumnSpeed({ title: values.title }));
-    // resetForm();
     setAddModalIsOpen(false);
 
     dispatch(addColumn({ title: values.title, boardId }))
@@ -48,7 +87,7 @@ export default function MainDashboard() {
         resetForm();
       })
       .catch((error) => {
-        console.error("Failed to add column:", error);
+        console.error('Failed to add column:', error);
       });
   };
 
@@ -70,7 +109,7 @@ export default function MainDashboard() {
         resetForm();
       })
       .catch((error) => {
-        console.error("Failed to edit column:", error);
+        console.error('Failed to edit column:', error);
       });
   };
 
@@ -79,7 +118,7 @@ export default function MainDashboard() {
     dispatch(deleteColumn(id))
       .unwrap()
       .catch((error) => {
-        console.error("Failed to delete column:", error);
+        console.error('Failed to delete column:', error);
       });
   };
 
@@ -102,18 +141,16 @@ export default function MainDashboard() {
                 <div className={css.columnButtons}>
                   <button
                     className={css.editButton}
-                    onClick={() => startEditColumn(column)}
-                  >
-                    <svg className={css.edit} width="16" height="16">
-                      <use href="/sprite.svg#pencil" />
+                    onClick={() => startEditColumn(column)}>
+                    <svg className={css.edit} width='16' height='16'>
+                      <use href='/sprite.svg#pencil' />
                     </svg>
                   </button>
                   <button
                     className={css.deleteButton}
-                    onClick={() => handleDeleteColumn(column._id)}
-                  >
-                    <svg className={css.delete} width="16" height="16">
-                      <use href="/sprite.svg#trash" />
+                    onClick={() => handleDeleteColumn(column._id)}>
+                    <svg className={css.delete} width='16' height='16'>
+                      <use href='/sprite.svg#trash' />
                     </svg>
                   </button>
                 </div>

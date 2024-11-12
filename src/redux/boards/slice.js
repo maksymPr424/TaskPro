@@ -1,17 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import {
   addCard,
   addColumn,
   createBoard,
   deleteCard,
   deleteColumn,
+  editBoard,
   editCard,
   editCardColumn,
   editColumn,
+  fetchBackground,
   fetchBoards,
   fetchLastActiveBoard,
   removeBoard,
-} from "./operations";
+} from './operations';
 // import { LOCAL_STORAGE_COLUMNS_KEY } from "../main_dashboard/column/columnSlice";
 
 // const handlePending = (state) => {
@@ -33,11 +35,13 @@ const handleRejected = (state, action) => {
 // };
 
 const boardsSlice = createSlice({
-  name: "boards",
+  name: 'boards',
   initialState: {
     lastActiveBoard: {
       _id: null,
       title: null,
+      background: 'no-background',
+      backgroundUrls: [],
     },
     boards: [],
     loading: false,
@@ -53,16 +57,11 @@ const boardsSlice = createSlice({
       const { boardId, title } = action.payload;
       state.lastActiveBoard = { _id: boardId, title };
     },
+    clearBackgroundUrls: (state) => {
+      state.lastActiveBoard.backgroundUrls = [];
+    },
     addBoard: (state, action) => {
       state.boards.push(action.payload);
-    },
-    updateBoard: (state, action) => {
-      const index = state.boards.findIndex(
-        (board) => board._id === action.payload._id
-      );
-      if (index !== -1) {
-        state.boards[index] = { ...state.boards[index], ...action.payload };
-      }
     },
     deleteBoard: (state, action) => {
       state.boards = state.boards.filter(
@@ -110,7 +109,6 @@ const boardsSlice = createSlice({
         ...state.lastActiveBoard.columns[oldColumnIndex].tasks[taskIndex],
         columnId,
       });
-      console.log(123);
 
       state.lastActiveBoard.columns[oldColumnIndex].tasks.splice(taskIndex, 1);
     },
@@ -135,7 +133,26 @@ const boardsSlice = createSlice({
         state.lastActiveBoard = action.payload.lastActiveBoard;
         state.boards = action.payload.boards;
       })
+      .addCase(fetchBackground.fulfilled, (state, action) => {
+        state.loading = false;
+        const { mobile, tablet, desktop } = action.payload;
+        state.lastActiveBoard.backgroundUrls = [mobile, tablet, desktop];
+      })
+      .addCase(fetchBackground.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
       .addCase(createBoard.fulfilled, (state, action) => {
+        state.lastActiveBoard = action.payload;
+        state.boards.push(action.payload);
+      })
+      .addCase(editBoard.fulfilled, (state, action) => {
+        const index = state.boards.findIndex(
+          (board) => board._id === action.payload._id
+        );
+        if (index !== -1) {
+          state.boards[index] = { ...state.boards[index], ...action.payload };
+        }
         state.lastActiveBoard = action.payload;
       })
       .addCase(fetchLastActiveBoard.fulfilled, (state, action) => {
@@ -187,7 +204,49 @@ const boardsSlice = createSlice({
           action.payload;
       })
       .addCase(editCardColumn.rejected)
-      .addCase(deleteCard.rejected);
+      .addCase(deleteCard.rejected)
+      .addMatcher(
+        isAnyOf(
+          fetchBackground.pending,
+          fetchBoards.pending,
+          editBoard.pending,
+          fetchLastActiveBoard.pending,
+          removeBoard.pending
+        ),
+        (state) => {
+          state.loading = true;
+          state.loading = true;
+          state.loading = true;
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          fetchBackground.fulfilled,
+          fetchBoards.fulfilled,
+          editBoard.fulfilled,
+          fetchLastActiveBoard.fulfilled,
+          removeBoard.fulfilled
+        ),
+        (state) => {
+          state.loading = false;
+          state.loading = false;
+          state.loading = false;
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          fetchBackground.rejected,
+          fetchBoards.rejected,
+          editBoard.rejected,
+          fetchLastActiveBoard.rejected,
+          removeBoard.rejected
+        ),
+        (state) => {
+          state.loading = false;
+          state.loading = false;
+          state.loading = false;
+        }
+      );
   },
 });
 
@@ -203,5 +262,6 @@ export const {
   deleteTask,
   setLastActiveBoard,
   clearBoards,
+  clearBackgroundUrls,
 } = boardsSlice.actions;
 export const boardsReducer = boardsSlice.reducer;

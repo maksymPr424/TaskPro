@@ -17,7 +17,7 @@ import { EditColumnModal } from './ColumnModals/EditColumnModal';
 import Card from './Card/Card';
 import { FaPlus } from 'react-icons/fa6';
 import ReactModal from 'react-modal';
-import Loader from '../Loader/Loader';
+// import Loader from '../Loader/Loader';
 import { deleteColumnSpeed, updateColumn } from '../../redux/boards/slice';
 
 ReactModal.setAppElement('#root');

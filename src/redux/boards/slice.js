@@ -14,25 +14,11 @@ import {
   fetchLastActiveBoard,
   removeBoard,
 } from './operations';
-// import { LOCAL_STORAGE_COLUMNS_KEY } from "../main_dashboard/column/columnSlice";
-
-// const handlePending = (state) => {
-//   state.loading = true;
-// };
 
 const handleRejected = (state, action) => {
   state.loading = false;
   state.error = action.payload;
 };
-
-// const saveToStorage = (columns) => {
-//   localStorage.setItem(LOCAL_STORAGE_COLUMNS_KEY, JSON.stringify(columns));
-// };
-
-// const loadFromStorage = () => {
-//   const saved = localStorage.getItem(LOCAL_STORAGE_COLUMNS_KEY);
-//   return saved ? JSON.parse(saved) : [];
-// };
 
 const boardsSlice = createSlice({
   name: 'boards',
@@ -63,11 +49,11 @@ const boardsSlice = createSlice({
     addBoard: (state, action) => {
       state.boards.push(action.payload);
     },
-    deleteBoard: (state, action) => {
-      state.boards = state.boards.filter(
-        (board) => board._id !== action.payload
-      );
-    },
+    // deleteBoard: (state, action) => {
+    //   state.boards = state.boards.filter(
+    //     (board) => board._id !== action.payload
+    //   );
+    // },
     updateColumn: (state, action) => {
       const index = state.lastActiveBoard.columns.findIndex(
         (column) => column._id === action.payload.id

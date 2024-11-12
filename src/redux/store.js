@@ -15,7 +15,6 @@ import { boardsReducer } from "./boards/slice";
 
 import { userThemeReducer } from "./header/slice.js";
 import { userProfileReducer } from "./header/slice.js";
-import { boardReducer } from "./boards/sliceHeaderDashboard/boardSlice.js";
 import { filtersReducer } from "./boards/sliceHeaderDashboard/filtersSlice.js";
 
 const persistConfig = {
@@ -43,12 +42,6 @@ const persistConfigUserProfile = {
   whitelist: ["user"],
 };
 
-const persistConfigBoard = {
-  key: "board",
-  version: 1,
-  storage,
-};
-
 const persistConfigFilters = {
   key: "filters",
   version: 1,
@@ -62,7 +55,6 @@ export const store = configureStore({
     user: persistReducer(persistConfigUser, userThemeReducer),
     userProfile: persistReducer(persistConfigUserProfile, userProfileReducer),
     boards: persistReducer(persistConfig, boardsReducer),
-    board: persistReducer(persistConfigBoard, boardReducer),
     filters: persistReducer(persistConfigFilters, filtersReducer),
   },
   middleware: (getDefaultMiddleware) =>

@@ -1,4 +1,4 @@
-import { useState, useId, useEffect } from "react";
+import { useState, useId } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import css from "./MainDashboard.module.css";
 import {
@@ -7,10 +7,10 @@ import {
   editColumn,
 } from "../../redux/boards/operations";
 import {
-  selectColumns,
   selectIsLoading,
   selectError,
   selectActiveBoardId,
+  selectColumns,
 } from "../../redux/boards/selectors";
 import { AddColumnModal } from "./ColumnModals/AddColumnModal";
 import { EditColumnModal } from "./ColumnModals/EditColumnModal";
@@ -19,12 +19,17 @@ import { FaPlus } from "react-icons/fa6";
 import ReactModal from "react-modal";
 import Loader from "../Loader/Loader";
 import { deleteColumnSpeed, updateColumn } from "../../redux/boards/slice";
+import { selectColumnsForRender } from "../../redux/boards/sliceHeaderDashboard/filtersSlice";
 
 ReactModal.setAppElement("#root");
 
 export default function MainDashboard() {
   const dispatch = useDispatch();
-  const columns = useSelector(selectColumns);
+  const columnsToRender = useSelector(selectColumnsForRender);
+  const startColumns = useSelector(selectColumns);
+
+  const columns = columnsToRender.length === 0 ? startColumns : columnsToRender;
+
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
   const boardId = useSelector(selectActiveBoardId);
@@ -43,7 +48,7 @@ export default function MainDashboard() {
     dispatch(addColumn({ title: values.title, boardId }))
       .unwrap()
       .then(() => {
-        // setAddModalIsOpen(false);
+        setAddModalIsOpen(false);
         resetForm();
       })
       .catch((error) => {

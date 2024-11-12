@@ -31,12 +31,6 @@ button {
   margin-top: 20px;
 }
 
-span {
-  color: red;
-  font-size: 8px;
-  margin-top: 8px;
-}
-
 .button {
   display: flex;
   width: 100%;
@@ -92,7 +86,7 @@ span {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  max-height: 65vh;
+  max-height: 50vh;
   overflow-y: auto;
   /* padding-right: 10px; */
 }
@@ -320,7 +314,7 @@ span {
 }
 
 .priorityNoneItem {
-  border-left: 4px solid var(--no-active);
+  border-left: 4px solid var(--none-priority);
 }
 
 .priorityLowItem {
@@ -358,7 +352,7 @@ span {
 }
 
 .prioritynone input[type="radio"] {
-  background-color: var(--no-active);
+  background-color: var(--none-priority);
 }
 
 .prioritylow input[type='radio'] {

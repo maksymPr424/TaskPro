@@ -45,11 +45,13 @@
   --logout-plus-no-active: #9dc888;
   --favicon-color: #fff;
   --add-foto-heder: #bedbb0;
-  --my-dashboard-svg: rgba(22, 22, 22, 0.5);
+  --my-dashboard-svg: #16161680;
+  --none-priority: #1616164d;
 }
 
 [data-theme="light"] {
   color-scheme: light;
+  --none-priority: #1616164d;
   --logo-color: #fff;
   --logo-background: #1f1f1f;
   --text: #161616;
@@ -105,6 +107,7 @@
   color-scheme: dark;
   --logo-background: #1f1f1f;
   --logo-color: #fff;
+  --none-priority: #1616164d;
 
   --text: #ffffff;
   --background: #1f1f1f;
@@ -157,6 +160,7 @@
 
 [data-theme="violet"] {
   color-scheme: violet;
+  --none-priority: #1616164d;
   --logo-background: #ecedfd;
   --logo-color: #5255bc;
   --text: #ffffff;

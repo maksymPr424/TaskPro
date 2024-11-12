@@ -1,27 +1,41 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  name: "",
   selectedColor: null,
+  columns: [],
 };
 
 const filtersSlice = createSlice({
   name: "filters",
   initialState,
   reducers: {
-    changeFilter: (state, action) => {
-      state.name = action.payload;
-    },
     resetFilter: (state) => {
-      state.name = "";
       state.selectedColor = null;
     },
     setColorFilter: (state, action) => {
+      console.log(action.payload);
+
       state.selectedColor = action.payload;
+    },
+    setColumns: (state, action) => {
+      const selectColumns = action.payload.columns;
+
+      if (!action.payload.priority) {
+        state.columns = selectColumns;
+      } else {
+        const filteredColumn = selectColumns.map((column) => ({
+          ...column,
+          tasks: column.tasks.filter(
+            (task) => task.priority === action.payload.priority
+          ),
+        }));
+        state.columns = filteredColumn;
+      }
     },
   },
 });
 
+export const selectColumnsForRender = (state) => state.filters.columns;
+
 export const filtersReducer = filtersSlice.reducer;
-export const { changeFilter, resetFilter, setColorFilter } =
-  filtersSlice.actions;
+export const { resetFilter, setColorFilter, setColumns } = filtersSlice.actions;

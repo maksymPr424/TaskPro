@@ -46,7 +46,6 @@ export default function Card({ columnId }) {
   const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
   // const cardRef = useRef();
   const moveCardButtonRefs = useRef([]);
-  const moveCardButtonRef = useRef();
   const cardId = useId();
 
   const handleAddCard = (values) => {

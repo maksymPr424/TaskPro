@@ -4,18 +4,26 @@ import s from "./FilterDropdown.module.css";
 import {
   resetFilter,
   setColorFilter,
+  setColumns,
 } from "../../redux/boards/sliceHeaderDashboard/filtersSlice";
+import { selectColumns } from "../../redux/boards/selectors";
 
 export default function FilterDropdown({ onClose }) {
   const dispatch = useDispatch();
   const selectedColor = useSelector((state) => state.filters.selectedColor);
-  const handleColorChange = (color) => {
-    dispatch(setColorFilter(color));
+  const columns = useSelector(selectColumns);
+
+  const handleColorChange = (priority) => {
+    dispatch(setColorFilter(priority));
+    dispatch(setColumns({ columns, priority }));
+
     // onClose();
   };
 
   const handleReset = () => {
-    dispatch(resetFilter());
+    dispatch(resetFilter(null));
+    dispatch(setColumns({ columns, priority: null }));
+
     // onClose();
   };
 
@@ -39,14 +47,14 @@ export default function FilterDropdown({ onClose }) {
           <input
             type="radio"
             name="color"
-            value="Without"
-            onChange={() => handleColorChange("Without")}
-            checked={selectedColor === "Without"}
+            value="none"
+            onChange={() => handleColorChange("none")}
+            checked={selectedColor === "none"}
           />
           <span
             className={s.radioBtn}
             style={{
-              backgroundColor: "rgba(255, 255, 255, 0.30)",
+              backgroundColor: "var(--none-priority)",
             }}
           ></span>
           <span className={s.radioLabel}> Without priority</span>
@@ -55,13 +63,13 @@ export default function FilterDropdown({ onClose }) {
           <input
             type="radio"
             name="color"
-            value="Low"
-            onChange={() => handleColorChange("Low")}
-            checked={selectedColor === "Low"}
+            value="low"
+            onChange={() => handleColorChange("low")}
+            checked={selectedColor === "low"}
           />
           <span
             className={s.radioBtn}
-            style={{ backgroundColor: "#8FA1D0" }}
+            style={{ backgroundColor: "var(--low-priority)" }}
           ></span>
           <span className={s.radioLabel}>Low</span>
         </label>
@@ -69,13 +77,13 @@ export default function FilterDropdown({ onClose }) {
           <input
             type="radio"
             name="color"
-            value="Medium"
-            onChange={() => handleColorChange("Medium")}
-            checked={selectedColor === "Medium"}
+            value="medium"
+            onChange={() => handleColorChange("medium")}
+            checked={selectedColor === "medium"}
           />
           <span
             className={s.radioBtn}
-            style={{ backgroundColor: "#E09CB5" }}
+            style={{ backgroundColor: "var(--medium-priority)" }}
           ></span>
           <span className={s.radioLabel}>Medium</span>
         </label>
@@ -83,13 +91,13 @@ export default function FilterDropdown({ onClose }) {
           <input
             type="radio"
             name="color"
-            value="High"
-            onChange={() => handleColorChange("High")}
-            checked={selectedColor === "High"}
+            value="high"
+            onChange={() => handleColorChange("high")}
+            checked={selectedColor === "high"}
           />
           <span
             className={s.radioBtn}
-            style={{ backgroundColor: "#BEDBB0" }}
+            style={{ backgroundColor: "var(--base-green-violet)" }}
           ></span>
           <span className={s.radioLabel}>High</span>
         </label>

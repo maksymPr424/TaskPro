@@ -17,9 +17,9 @@ export default function HeaderDashboard({ boardName }) {
         <h4 className={s.boardName}>{boardName}</h4>
         <div className={s.dropdownContainer}>
           <button className={s.btn} onClick={toggleDropdown}>
-            {/* <svg className={s.filterIcon}>
-              <use href={`${icons}#icon-Filter`}></use>
-            </svg> */}
+            <svg className={s.filterIcon}>
+              <use href="/sprite.svg#icon-filter"></use>
+            </svg>
             Filters
           </button>
           {isDropdownOpen && (

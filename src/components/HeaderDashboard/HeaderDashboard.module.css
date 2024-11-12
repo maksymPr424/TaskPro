@@ -24,7 +24,7 @@
   font-weight: 500;
   font-size: 14px;
   letter-spacing: -0.02em;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--text);
   align-items: center;
   gap: 8px;
   border: none;
@@ -34,7 +34,7 @@
 .filterIcon {
   width: 16px;
   height: 16px;
-  stroke: rgba(255, 255, 255, 0.8);
+  stroke: var(--my-dashboard-svg);
   fill: transparent;
 }
 

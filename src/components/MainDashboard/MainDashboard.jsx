@@ -1,26 +1,26 @@
-import { useState, useId } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import css from "./MainDashboard.module.css";
+import { useState, useId } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import css from './MainDashboard.module.css';
 import {
   addColumn,
   deleteColumn,
   editColumn,
-} from "../../redux/boards/operations";
+} from '../../redux/boards/operations';
 import {
   selectIsLoading,
   selectError,
   selectActiveBoardId,
   selectColumns,
-} from "../../redux/boards/selectors";
-import { AddColumnModal } from "./ColumnModals/AddColumnModal";
-import { EditColumnModal } from "./ColumnModals/EditColumnModal";
-import Card from "./Card/Card";
-import { FaPlus } from "react-icons/fa6";
-import ReactModal from "react-modal";
-import Loader from "../Loader/Loader";
-import { deleteColumnSpeed, updateColumn } from "../../redux/boards/slice";
+} from '../../redux/boards/selectors';
+import { AddColumnModal } from './ColumnModals/AddColumnModal';
+import { EditColumnModal } from './ColumnModals/EditColumnModal';
+import Card from './Card/Card';
+import { FaPlus } from 'react-icons/fa6';
+import ReactModal from 'react-modal';
+import Loader from '../Loader/Loader';
+import { deleteColumnSpeed, updateColumn } from '../../redux/boards/slice';
 
-ReactModal.setAppElement("#root");
+ReactModal.setAppElement('#root');
 
 export default function MainDashboard() {
   const dispatch = useDispatch();
@@ -43,7 +43,7 @@ export default function MainDashboard() {
         resetForm();
       })
       .catch((error) => {
-        console.error("Failed to add column:", error);
+        console.error('Failed to add column:', error);
       });
   };
 
@@ -65,7 +65,7 @@ export default function MainDashboard() {
         resetForm();
       })
       .catch((error) => {
-        console.error("Failed to edit column:", error);
+        console.error('Failed to edit column:', error);
       });
   };
 
@@ -74,7 +74,7 @@ export default function MainDashboard() {
     dispatch(deleteColumn(id))
       .unwrap()
       .catch((error) => {
-        console.error("Failed to delete column:", error);
+        console.error('Failed to delete column:', error);
       });
   };
 
@@ -85,38 +85,32 @@ export default function MainDashboard() {
   return (
     <div className={css.container}>
       <ul className={`${css.columnsContainer} scrollContainer`}>
-        {isLoading ? (
-          <div className={css.loading}>
-            <Loader />
-          </div>
-        ) : (
-          columns.map((column) => (
-            <li className={css.columnItem} key={column._id}>
-              <div className={css.column}>
-                <h3 className={css.titleColumn}>{column.title}</h3>
-                <div className={css.columnButtons}>
-                  <button
-                    className={css.editButton}
-                    onClick={() => startEditColumn(column)}
-                  >
-                    <svg className={css.edit} width="16" height="16">
-                      <use href="/sprite.svg#pencil" />
-                    </svg>
-                  </button>
-                  <button
-                    className={css.deleteButton}
-                    onClick={() => handleDeleteColumn(column._id)}
-                  >
-                    <svg className={css.delete} width="16" height="16">
-                      <use href="/sprite.svg#trash" />
-                    </svg>
-                  </button>
+        {isLoading
+          ? null
+          : columns.map((column) => (
+              <li className={css.columnItem} key={column._id}>
+                <div className={css.column}>
+                  <h3 className={css.titleColumn}>{column.title}</h3>
+                  <div className={css.columnButtons}>
+                    <button
+                      className={css.editButton}
+                      onClick={() => startEditColumn(column)}>
+                      <svg className={css.edit} width='16' height='16'>
+                        <use href='/sprite.svg#pencil' />
+                      </svg>
+                    </button>
+                    <button
+                      className={css.deleteButton}
+                      onClick={() => handleDeleteColumn(column._id)}>
+                      <svg className={css.delete} width='16' height='16'>
+                        <use href='/sprite.svg#trash' />
+                      </svg>
+                    </button>
+                  </div>
                 </div>
-              </div>
-              <Card className={css.tasks} columnId={column._id} />
-            </li>
-          ))
-        )}
+                <Card className={css.tasks} columnId={column._id} />
+              </li>
+            ))}
       </ul>
 
       <button className={css.button} onClick={() => setAddModalIsOpen(true)}>

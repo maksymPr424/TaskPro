@@ -36,7 +36,6 @@ export default function Sidebar({ className, fetchActiveBoard }) {
     const index =
       boards.findIndex(({ _id }) => _id === lastActiveBoard?._id) || 0;
     setActiveIndex(index);
-    console.log(index);
   }, [activeIndex, boards, lastActiveBoard?._id]);
 
   const handleOpenNewBoardModal = () => setIsNewBoardModalOpen(true);

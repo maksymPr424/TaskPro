@@ -13,7 +13,6 @@ ul {
 }
 
 .container {
-  height: 100%;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -23,28 +22,6 @@ ul {
   overflow-x: auto;
   margin: 0 auto;
   position: relative;
-  background-color: var(--background);
-  background-size: cover;
-  background-position: center;
-  transition: background-image 0.3s ease-in-out;
-}
-
-@media (min-width: 1440px) {
-  .container {
-    background-image: var(--desktop-bg);
-  }
-}
-
-@media (min-width: 768px) and (max-width: 1439px) {
-  .container {
-    background-image: var(--tablet-bg);
-  }
-}
-
-@media (max-width: 767px) {
-  .container {
-    background-image: var(--mobile-bg);
-  }
 }
 
 button {

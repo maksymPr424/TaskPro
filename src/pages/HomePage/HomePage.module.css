@@ -10,14 +10,37 @@
 
 .dashboardContainer {
   position: relative;
-  padding: 0 20px;
+  padding: 14px 20px 0;
   width: 100vw;
-  height: calc(100vh - 74px);
+  height: calc(100vh - 60px);
+  background-color: var(--background);
+  background-size: cover;
+  background-position: center;
+  transition: background-image 0.3s ease-in-out;
+}
+
+@media (min-width: 1440px) {
+  .dashboardContainer {
+    background-image: var(--desktop-bg);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1439px) {
+  .dashboardContainer {
+    background-image: var(--tablet-bg);
+  }
+}
+
+@media (max-width: 767px) {
+  .dashboardContainer {
+    background-image: var(--mobile-bg);
+  }
 }
 
 @media screen and (min-width: 768px) {
   .dashboardContainer {
-    height: calc(100vh - 94px);
+    padding: 26px 20px 0;
+    height: calc(100vh - 68px);
   }
 }
 

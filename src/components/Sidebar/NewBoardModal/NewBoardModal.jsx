@@ -3,14 +3,13 @@ import * as Yup from "yup";
 import Modal from "react-modal";
 import PropTypes from "prop-types";
 import css from "./NewBoardModal.module.css";
-
 Modal.setAppElement("#root");
 
 const icons = ["project", "star", "loading", "puzzle", "container", "lightning", "colors", "hexagon"];
 const backgrounds = [
-  { name: "no-background", imageUrl: "/src/img/no-background.png" },
-  { name: "pinkFlowers", imageUrl: "/src/img/pinkFlowers.png" },
-  { name: "nightSky", imageUrl: "/src/img/nightSky.png" },
+  { name: "no-background", imageUrl: "../../../img/no-background.png" },
+  { name: "pinkFlowers", imageUrl: "../../../img/pinkFlowers.png" },
+  { name: "nightSky", imageUrl: "../../../img/nightSky.png" },
   { name: "three", imageUrl: "/src/img/three.png" },
   { name: "halfMoon", imageUrl: "/src/img/halfMoon.png" },
   { name: "palmLeaves", imageUrl: "/src/img/palmLeaves.png" },

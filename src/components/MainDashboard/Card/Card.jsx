@@ -35,7 +35,6 @@ export default function Card({ columnId }) {
 
   const columns =
     filteredColumn.length === 0 ? columnWithAllTasks : filteredColumn;
-  console.log(columns);
 
   const cards = columns.filter(({ _id }) => _id === columnId)[0].tasks;
 

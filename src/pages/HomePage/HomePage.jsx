@@ -43,14 +43,18 @@ export default function HomePage() {
 
   useEffect(() => {
     if (boardName) {
-      if (background === "no-background") {
-        dispatch(clearBackgroundUrls());
-        document.documentElement.style.setProperty("--desktop-bg", "none");
-        document.documentElement.style.setProperty("--tablet-bg", "none");
-        document.documentElement.style.setProperty("--mobile-bg", "none");
+      if (!background) {
+        return;
       } else {
-        dispatch(clearBackgroundUrls());
-        dispatch(fetchBackground(background));
+        if (background === "no-background") {
+          dispatch(clearBackgroundUrls());
+          document.documentElement.style.setProperty("--desktop-bg", "none");
+          document.documentElement.style.setProperty("--tablet-bg", "none");
+          document.documentElement.style.setProperty("--mobile-bg", "none");
+        } else {
+          dispatch(clearBackgroundUrls());
+          dispatch(fetchBackground(background));
+        }
       }
     }
   }, [dispatch, boardName, background]);

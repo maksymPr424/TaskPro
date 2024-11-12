@@ -1,4 +1,4 @@
-import { useState, useId, useEffect } from "react";
+import { useState, useId } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import css from "./MainDashboard.module.css";
 import {
@@ -7,10 +7,10 @@ import {
   editColumn,
 } from "../../redux/boards/operations";
 import {
-  selectColumns,
   selectIsLoading,
   selectError,
   selectActiveBoardId,
+  selectColumns,
 } from "../../redux/boards/selectors";
 import { AddColumnModal } from "./ColumnModals/AddColumnModal";
 import { EditColumnModal } from "./ColumnModals/EditColumnModal";
@@ -24,6 +24,7 @@ ReactModal.setAppElement("#root");
 
 export default function MainDashboard() {
   const dispatch = useDispatch();
+
   const columns = useSelector(selectColumns);
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
@@ -43,7 +44,7 @@ export default function MainDashboard() {
     dispatch(addColumn({ title: values.title, boardId }))
       .unwrap()
       .then(() => {
-        // setAddModalIsOpen(false);
+        setAddModalIsOpen(false);
         resetForm();
       })
       .catch((error) => {

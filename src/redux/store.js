@@ -15,6 +15,7 @@ import { boardsReducer } from "./boards/slice";
 
 import { userThemeReducer } from "./header/slice.js";
 import { userProfileReducer } from "./header/slice.js";
+import { filtersReducer } from "./boards/sliceHeaderDashboard/filtersSlice.js";
 
 const persistConfig = {
   key: "auth_token",
@@ -23,9 +24,9 @@ const persistConfig = {
   whitelist: ["token"],
 };
 
-
 const isSerializable = (value) => {
-  return isPlain(value) || value instanceof Date};
+  return isPlain(value) || value instanceof Date;
+};
 
 const persistConfigUser = {
   key: "user",
@@ -39,7 +40,13 @@ const persistConfigUserProfile = {
   version: 1,
   storage,
   whitelist: ["user"],
+};
 
+const persistConfigFilters = {
+  key: "filters",
+  version: 1,
+  storage,
+  whitelist: ["selectedColor"],
 };
 
 export const store = configureStore({
@@ -48,6 +55,7 @@ export const store = configureStore({
     user: persistReducer(persistConfigUser, userThemeReducer),
     userProfile: persistReducer(persistConfigUserProfile, userProfileReducer),
     boards: persistReducer(persistConfig, boardsReducer),
+    filters: persistReducer(persistConfigFilters, filtersReducer),
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

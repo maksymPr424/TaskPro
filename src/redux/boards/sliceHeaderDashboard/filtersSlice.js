@@ -36,6 +36,7 @@ const filtersSlice = createSlice({
 });
 
 export const selectColumnsForRender = (state) => state.filters.columns;
+export const selectedColor = (state) => state.filters.selectedColor;
 
 export const filtersReducer = filtersSlice.reducer;
 export const { resetFilter, setColorFilter, setColumns } = filtersSlice.actions;

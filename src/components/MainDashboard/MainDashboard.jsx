@@ -19,17 +19,13 @@ import { FaPlus } from "react-icons/fa6";
 import ReactModal from "react-modal";
 import Loader from "../Loader/Loader";
 import { deleteColumnSpeed, updateColumn } from "../../redux/boards/slice";
-import { selectColumnsForRender } from "../../redux/boards/sliceHeaderDashboard/filtersSlice";
 
 ReactModal.setAppElement("#root");
 
 export default function MainDashboard() {
   const dispatch = useDispatch();
-  const columnsToRender = useSelector(selectColumnsForRender);
-  const startColumns = useSelector(selectColumns);
 
-  const columns = columnsToRender.length === 0 ? startColumns : columnsToRender;
-
+  const columns = useSelector(selectColumns);
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
   const boardId = useSelector(selectActiveBoardId);

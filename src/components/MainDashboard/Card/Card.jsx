@@ -1,38 +1,43 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import {
   selectActiveBoardId,
   selectColumns,
   selectError,
   selectIsLoading,
-} from '../../../redux/boards/selectors';
-import { useId, useRef, useState } from 'react';
+} from "../../../redux/boards/selectors";
+import { useId, useRef, useState } from "react";
 import {
   addCard,
   deleteCard,
   editCard,
   editCardColumn,
-} from '../../../redux/boards/operations';
-import css from './Card.module.css';
-import { AddCardModal } from './CardModals/AddCardModal';
-import { EditCardModal } from './CardModals/EditCardModal';
-import { FaPlus } from 'react-icons/fa6';
-import { format } from 'date-fns';
-import { ChangeColumnModal } from './CardModals/ChangeColumnModal';
+} from "../../../redux/boards/operations";
+import css from "./Card.module.css";
+import { AddCardModal } from "./CardModals/AddCardModal";
+import { EditCardModal } from "./CardModals/EditCardModal";
+import { FaPlus } from "react-icons/fa6";
+import { format } from "date-fns";
+import { ChangeColumnModal } from "./CardModals/ChangeColumnModal";
 import {
   deleteTask,
   updateTask,
   updateTaskColumn,
-} from '../../../redux/boards/slice';
-import { ExpandableCard } from '../ExpandableCard';
+} from "../../../redux/boards/slice";
+import { selectColumnsForRender } from "../../../redux/boards/sliceHeaderDashboard/filtersSlice";
+import { ExpandableCard } from "../ExpandableCard";
 
 export default function Card({ columnId }) {
   const dispatch = useDispatch();
 
   const boardId = useSelector(selectActiveBoardId);
+  const columnWithAllTasks = useSelector(selectColumns);
+  const filteredColumn = useSelector(selectColumnsForRender);
 
-  const cards = useSelector(selectColumns).filter(
-    ({ _id }) => _id === columnId
-  )[0].tasks;
+  const columns =
+    filteredColumn.length === 0 ? columnWithAllTasks : filteredColumn;
+  console.log(columns);
+
+  const cards = columns.filter(({ _id }) => _id === columnId)[0].tasks;
 
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
@@ -53,7 +58,7 @@ export default function Card({ columnId }) {
       values.priority = "none";
     }
     const priority = values.priority.toLowerCase();
-    
+
     const taskData = {
       title: values.title.trim(),
       content: values.content.trim(),
@@ -73,7 +78,7 @@ export default function Card({ columnId }) {
         setAddCardModalIsOpen(false);
       })
       .catch((error) => {
-        console.error('Failed to add card:', error);
+        console.error("Failed to add card:", error);
       });
   };
 
@@ -123,7 +128,7 @@ export default function Card({ columnId }) {
     )
       .unwrap()
       .catch((error) => {
-        console.error('Failed to move card:', error);
+        console.error("Failed to move card:", error);
       });
   };
 
@@ -158,7 +163,7 @@ export default function Card({ columnId }) {
     dispatch(editCard(updatedCard))
       .unwrap()
       .catch((error) => {
-        console.error('Failed to edit card:', error);
+        console.error("Failed to edit card:", error);
       });
   };
 
@@ -167,7 +172,7 @@ export default function Card({ columnId }) {
     dispatch(deleteCard({ columnId, taskId }))
       .unwrap()
       .catch((error) => {
-        console.error('Failed to delete card:', error);
+        console.error("Failed to delete card:", error);
       });
   };
 
@@ -176,14 +181,14 @@ export default function Card({ columnId }) {
   }
 
   const PRIORITIES = {
-    NONE: 'none',
-    LOW: 'low',
-    MEDIUM: 'medium',
-    HIGH: 'high',
+    NONE: "none",
+    LOW: "low",
+    MEDIUM: "medium",
+    HIGH: "high",
   };
 
   const sectionStyles = {
-    position: 'relative',
+    position: "relative",
   };
 
   const makeFirstLetterBig = (string) =>
@@ -206,10 +211,11 @@ export default function Card({ columnId }) {
                   ? css.priorityMediumItem
                   : card.priority === PRIORITIES.HIGH
                   ? css.priorityHighItem
-                  : ''
+                  : ""
               }`}
               key={card._id}
-              style={sectionStyles}>
+              style={sectionStyles}
+            >
               <h3 className={css.title}>{card.title}</h3>
               <ExpandableCard {...card} />
               <div className={css.subcontainer}>
@@ -219,10 +225,11 @@ export default function Card({ columnId }) {
                     <label
                       className={`${css.priorityLabel} ${
                         css[`priority${card.priority}`]
-                      }`}>
+                      }`}
+                    >
                       <input
-                        type='radio'
-                        name='priority'
+                        type="radio"
+                        name="priority"
                         value={card.priority}
                         checked={true}
                         readOnly
@@ -237,7 +244,7 @@ export default function Card({ columnId }) {
                   <div>
                     <h4 className={css.subtitle}>Deadline</h4>
                     <p className={css.deadlineText}>
-                      {format(new Date(Date.parse(card.deadline)), 'd/MM/yy')}
+                      {format(new Date(Date.parse(card.deadline)), "d/MM/yy")}
                     </p>
                   </div>
                 </div>
@@ -246,23 +253,26 @@ export default function Card({ columnId }) {
                   <button
                     ref={(el) => (moveCardButtonRefs.current[index] = el)}
                     className={css.iconButtons}
-                    onClick={() => startEditCardColumn(card, index)}>
-                    <svg className={css.move} width='16' height='16'>
-                      <use href='/sprite.svg#icon-arrow-circle-broken-right' />
+                    onClick={() => startEditCardColumn(card, index)}
+                  >
+                    <svg className={css.move} width="16" height="16">
+                      <use href="/sprite.svg#icon-arrow-circle-broken-right" />
                     </svg>
                   </button>
                   <button
                     className={css.iconButtons}
-                    onClick={() => startEditCard(card)}>
-                    <svg className={css.edit} width='16' height='16'>
-                      <use href='/sprite.svg#pencil' />
+                    onClick={() => startEditCard(card)}
+                  >
+                    <svg className={css.edit} width="16" height="16">
+                      <use href="/sprite.svg#pencil" />
                     </svg>
                   </button>
                   <button
                     className={css.iconButtons}
-                    onClick={() => handleDeleteCard(card._id)}>
-                    <svg className={css.delete} width='16' height='16'>
-                      <use href='/sprite.svg#trash' />
+                    onClick={() => handleDeleteCard(card._id)}
+                  >
+                    <svg className={css.delete} width="16" height="16">
+                      <use href="/sprite.svg#trash" />
                     </svg>
                   </button>
                 </div>
@@ -274,7 +284,7 @@ export default function Card({ columnId }) {
                   onSubmit={handleEditColumnCard}
                   columnId={columnId}
                   editingCard={editingCardColumn}
-                  contentLabel='ChangeColumnModal'
+                  contentLabel="ChangeColumnModal"
                   position={modalPosition}
                 />
               </div>
@@ -285,7 +295,8 @@ export default function Card({ columnId }) {
 
       <button
         className={css.button}
-        onClick={() => setAddCardModalIsOpen(true)}>
+        onClick={() => setAddCardModalIsOpen(true)}
+      >
         <FaPlus className={css.plusModal} />
         Add another card
       </button>

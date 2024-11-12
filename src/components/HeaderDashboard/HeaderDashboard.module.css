@@ -2,21 +2,27 @@
   position: relative;
   display: flex;
   justify-content: space-between;
-  padding-top: 14px;
-  padding-bottom: 39px;
+  margin-top: 14px;
+  margin-bottom: 39px;
 }
 
 .boardName {
   font-size: 14px;
   font-weight: 500;
   letter-spacing: -0.02em;
-  color: var(--text);
+  color: var(--background-heder);
+  box-shadow: 0 0 8px 2px var(--base-green-violet);
+  background-color: var(--base-green-violet);
+  border-radius: 20%;
 }
 
 .dropdownContainer {
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 0 8px 2px var(--base-green-violet);
+  background-color: var(--base-green-violet);
+  border-radius: 20%;
 }
 
 .btn {
@@ -24,7 +30,7 @@
   font-weight: 500;
   font-size: 14px;
   letter-spacing: -0.02em;
-  color: var(--text);
+  color: var(--background-heder);
   align-items: center;
   gap: 8px;
   border: none;
@@ -34,26 +40,24 @@
 .filterIcon {
   width: 16px;
   height: 16px;
-  stroke: var(--my-dashboard-svg);
+  stroke: var(--background-heder);
   fill: transparent;
 }
 
 @media (min-width: 768px) {
   .head {
-    padding-top: 26px;
-    padding-bottom: 26px;
+    margin-top: 26px;
+    margin-bottom: 26px;
   }
 
   .boardName {
     font-size: 18px;
-    width: 113px;
-    height: 28px;
   }
 }
 
 @media (min-width: 1440px) {
   .head {
-    padding-top: 10px;
-    padding-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 }

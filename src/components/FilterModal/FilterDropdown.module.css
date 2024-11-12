@@ -30,7 +30,7 @@
 }
 
 .titleFilter {
-  color: var(--text);
+  color: var(--text-heder);
   font-size: 18px;
   font-weight: 500;
   letter-spacing: -0.02;
@@ -47,7 +47,7 @@
 }
 
 .label {
-  color: var(--text);
+  color: var(--text-heder);
   font-weight: 500;
   font-size: 14px;
   letter-spacing: -0.02em;
@@ -55,7 +55,7 @@
 }
 
 .show {
-  color: var(--text);
+  color: var(--text-heder);
   font-size: 12px;
   font-weight: 400;
   letter-spacing: -0.02;
@@ -110,7 +110,7 @@
 }
 
 .radioText input[type="radio"]:checked ~ .radioLabel {
-  color: var(--text);
+  color: var(--text-heder);
 }
 
 /* .radioText .radioBtn:checked + .radioBtn + .radioLabel {

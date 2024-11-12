@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import s from "./FilterDropdown.module.css";
 import {
   resetFilter,
+  selectedColor,
   setColorFilter,
   setColumns,
 } from "../../redux/boards/sliceHeaderDashboard/filtersSlice";
@@ -10,8 +11,11 @@ import { selectColumns } from "../../redux/boards/selectors";
 
 export default function FilterDropdown({ onClose }) {
   const dispatch = useDispatch();
-  const selectedColor = useSelector((state) => state.filters.selectedColor);
+  const selectedPriority = useSelector(selectedColor);
   const columns = useSelector(selectColumns);
+
+  console.log(selectedPriority);
+  dispatch(resetFilter(null));
 
   const handleColorChange = (priority) => {
     dispatch(setColorFilter(priority));
@@ -49,7 +53,7 @@ export default function FilterDropdown({ onClose }) {
             name="color"
             value="none"
             onChange={() => handleColorChange("none")}
-            checked={selectedColor === "none"}
+            checked={selectedPriority === "none"}
           />
           <span
             className={s.radioBtn}
@@ -65,7 +69,7 @@ export default function FilterDropdown({ onClose }) {
             name="color"
             value="low"
             onChange={() => handleColorChange("low")}
-            checked={selectedColor === "low"}
+            checked={selectedPriority === "low"}
           />
           <span
             className={s.radioBtn}
@@ -79,7 +83,7 @@ export default function FilterDropdown({ onClose }) {
             name="color"
             value="medium"
             onChange={() => handleColorChange("medium")}
-            checked={selectedColor === "medium"}
+            checked={selectedPriority === "medium"}
           />
           <span
             className={s.radioBtn}
@@ -93,7 +97,7 @@ export default function FilterDropdown({ onClose }) {
             name="color"
             value="high"
             onChange={() => handleColorChange("high")}
-            checked={selectedColor === "high"}
+            checked={selectedPriority === "high"}
           />
           <span
             className={s.radioBtn}

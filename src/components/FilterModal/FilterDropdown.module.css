@@ -98,7 +98,7 @@
 
 .radioText input[type="radio"]:checked + .radioBtn::before {
   /* background-color: var(--base-green-violet); */
-  border: 2px solid #fff;
+  border: 3px solid var(--background-heder);
 }
 
 .radioText {

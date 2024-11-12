@@ -291,5 +291,5 @@ button {
 
 .modalMoveHeading {
   max-width: 210px;
-  color: var(--heder--text);
+  color: var(--text-header);
 }

@@ -1,31 +1,24 @@
-import icons from "../../assets/sprite.svg";
 import { useDispatch, useSelector } from "react-redux";
 import s from "./FilterDropdown.module.css";
-import {
-  resetFilter,
-  selectedColor,
-  setColorFilter,
-  setColumns,
-} from "../../redux/boards/sliceHeaderDashboard/filtersSlice";
+import { setColumns } from "../../redux/boards/sliceHeaderDashboard/filtersSlice";
 import { selectColumns } from "../../redux/boards/selectors";
+import { useState } from "react";
 
 export default function FilterDropdown({ onClose }) {
   const dispatch = useDispatch();
-  const selectedPriority = useSelector(selectedColor);
+  const [selectedPriority, setSelectedPriority] = useState(null);
+
   const columns = useSelector(selectColumns);
 
-  console.log(selectedPriority);
-  dispatch(resetFilter(null));
-
   const handleColorChange = (priority) => {
-    dispatch(setColorFilter(priority));
+    setSelectedPriority(priority);
     dispatch(setColumns({ columns, priority }));
 
     // onClose();
   };
 
   const handleReset = () => {
-    dispatch(resetFilter(null));
+    setSelectedPriority(null);
     dispatch(setColumns({ columns, priority: null }));
 
     // onClose();
@@ -35,7 +28,7 @@ export default function FilterDropdown({ onClose }) {
     <div className={s.dropdown}>
       <button className={s.closeButton} onClick={onClose}>
         <svg className={s.closeIcon}>
-          <use href={`${icons}#x`}></use>
+          <use href="/sprite.svg#x"></use>
         </svg>
       </button>
       <h3 className={s.titleFilter}>Filters</h3>

@@ -89,7 +89,9 @@
 }
 
 .icon {
+  --color1: var(--text-heder);
   stroke: var(--text-heder);
+  fill: var(--text-heder);
 }
 
 @media screen and (min-width: 768px) {

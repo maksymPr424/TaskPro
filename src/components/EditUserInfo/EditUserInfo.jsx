@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Modal from "react-modal";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import styles from "./EditUserInfo.module.css";
-import icon from "../../assets/sprite.svg";
 import {
   updateUserPhoto,
   updateUserProfile,
@@ -53,7 +52,7 @@ const EditProfileModal = ({ isOpen, onRequestClose }) => {
   const authData = { name, email, photoUrl };
 
   const localData = useSelector(selectUserData);
-  
+
   let userProfile = [];
   if (localData.email === "") {
     userProfile = authData;
@@ -126,7 +125,7 @@ const EditProfileModal = ({ isOpen, onRequestClose }) => {
     >
       <button onClick={onRequestClose} className={styles.closeButton}>
         <svg className={styles.closeIcon}>
-          <use href={`${icon}#x`}></use>
+          <use href="/sprite.svg#x"></use>
         </svg>
       </button>
       <h2 className={styles.modalTitle}>Edit profile</h2>
@@ -158,7 +157,7 @@ const EditProfileModal = ({ isOpen, onRequestClose }) => {
         )}
         <label htmlFor="fileInput" className={styles.isOpenFoto}>
           <svg className={styles.openIcon}>
-            <use href={`${icon}#add+`}></use>
+            <use href="/sprite.svg#add+"></use>
           </svg>
         </label>
       </div>

@@ -1,19 +1,19 @@
-import { Navigate, Route, Routes } from "react-router-dom";
-import "./App.css";
-import { lazy, Suspense, useEffect } from "react";
-import RestrictedRoute from "./routes/RestrictedRoute.jsx";
-import PublicRoute from "./routes/PublicRoute.jsx";
-import NotFoundPage from "../pages/NotFound/NotFoundPage.jsx";
-import { useDispatch, useSelector } from "react-redux";
-import { refreshUser } from "../redux/auth/operations.js";
-import { Toaster } from "react-hot-toast";
-import Loader from "./Loader/Loader.jsx";
-import { selectIsRefreshing, selectToken } from "../redux/auth/selectors.js";
-const WelcomePage = lazy(() => import("../pages/WelcomePage/WelcomePage"));
+import { Navigate, Route, Routes } from 'react-router-dom';
+import './App.css';
+import { lazy, Suspense, useEffect } from 'react';
+import RestrictedRoute from './routes/RestrictedRoute.jsx';
+import PublicRoute from './routes/PublicRoute.jsx';
+import NotFoundPage from '../pages/NotFound/NotFoundPage.jsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { refreshUser } from '../redux/auth/operations.js';
+import { Toaster } from 'react-hot-toast';
+import Loader from './Loader/Loader.jsx';
+import { selectIsRefreshing, selectToken } from '../redux/auth/selectors.js';
+const WelcomePage = lazy(() => import('../pages/WelcomePage/WelcomePage'));
 // const AuthPage = lazy(() => import("../pages/AuthPage/AuthPage"));
-import AuthPage from "../pages/AuthPage/AuthPage.jsx";
-import { clearBoards, setBoards } from "../redux/boards/slice.js";
-const HomePage = lazy(() => import("../pages/HomePage/HomePage"));
+import AuthPage from '../pages/AuthPage/AuthPage.jsx';
+import { clearBoards, setBoards } from '../redux/boards/slice.js';
+const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
 // const ScreensPage = lazy(() => import("../pages/ScreensPage/ScreensPage"));
 
 function App() {
@@ -25,7 +25,10 @@ function App() {
     const fetchUserData = async () => {
       if (token) {
         const response = await dispatch(refreshUser()).unwrap();
-        if (response?.boardsData) {
+        if (
+          response.boardsData.boards.length > 0 ||
+          response.boardsData.lastActiveBoard
+        ) {
           dispatch(clearBoards());
           dispatch(setBoards(response.boardsData));
         }
@@ -43,9 +46,9 @@ function App() {
       ) : (
         <Suspense fallback={<Loader />}>
           <Routes>
-            <Route path="/" element={<Navigate to="/welcome" replace />} />
+            <Route path='/' element={<Navigate to='/welcome' replace />} />
             <Route
-              path="welcome"
+              path='welcome'
               element={
                 <PublicRoute>
                   <WelcomePage />
@@ -53,7 +56,7 @@ function App() {
               }
             />
             <Route
-              path="auth/:id"
+              path='auth/:id'
               element={
                 <PublicRoute>
                   <AuthPage />
@@ -61,14 +64,14 @@ function App() {
               }
             />
             <Route
-              path="/home/:boardName?"
+              path='/home/:boardName?'
               element={
                 <RestrictedRoute>
                   <HomePage />
                 </RestrictedRoute>
               }
             />
-            <Route path="*" element={<NotFoundPage />} />
+            <Route path='*' element={<NotFoundPage />} />
           </Routes>
         </Suspense>
       )}

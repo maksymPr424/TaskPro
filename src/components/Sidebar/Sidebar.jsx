@@ -17,7 +17,11 @@ import {
   selectBoards,
   selectLastActiveBoard,
 } from '../../redux/boards/selectors.js';
-import { clearBoards, setLastActiveBoard } from '../../redux/boards/slice.js';
+import {
+  clearBackgroundUrls,
+  clearBoards,
+  setLastActiveBoard,
+} from '../../redux/boards/slice.js';
 import { logoutUser } from '../../redux/auth/operations.js';
 import cactus from '../../img/flower-pot.png';
 
@@ -55,7 +59,7 @@ export default function Sidebar({ className, fetchActiveBoard }) {
   };
 
   const handleCreateBoard = async (newBoard) => {
-    await dispatch(createBoard(newBoard));
+    dispatch(createBoard(newBoard));
     // await dispatch(fetchBoards());
     setIsNewBoardModalOpen(false);
   };
@@ -65,8 +69,8 @@ export default function Sidebar({ className, fetchActiveBoard }) {
       console.error('Cannot save changes: ID is undefined');
       return;
     }
-    await dispatch(editBoard(updatedBoard));
-    await dispatch(fetchBoards());
+    dispatch(editBoard(updatedBoard));
+    dispatch(fetchBoards());
     setIsEditBoardModalOpen(false);
   };
 
@@ -75,14 +79,14 @@ export default function Sidebar({ className, fetchActiveBoard }) {
       console.error('Cannot delete board: ID is undefined');
       return;
     }
-    await dispatch(removeBoard(boardId));
-    await dispatch(fetchBoards());
+    dispatch(removeBoard(boardId));
+    dispatch(fetchBoards());
   };
 
   const handleLogout = async () => {
     try {
-      await dispatch(logoutUser());
-      await dispatch(clearBoards());
+      dispatch(logoutUser());
+      dispatch(clearBoards());
       localStorage.removeItem('token');
       navigate('/welcome');
     } catch (error) {
@@ -90,7 +94,6 @@ export default function Sidebar({ className, fetchActiveBoard }) {
     }
   };
   const handleSendHelpRequest = (helpData) => {
-    console.log('Help request sent:', helpData);
     setIsNeedHelpModalOpen(false);
   };
   const handleNavigateToBoard = (boardId, boardTitle) => {

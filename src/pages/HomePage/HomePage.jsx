@@ -22,70 +22,62 @@ export default function HomePage() {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const { boardName } = useParams();
-
   const fetchActiveBoard = async (boardId) => {
     setIsLoading(true);
-
     await dispatch(fetchLastActiveBoard(boardId))
       .unwrap()
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
 
     setIsLoading(false);
   };
 
   const backgroundUrls = useSelector(selectBackgroundUrls);
-  const background = useSelector(selectBackground);
+  const backgroundName = useSelector(selectBackground);
   const error = useSelector(selectError);
 
-  // useEffect(() => {
-  //   if (boardName) {
-  //     console.log(boardName);
-  //     if (background === 'no-background') {
-  //       dispatch(clearBackgroundUrls());
-  //       document.documentElement.style.setProperty('--desktop-bg', 'none');
-  //       document.documentElement.style.setProperty('--tablet-bg', 'none');
-  //       document.documentElement.style.setProperty('--mobile-bg', 'none');
-  //     } else {
-  //       dispatch(clearBackgroundUrls());
-  //       dispatch(fetchBackground(background));
-  //     }
-  //   }
-  // }, [dispatch, boardName, background]);
+  const resetBackgroundsVars = () => {
+    document.documentElement.style.setProperty('--desktop-bg', 'none');
+    document.documentElement.style.setProperty('--tablet-bg', 'none');
+    document.documentElement.style.setProperty('--mobile-bg', 'none');
+  };
+
+  const setBackgroundVars = (backgroundUrls) => {
+    document.documentElement.style.setProperty(
+      '--desktop-bg',
+      `url(${backgroundUrls[2]})`
+    );
+    document.documentElement.style.setProperty(
+      '--tablet-bg',
+      `url(${backgroundUrls[1]})`
+    );
+    document.documentElement.style.setProperty(
+      '--mobile-bg',
+      `url(${backgroundUrls[0]})`
+    );
+  };
 
   useEffect(() => {
     if (boardName) {
-      if (!background) {
+      if (!backgroundName) {
         return;
       } else {
-        if (background === 'no-background') {
-          dispatch(clearBackgroundUrls());
-          document.documentElement.style.setProperty('--desktop-bg', 'none');
-          document.documentElement.style.setProperty('--tablet-bg', 'none');
-          document.documentElement.style.setProperty('--mobile-bg', 'none');
+        if (backgroundName === 'no-background') {
+          console.log('backgroundName: no ', backgroundName);
+          resetBackgroundsVars();
         } else {
+          console.log('backgroundName: else ', backgroundName);
           dispatch(clearBackgroundUrls());
-          dispatch(fetchBackground(background));
+          dispatch(fetchBackground(backgroundName));
         }
       }
     }
-  }, [dispatch, boardName, background]);
+  }, [dispatch, boardName, backgroundName]);
 
   useEffect(() => {
     if (backgroundUrls && backgroundUrls.length) {
-      document.documentElement.style.setProperty(
-        '--desktop-bg',
-        `url(${backgroundUrls[2]})`
-      );
-      document.documentElement.style.setProperty(
-        '--tablet-bg',
-        `url(${backgroundUrls[1]})`
-      );
-      document.documentElement.style.setProperty(
-        '--mobile-bg',
-        `url(${backgroundUrls[0]})`
-      );
+      setBackgroundVars(backgroundUrls);
     }
   }, [backgroundUrls]);
 

@@ -31,6 +31,10 @@
   font-size: 24px;
   color: var(--text-heder);
   cursor: pointer;
+  transition: all 0.2s ease;
+  &:hover {
+    color: rgb(196, 119, 119);
+  }
 }
 
 .modalName {
@@ -58,6 +62,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  transition: all 0.2s ease;
 }
 
 .input:hover {
@@ -128,16 +133,6 @@
   max-width: 278px;
 }
 
-.iconLabel,
-.backgroundLabel {
-  display: flex;
-  align-items: center;
-}
-
-.hiddenInput {
-  display: none;
-}
-
 .backgroundOption {
   width: 28px;
   height: 28px;
@@ -147,16 +142,35 @@
   transition: all 0.2s ease;
 }
 
+.backgroundOption .selected {
+  border: 1px solid var(--text);
+}
+
+.iconLabel,
+.backgroundLabel {
+  display: flex;
+  align-items: center;
+}
+
+.backgroundLabel.selected {
+  display: flex;
+  align-items: center;
+}
+
+.hiddenInput {
+  display: none;
+}
+
 .backgroundOption:hover {
   transform: scale(1.1);
-  box-shadow: 0px 1px 8px 2px var(--move-button-hover);
+  box-shadow: 0px 1px 0px 2px var(--move-button-hover);
   border-radius: 8px;
 }
 
 .backgroundOption.selected {
   border-radius: 8px;
-  box-shadow: 0px 1px 8px 2px var(--move-button-hover);
-  border: 3px solid var(--move-button-hover);
+  box-shadow: 0px 1px 0px 2px var(--move-button-hover);
+  border: 1px ridge var(--base-green-violet);
 }
 
 .saveButton {
@@ -176,10 +190,15 @@
   line-height: normal;
   letter-spacing: -0.28px;
   border: none;
+  transition: all 0.2s ease;
 }
 
 .saveButton:hover {
   background-color: var(--modal-button-bg-hover);
+}
+
+.saveButton:hover .modalPlus {
+  color: var(--move-button-hover);
 }
 
 .modalPlus {
@@ -191,9 +210,10 @@
   width: 28px;
   height: 28px;
   height: 28px;
-  font-size: 12px;
+  font-size: 14px;
   margin-right: 8px;
   border-radius: 6px;
+  transition: all 0.2s ease;
 }
 
 @media screen and (min-width: 768px) {

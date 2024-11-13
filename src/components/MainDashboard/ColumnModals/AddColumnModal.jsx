@@ -29,7 +29,7 @@ export const AddColumnModal = ({ isOpen, onClose, onSubmit, columnId }) => {
       <h2 className={css.title}>Add column</h2>
       <button className={css.closeButton} onClick={onClose}>
         <svg className={css.close} width="18" height="18">
-          <use href="/sprite.svg#icon-close" />
+        <use href="/sprite.svg#x"></use>
         </svg>
       </button>
       <Formik
@@ -38,7 +38,7 @@ export const AddColumnModal = ({ isOpen, onClose, onSubmit, columnId }) => {
         onSubmit={onSubmit}
       >
         <Form>
-          <Field className={css.input} name="title" id={columnId} />
+          <Field className={css.input} name="title" id={columnId} placeholder="Title"/>
           <ErrorMessage className={css.error} name="title" component="span" />
           <button className={css.modalButton} type="submit">
             <FaPlus className={css.plusModal} />

@@ -46,7 +46,7 @@ export const EditCardModal = ({
       <h2 className={css.modalTitle}>Edit card</h2>
       <button className={css.closeButton} onClick={onClose}>
         <svg className={css.close} width="18" height="18">
-          <use href="/sprite.svg#icon-close" />
+        <use href="/sprite.svg#x"></use>
         </svg>
       </button>
       <Formik
@@ -62,7 +62,7 @@ export const EditCardModal = ({
       >
         {({ setFieldValue, values }) => (
           <Form>
-            <Field className={css.modalInputTitle} name="title" id={cardId} />
+            <Field className={css.modalInputTitle} name="title" id={cardId} placeholder="Title"/>
             <ErrorMessage className={css.error} name="title" component="span" />
 
             <Field
@@ -72,6 +72,7 @@ export const EditCardModal = ({
               rows="10"
               name="content"
               id={cardId}
+               placeholder="Description"
             />
             <ErrorMessage
               className={css.error}

@@ -1,24 +1,31 @@
 import { useDispatch, useSelector } from "react-redux";
 import s from "./FilterDropdown.module.css";
-import { setColumns } from "../../redux/boards/sliceHeaderDashboard/filtersSlice";
+import {
+  selectedColor,
+  setColumns,
+  setColorFilter,
+} from "../../redux/boards/sliceHeaderDashboard/filtersSlice";
 import { selectColumns } from "../../redux/boards/selectors";
-import { useState } from "react";
 
 export default function FilterDropdown({ onClose }) {
   const dispatch = useDispatch();
-  const [selectedPriority, setSelectedPriority] = useState(null);
+
+  const selectedPriority = useSelector(selectedColor);
+  dispatch(setColorFilter(selectedPriority));
+
+  // console.log(selectedPriority);
 
   const columns = useSelector(selectColumns);
 
   const handleColorChange = (priority) => {
-    setSelectedPriority(priority);
+    dispatch(setColorFilter(priority));
     dispatch(setColumns({ columns, priority }));
 
     // onClose();
   };
 
   const handleReset = () => {
-    setSelectedPriority(null);
+    dispatch(setColorFilter(null));
     dispatch(setColumns({ columns, priority: null }));
 
     // onClose();

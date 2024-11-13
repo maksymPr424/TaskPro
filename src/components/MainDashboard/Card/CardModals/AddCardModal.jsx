@@ -104,37 +104,55 @@ export const AddCardModal = ({ isOpen, onClose, onSubmit, cardId }) => {
           <div className={css.priorityContainer}>
             <h3 className={css.modalSubtitle}>Priority</h3>
             <div className={css.priority}>
-              <label className={css.prioritynone}>
+              <label className={css.radioText}>
                 <Field
                   type="radio"
                   name="priority"
                   value={PRIORITIES.NONE}
-                  className={css.priorityInput}
+                  className={`${css.priorityInput}`}
                 />
+                <span
+                  className={css.radioBtn}
+                  style={{
+                    backgroundColor: "var(--none-priority)",
+                  }}
+                ></span>
               </label>
-              <label className={css.prioritylow}>
+              <label className={css.radioText}>
                 <Field
                   type="radio"
                   name="priority"
                   value={PRIORITIES.LOW}
                   className={css.priorityInput}
                 />
+                <span
+                  className={css.radioBtn}
+                  style={{ backgroundColor: "var(--low-priority)" }}
+                ></span>
               </label>
-              <label className={css.prioritymedium}>
+              <label className={css.radioText}>
                 <Field
                   type="radio"
                   name="priority"
                   value={PRIORITIES.MEDIUM}
                   className={css.priorityInput}
                 />
+                <span
+                  className={css.radioBtn}
+                  style={{ backgroundColor: "var(--medium-priority)" }}
+                ></span>
               </label>
-              <label className={css.priorityhigh}>
+              <label className={css.radioText}>
                 <Field
                   type="radio"
                   name="priority"
                   value={PRIORITIES.HIGH}
                   className={css.priorityInput}
                 />
+                <span
+                  className={css.radioBtn}
+                  style={{ backgroundColor: "var(--base-green-violet)" }}
+                ></span>
               </label>
             </div>
           </div>

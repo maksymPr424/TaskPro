@@ -12,13 +12,15 @@ const PRIORITIES = {
   HIGH: "high",
 };
 
+const DAY = 24 * 60 * 60 * 1000;
+
 const cardSchema = Yup.object().shape({
   title: Yup.string()
     .min(3, "Too Short")
     .max(20, "Too long")
     .required("Required"),
   content: Yup.string().min(3, "Too Short").max(300, "Too long"),
-  deadline: Yup.date().min(new Date()),
+  deadline: Yup.date().min(new Date(Date.now() - DAY)),
   priority: Yup.string().oneOf(Object.values(PRIORITIES)),
 });
 
@@ -73,6 +75,7 @@ export const EditCardModal = ({
               name="content"
               id={cardId}
             />
+
             <ErrorMessage
               className={css.error}
               name="content"
@@ -82,37 +85,55 @@ export const EditCardModal = ({
             <div className={css.priorityContainer}>
               <h3 className={css.modalSubtitle}>Priority</h3>
               <div className={css.priority}>
-                <label className={css.prioritynone}>
+                <label className={css.radioText}>
                   <Field
                     type="radio"
                     name="priority"
                     value={PRIORITIES.NONE}
                     className={`${css.priorityInput}`}
                   />
+                  <span
+                    className={css.radioBtn}
+                    style={{
+                      backgroundColor: "var(--none-priority)",
+                    }}
+                  ></span>
                 </label>
-                <label className={css.prioritylow}>
+                <label className={css.radioText}>
                   <Field
                     type="radio"
                     name="priority"
                     value={PRIORITIES.LOW}
                     className={css.priorityInput}
                   />
+                  <span
+                    className={css.radioBtn}
+                    style={{ backgroundColor: "var(--low-priority)" }}
+                  ></span>
                 </label>
-                <label className={css.prioritymedium}>
+                <label className={css.radioText}>
                   <Field
                     type="radio"
                     name="priority"
                     value={PRIORITIES.MEDIUM}
                     className={css.priorityInput}
                   />
+                  <span
+                    className={css.radioBtn}
+                    style={{ backgroundColor: "var(--medium-priority)" }}
+                  ></span>
                 </label>
-                <label className={css.priorityhigh}>
+                <label className={css.radioText}>
                   <Field
                     type="radio"
                     name="priority"
                     value={PRIORITIES.HIGH}
                     className={css.priorityInput}
                   />
+                  <span
+                    className={css.radioBtn}
+                    style={{ backgroundColor: "var(--base-green-violet)" }}
+                  ></span>
                 </label>
               </div>
             </div>

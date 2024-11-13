@@ -66,6 +66,36 @@ button {
   gap: 14px;
 }
 
+.bellContainer {
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+  position: relative;
+}
+
+.bellShadow {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  /* transform: translate(-50%, -50%); */
+  /* top: 50%;
+  left: 50%;
+   */
+  box-shadow: 16px 16px 25px var(--active-green-violet),
+    16px 16px 25px var(--active-green-violet),
+    16px 16px 25px var(--active-green-violet);
+}
+
+.deadlineBell {
+  stroke: var(--active-green-violet);
+  fill: none;
+  position: relative;
+  /* background-color: #fff; */
+}
+
 .edit,
 .delete,
 .move {
@@ -86,9 +116,16 @@ button {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  max-height: 50vh;
+  /* max-height: 50vh; */
+  height: calc(100vh - 300px);
   overflow-y: auto;
   /* padding-right: 10px; */
+}
+
+@media screen and (min-width: 768px) {
+  .list {
+    height: calc(100vh - 300px - 28px);
+  }
 }
 
 .item {
@@ -134,7 +171,7 @@ button {
 
 .text::after {
   position: absolute;
-  content: '';
+  content: "";
   bottom: -14px;
   left: 0;
   width: 100%;
@@ -337,10 +374,10 @@ button {
   display: inline-block;
 }
 
-.prioritynone input[type='radio'],
-.prioritylow input[type='radio'],
-.prioritymedium input[type='radio'],
-.priorityhigh input[type='radio'] {
+.prioritynone input[type="radio"],
+.prioritylow input[type="radio"],
+.prioritymedium input[type="radio"],
+.priorityhigh input[type="radio"] {
   appearance: none;
   -webkit-appearance: none;
   width: 12px;
@@ -355,22 +392,22 @@ button {
   background-color: var(--none-priority);
 }
 
-.prioritylow input[type='radio'] {
+.prioritylow input[type="radio"] {
   background-color: var(--low-priority);
 }
 
-.prioritymedium input[type='radio'] {
+.prioritymedium input[type="radio"] {
   background-color: var(--medium-priority);
 }
 
-.priorityhigh input[type='radio'] {
+.priorityhigh input[type="radio"] {
   background-color: #bedbb0;
 }
 
-.prioritynone input[type='radio']:checked,
-.prioritylow input[type='radio']:checked,
-.prioritymedium input[type='radio']:checked,
-.priorityhigh input[type='radio']:checked {
+.prioritynone input[type="radio"]:checked,
+.prioritylow input[type="radio"]:checked,
+.prioritymedium input[type="radio"]:checked,
+.priorityhigh input[type="radio"]:checked {
   border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
@@ -381,11 +418,54 @@ button {
   justify-content: center;
 }
 
+.radioBtn {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin-right: 8px;
+  cursor: pointer;
+  position: relative;
+}
+
+.radioText input[type="radio"] {
+  display: none;
+}
+
+.radioBtn::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: transparent;
+  border-radius: 50%;
+}
+
+.radioText input[type="radio"]:checked + .radioBtn::before {
+  /* background-color: var(--base-green-violet); */
+  border: 3px solid var(--background-heder);
+}
+
+.radioText {
+  font-size: 12px;
+  letter-spacing: -0.02em;
+  color: var(--no-active);
+  display: flex;
+  align-items: center;
+}
+
+.radioText input[type="radio"]:checked ~ .radioLabel {
+  color: var(--text-heder);
+}
+
 .priorityLabelText {
   font-size: 11px;
   margin: 0;
   padding: 0;
-  color: var(--text);
+  color: var(--text-heder);
 }
 
 @media screen and (min-width: 768px) {

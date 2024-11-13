@@ -31,6 +31,7 @@
 }
 
 :root {
+  --white: #fff;
   --base-green-violet: #bedbb0;
   --active-green-violet: #9dc888;
   --text: #000000;
@@ -51,6 +52,7 @@
 
 [data-theme="light"] {
   color-scheme: light;
+  --base-green-violet-for-dashboard: rgb(190, 219, 176, 0.6);
   --none-priority: #1616164d;
   --logo-color: #fff;
   --logo-background: #1f1f1f;
@@ -105,6 +107,7 @@
 
 [data-theme="dark"] {
   color-scheme: dark;
+  --base-green-violet-for-dashboard: rgb(190, 219, 176, 0.6);
   --logo-background: #1f1f1f;
   --logo-color: #fff;
   --none-priority: #ffffff4d;
@@ -160,6 +163,7 @@
 
 [data-theme="violet"] {
   color-scheme: violet;
+  --base-green-violet-for-dashboard: #7b7ede;
   --none-priority: #1616164d;
   --logo-background: #ecedfd;
   --logo-color: #5255bc;
@@ -219,47 +223,6 @@
 html,
 body {
   background-color: var(--background);
-  scrollbar-width: 1px;
-  scrollbar-color: var(--text) transparent;
-  scrollbar-arrow-color: transparent;
-}
-
-.scrollContainer::-webkit-scrollbar {
-  width: 1px !important;
-  height: 1px !important;
-}
-
-.scrollContainer::-webkit-scrollbar-track {
-  background: transparent !important;
-}
-
-.scrollContainer::-webkit-scrollbar-thumb {
-  background: var(--no-active) !important;
-  border-radius: 10px !important;
-}
-
-.scrollContainer::-webkit-scrollbar-thumb:hover {
-  background: transparent !important;
-}
-
-.scrollContainer::-webkit-scrollbar-button {
-  display: none !important;
-}
-
-::-webkit-scrollbar-button:vertical:start:decrement {
-  display: none;
-}
-
-::-webkit-scrollbar-button:vertical:end:increment {
-  display: none;
-}
-
-::-webkit-scrollbar-button:horizontal:start:decrement {
-  display: none;
-}
-
-::-webkit-scrollbar-button:horizontal:end:increment {
-  display: none;
 }
 
 /* @media (prefers-color-scheme: light) {

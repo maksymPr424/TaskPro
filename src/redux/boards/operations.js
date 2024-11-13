@@ -1,90 +1,90 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { taskpro_api } from '../../config/taskpro_api.js';
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { taskpro_api } from "../../config/taskpro_api.js";
 
 export const fetchBoards = createAsyncThunk(
-  'board/fetchBoards',
+  "board/fetchBoards",
   async (_, { rejectWithValue }) => {
     try {
-      const response = await taskpro_api.get('/board');
+      const response = await taskpro_api.get("/board");
       return response.data;
     } catch (error) {
-      console.error('Error fetching boards:', error);
+      console.error("Error fetching boards:", error);
       return rejectWithValue(error.response.data);
     }
   }
 );
 
 export const fetchLastActiveBoard = createAsyncThunk(
-  'board/fetchLastActiveBoard',
+  "board/fetchLastActiveBoard",
   async (id, { rejectWithValue }) => {
     try {
       const response = await taskpro_api.get(`/board/${id}`);
       return response.data;
     } catch (error) {
-      console.error('Error fetching boards:', error);
+      console.error("Error fetching boards:", error);
       return rejectWithValue(error.response.data);
     }
   }
 );
 
 export const fetchBackground = createAsyncThunk(
-  'background/fetchBackground',
+  "background/fetchBackground",
   async (name, { rejectWithValue }) => {
     try {
       const response = await taskpro_api.get(`/background/${name}`);
       return response.data;
     } catch (error) {
-      console.error('Error fetching background:', error);
+      console.error("Error fetching background:", error);
       return rejectWithValue(error.response.data);
     }
   }
 );
 
 export const createBoard = createAsyncThunk(
-  'board/createBoard',
+  "board/createBoard",
   async (newBoard, { rejectWithValue }) => {
     try {
-      const response = await taskpro_api.post('/board', newBoard);
+      const response = await taskpro_api.post("/board", newBoard);
       return response.data;
     } catch (error) {
-      console.error('Error creating board:', error);
+      console.error("Error creating board:", error);
       return rejectWithValue(error.response.data);
     }
   }
 );
 
 export const editBoard = createAsyncThunk(
-  'board/editBoard',
+  "board/editBoard",
   async (updatedBoard, { rejectWithValue }) => {
     const { _id, ...restOfBoard } = updatedBoard;
     try {
       const response = await taskpro_api.patch(`/board/${_id}`, restOfBoard);
       return response.data;
     } catch (error) {
-      console.error('Error editing board:', error);
+      console.error("Error editing board:", error);
       return rejectWithValue(error.response.data);
     }
   }
 );
 
 export const removeBoard = createAsyncThunk(
-  'board/removeBoard',
+  "board/removeBoard",
   async (boardId, { rejectWithValue }) => {
     try {
       await taskpro_api.delete(`/board/${boardId}`);
       return boardId;
     } catch (error) {
-      console.error('Error deleting board:', error);
+      console.error("Error deleting board:", error);
       return rejectWithValue(error.response.data);
     }
   }
 );
 
 export const addColumn = createAsyncThunk(
-  'board/addColumn',
+  "board/addColumn",
   async (newColumn, { rejectWithValue }) => {
     try {
-      const res = await taskpro_api.post('/columns', { ...newColumn });
+      const res = await taskpro_api.post("/columns", { ...newColumn });
 
       return res.data;
     } catch (e) {
@@ -94,7 +94,7 @@ export const addColumn = createAsyncThunk(
 );
 
 export const editColumn = createAsyncThunk(
-  'board/editColumn',
+  "board/editColumn",
   async ({ id, title, boardId }, { rejectWithValue }) => {
     try {
       const res = await taskpro_api.patch(`/columns/${id}`, { title, boardId });
@@ -107,7 +107,7 @@ export const editColumn = createAsyncThunk(
 );
 
 export const deleteColumn = createAsyncThunk(
-  'board/deleteColumn',
+  "board/deleteColumn",
   async (id, { rejectWithValue }) => {
     try {
       await taskpro_api.delete(`/columns/${id}`);
@@ -120,10 +120,10 @@ export const deleteColumn = createAsyncThunk(
 );
 
 export const addCard = createAsyncThunk(
-  'board/addCard',
+  "board/addCard",
   async ({ boardId, columnId, taskData }, { rejectWithValue }) => {
     try {
-      const res = await taskpro_api.post('/tasks', {
+      const res = await taskpro_api.post("/tasks", {
         ...taskData,
         boardId,
         columnId,
@@ -136,7 +136,7 @@ export const addCard = createAsyncThunk(
 );
 
 export const editCard = createAsyncThunk(
-  'board/editCard',
+  "board/editCard",
   async ({ taskId, updateData }, { rejectWithValue }) => {
     try {
       const res = await taskpro_api.patch(`/tasks/${taskId}`, {
@@ -150,7 +150,7 @@ export const editCard = createAsyncThunk(
   }
 );
 export const editCardColumn = createAsyncThunk(
-  'board/editCardColumn',
+  "board/editCardColumn",
   async ({ taskId, updateData }, { rejectWithValue }) => {
     const { oldColumnId, ...restUpdateData } = updateData;
 
@@ -167,7 +167,7 @@ export const editCardColumn = createAsyncThunk(
 );
 
 export const deleteCard = createAsyncThunk(
-  'board/deleteCard',
+  "board/deleteCard",
   async ({ columnId, taskId }, { rejectWithValue }) => {
     try {
       await taskpro_api.delete(`/tasks/${taskId}`);

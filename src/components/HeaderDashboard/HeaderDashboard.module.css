@@ -9,9 +9,9 @@
   font-size: 14px;
   font-weight: 500;
   letter-spacing: -0.02em;
-  color: var(--background-heder);
-  box-shadow: 0 0 8px 2px var(--base-green-violet);
-  background-color: var(--base-green-violet);
+  color: var(--white);
+  box-shadow: 0 0 8px 2px var(--base-green-violet-for-dashboard);
+  background-color: var(--base-green-violet-for-dashboard);
   border-radius: 20%;
 }
 
@@ -19,8 +19,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 8px 2px var(--base-green-violet);
-  background-color: var(--base-green-violet);
+  box-shadow: 0 0 8px 2px var(--base-green-violet-for-dashboard);
+  background-color: var(--base-green-violet-for-dashboard);
   border-radius: 20%;
 }
 
@@ -29,7 +29,7 @@
   font-weight: 500;
   font-size: 14px;
   letter-spacing: -0.02em;
-  color: var(--background-heder);
+  color: var(--white);
   align-items: center;
   gap: 8px;
   border: none;
@@ -39,7 +39,7 @@
 .filterIcon {
   width: 16px;
   height: 16px;
-  stroke: var(--background-heder);
+  stroke: var(--white);
   fill: transparent;
 }
 

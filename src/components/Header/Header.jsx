@@ -137,7 +137,11 @@ const Header = ({ fetchActiveBoard }) => {
           />
         </div>
       </div>
-      <EditUserInfo isOpen={isModalOpen} onRequestClose={handleModalClose} />
+      <EditUserInfo
+        isOpen={isModalOpen}
+        onRequestClose={handleModalClose}
+        photoUrl={photoUrl}
+      />
       {isSidebarOpen && (
         <Modal
           open={isSidebarOpen}

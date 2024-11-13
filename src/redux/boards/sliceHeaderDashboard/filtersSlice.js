@@ -13,8 +13,6 @@ const filtersSlice = createSlice({
       state.selectedColor = null;
     },
     setColorFilter: (state, action) => {
-      action.payload;
-
       state.selectedColor = action.payload;
     },
     setColumns: (state, action) => {

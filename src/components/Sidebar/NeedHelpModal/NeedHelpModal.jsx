@@ -11,7 +11,7 @@ const NeedHelpModal = ({ isOpen, onClose }) => {
 
   const initialValues = {
     email: "",
-    comment: ""
+    comment: "",
   };
 
   const validationSchema = Yup.object().shape({
@@ -26,6 +26,7 @@ const NeedHelpModal = ({ isOpen, onClose }) => {
 
   const handleSubmit = async (values, { resetForm }) => {
     try {
+
       await taskpro_api.post('/support', { userEmail: values.email, comment: values.comment });
       resetForm();
       onClose();
@@ -72,7 +73,11 @@ const NeedHelpModal = ({ isOpen, onClose }) => {
             />
             <ErrorMessage name="comment" component="p" className={css.error} />
             {submitError && <p className={css.error}>{submitError}</p>}
-            <button type="submit" className={css.sendButton} aria-label="Send help request">
+            <button
+              type="submit"
+              className={css.sendButton}
+              aria-label="Send help request"
+            >
               Send
             </button>
           </Form>

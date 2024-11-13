@@ -3,9 +3,9 @@ import { useState } from "react";
 import s from "./HeaderDashboard.module.css";
 import Container from "../Container/Container.jsx";
 import FilterDropdown from "../FilterModal/FilterDropdown.jsx";
-
 export default function HeaderDashboard({ boardName }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);

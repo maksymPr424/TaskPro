@@ -1,30 +1,30 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import {
   selectActiveBoardId,
   selectColumns,
   selectError,
   selectIsLoading,
-} from '../../../redux/boards/selectors';
-import { useId, useRef, useState } from 'react';
+} from "../../../redux/boards/selectors";
+import { useId, useRef, useState } from "react";
 import {
   addCard,
   deleteCard,
   editCard,
   editCardColumn,
-} from '../../../redux/boards/operations';
-import css from './Card.module.css';
-import { AddCardModal } from './CardModals/AddCardModal';
-import { EditCardModal } from './CardModals/EditCardModal';
-import { FaPlus } from 'react-icons/fa6';
-import { format } from 'date-fns';
-import { ChangeColumnModal } from './CardModals/ChangeColumnModal';
+} from "../../../redux/boards/operations";
+import css from "./Card.module.css";
+import { AddCardModal } from "./CardModals/AddCardModal";
+import { EditCardModal } from "./CardModals/EditCardModal";
+import { FaPlus } from "react-icons/fa6";
+import { format } from "date-fns";
+import { ChangeColumnModal } from "./CardModals/ChangeColumnModal";
 import {
   deleteTask,
   updateTask,
   updateTaskColumn,
-} from '../../../redux/boards/slice';
-import { selectColumnsForRender } from '../../../redux/boards/sliceHeaderDashboard/filtersSlice';
-import { ExpandableCard } from '../ExpandableCard';
+} from "../../../redux/boards/slice";
+import { selectColumnsForRender } from "../../../redux/boards/sliceHeaderDashboard/filtersSlice";
+import { ExpandableCard } from "../ExpandableCard";
 
 export default function Card({ columnId }) {
   const dispatch = useDispatch();
@@ -36,7 +36,7 @@ export default function Card({ columnId }) {
   const columns =
     filteredColumn.length === 0 ? columnWithAllTasks : filteredColumn;
 
-  const cards = columns.filter(({ _id }) => _id === columnId)[0].tasks;
+  const cards = columns.filter(({ _id }) => _id === columnId)[0]?.tasks;
 
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
@@ -53,8 +53,10 @@ export default function Card({ columnId }) {
 
   const handleAddCard = (values) => {
     if (!values.priority) {
-      values.priority = 'none';
+      values.priority = "none";
     }
+    console.log(values);
+
     const priority = values.priority.toLowerCase();
 
     const taskData = {
@@ -76,7 +78,7 @@ export default function Card({ columnId }) {
         setAddCardModalIsOpen(false);
       })
       .catch((error) => {
-        console.error('Failed to add card:', error);
+        console.error("Failed to add card:", error);
       });
   };
 
@@ -126,9 +128,10 @@ export default function Card({ columnId }) {
     )
       .unwrap()
       .catch((error) => {
-        console.error('Failed to move card:', error);
+        console.error("Failed to move card:", error);
       });
   };
+  const DAY = 24 * 60 * 60 * 1000;
 
   const handleEditCard = (values) => {
     // if (!editingCard?._id) {
@@ -137,14 +140,13 @@ export default function Card({ columnId }) {
     // }
 
     const priority = values.priority.toLowerCase();
+    console.log(values);
 
     const updateData = {
       title: values.title.trim(),
       content: values.content.trim(),
-      deadline: values.deadline
-        ? new Date(values.deadline)
-        : new Date(Date.now() + 24 * 60 * 60 * 1000),
-      priority: priority || PRIORITIES.WITHOUT,
+      deadline: new Date(values.deadline),
+      priority,
     };
 
     if (!updateData.content) delete updateData.content;
@@ -161,7 +163,7 @@ export default function Card({ columnId }) {
     dispatch(editCard(updatedCard))
       .unwrap()
       .catch((error) => {
-        console.error('Failed to edit card:', error);
+        console.error("Failed to edit card:", error);
       });
   };
 
@@ -170,7 +172,7 @@ export default function Card({ columnId }) {
     dispatch(deleteCard({ columnId, taskId }))
       .unwrap()
       .catch((error) => {
-        console.error('Failed to delete card:', error);
+        console.error("Failed to delete card:", error);
       });
   };
 
@@ -178,15 +180,26 @@ export default function Card({ columnId }) {
     return <div className={css.error}>Error: {error}</div>;
   }
 
+  const COLORS = {
+    none: "var(--none-priority)",
+    low: "var(--low-priority)",
+    medium: "var(--medium-priority)",
+    high: "var(--base-green-violet)",
+  };
+
   const PRIORITIES = {
-    NONE: 'none',
-    LOW: 'low',
-    MEDIUM: 'medium',
-    HIGH: 'high',
+    NONE: "none",
+    LOW: "low",
+    MEDIUM: "medium",
+    HIGH: "high",
   };
 
   const sectionStyles = {
-    position: 'relative',
+    position: "relative",
+  };
+
+  const getSpanColor = (priority) => {
+    return COLORS[priority];
   };
 
   const makeFirstLetterBig = (string) =>
@@ -209,28 +222,24 @@ export default function Card({ columnId }) {
                   ? css.priorityMediumItem
                   : card.priority === PRIORITIES.HIGH
                   ? css.priorityHighItem
-                  : ''
+                  : ""
               }`}
               key={card._id}
-              style={sectionStyles}>
+              style={sectionStyles}
+            >
               <h3 className={css.title}>{card.title}</h3>
               <ExpandableCard {...card} />
               <div className={css.subcontainer}>
                 <div className={css.leftCardInfo}>
                   <div>
                     <h4 className={css.subtitle}>Priority</h4>
-                    <label
-                      className={`${css.priorityLabel} ${
-                        css[`priority${card.priority}`]
-                      }`}>
-                      <input
-                        type='radio'
-                        name='priority'
-                        value={card.priority}
-                        checked={true}
-                        readOnly
-                        disabled
-                      />
+                    <label className={css.radioText}>
+                      <span
+                        className={css.radioBtn}
+                        style={{
+                          backgroundColor: ` ${getSpanColor(card.priority)}`,
+                        }}
+                      ></span>
                       <p className={css.priorityLabelText}>
                         {makeFirstLetterBig(card.priority)}
                       </p>
@@ -240,32 +249,45 @@ export default function Card({ columnId }) {
                   <div>
                     <h4 className={css.subtitle}>Deadline</h4>
                     <p className={css.deadlineText}>
-                      {format(new Date(Date.parse(card.deadline)), 'd/MM/yy')}
+                      {format(new Date(Date.parse(card.deadline)), "d/MM/yy")}
                     </p>
                   </div>
                 </div>
 
                 <div className={css.iconContainer}>
+                  {new Date(card.deadline) - new Date() <= DAY ? (
+                    <div className={css.bellContainer}>
+                      <svg className={css.deadlineBell} width="16" height="16">
+                        <use href="/sprite.svg#bell" />
+                      </svg>
+                      <span className={css.bellShadow}></span>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                   <button
                     ref={(el) => (moveCardButtonRefs.current[index] = el)}
                     className={css.iconButtons}
-                    onClick={() => startEditCardColumn(card, index)}>
-                    <svg className={css.move} width='16' height='16'>
-                      <use href='/sprite.svg#icon-arrow-circle-broken-right' />
+                    onClick={() => startEditCardColumn(card, index)}
+                  >
+                    <svg className={css.move} width="16" height="16">
+                      <use href="/sprite.svg#icon-arrow-circle-broken-right" />
                     </svg>
                   </button>
                   <button
                     className={css.iconButtons}
-                    onClick={() => startEditCard(card)}>
-                    <svg className={css.edit} width='16' height='16'>
-                      <use href='/sprite.svg#pencil' />
+                    onClick={() => startEditCard(card)}
+                  >
+                    <svg className={css.edit} width="16" height="16">
+                      <use href="/sprite.svg#pencil" />
                     </svg>
                   </button>
                   <button
                     className={css.iconButtons}
-                    onClick={() => handleDeleteCard(card._id)}>
-                    <svg className={css.delete} width='16' height='16'>
-                      <use href='/sprite.svg#trash' />
+                    onClick={() => handleDeleteCard(card._id)}
+                  >
+                    <svg className={css.delete} width="16" height="16">
+                      <use href="/sprite.svg#trash" />
                     </svg>
                   </button>
                 </div>
@@ -277,7 +299,7 @@ export default function Card({ columnId }) {
                   onSubmit={handleEditColumnCard}
                   columnId={columnId}
                   editingCard={editingCardColumn}
-                  contentLabel='ChangeColumnModal'
+                  contentLabel="ChangeColumnModal"
                   position={modalPosition}
                 />
               </div>
@@ -288,7 +310,8 @@ export default function Card({ columnId }) {
 
       <button
         className={css.button}
-        onClick={() => setAddCardModalIsOpen(true)}>
+        onClick={() => setAddCardModalIsOpen(true)}
+      >
         <FaPlus className={css.plusModal} />
         Add another card
       </button>

@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import Modal from "react-modal";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
 import css from "./NeedHelpModal.module.css";
+import { taskpro_api } from "../../../config/taskpro_api";
 
 const NeedHelpModal = ({ isOpen, onClose }) => {
   const [submitError, setSubmitError] = useState("");
@@ -23,7 +23,7 @@ const NeedHelpModal = ({ isOpen, onClose }) => {
 
   const handleSubmit = async (values, { resetForm }) => {
     try {
-      await axios.post('/support', { userEmail: values.email, comment: values.comment });
+      await taskpro_api.post('/support', { userEmail: values.email, comment: values.comment });
       resetForm();
       onClose();
     } catch (error) {

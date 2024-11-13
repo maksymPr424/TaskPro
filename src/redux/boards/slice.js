@@ -35,15 +35,18 @@ const boardsSlice = createSlice({
   },
   reducers: {
     setBoards: (state, action) => {
-      state.lastActiveBoard =
-        action.payload.lastActiveBoard || action.payload.boards[0];
+      console.log('setBoards reducer triggered: ', action.payload);
+
+      state.lastActiveBoard = action.payload.lastActiveBoard;
       state.boards = action.payload.boards;
     },
     setLastActiveBoard: (state, action) => {
+      console.log('setLastActiveBoard reducer triggered:', action.payload);
+
       const { boardId, title } = action.payload;
       state.lastActiveBoard = { _id: boardId, title };
     },
-    clearBackgroundUrls: (state) => {
+    clearBackgroundUrls: state => {
       state.lastActiveBoard.backgroundUrls = [];
     },
     addBoard: (state, action) => {
@@ -56,21 +59,21 @@ const boardsSlice = createSlice({
     // },
     updateColumn: (state, action) => {
       const index = state.lastActiveBoard.columns.findIndex(
-        (column) => column._id === action.payload.id
+        column => column._id === action.payload.id
       );
       state.lastActiveBoard.columns[index].title = action.payload.title;
     },
     deleteColumnSpeed: (state, action) => {
       state.lastActiveBoard.columns = state.lastActiveBoard.columns.filter(
-        (column) => column._id !== action.payload
+        column => column._id !== action.payload
       );
     },
     updateTask: (state, action) => {
       const indexColumn = state.lastActiveBoard.columns.findIndex(
-        (column) => column._id === action.payload.columnId
+        column => column._id === action.payload.columnId
       );
       const index = state.lastActiveBoard.columns[indexColumn].tasks.findIndex(
-        (task) => task._id === action.payload.taskId
+        task => task._id === action.payload.taskId
       );
       state.lastActiveBoard.columns[indexColumn].tasks[index] = {
         ...state.lastActiveBoard.columns[indexColumn].tasks[index],
@@ -81,15 +84,15 @@ const boardsSlice = createSlice({
       const { columnId, oldColumnId, taskId } = action.payload;
 
       const columnIndex = state.lastActiveBoard.columns.findIndex(
-        (column) => column._id === columnId
+        column => column._id === columnId
       );
       const oldColumnIndex = state.lastActiveBoard.columns.findIndex(
-        (column) => column._id === oldColumnId
+        column => column._id === oldColumnId
       );
 
       const taskIndex = state.lastActiveBoard.columns[
         oldColumnIndex
-      ].tasks.findIndex((task) => task._id === taskId);
+      ].tasks.findIndex(task => task._id === taskId);
 
       state.lastActiveBoard.columns[columnIndex].tasks.push({
         ...state.lastActiveBoard.columns[oldColumnIndex].tasks[taskIndex],
@@ -100,20 +103,20 @@ const boardsSlice = createSlice({
     },
     deleteTask: (state, action) => {
       const indexColumn = state.lastActiveBoard.columns.findIndex(
-        (column) => column._id === action.payload.columnId
+        column => column._id === action.payload.columnId
       );
       const index = state.lastActiveBoard.columns[indexColumn].tasks.findIndex(
-        (task) => task._id === action.payload.taskId
+        task => task._id === action.payload.taskId
       );
       state.lastActiveBoard.columns[indexColumn].tasks.splice(index, 1);
     },
-    clearBoards: (state) => {
+    clearBoards: state => {
       state.boards = [];
       state.lastActiveBoard = null;
     },
   },
 
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
       .addCase(fetchBoards.fulfilled, (state, action) => {
         state.lastActiveBoard = action.payload.lastActiveBoard;
@@ -134,7 +137,7 @@ const boardsSlice = createSlice({
       })
       .addCase(editBoard.fulfilled, (state, action) => {
         const index = state.boards.findIndex(
-          (board) => board._id === action.payload._id
+          board => board._id === action.payload._id
         );
         if (index !== -1) {
           state.boards[index] = { ...state.boards[index], ...action.payload };
@@ -146,7 +149,7 @@ const boardsSlice = createSlice({
       })
       .addCase(removeBoard.fulfilled, (state, action) => {
         state.boards = state.boards.filter(
-          (board) => board._id !== action.payload
+          board => board._id !== action.payload
         );
       })
       .addCase(removeBoard.rejected, (state, action) => {
@@ -158,19 +161,19 @@ const boardsSlice = createSlice({
       .addCase(addColumn.rejected, handleRejected)
       .addCase(editColumn.rejected, (state, action) => {
         const columnId = state.lastActiveBoard.columns.findIndex(
-          (column) => column._id === action.payload._id
+          column => column._id === action.payload._id
         );
         state.lastActiveBoard.columns[columnId] = action.payload;
       })
       .addCase(deleteColumn.rejected, (state, action) => {
         const index = state.lastActiveBoard.columns.findIndex(
-          (column) => column._id === action.payload.id
+          column => column._id === action.payload.id
         );
         state.lastActiveBoard.columns.splice(index, 1);
       })
       .addCase(addCard.fulfilled, (state, action) => {
         const columnIndex = state.lastActiveBoard.columns.findIndex(
-          (column) => column._id === action.payload.columnId
+          column => column._id === action.payload.columnId
         );
 
         state.lastActiveBoard.columns[columnIndex].tasks.push(action.payload);
@@ -179,12 +182,12 @@ const boardsSlice = createSlice({
 
       .addCase(editCard.rejected, (state, action) => {
         const columnIndex = state.lastActiveBoard.columns.findIndex(
-          (column) => column._id === action.payload.columnId
+          column => column._id === action.payload.columnId
         );
 
         const taskIndex = state.lastActiveBoard.columns[
           columnIndex
-        ].tasks.findIndex((task) => task._id === action.payload._id);
+        ].tasks.findIndex(task => task._id === action.payload._id);
 
         state.lastActiveBoard.columns[columnIndex].tasks[taskIndex] =
           action.payload;
@@ -199,7 +202,7 @@ const boardsSlice = createSlice({
           fetchLastActiveBoard.pending,
           removeBoard.pending
         ),
-        (state) => {
+        state => {
           state.loading = true;
           state.loading = true;
           state.loading = true;
@@ -213,7 +216,7 @@ const boardsSlice = createSlice({
           fetchLastActiveBoard.fulfilled,
           removeBoard.fulfilled
         ),
-        (state) => {
+        state => {
           state.loading = false;
           state.loading = false;
           state.loading = false;
@@ -227,7 +230,7 @@ const boardsSlice = createSlice({
           fetchLastActiveBoard.rejected,
           removeBoard.rejected
         ),
-        (state) => {
+        state => {
           state.loading = false;
           state.loading = false;
           state.loading = false;
@@ -240,7 +243,7 @@ export const {
   setBoards,
   addBoard,
   updateBoard,
-  deleteBoard,
+  // deleteBoard,
   updateColumn,
   deleteColumnSpeed,
   updateTask,

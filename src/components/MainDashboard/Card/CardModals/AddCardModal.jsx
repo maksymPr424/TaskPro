@@ -152,7 +152,7 @@ export const AddCardModal = ({ isOpen, onClose, onSubmit, cardId }) => {
                 />
                 <span
                   className={css.radioBtn}
-                  style={{ backgroundColor: "var(--base-green-violet)" }}
+                  style={{ backgroundColor: "var(--high-priority)" }}
                 ></span>
               </label>
             </div>

@@ -184,7 +184,7 @@ export default function Card({ columnId }) {
     none: "var(--none-priority)",
     low: "var(--low-priority)",
     medium: "var(--medium-priority)",
-    high: "var(--base-green-violet)",
+    high: "var(--high-priority)",
   };
 
   const PRIORITIES = {

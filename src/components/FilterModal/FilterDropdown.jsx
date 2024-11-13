@@ -101,7 +101,7 @@ export default function FilterDropdown({ onClose }) {
           />
           <span
             className={s.radioBtn}
-            style={{ backgroundColor: "var(--base-green-violet)" }}
+            style={{ backgroundColor: "var(--high-priority)" }}
           ></span>
           <span className={s.radioLabel}>High</span>
         </label>

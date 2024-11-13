@@ -101,6 +101,9 @@
   --move-button-active: #bedbb0;
   --move-button-hover: #9bbc8b;
   --my-dashboard-svg: rgba(22, 22, 22, 0.5);
+
+  --add-column: #161616;
+  --add-column-hover: rgb(22, 22, 22, 0.7);
 }
 
 [data-theme="dark"] {
@@ -156,6 +159,9 @@
   --move-button-active: #bedbb0;
   --move-button-hover: #a0b794;
   --my-dashboard-svg: rgb(255, 255, 255, 0.5);
+
+  --add-column: #FFFFFF;
+  --add-column-hover: rgb(255, 255, 255, 0.7);
 }
 
 [data-theme="violet"] {
@@ -214,52 +220,14 @@
   --move-button-hover: #424594;
 
   --my-dashboard-svg: rgba(22, 22, 22, 0.5);
+
+  --add-column:  rgba(82, 85, 188, 1);
+  --add-column-hover:  #7b7ede;
 }
 
 html,
 body {
   background-color: var(--background);
-  scrollbar-width: 1px;
-  scrollbar-color: var(--text) transparent;
-  scrollbar-arrow-color: transparent;
-}
-
-.scrollContainer::-webkit-scrollbar {
-  width: 1px !important;
-  height: 1px !important;
-}
-
-.scrollContainer::-webkit-scrollbar-track {
-  background: transparent !important;
-}
-
-.scrollContainer::-webkit-scrollbar-thumb {
-  background: var(--no-active) !important;
-  border-radius: 10px !important;
-}
-
-.scrollContainer::-webkit-scrollbar-thumb:hover {
-  background: transparent !important;
-}
-
-.scrollContainer::-webkit-scrollbar-button {
-  display: none !important;
-}
-
-::-webkit-scrollbar-button:vertical:start:decrement {
-  display: none;
-}
-
-::-webkit-scrollbar-button:vertical:end:increment {
-  display: none;
-}
-
-::-webkit-scrollbar-button:horizontal:start:decrement {
-  display: none;
-}
-
-::-webkit-scrollbar-button:horizontal:end:increment {
-  display: none;
 }
 
 /* @media (prefers-color-scheme: light) {

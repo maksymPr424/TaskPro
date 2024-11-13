@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import Modal from "react-modal";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
 import css from "./NeedHelpModal.module.css";
+import { taskpro_api } from "../../../config/taskpro_api";
 
 const NeedHelpModal = ({ isOpen, onClose }) => {
   const [submitError, setSubmitError] = useState("");
@@ -18,12 +18,15 @@ const NeedHelpModal = ({ isOpen, onClose }) => {
     email: Yup.string()
       .email("Please enter a valid email address.")
       .required("Please enter an email address."),
-    comment: Yup.string().required("Please enter a comment.")
+    comment: Yup.string()
+    .min(10, "Comment must be at least 10 characters.")
+    .max(500, "Comment must not exceed 500 characters.")
+    .required("Please enter a comment.")
   });
 
   const handleSubmit = async (values, { resetForm }) => {
     try {
-      await axios.post('/support', { userEmail: values.email, comment: values.comment });
+      await taskpro_api.post('/support', { userEmail: values.email, comment: values.comment });
       resetForm();
       onClose();
     } catch (error) {
@@ -41,8 +44,10 @@ const NeedHelpModal = ({ isOpen, onClose }) => {
       contentLabel="Need Help Modal"
       ariaHideApp={false}
     >
-      <button className={css.closeButton} onClick={onClose} aria-label="Close modal">
-        ×
+       <button className={css.closeButton} onClick={onClose}>
+        <svg className={css.closeButtonIcon}>
+          <use href="/sprite.svg#x"></use>
+        </svg>
       </button>
       <h2 className={css.modalName}>Need help</h2>
       <Formik

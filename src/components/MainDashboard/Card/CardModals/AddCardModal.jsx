@@ -74,7 +74,7 @@ export const AddCardModal = ({ isOpen, onClose, onSubmit, cardId }) => {
       <h2 className={css.modalTitle}>Add card</h2>
       <button onClick={onClose} className={css.closeButton}>
         <svg className={css.close} width="18" height="18">
-          <use href="/sprite.svg#icon-close" />
+        <use href="/sprite.svg#x"></use>
         </svg>
       </button>
       <Formik
@@ -88,7 +88,7 @@ export const AddCardModal = ({ isOpen, onClose, onSubmit, cardId }) => {
         onSubmit={(values, formikHelpers) => onSubmit(values, formikHelpers)}
       >
         <Form>
-          <Field className={css.modalInputTitle} name="title" id={cardId} />
+          <Field className={css.modalInputTitle} name="title" id={cardId} placeholder="Title"/>
           <ErrorMessage className={css.error} name="title" component="span" />
 
           <Field
@@ -98,6 +98,7 @@ export const AddCardModal = ({ isOpen, onClose, onSubmit, cardId }) => {
             rows="10"
             name="content"
             id={cardId}
+            placeholder="Description"
           />
           <ErrorMessage className={css.error} name="content" component="span" />
 

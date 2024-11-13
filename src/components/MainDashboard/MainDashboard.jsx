@@ -112,12 +112,14 @@ export default function MainDashboard() {
               </li>
             ))}
       </ul>
-
-      <button className={css.button} onClick={() => setAddModalIsOpen(true)}>
-        <FaPlus className={css.plus} />
-        Add column
-      </button>
-
+      <button type='submit' className={css.button} onClick={() => setAddModalIsOpen(true)}>
+              <span className={css.modalPlus}>
+              <svg className={css.modalPlusSvg} width="16" height="16">
+                  <use href="/sprite.svg#icon-plus" />
+                </svg>
+              </span>
+              Add column
+            </button>
       <AddColumnModal
         isOpen={addModalIsOpen}
         onClose={() => setAddModalIsOpen(false)}

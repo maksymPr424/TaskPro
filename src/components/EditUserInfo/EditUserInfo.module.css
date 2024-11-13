@@ -87,7 +87,7 @@
 .inputField {
   padding: 12px;
   padding-left: 18px;
-  border: 1px solid var(--base-green-violet);
+  border: 1px solid var(--modal-input-border);
   border-radius: 8px;
   font-family: "Poppins", sans-serif;
   color: var(--text-heder);
@@ -101,11 +101,11 @@
 }
 
 .inputField::placeholder {
-  color: #8f8f8f;
+  color: var(--icons);
 }
 
-.inputField:focus {
-  border: 1px solid var(--active-green-violet);
+.inputField:focus,.inputField:hover {
+  border: 1px solid var(--modal-input-border-hover-focus);
   outline: none;
 }
 
@@ -128,8 +128,8 @@
 }
 
 .submitButton {
-  background-color: var(--base-green-violet);
-  color: var(--text);
+  background-color: var(--modal-button-bg);
+  color: var(--modal-button-text);
   font-family: "Poppins", sans-serif;
   font-size: 14px;
   font-style: normal;
@@ -146,7 +146,7 @@
 }
 
 .submitButton:hover {
-  background-color: var(--active-green-violet);
+  background-color: var(--modal-button-bg-hover);
 }
 
 .errorMessage {

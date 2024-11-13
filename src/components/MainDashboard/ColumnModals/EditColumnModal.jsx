@@ -34,7 +34,7 @@ export const EditColumnModal = ({
       <h2 className={css.title}>Edit column</h2>
       <button className={css.closeButton} onClick={onClose}>
         <svg className={css.close} width="18" height="18">
-          <use href="/sprite.svg#icon-close" />
+        <use href="/sprite.svg#x"></use>
         </svg>
       </button>
       <Formik

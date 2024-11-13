@@ -96,7 +96,6 @@
 
 @media screen and (min-width: 768px) {
   .header {
-    /* max-width: 768px; */
     height: 68px;
     padding: 0 32px;
   }
@@ -109,10 +108,9 @@
 
 /* ===================== */
 
-@media screen and (min-width: 1180px) {
+@media screen and (min-width: 1440px) {
   .header {
-    /* width: 1180px;  */
-    padding: 0%;
+    padding: 0;
     justify-content: flex-end;
     margin-right: 24px;
   }

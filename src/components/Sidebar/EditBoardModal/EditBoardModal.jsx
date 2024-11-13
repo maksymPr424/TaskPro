@@ -72,7 +72,9 @@ const EditBoardModal = ({ isOpen, boardData, onClose, onSaveChanges }) => {
       contentLabel='Edit Board Modal'
       ariaHideApp={false}>
       <button className={css.closeButton} onClick={onClose}>
-        ×
+        <svg className={css.closeButtonIcon}>
+          <use href="/sprite.svg#x"></use>
+        </svg>
       </button>
       <h2 className={css.modalName}>Edit Board</h2>
 
@@ -111,9 +113,8 @@ const EditBoardModal = ({ isOpen, boardData, onClose, onSaveChanges }) => {
                       className={css.hiddenInput}
                     />
                     <svg
-                      className={`${css.iconOption} ${
-                        icon === values.icon ? css.selected : ''
-                      }`}>
+                      className={`${css.iconOption} ${icon === values.icon ? css.selected : ''
+                        }`}>
                       <use href={`/boards.svg#${icon}`}></use>
                     </svg>
                   </label>
@@ -133,16 +134,19 @@ const EditBoardModal = ({ isOpen, boardData, onClose, onSaveChanges }) => {
                       className={css.hiddenInput}
                     />
                     <div
-                      className={`${css.backgroundOption} ${
-                        bg.name === values.background ? css.selected : ''
-                      }`}
+                      className={`${css.backgroundOption} ${bg.name === values.background ? css.selected : ''
+                        }`}
                       style={{ backgroundImage: `url(${bg.imageUrl})` }}></div>
                   </label>
                 ))}
               </div>
             </div>
             <button type='submit' className={css.saveButton}>
-              <span className={css.modalPlus}>+</span>
+              <span className={css.modalPlus}>
+                <svg className={css.modalPlusSvg} width="14" height="14">
+                  <use href="/sprite.svg#icon-plus" />
+                </svg>
+              </span>
               Save
             </button>
           </Form>

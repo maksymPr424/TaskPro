@@ -75,7 +75,9 @@ const NewBoardModal = ({ isOpen, onClose, onCreateBoard }) => {
       contentLabel='New Board Modal'
       ariaHideApp={false}>
       <button className={css.closeButton} onClick={onClose}>
-        ×
+        <svg className={css.closeButtonIcon}>
+          <use href="/sprite.svg#x"></use>
+        </svg>
       </button>
       <h3 className={css.modalName}>New board</h3>
 
@@ -142,7 +144,11 @@ const NewBoardModal = ({ isOpen, onClose, onCreateBoard }) => {
               </div>
             </div>
             <button type='submit' className={css.createButton}>
-              <span className={css.modalPlus}>+</span>
+              <span className={css.modalPlus}>
+              <svg className={css.modalPlusSvg} width="14" height="14">
+                  <use href="/sprite.svg#icon-plus" />
+                </svg>
+              </span>
               Create
             </button>
           </Form>

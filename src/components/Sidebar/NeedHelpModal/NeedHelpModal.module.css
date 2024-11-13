@@ -29,10 +29,15 @@
   right: 14px;
   background: none;
   border: none;
-  font-size: 24px;
-  color: var(--text-heder);
   cursor: pointer;
 }
+
+.closeButtonIcon {
+  width: 18px;
+  height: 18px;
+  stroke: var(--text-heder);
+}
+
 
 .modalName {
   color: var(--text-heder);
@@ -60,6 +65,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  transition: all 0.3s ease;
 }
 
 .input:hover,
@@ -112,6 +118,7 @@
   line-height: normal;
   letter-spacing: -0.28px;
   border: none;
+  transition: background-color 0.3s ease;
 }
 
 .sendButton:hover {

@@ -1,26 +1,26 @@
-import { useState, useId } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import css from './MainDashboard.module.css';
+import { useState, useId } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import css from "./MainDashboard.module.css";
 import {
   addColumn,
   deleteColumn,
   editColumn,
-} from '../../redux/boards/operations';
+} from "../../redux/boards/operations";
 import {
   selectIsLoading,
   selectError,
   selectActiveBoardId,
   selectColumns,
-} from '../../redux/boards/selectors';
-import { AddColumnModal } from './ColumnModals/AddColumnModal';
-import { EditColumnModal } from './ColumnModals/EditColumnModal';
-import Card from './Card/Card';
-import { FaPlus } from 'react-icons/fa6';
-import ReactModal from 'react-modal';
+} from "../../redux/boards/selectors";
+import { AddColumnModal } from "./ColumnModals/AddColumnModal";
+import { EditColumnModal } from "./ColumnModals/EditColumnModal";
+import Card from "./Card/Card";
+import { FaPlus } from "react-icons/fa6";
+import ReactModal from "react-modal";
 // import Loader from '../Loader/Loader';
-import { deleteColumnSpeed, updateColumn } from '../../redux/boards/slice';
+import { deleteColumnSpeed, updateColumn } from "../../redux/boards/slice";
 
-ReactModal.setAppElement('#root');
+ReactModal.setAppElement("#root");
 
 export default function MainDashboard() {
   const dispatch = useDispatch();
@@ -43,7 +43,7 @@ export default function MainDashboard() {
         resetForm();
       })
       .catch((error) => {
-        console.error('Failed to add column:', error);
+        console.error("Failed to add column:", error);
       });
   };
 
@@ -65,7 +65,7 @@ export default function MainDashboard() {
         resetForm();
       })
       .catch((error) => {
-        console.error('Failed to edit column:', error);
+        console.error("Failed to edit column:", error);
       });
   };
 
@@ -74,7 +74,7 @@ export default function MainDashboard() {
     dispatch(deleteColumn(id))
       .unwrap()
       .catch((error) => {
-        console.error('Failed to delete column:', error);
+        console.error("Failed to delete column:", error);
       });
   };
 
@@ -94,16 +94,18 @@ export default function MainDashboard() {
                   <div className={css.columnButtons}>
                     <button
                       className={css.editButton}
-                      onClick={() => startEditColumn(column)}>
-                      <svg className={css.edit} width='16' height='16'>
-                        <use href='/sprite.svg#pencil' />
+                      onClick={() => startEditColumn(column)}
+                    >
+                      <svg className={css.edit} width="16" height="16">
+                        <use href="/sprite.svg#pencil" />
                       </svg>
                     </button>
                     <button
                       className={css.deleteButton}
-                      onClick={() => handleDeleteColumn(column._id)}>
-                      <svg className={css.delete} width='16' height='16'>
-                        <use href='/sprite.svg#trash' />
+                      onClick={() => handleDeleteColumn(column._id)}
+                    >
+                      <svg className={css.delete} width="16" height="16">
+                        <use href="/sprite.svg#trash" />
                       </svg>
                     </button>
                   </div>
@@ -112,14 +114,18 @@ export default function MainDashboard() {
               </li>
             ))}
       </ul>
-      <button type='submit' className={css.button} onClick={() => setAddModalIsOpen(true)}>
-              <span className={css.modalPlus}>
-              <svg className={css.modalPlusSvg} width="16" height="16">
-                  <use href="/sprite.svg#icon-plus" />
-                </svg>
-              </span>
-              Add column
-            </button>
+      <button
+        type="submit"
+        className={css.button}
+        onClick={() => setAddModalIsOpen(true)}
+      >
+        <span className={css.modalPlus}>
+          <svg className={css.modalPlusSvg} width="16" height="16">
+            <use href="/sprite.svg#icon-plus" />
+          </svg>
+        </span>
+        Add column
+      </button>
       <AddColumnModal
         isOpen={addModalIsOpen}
         onClose={() => setAddModalIsOpen(false)}

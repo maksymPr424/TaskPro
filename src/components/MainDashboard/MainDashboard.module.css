@@ -25,6 +25,27 @@ ul {
   position: relative;
 }
 
+.container::-webkit-scrollbar {
+  height: 3px;
+}
+
+.container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background: var(--my-boards-btn);
+  border-radius: 10px;
+}
+
+.container::-webkit-scrollbar-thumb:hover {
+  background: var(--my-boards-btn-hover);
+}
+
+.container::-webkit-scrollbar-button {
+  display: none;
+}
+
 button {
   cursor: pointer;
 }
@@ -48,13 +69,24 @@ button {
   gap: 8px;
 }
 
-.plus {
+.modalPlus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--add-column);
   width: 28px;
   height: 28px;
-  padding: 7px;
+  height: 28px;
+  margin-right: 8px;
   border-radius: 6px;
-  color: var(--background-button);
-  background-color: var(--text-column);
+}
+
+.modalPlusSvg{
+  stroke: var(--modal-bg);
+}
+
+.button:hover .modalPlus{
+  background-color: var(--add-column-hover);
 }
 
 .modal {
@@ -107,12 +139,20 @@ button {
   padding-left: 18px;
   align-items: center;
   border-radius: 8px;
-  color: var(--text-column);
-  opacity: 0.4;
-  border: 1px solid var(--border-input);
+  color: var(--text-heder);
+  border: 1px solid var(--modal-input-border);
   outline: none;
   background: var(--background-input-modal);
   box-shadow: 0px 4px 16px 0px rgba(22, 22, 22, 0.08);
+  transition: border 0.3s ease;
+}
+
+.input:hover, .input:focus{
+  border: 1px solid var(--modal-input-border-hover-focus);
+}
+
+.input::placeholder{
+  color: var(--icons);
 }
 
 .modalButton {
@@ -127,8 +167,13 @@ button {
   gap: 8px;
   margin-top: 24px;
   border-radius: 8px;
-  background: var(--border-input);
+  background-color: var(--modal-button-bg);
   border: none;
+  transition: background-color 0.3s ease ;
+}
+
+.modalButton:hover{
+  background-color: var(--modal-button-bg-hover)
 }
 
 .plusModal {
@@ -197,7 +242,29 @@ button {
   flex-direction: column;
   gap: 8px;
   overflow-y: auto;
-  max-height: 75px;
+  max-height: 200px;
+}
+
+.changeColumnList::-webkit-scrollbar {
+  width: 3px;
+}
+
+.changeColumnList::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.changeColumnList::-webkit-scrollbar-thumb {
+  background: var(--my-boards-btn);
+  border-radius: 10px;
+}
+
+.changeColumnList::-webkit-scrollbar-thumb:hover {
+  background: var(--my-boards-btn-hover);
+}
+
+
+.changeColumnList::-webkit-scrollbar-button {
+  display: none;
 }
 
 .changeColumnBtn {
@@ -294,3 +361,27 @@ button {
   max-width: 210px;
   color: var(--text-heder);
 }
+
+.modalMoveHeading{
+  font-family: Poppins;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+letter-spacing: -0.28px;
+}
+
+.columnsTitle{
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.28px;
+}
+.changeColumnList{
+  padding-right: 10px;
+}
+/* .changeColumnBtn {
+  margin-right: 10px;
+} */

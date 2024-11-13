@@ -43,8 +43,13 @@ button {
   gap: 8px;
   margin-top: 24px;
   border-radius: 8px;
-  background: var(--border-input);
+  background-color: var(--modal-button-bg);
   border: none;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: var(--modal-button-bg-hover)
 }
 
 .modalTitle {
@@ -117,15 +122,39 @@ button {
   flex-direction: column;
   gap: 8px;
   /* max-height: 50vh; */
+
   height: calc(100vh - 300px);
+
   overflow-y: auto;
   /* padding-right: 10px; */
 }
+
 
 @media screen and (min-width: 768px) {
   .list {
     height: calc(100vh - 300px - 28px);
   }
+
+.list::-webkit-scrollbar {
+  width: 3px;
+}
+
+.list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background: var(--my-boards-btn);
+  border-radius: 10px;
+}
+
+.list::-webkit-scrollbar-thumb:hover {
+  background: var(--my-boards-btn-hover);
+}
+
+.list::-webkit-scrollbar-button {
+  display: none;
+
 }
 
 .item {
@@ -274,15 +303,21 @@ button {
   padding: 14px 0;
   padding-left: 18px;
   border-radius: 8px;
-  border: 1px solid var(--border-input-modal);
-  opacity: 0.4;
+  border: 1px solid var(--modal-input-border);
   background: var(--background-input-modal);
   box-shadow: 0px 4px 16px 0px rgba(22, 22, 22, 0.08);
-
+  transition: border 0.3s ease;
   color: var(--text-heder);
   font-family: "Poppins", sans-serif;
-
   letter-spacing: -0.02em;
+}
+
+.modalInputTitle:hover {
+  border: 1px solid var(--modal-input-border-hover-focus);
+}
+
+.modalInputTitle::placeholder {
+  color: var(--icons);
 }
 
 .modalInputTitle:not(:last-child) {
@@ -301,13 +336,22 @@ button {
   width: 100%;
   padding: 14px 18px;
   border-radius: 8px;
-  border: 1px solid var(--border-input-modal);
-  opacity: 0.4;
+  border: 1px solid var(--modal-input-border);
   background: var(--background-input-modal);
   box-shadow: 0px 4px 16px 0px rgba(22, 22, 22, 0.08);
-  color: var(--text-heder) !important;
+  color: var(--text-heder);
   font-family: "Poppins", sans-serif;
   letter-spacing: -0.02em;
+  resize: none;
+  transition: border 0.3s ease;
+}
+
+.textarea:hover {
+  border: 1px solid var(--modal-input-border-hover-focus);
+}
+
+.textarea::placeholder {
+  color: var(--icons);
 }
 
 .modalButton {
@@ -320,10 +364,15 @@ button {
   font-family: var(--mediumFont, Poppins);
   letter-spacing: -0.02em;
   gap: 8px;
+  border: none;
   margin-top: 40px;
   border-radius: 8px;
-  background: var(--border-input);
-  border: none;
+  background-color: var(--modal-button-bg);
+  transition: background-color 0.3s ease;
+}
+
+.modalButton:hover {
+  background-color: var(--modal-button-bg-hover)
 }
 
 .datepicker {
@@ -343,7 +392,7 @@ button {
 
 .plusModal {
   background-color: var(--text-button-modal);
-  color: var(--icon-modal);
+  stroke: var(--icon-modal);
   width: 28px;
   height: 28px;
   padding: 7px;
@@ -476,5 +525,53 @@ button {
     top: 350px;
     left: 390px; */
     /* transform: translate(-50%, -50%); */
+  }
+}
+
+@media screen and (min-height: 660px) {
+  .list {
+    max-height: 340px;
+  }
+}
+
+@media screen and (min-height: 740px) {
+  .list {
+    max-height: 420px;
+  }
+}
+
+@media screen and (min-height: 820px) {
+  .list {
+    max-height: 520px;
+  }
+}
+
+@media screen and (min-height: 880px) {
+  .list {
+    max-height: 570px;
+  }
+}
+
+@media screen and (min-height: 910px) {
+  .list {
+    max-height: 590px;
+  }
+}
+
+@media screen and (min-height: 930px) {
+  .list {
+    max-height: 610px;
+  }
+}
+
+@media screen and (min-height: 1000px) {
+  .list {
+    max-height: 740px;
+  }
+}
+
+@media screen and (min-height: 1180px) {
+  .list {
+    max-height: 800px;
   }
 }

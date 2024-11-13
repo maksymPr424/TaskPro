@@ -2,13 +2,6 @@
   font-family: 'Poppins';
   src: url('/src/fonts/Poppins-Regular.ttf') format('truetype');
 }
-/* @font-face {
-  font-family: 'Poppins';
-  src: url('/src/fonts/Poppins-Regular.ttf') format('truetype');
-
-  font-weight: normal;
-  font-style: normal;
-} */
 
 .sidebar {
   height: 100vh;
@@ -22,20 +15,21 @@
   letter-spacing: -0.04em;
   width: 225px;
   padding-top: 18px;
-  /* border: solid 1px #bedbb0; */
-  /* border-radius: 16px; */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   position: absolute;
   top: 0;
-  /* left: -300px; */
   transition: left 0.3s ease;
   z-index: 1000;
 }
 
 .sidebar.open {
   left: 0;
+}
+
+.sidebarFlex {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .sidebarLogo {
@@ -108,7 +102,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  transition: background-color 0.3s ease;
+}
+
+.createPlusSvg{
+  stroke: var(--modal-button-text);
 }
 
 .sidebarCreateButton:hover {
@@ -137,12 +135,12 @@
 }
 
 .tabsScrollContainer::-webkit-scrollbar-thumb {
-  background: #888;
+  background: var(--my-boards-btn);
   border-radius: 10px;
 }
 
 .tabsScrollContainer::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: var(--my-boards-btn-hover);
 }
 
 .tabsScrollContainer::-webkit-scrollbar-button {
@@ -182,6 +180,7 @@
 
 .tab[aria-selected='true'] {
   background: var(--board-selected);
+
   .boardTitle {
     color: var(--text);
   }
@@ -412,16 +411,13 @@
     letter-spacing: -0.28px;
   }
 
-  .tabFlex {
-    display: flex;
-    justify-content: space-between;
-  }
 }
 
 @media (max-height: 740px) {
   .sidebarLogo {
     margin: 0 14px 20px 14px;
   }
+
   .tabsContainer {
     min-height: 61px;
     max-height: 122px;
@@ -434,10 +430,11 @@
   }
 }
 
-@media (min-height: 740px) {
+@media (min-height: 780px) {
   .sidebarLogo {
     margin: 0 14px 30px 14px;
   }
+
   .tabsContainer {
     min-height: 61px;
     max-height: 183px;
@@ -449,63 +446,91 @@
     max-height: 183px;
   }
 }
-@media (min-height: 820px) {
+
+@media (min-height:820px) {
+  .sidebarLogo {
+    margin: 0 14px 30px 14px;
+  }
+
+  .tabsContainer {
+    max-height: 220px;
+  }
+
+  .tabsScrollContainer {
+    overflow-y: auto;
+    max-height: 220px;
+  }
+}
+
+@media (min-height: 850px) {
   .sidebarLogo {
     margin: 0 14px 40px 14px;
   }
+
   .tabsContainer {
-    min-height: 61px;
-    max-height: 290px;
+    max-height: 280px;
   }
 
   .tabsScrollContainer {
     overflow-y: auto;
-    min-height: 61px;
-    max-height: 290px;
+    max-height: 280px;
   }
 }
+
 @media (min-height: 900px) {
   .sidebarLogo {
     margin: 0 14px 60px 14px;
   }
+
   .tabsContainer {
     min-height: 61px;
-    max-height: 350px;
+    max-height: 320px;
   }
 
   .tabsScrollContainer {
     overflow-y: auto;
     min-height: 61px;
-    max-height: 350px;
+    max-height: 320px;
   }
 }
+
 @media (min-height: 950px) {
   .sidebarLogo {
     margin: 0 14px 50px 14px;
   }
+
   .tabsContainer {
-    min-height: 61px;
-    max-height: 390px;
+    max-height: 380px;
   }
 
   .tabsScrollContainer {
     overflow-y: auto;
-    min-height: 61px;
-    max-height: 390px;
+    max-height: 380px;
   }
 }
+
 @media (min-height: 1000px) {
   .sidebarLogo {
     margin: 0 14px 60px 14px;
   }
+
   .tabsContainer {
-    min-height: 61px;
-    max-height: 440px;
+    max-height: 420px;
   }
 
   .tabsScrollContainer {
     overflow-y: auto;
-    min-height: 61px;
-    max-height: 440px;
+    max-height: 420px;
+  }
+}
+
+@media (min-height: 1100px) {
+  .tabsContainer {
+    max-height: 500px;
+  }
+
+  .tabsScrollContainer {
+    overflow-y: auto;
+    max-height: 500px;
   }
 }

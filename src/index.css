@@ -103,6 +103,9 @@
   --move-button-active: #bedbb0;
   --move-button-hover: #9bbc8b;
   --my-dashboard-svg: rgba(22, 22, 22, 0.5);
+
+  --add-column: #161616;
+  --add-column-hover: rgb(22, 22, 22, 0.7);
 }
 
 [data-theme="dark"] {
@@ -159,6 +162,9 @@
   --move-button-active: #bedbb0;
   --move-button-hover: #a0b794;
   --my-dashboard-svg: rgb(255, 255, 255, 0.5);
+
+  --add-column: #FFFFFF;
+  --add-column-hover: rgb(255, 255, 255, 0.7);
 }
 
 [data-theme="violet"] {
@@ -218,6 +224,9 @@
   --move-button-hover: #424594;
 
   --my-dashboard-svg: rgba(22, 22, 22, 0.5);
+
+  --add-column:  rgba(82, 85, 188, 1);
+  --add-column-hover:  #7b7ede;
 }
 
 html,

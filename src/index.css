@@ -42,6 +42,7 @@
   --without-priority: #ffffff80;
   --low-priority: #8fa1d0;
   --medium-priority: #e09cb5;
+  --high-priority: #bedbb0;
   --logout-plus-active: #bedbb0;
   --logout-plus-no-active: #9dc888;
   --favicon-color: #fff;
@@ -163,7 +164,7 @@
   --move-button-hover: #a0b794;
   --my-dashboard-svg: rgb(255, 255, 255, 0.5);
 
-  --add-column: #FFFFFF;
+  --add-column: #ffffff;
   --add-column-hover: rgb(255, 255, 255, 0.7);
 }
 
@@ -225,8 +226,8 @@
 
   --my-dashboard-svg: rgba(22, 22, 22, 0.5);
 
-  --add-column:  rgba(82, 85, 188, 1);
-  --add-column-hover:  #7b7ede;
+  --add-column: rgba(82, 85, 188, 1);
+  --add-column-hover: #7b7ede;
 }
 
 html,

@@ -24,19 +24,7 @@ export default function HomePage() {
   const isLoading = useSelector(selectIsLoading);
   const { boardName } = useParams();
 
-  // const fetchActiveBoard = async boardId => {
-  //   setIsLoading(true);
-  //   await dispatch(fetchLastActiveBoard(boardId))
-  //     .unwrap()
-  //     .catch(err => {
-  //       console.error(err);
-  //     });
-
-  //   setIsLoading(false);
-  // };
-
   const backgroundUrls = useSelector(selectBackgroundUrls);
-  // const backgroundName = useSelector(selectBackground);
   const error = useSelector(selectError);
 
   const resetBackgroundsVars = () => {
@@ -60,46 +48,12 @@ export default function HomePage() {
     );
   };
 
-  // useEffect(() => {
-  //   console.log('HomePage useEffect triggered');
-  //   if (boardName) {
-  //     if (!backgroundName) {
-  //       return;
-  //     } else {
-  //       if (backgroundName === 'no-background') {
-  //         resetBackgroundsVars();
-  //       } else {
-  //         dispatch(clearBackgroundUrls());
-  //         dispatch(fetchBackground(backgroundName));
-  //       }
-  //     }
-  //   }
-  // }, [dispatch, boardName, backgroundName]);
-
-  // useEffect(() => {
-  //   if (!backgroundName) {
-  //     console.log('HOMEPAGE: useEffect noBackgroundName');
-  //     return;
-  //   } else {
-  //     if (backgroundName === 'no-background') {
-  //       console.log('HOMEPAGE: useEffect: no-background, clear vars');
-
-  //       resetBackgroundsVars();
-  //     } else {
-  //       console.log('HOMEPAGE: useEffect: clear and fetch background');
-  //       dispatch(clearBackgroundUrls());
-  //       dispatch(fetchBackground(backgroundName));
-  //     }
-  //   }
-  // }, [dispatch, backgroundName]);
-
   useEffect(() => {
-    console.log('HOMEPAGE: useEffect setBackgroundVars');
-
     if (backgroundUrls.length) {
       setBackgroundVars(backgroundUrls);
+    } else {
+      resetBackgroundsVars();
     }
-    resetBackgroundsVars;
   }, [backgroundUrls]);
 
   if (error) {
@@ -108,9 +62,7 @@ export default function HomePage() {
 
   return (
     <>
-      {/* <Header fetchActiveBoard={fetchActiveBoard} /> */}
       <Header />
-      {/* <Sidebar className={styles.sidebar} fetchActiveBoard={fetchActiveBoard} /> */}
       <Sidebar className={styles.sidebar} />
       <div className={styles.dashboardContainer}>
         {boardName ? isLoading ? <Loader /> : <ScreensPage /> : <BeforeStart />}

@@ -1,8 +1,7 @@
 import { useSelector } from 'react-redux';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import ModalWindow from '../Modal/Modal.jsx';
-import { selectLastActiveBoard } from '../../redux/boards/selectors';
 import {
   selectIsLoggedIn,
   selectRefreshError,
@@ -10,28 +9,16 @@ import {
 export default function RestrictedRoute({ children }) {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const refreshError = useSelector(selectRefreshError);
-  const lastActiveBoard = useSelector(selectLastActiveBoard);
   const [isModalOpen, setModalOpen] = useState(false);
   const [shouldRedirect, setShouldRedirect] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (refreshError) {
       setModalOpen(true);
-    }
-
-    if (isLoggedIn) {
-      console.log(' ================= RESTRICTED ROUTE');
-      const targetPath = lastActiveBoard?.title
-        ? `/home/${lastActiveBoard.title}`
-        : '/home';
-      console.log('Setting new URL: ', targetPath);
-
-      navigate(targetPath, { replace: true });
-    } else if (!isLoggedIn && !refreshError) {
+    } else if (!isLoggedIn) {
       setShouldRedirect(true);
     }
-  }, [refreshError, isLoggedIn, lastActiveBoard, navigate]);
+  }, [refreshError, isLoggedIn]);
 
   const handleCloseModal = () => {
     setModalOpen(false);

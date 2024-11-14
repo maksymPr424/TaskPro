@@ -35,16 +35,11 @@ const boardsSlice = createSlice({
   },
   reducers: {
     setBoards: (state, action) => {
-      console.log('setBoards reducer triggered: ', action.payload);
-
-      state.lastActiveBoard = action.payload.lastActiveBoard;
+      state.lastActiveBoard = {
+        ...state.lastActiveBoard,
+        ...action.payload.lastActiveBoard,
+      };
       state.boards = action.payload.boards;
-    },
-    setLastActiveBoard: (state, action) => {
-      console.log('setLastActiveBoard reducer triggered:', action.payload);
-
-      const { boardId, title } = action.payload;
-      state.lastActiveBoard = { _id: boardId, title };
     },
     clearBackgroundUrls: state => {
       state.lastActiveBoard.backgroundUrls = [];
@@ -52,11 +47,6 @@ const boardsSlice = createSlice({
     addBoard: (state, action) => {
       state.boards.push(action.payload);
     },
-    // deleteBoard: (state, action) => {
-    //   state.boards = state.boards.filter(
-    //     (board) => board._id !== action.payload
-    //   );
-    // },
     updateColumn: (state, action) => {
       const index = state.lastActiveBoard.columns.findIndex(
         column => column._id === action.payload.id
@@ -119,21 +109,31 @@ const boardsSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(fetchBoards.fulfilled, (state, action) => {
-        state.lastActiveBoard = action.payload.lastActiveBoard;
+        state.lastActiveBoard = {
+          ...state.lastActiveBoard,
+          ...action.payload,
+        };
         state.boards = action.payload.boards;
       })
       .addCase(fetchBackground.fulfilled, (state, action) => {
         state.loading = false;
         const { mobile, tablet, desktop } = action.payload;
-        state.lastActiveBoard.backgroundUrls = [mobile, tablet, desktop];
+        if (mobile && tablet && desktop) {
+          state.lastActiveBoard.backgroundUrls = [mobile, tablet, desktop];
+        } else {
+          state.lastActiveBoard.backgroundUrls = [];
+        }
       })
       .addCase(fetchBackground.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
       .addCase(createBoard.fulfilled, (state, action) => {
-        state.lastActiveBoard = action.payload;
         state.boards.push(action.payload);
+        state.lastActiveBoard = {
+          ...state.lastActiveBoard,
+          ...action.payload,
+        };
       })
       .addCase(editBoard.fulfilled, (state, action) => {
         const index = state.boards.findIndex(
@@ -142,15 +142,22 @@ const boardsSlice = createSlice({
         if (index !== -1) {
           state.boards[index] = { ...state.boards[index], ...action.payload };
         }
-        state.lastActiveBoard = action.payload;
+        state.lastActiveBoard = {
+          ...state.lastActiveBoard,
+          ...action.payload,
+        };
       })
       .addCase(fetchLastActiveBoard.fulfilled, (state, action) => {
-        state.lastActiveBoard = action.payload;
+        state.lastActiveBoard = {
+          ...state.lastActiveBoard,
+          ...action.payload,
+        };
       })
       .addCase(removeBoard.fulfilled, (state, action) => {
         state.boards = state.boards.filter(
-          board => board._id !== action.payload
+          board => board._id !== action.payload.boardId
         );
+        state.lastActiveBoard = action.payload.lastActiveBoard;
       })
       .addCase(removeBoard.rejected, (state, action) => {
         state.error = action.payload;
@@ -199,7 +206,7 @@ const boardsSlice = createSlice({
           fetchBackground.pending,
           fetchBoards.pending,
           editBoard.pending,
-          fetchLastActiveBoard.pending,
+          // fetchLastActiveBoard.pending,
           removeBoard.pending
         ),
         state => {
@@ -213,7 +220,7 @@ const boardsSlice = createSlice({
           fetchBackground.fulfilled,
           fetchBoards.fulfilled,
           editBoard.fulfilled,
-          fetchLastActiveBoard.fulfilled,
+          // fetchLastActiveBoard.fulfilled,
           removeBoard.fulfilled
         ),
         state => {
@@ -227,7 +234,7 @@ const boardsSlice = createSlice({
           fetchBackground.rejected,
           fetchBoards.rejected,
           editBoard.rejected,
-          fetchLastActiveBoard.rejected,
+          // fetchLastActiveBoard.rejected,
           removeBoard.rejected
         ),
         state => {

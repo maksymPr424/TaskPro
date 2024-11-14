@@ -9,6 +9,7 @@
   background: var(--background-heder);
   padding: 24px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 1s ease;
 }
 
 .closeButton {
@@ -79,12 +80,12 @@
   position: relative;
 }
 
-.radioText input[type="radio"] {
+.radioText input[type='radio'] {
   display: none;
 }
 
 .radioBtn::before {
-  content: "";
+  content: '';
   width: 10px;
   height: 10px;
   position: absolute;
@@ -95,7 +96,7 @@
   border-radius: 50%;
 }
 
-.radioText input[type="radio"]:checked + .radioBtn::before {
+.radioText input[type='radio']:checked + .radioBtn::before {
   /* background-color: var(--base-green-violet); */
   border: 3px solid var(--background-heder);
 }
@@ -108,7 +109,7 @@
   align-items: center;
 }
 
-.radioText input[type="radio"]:checked ~ .radioLabel {
+.radioText input[type='radio']:checked ~ .radioLabel {
   color: var(--text-heder);
 }
 

@@ -46,7 +46,7 @@
   margin-left: 10px;
   margin-top: 10px;
   color: var(--text-heder);
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 18px;
   font-style: normal;
   font-weight: 500;
@@ -89,7 +89,7 @@
   padding-left: 18px;
   border: 1px solid var(--modal-input-border);
   border-radius: 8px;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   color: var(--text-heder);
   font-size: 14px;
   font-style: normal;
@@ -104,7 +104,8 @@
   color: var(--icons);
 }
 
-.inputField:focus,.inputField:hover {
+.inputField:focus,
+.inputField:hover {
   border: 1px solid var(--modal-input-border-hover-focus);
   outline: none;
 }
@@ -130,7 +131,7 @@
 .submitButton {
   background-color: var(--modal-button-bg);
   color: var(--modal-button-text);
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -149,19 +150,15 @@
   background-color: var(--modal-button-bg-hover);
 }
 
-.errorMessage {
-  color: red;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-  letter-spacing: -0.28px;
-  margin-left: 13px;
-  margin-top: 3px;
+.errorWrapper {
+  position: relative;
 }
 
-.errorMessagePassword {
-  color: red;
+.errorMessage {
+  position: absolute;
+  top: -20px;
+  left: 7px;
+  color: rgb(192, 115, 115);
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
@@ -169,12 +166,6 @@
   letter-spacing: -0.28px;
   margin-left: 13px;
   margin-top: 3px;
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  top: 100%;
-  right: 65px;
-  left: 1px;
 }
 
 .isOpenFoto {

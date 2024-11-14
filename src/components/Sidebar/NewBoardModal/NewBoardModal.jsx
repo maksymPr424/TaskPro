@@ -76,7 +76,7 @@ const NewBoardModal = ({ isOpen, onClose, onCreateBoard }) => {
       ariaHideApp={false}>
       <button className={css.closeButton} onClick={onClose}>
         <svg className={css.closeButtonIcon}>
-          <use href="/sprite.svg#x"></use>
+          <use href='/sprite.svg#x'></use>
         </svg>
       </button>
       <h3 className={css.modalName}>New board</h3>
@@ -97,7 +97,9 @@ const NewBoardModal = ({ isOpen, onClose, onCreateBoard }) => {
               placeholder='Title'
               className={css.input}
             />
-            <ErrorMessage name='title' component='p' className={css.error} />
+            <div className={css.errorWrapper}>
+              <ErrorMessage name='title' component='p' className={css.error} />
+            </div>
 
             <div className={css.iconsSection}>
               <p className={css.sectionName}>Icons</p>
@@ -145,8 +147,8 @@ const NewBoardModal = ({ isOpen, onClose, onCreateBoard }) => {
             </div>
             <button type='submit' className={css.createButton}>
               <span className={css.modalPlus}>
-              <svg className={css.modalPlusSvg} width="14" height="14">
-                  <use href="/sprite.svg#icon-plus" />
+                <svg className={css.modalPlusSvg} width='14' height='14'>
+                  <use href='/sprite.svg#icon-plus' />
                 </svg>
               </span>
               Create

@@ -200,11 +200,13 @@ const EditProfileModal = ({ isOpen, onRequestClose }) => {
                 placeholder='Enter your name'
                 className={styles.inputField}
               />
-              <ErrorMessage
-                name='name'
-                component='div'
-                className={styles.errorMessage}
-              />
+              <div className={styles.errorWrapper}>
+                <ErrorMessage
+                  name='name'
+                  component='div'
+                  className={styles.errorMessage}
+                />
+              </div>
             </label>
             <label className={styles.label}>
               <Field
@@ -213,11 +215,13 @@ const EditProfileModal = ({ isOpen, onRequestClose }) => {
                 placeholder='Enter your email'
                 className={styles.inputField}
               />
-              <ErrorMessage
-                name='email'
-                component='div'
-                className={styles.errorMessage}
-              />
+              <div className={styles.errorWrapper}>
+                <ErrorMessage
+                  name='email'
+                  component='div'
+                  className={styles.errorMessage}
+                />
+              </div>
             </label>
             <label className={styles.label}>
               <div className={styles.passwordContainer}>
@@ -246,11 +250,13 @@ const EditProfileModal = ({ isOpen, onRequestClose }) => {
                     </svg>
                   )}
                 </div>
-                <ErrorMessage
-                  name='password'
-                  component='div'
-                  className={styles.errorMessagePassword}
-                />
+                <div className={styles.errorWrapper}>
+                  <ErrorMessage
+                    name='password'
+                    component='div'
+                    className={styles.errorMessage}
+                  />
+                </div>
               </div>
             </label>
             <button type='submit' className={styles.submitButton}>

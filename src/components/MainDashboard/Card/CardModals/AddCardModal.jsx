@@ -105,7 +105,13 @@ export const AddCardModal = ({ isOpen, onClose, onSubmit, cardId }) => {
             id={cardId}
             placeholder='Description'
           />
-          <ErrorMessage className={css.error} name='content' component='span' />
+          <div className={css.errorWrapper}>
+            <ErrorMessage
+              className={css.error}
+              name='content'
+              component='span'
+            />
+          </div>
 
           <div className={css.priorityContainer}>
             <h3 className={css.modalSubtitle}>Priority</h3>

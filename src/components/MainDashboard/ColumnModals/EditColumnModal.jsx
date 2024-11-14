@@ -34,7 +34,7 @@ export const EditColumnModal = ({
       <h2 className={css.title}>Edit column</h2>
       <button className={css.closeButton} onClick={onClose}>
         <svg className={css.close} width="18" height="18">
-        <use href="/sprite.svg#x"></use>
+          <use href="/sprite.svg#x"></use>
         </svg>
       </button>
       <Formik
@@ -45,7 +45,9 @@ export const EditColumnModal = ({
       >
         <Form>
           <Field className={css.input} name="title" id={`${columnId}-edit`} />
-          <ErrorMessage className={css.error} name="title" component="span" />
+          <div className={css.errorWrapper}>
+            <ErrorMessage className={css.error} name="title" component="span" />
+          </div>
           <button className={css.modalButton} type="submit">
             <FaPlus className={css.plusModal} />
             Edit

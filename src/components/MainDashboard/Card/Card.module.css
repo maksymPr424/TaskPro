@@ -85,27 +85,28 @@ button {
   position: relative;
 }
 
+.deadlineBell {
+  stroke: var(--active-green-violet);
+  fill: none;
+  position: relative;
+
+  /* background-color: #fff; */
+}
+
 .bellShadow {
   width: 10px;
   height: 10px;
   border-radius: 50%;
   position: absolute;
-  top: -12px;
-  left: -12px;
+  top: -16px;
+  left: -16px;
   /* transform: translate(-50%, -50%); */
   /* top: 50%;
   left: 50%;
    */
-  box-shadow: 16px 16px 25px var(--active-green-violet),
-    16px 16px 25px var(--active-green-violet),
-    16px 16px 25px var(--active-green-violet);
-}
-
-.deadlineBell {
-  stroke: var(--active-green-violet);
-  fill: none;
-  position: relative;
-  /* background-color: #fff; */
+  box-shadow: 20px 20px 15px var(--active-green-violet),
+    20px 20px 15px var(--active-green-violet),
+    20px 20px 15px var(--active-green-violet);
 }
 
 .edit,
@@ -114,6 +115,7 @@ button {
   /* stroke: var(--my-dashboard-svg); */
   stroke: var(--icons);
   fill: transparent;
+  transition: stroke 0.2s ease;
 }
 
 .edit:hover,
@@ -121,6 +123,7 @@ button {
 .move:hover {
   stroke: var(--base-green-violet);
   fill: transparent;
+  transform: scale(1.1);
 }
 
 .list {
@@ -183,7 +186,7 @@ button {
 
 .title {
   color: var(--text-heder);
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 
   letter-spacing: -0.02em;
   margin-bottom: 8px;
@@ -193,7 +196,7 @@ button {
   color: var(--no-active);
   text-overflow: ellipsis;
   white-space: wrap;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 12px;
   line-height: 1.33;
   letter-spacing: -0.02em;
@@ -206,7 +209,7 @@ button {
 
 .text::after {
   position: absolute;
-  content: '';
+  content: "";
   bottom: -14px;
   left: 0;
   width: 100%;
@@ -216,7 +219,7 @@ button {
 
 .label {
   color: var(--text-heder);
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 10px;
   letter-spacing: -0.002em;
 }
@@ -314,7 +317,7 @@ button {
   box-shadow: 0px 4px 16px 0px rgba(22, 22, 22, 0.08);
   transition: border 0.3s ease;
   color: var(--text-heder);
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   letter-spacing: -0.02em;
 }
 
@@ -332,7 +335,7 @@ button {
 
 .modalSubtitle {
   color: var(--no-active);
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 12px;
   letter-spacing: -0.02em;
   margin-bottom: 4px;
@@ -346,7 +349,7 @@ button {
   background: var(--background-input-modal);
   box-shadow: 0px 4px 16px 0px rgba(22, 22, 22, 0.08);
   color: var(--text-heder);
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   letter-spacing: -0.02em;
   resize: none;
   transition: border 0.3s ease;
@@ -429,10 +432,10 @@ button {
   display: inline-block;
 }
 
-.prioritynone input[type='radio'],
-.prioritylow input[type='radio'],
-.prioritymedium input[type='radio'],
-.priorityhigh input[type='radio'] {
+.prioritynone input[type="radio"],
+.prioritylow input[type="radio"],
+.prioritymedium input[type="radio"],
+.priorityhigh input[type="radio"] {
   appearance: none;
   -webkit-appearance: none;
   width: 12px;
@@ -443,26 +446,26 @@ button {
   cursor: pointer;
 }
 
-.prioritynone input[type='radio'] {
+.prioritynone input[type="radio"] {
   background-color: var(--none-priority);
 }
 
-.prioritylow input[type='radio'] {
+.prioritylow input[type="radio"] {
   background-color: var(--low-priority);
 }
 
-.prioritymedium input[type='radio'] {
+.prioritymedium input[type="radio"] {
   background-color: var(--medium-priority);
 }
 
-.priorityhigh input[type='radio'] {
+.priorityhigh input[type="radio"] {
   background-color: #bedbb0;
 }
 
-.prioritynone input[type='radio']:checked,
-.prioritylow input[type='radio']:checked,
-.prioritymedium input[type='radio']:checked,
-.priorityhigh input[type='radio']:checked {
+.prioritynone input[type="radio"]:checked,
+.prioritylow input[type="radio"]:checked,
+.prioritymedium input[type="radio"]:checked,
+.priorityhigh input[type="radio"]:checked {
   border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
@@ -483,12 +486,12 @@ button {
   position: relative;
 }
 
-.radioText input[type='radio'] {
+.radioText input[type="radio"] {
   display: none;
 }
 
 .radioBtn::before {
-  content: '';
+  content: "";
   width: 10px;
   height: 10px;
   position: absolute;
@@ -499,7 +502,7 @@ button {
   border-radius: 50%;
 }
 
-.radioText input[type='radio']:checked + .radioBtn::before {
+.radioText input[type="radio"]:checked + .radioBtn::before {
   /* background-color: var(--base-green-violet); */
   border: 3px solid var(--background-heder);
 }
@@ -512,7 +515,7 @@ button {
   align-items: center;
 }
 
-.radioText input[type='radio']:checked ~ .radioLabel {
+.radioText input[type="radio"]:checked ~ .radioLabel {
   color: var(--text-heder);
 }
 

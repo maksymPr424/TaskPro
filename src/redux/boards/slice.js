@@ -203,10 +203,10 @@ const boardsSlice = createSlice({
       .addCase(deleteCard.rejected)
       .addMatcher(
         isAnyOf(
-          fetchBackground.pending,
+          // fetchBackground.pending,
           fetchBoards.pending,
           editBoard.pending,
-          // fetchLastActiveBoard.pending,
+          fetchLastActiveBoard.pending,
           removeBoard.pending
         ),
         state => {
@@ -217,10 +217,10 @@ const boardsSlice = createSlice({
       )
       .addMatcher(
         isAnyOf(
-          fetchBackground.fulfilled,
+          // fetchBackground.fulfilled,
           fetchBoards.fulfilled,
           editBoard.fulfilled,
-          // fetchLastActiveBoard.fulfilled,
+          fetchLastActiveBoard.fulfilled,
           removeBoard.fulfilled
         ),
         state => {
@@ -231,10 +231,10 @@ const boardsSlice = createSlice({
       )
       .addMatcher(
         isAnyOf(
-          fetchBackground.rejected,
+          // fetchBackground.rejected,
           fetchBoards.rejected,
           editBoard.rejected,
-          // fetchLastActiveBoard.rejected,
+          fetchLastActiveBoard.rejected,
           removeBoard.rejected
         ),
         state => {

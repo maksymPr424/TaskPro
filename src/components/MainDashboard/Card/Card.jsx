@@ -1,30 +1,30 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import {
   selectActiveBoardId,
   selectColumns,
   selectError,
   selectIsLoading,
-} from '../../../redux/boards/selectors';
-import { useId, useRef, useState } from 'react';
+} from "../../../redux/boards/selectors";
+import { useId, useRef, useState } from "react";
 import {
   addCard,
   deleteCard,
   editCard,
   editCardColumn,
-} from '../../../redux/boards/operations';
-import css from './Card.module.css';
-import { AddCardModal } from './CardModals/AddCardModal';
-import { EditCardModal } from './CardModals/EditCardModal';
-import { FaPlus } from 'react-icons/fa6';
-import { format } from 'date-fns';
-import { ChangeColumnModal } from './CardModals/ChangeColumnModal';
+} from "../../../redux/boards/operations";
+import css from "./Card.module.css";
+import { AddCardModal } from "./CardModals/AddCardModal";
+import { EditCardModal } from "./CardModals/EditCardModal";
+import { FaPlus } from "react-icons/fa6";
+import { format } from "date-fns";
+import { ChangeColumnModal } from "./CardModals/ChangeColumnModal";
 import {
   deleteTask,
   updateTask,
   updateTaskColumn,
-} from '../../../redux/boards/slice';
-import { selectColumnsForRender } from '../../../redux/boards/sliceHeaderDashboard/filtersSlice';
-import { ExpandableCard } from '../ExpandableCard';
+} from "../../../redux/boards/slice";
+import { selectColumnsForRender } from "../../../redux/boards/sliceHeaderDashboard/filtersSlice";
+import { ExpandableCard } from "../ExpandableCard";
 
 export default function Card({ columnId }) {
   const dispatch = useDispatch();
@@ -33,10 +33,15 @@ export default function Card({ columnId }) {
   const columnWithAllTasks = useSelector(selectColumns);
   const filteredColumn = useSelector(selectColumnsForRender);
 
+  console.log(filteredColumn.length);
+  console.log(columnWithAllTasks);
+
   const columns =
     filteredColumn.length === 0 ? columnWithAllTasks : filteredColumn;
 
-  const cards = columns.filter(({ _id }) => _id === columnId)[0]?.tasks;
+  const cards = columns.filter(({ _id }) => _id === columnId)[0]?.tasks || [];
+
+  console.log(cards);
 
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
@@ -51,9 +56,9 @@ export default function Card({ columnId }) {
   const moveCardButtonRefs = useRef([]);
   const cardId = useId();
 
-  const handleAddCard = values => {
+  const handleAddCard = (values) => {
     if (!values.priority) {
-      values.priority = 'none';
+      values.priority = "none";
     }
     const priority = values.priority.toLowerCase();
 
@@ -75,8 +80,8 @@ export default function Card({ columnId }) {
       .then(() => {
         setAddCardModalIsOpen(false);
       })
-      .catch(error => {
-        console.error('Failed to add card:', error);
+      .catch((error) => {
+        console.error("Failed to add card:", error);
       });
   };
 
@@ -91,7 +96,7 @@ export default function Card({ columnId }) {
     }
   };
 
-  const startEditCard = card => {
+  const startEditCard = (card) => {
     const priority = card.priority.toLowerCase();
     setEditingCard({
       id: card._id,
@@ -103,7 +108,7 @@ export default function Card({ columnId }) {
     setEditCardModalIsOpen(true);
   };
 
-  const handleEditColumnCard = values => {
+  const handleEditColumnCard = (values) => {
     dispatch(
       updateTaskColumn({
         taskId: editingCardColumn.id,
@@ -125,13 +130,13 @@ export default function Card({ columnId }) {
       })
     )
       .unwrap()
-      .catch(error => {
-        console.error('Failed to move card:', error);
+      .catch((error) => {
+        console.error("Failed to move card:", error);
       });
   };
   const DAY = 24 * 60 * 60 * 1000;
 
-  const handleEditCard = values => {
+  const handleEditCard = (values) => {
     const priority = values.priority.toLowerCase();
     const updateData = {
       title: values.title.trim(),
@@ -153,17 +158,17 @@ export default function Card({ columnId }) {
 
     dispatch(editCard(updatedCard))
       .unwrap()
-      .catch(error => {
-        console.error('Failed to edit card:', error);
+      .catch((error) => {
+        console.error("Failed to edit card:", error);
       });
   };
 
-  const handleDeleteCard = taskId => {
+  const handleDeleteCard = (taskId) => {
     dispatch(deleteTask({ columnId, taskId }));
     dispatch(deleteCard({ columnId, taskId }))
       .unwrap()
-      .catch(error => {
-        console.error('Failed to delete card:', error);
+      .catch((error) => {
+        console.error("Failed to delete card:", error);
       });
   };
 
@@ -172,28 +177,28 @@ export default function Card({ columnId }) {
   }
 
   const COLORS = {
-    none: 'var(--none-priority)',
-    low: 'var(--low-priority)',
-    medium: 'var(--medium-priority)',
-    high: 'var(--high-priority)',
+    none: "var(--none-priority)",
+    low: "var(--low-priority)",
+    medium: "var(--medium-priority)",
+    high: "var(--high-priority)",
   };
 
   const PRIORITIES = {
-    NONE: 'none',
-    LOW: 'low',
-    MEDIUM: 'medium',
-    HIGH: 'high',
+    NONE: "none",
+    LOW: "low",
+    MEDIUM: "medium",
+    HIGH: "high",
   };
 
   const sectionStyles = {
-    position: 'relative',
+    position: "relative",
   };
 
-  const getSpanColor = priority => {
+  const getSpanColor = (priority) => {
     return COLORS[priority];
   };
 
-  const makeFirstLetterBig = string =>
+  const makeFirstLetterBig = (string) =>
     string.charAt(0).toUpperCase() + string.slice(1);
 
   return (
@@ -213,10 +218,11 @@ export default function Card({ columnId }) {
                   ? css.priorityMediumItem
                   : card.priority === PRIORITIES.HIGH
                   ? css.priorityHighItem
-                  : ''
+                  : ""
               }`}
               key={card._id}
-              style={sectionStyles}>
+              style={sectionStyles}
+            >
               <h3 className={css.title}>{card.title}</h3>
               <ExpandableCard {...card} />
               <div className={css.subcontainer}>
@@ -228,7 +234,8 @@ export default function Card({ columnId }) {
                         className={css.radioBtn}
                         style={{
                           backgroundColor: ` ${getSpanColor(card.priority)}`,
-                        }}></span>
+                        }}
+                      ></span>
                       <p className={css.priorityLabelText}>
                         {makeFirstLetterBig(card.priority)}
                       </p>
@@ -238,42 +245,47 @@ export default function Card({ columnId }) {
                   <div>
                     <h4 className={css.subtitle}>Deadline</h4>
                     <p className={css.deadlineText}>
-                      {format(new Date(Date.parse(card.deadline)), 'd/MM/yy')}
+                      {format(new Date(Date.parse(card.deadline)), "d/MM/yy")}
                     </p>
                   </div>
                 </div>
 
                 <div className={css.iconContainer}>
-                  {new Date(card.deadline) - new Date() <= DAY ? (
+                  {format(new Date(Date.parse(card.deadline)), "d/MM/yy") ===
+                    format(new Date(), "d/MM/yy") ||
+                  new Date(card.deadline) < new Date() ? (
                     <div className={css.bellContainer}>
-                      <svg className={css.deadlineBell} width='16' height='16'>
-                        <use href='/sprite.svg#bell' />
+                      <svg className={css.deadlineBell} width="16" height="16">
+                        <use href="/sprite.svg#bell" />
                       </svg>
                       <span className={css.bellShadow}></span>
                     </div>
                   ) : (
-                    ''
+                    ""
                   )}
                   <button
-                    ref={el => (moveCardButtonRefs.current[index] = el)}
+                    ref={(el) => (moveCardButtonRefs.current[index] = el)}
                     className={css.iconButtons}
-                    onClick={() => startEditCardColumn(card, index)}>
-                    <svg className={css.move} width='16' height='16'>
-                      <use href='/sprite.svg#icon-arrow-circle-broken-right' />
+                    onClick={() => startEditCardColumn(card, index)}
+                  >
+                    <svg className={css.move} width="16" height="16">
+                      <use href="/sprite.svg#icon-arrow-circle-broken-right" />
                     </svg>
                   </button>
                   <button
                     className={css.iconButtons}
-                    onClick={() => startEditCard(card)}>
-                    <svg className={css.edit} width='16' height='16'>
-                      <use href='/sprite.svg#pencil' />
+                    onClick={() => startEditCard(card)}
+                  >
+                    <svg className={css.edit} width="16" height="16">
+                      <use href="/sprite.svg#pencil" />
                     </svg>
                   </button>
                   <button
                     className={css.iconButtons}
-                    onClick={() => handleDeleteCard(card._id)}>
-                    <svg className={css.delete} width='16' height='16'>
-                      <use href='/sprite.svg#trash' />
+                    onClick={() => handleDeleteCard(card._id)}
+                  >
+                    <svg className={css.delete} width="16" height="16">
+                      <use href="/sprite.svg#trash" />
                     </svg>
                   </button>
                 </div>
@@ -285,7 +297,7 @@ export default function Card({ columnId }) {
                   onSubmit={handleEditColumnCard}
                   columnId={columnId}
                   editingCard={editingCardColumn}
-                  contentLabel='ChangeColumnModal'
+                  contentLabel="ChangeColumnModal"
                   position={modalPosition}
                 />
               </div>
@@ -296,7 +308,8 @@ export default function Card({ columnId }) {
 
       <button
         className={css.button}
-        onClick={() => setAddCardModalIsOpen(true)}>
+        onClick={() => setAddCardModalIsOpen(true)}
+      >
         <FaPlus className={css.plusModal} />
         Add another card
       </button>

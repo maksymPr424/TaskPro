@@ -1,26 +1,26 @@
-import { useState, useId } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import css from './MainDashboard.module.css';
+import { useState, useId, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import css from "./MainDashboard.module.css";
 import {
   addColumn,
   deleteColumn,
   editColumn,
-} from '../../redux/boards/operations';
+} from "../../redux/boards/operations";
 import {
   selectIsLoading,
   selectError,
   selectActiveBoardId,
   selectColumns,
-} from '../../redux/boards/selectors';
-import { AddColumnModal } from './ColumnModals/AddColumnModal';
-import { EditColumnModal } from './ColumnModals/EditColumnModal';
-import Card from './Card/Card';
-import ReactModal from 'react-modal';
+} from "../../redux/boards/selectors";
+import { AddColumnModal } from "./ColumnModals/AddColumnModal";
+import { EditColumnModal } from "./ColumnModals/EditColumnModal";
+import Card from "./Card/Card";
+import ReactModal from "react-modal";
 // import Loader from '../Loader/Loader';
-import { deleteColumnSpeed, updateColumn } from '../../redux/boards/slice';
-import Loader from '../Loader/Loader.jsx';
+import { deleteColumnSpeed, updateColumn } from "../../redux/boards/slice";
+import Loader from "../Loader/Loader.jsx";
 
-ReactModal.setAppElement('#root');
+ReactModal.setAppElement("#root");
 
 export default function MainDashboard() {
   const dispatch = useDispatch();
@@ -33,6 +33,28 @@ export default function MainDashboard() {
   const [editingColumn, setEditingColumn] = useState(null);
   const columnId = useId();
 
+  const containerRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    setStartX(e.clientX);
+    setScrollLeft(containerRef.current.scrollLeft);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    const x = e.clientX;
+    const move = x - startX;
+    containerRef.current.scrollLeft = scrollLeft - move;
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
   const handleAddColumn = (values, { resetForm }) => {
     setAddModalIsOpen(false);
 
@@ -42,12 +64,12 @@ export default function MainDashboard() {
         setAddModalIsOpen(false);
         resetForm();
       })
-      .catch(error => {
-        console.error('Failed to add column:', error);
+      .catch((error) => {
+        console.error("Failed to add column:", error);
       });
   };
 
-  const startEditColumn = column => {
+  const startEditColumn = (column) => {
     setEditingColumn(column);
     setEditModalIsOpen(true);
   };
@@ -64,17 +86,17 @@ export default function MainDashboard() {
       .then(() => {
         resetForm();
       })
-      .catch(error => {
-        console.error('Failed to edit column:', error);
+      .catch((error) => {
+        console.error("Failed to edit column:", error);
       });
   };
 
-  const handleDeleteColumn = id => {
+  const handleDeleteColumn = (id) => {
     dispatch(deleteColumnSpeed(id));
     dispatch(deleteColumn(id))
       .unwrap()
-      .catch(error => {
-        console.error('Failed to delete column:', error);
+      .catch((error) => {
+        console.error("Failed to delete column:", error);
       });
   };
 
@@ -83,28 +105,37 @@ export default function MainDashboard() {
   }
 
   return (
-    <div className={css.container}>
+    <div
+      className={css.container}
+      ref={containerRef}
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseUp}
+    >
       <ul className={`${css.columnsContainer} scrollContainer`}>
         {isLoading ? (
           <Loader />
         ) : (
-          columns.map(column => (
+          columns.map((column) => (
             <li className={css.columnItem} key={column._id}>
               <div className={css.column}>
                 <h3 className={css.titleColumn}>{column.title}</h3>
                 <div className={css.columnButtons}>
                   <button
                     className={css.editButton}
-                    onClick={() => startEditColumn(column)}>
-                    <svg className={css.edit} width='16' height='16'>
-                      <use href='/sprite.svg#pencil' />
+                    onClick={() => startEditColumn(column)}
+                  >
+                    <svg className={css.edit} width="16" height="16">
+                      <use href="/sprite.svg#pencil" />
                     </svg>
                   </button>
                   <button
                     className={css.deleteButton}
-                    onClick={() => handleDeleteColumn(column._id)}>
-                    <svg className={css.delete} width='16' height='16'>
-                      <use href='/sprite.svg#trash' />
+                    onClick={() => handleDeleteColumn(column._id)}
+                  >
+                    <svg className={css.delete} width="16" height="16">
+                      <use href="/sprite.svg#trash" />
                     </svg>
                   </button>
                 </div>
@@ -115,12 +146,13 @@ export default function MainDashboard() {
         )}
       </ul>
       <button
-        type='submit'
+        type="submit"
         className={css.button}
-        onClick={() => setAddModalIsOpen(true)}>
+        onClick={() => setAddModalIsOpen(true)}
+      >
         <span className={css.modalPlus}>
-          <svg className={css.modalPlusSvg} width='16' height='16'>
-            <use href='/sprite.svg#icon-plus' />
+          <svg className={css.modalPlusSvg} width="16" height="16">
+            <use href="/sprite.svg#icon-plus" />
           </svg>
         </span>
         Add column

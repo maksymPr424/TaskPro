@@ -42,12 +42,12 @@ const persistConfigUserProfile = {
   whitelist: ["user"],
 };
 
-const persistConfigFilters = {
-  key: "filters",
-  version: 1,
-  storage,
-  whitelist: ["selectedColor"],
-};
+// const persistConfigFilters = {
+//   key: "filters",
+//   version: 1,
+//   storage,
+//   whitelist: ["selectedColor"],
+// };
 
 export const store = configureStore({
   reducer: {
@@ -55,7 +55,7 @@ export const store = configureStore({
     user: persistReducer(persistConfigUser, userThemeReducer),
     userProfile: persistReducer(persistConfigUserProfile, userProfileReducer),
     boards: persistReducer(persistConfig, boardsReducer),
-    filters: persistReducer(persistConfigFilters, filtersReducer),
+    filters: filtersReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

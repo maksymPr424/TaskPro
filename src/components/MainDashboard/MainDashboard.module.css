@@ -19,10 +19,17 @@ ul {
   align-items: flex-start;
   /* justify-content: space-between; */
   /* padding: 0 20px; */
+  cursor: grab;
+  user-select: none;
   gap: 20px;
   overflow-x: auto;
   margin: 0 auto;
   position: relative;
+  /* white-space: nowrap */
+}
+
+.container:active {
+  cursor: grabbing;
 }
 
 .container::-webkit-scrollbar {

@@ -114,9 +114,7 @@ export default function MainDashboard() {
       onMouseLeave={handleMouseUp}
     >
       <ul className={`${css.columnsContainer} scrollContainer`}>
-        {isLoading ? (
-          <Loader />
-        ) : (
+        {!isLoading &&
           columns.map((column) => (
             <li className={css.columnItem} key={column._id}>
               <div className={css.column}>
@@ -142,8 +140,7 @@ export default function MainDashboard() {
               </div>
               <Card className={css.tasks} columnId={column._id} />
             </li>
-          ))
-        )}
+          ))}
       </ul>
       <button
         type="submit"

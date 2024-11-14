@@ -136,8 +136,8 @@ export default function Sidebar({ className }) {
     boardTitle,
     boardBackground
   ) => {
-    await dispatch(fetchLastActiveBoard(boardId));
-    dispatch(fetchBackground(boardBackground));
+    await dispatch(fetchBackground(boardBackground));
+    dispatch(fetchLastActiveBoard(boardId));
 
     const targetPath = `/home/${boardTitle}`;
     navigate(targetPath, { replace: true });

@@ -1,0 +1,56 @@
+.myCustomDatepickerPopper .react-datepicker {
+    border-radius: 6px;
+    border: 1px solid var(--modal-input-border);
+    background-color: var(--modal-input);
+}
+
+.myCustomDatepickerPopper .react-datepicker__header {
+    background-color: var(--modal-input);
+    border-bottom: 1px solid var(--icons);
+}
+
+.myCustomDatepickerPopper .react-datepicker__current-month {
+    color: var(--text-heder);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.myCustomDatepickerPopper .react-datepicker__day-name {
+    color: var(--icons);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.myCustomDatepickerPopper .react-datepicker__day,
+.react-datepicker__month-text,
+.react-datepicker__quarter-text,
+.react-datepicker__year-text {
+    color: var(--text-heder);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    background:transparent;
+}
+
+.myCustomDatepickerPopper .react-datepicker__day--disabled,
+.react-datepicker__month-text--disabled,
+.react-datepicker__quarter-text--disabled,
+.react-datepicker__year-text--disabled {
+    color: var(--text-heder);
+    opacity: 0.3;
+    background:transparent;
+}
+
+.myCustomDatepickerPopper .react-datepicker__day:not([aria-disabled=true]):hover {
+    background-color: var(--modal-button-bg-hover);
+    border-radius: 50%;
+    color: var(--modal-button-text);
+}
+
+.myCustomDatepickerPopper .react-datepicker__day--selected {
+    background-color: var(--modal-button-bg);
+    color: var(--modal-button-text);
+    border-radius: 50%;
+}

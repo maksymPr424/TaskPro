@@ -59,7 +59,7 @@
   letter-spacing: -0.02em;
   line-height: normal;
   outline: none;
-  color: var(--text-heder);
+  color: #fff;
   background-color: #1f1f1f;
   border-radius: 8px;
   width: 100%;
@@ -81,7 +81,7 @@
 }
 
 .input::placeholder {
-  color: var(--icons);
+  color: #fff;
   opacity: 40%;
   font-size: 14px;
   letter-spacing: -0.02em;

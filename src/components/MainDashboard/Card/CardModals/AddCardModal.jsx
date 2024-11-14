@@ -168,6 +168,7 @@ export const AddCardModal = ({ isOpen, onClose, onSubmit, cardId }) => {
                   className={css.datepicker}
                   dateFormat="MMMM, d"
                   minDate={new Date()}
+                  popperClassName="myCustomDatepickerPopper"
                   customInput={
                     <input
                       // readOnly={true}

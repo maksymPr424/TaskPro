@@ -147,6 +147,7 @@ export const EditCardModal = ({
                 className={css.datepicker}
                 dateFormat="MMMM, d"
                 minDate={new Date()}
+                popperClassName="myCustomDatepickerPopper"
               />
               <ErrorMessage
                 className={css.error}

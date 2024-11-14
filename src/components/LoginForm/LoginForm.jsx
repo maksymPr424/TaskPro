@@ -1,37 +1,32 @@
-import styles from "./LoginForm.module.css";
-import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../redux/auth/operations.js";
-import {
-  selectError,
-  selectIsLoading,
-  selectIsLoggedIn,
-} from "../../redux/auth/selectors.js";
-// import svgSprite from "../../../public/sprite.svg";
+import styles from './LoginForm.module.css';
+import { useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from '../../redux/auth/operations.js';
+import { selectError, selectIsLoading } from '../../redux/auth/selectors.js';
 
-import * as Yup from "yup";
-import Loader from "../Loader/Loader.jsx";
-import { setBoards } from "../../redux/boards/slice.js";
+import * as Yup from 'yup';
+import Loader from '../Loader/Loader.jsx';
+import { setBoards } from '../../redux/boards/slice.js';
 
 const validateLoginFormSchema = Yup.object().shape({
   email: Yup.string()
-    .required("Email is required")
-    .email("Invalid email address")
+    .required('Email is required')
+    .email('Invalid email address')
     .matches(
       /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-      "Invalid email format"
+      'Invalid email format'
     ),
   password: Yup.string()
-    .required("Password is required")
+    .required('Password is required')
     .matches(
       /^[A-Za-z0-9!@#$%^&*()_+=[\]{};':"\\|,.<>/?-]+$/,
-      "Only latin letters, numbers, and special characters, without spaces."
+      'Only latin letters, numbers, and special characters, without spaces.'
     )
-    .min(8, "Password must be at least 8 characters long")
-    .max(64, "Password must not exceed 64 characters"),
+    .min(8, 'Password must be at least 8 characters long')
+    .max(64, 'Password must not exceed 64 characters'),
 });
 
 export default function LoginForm() {
@@ -39,7 +34,7 @@ export default function LoginForm() {
   const dispatch = useDispatch();
   const loginError = useSelector(selectError);
   const isLoading = useSelector(selectIsLoading);
-
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -47,11 +42,11 @@ export default function LoginForm() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
     resolver: yupResolver(validateLoginFormSchema),
-    mode: "onSubmit",
+    mode: 'onSubmit',
   });
 
   const onSubmit = async data => {
@@ -59,23 +54,30 @@ export default function LoginForm() {
     if (response?.boardsData) {
       dispatch(setBoards(response.boardsData));
     }
+    const lastActiveBoard = response?.boardsData?.lastActiveBoard;
+
+    if (lastActiveBoard?.title) {
+      navigate(`/home/${lastActiveBoard.title}`);
+    } else {
+      navigate('/home');
+    }
     reset();
   };
 
   return (
     <div className={styles.formWrapper}>
-      {isLoading && <Loader style={{ top: "110%" }} />}
+      {isLoading && <Loader style={{ top: '110%' }} />}
       <nav className={styles.navigation}>
         <NavLink
           className={({ isActive }) =>
-            `${styles.navLink} ${isActive ? styles.activeLink : ""}`
+            `${styles.navLink} ${isActive ? styles.activeLink : ''}`
           }
           to='/auth/register'>
           Registration
         </NavLink>
         <NavLink
           className={({ isActive }) =>
-            `${styles.navLink} ${isActive ? styles.activeLink : ""}`
+            `${styles.navLink} ${isActive ? styles.activeLink : ''}`
           }
           to='/auth/login'>
           Log In
@@ -85,11 +87,11 @@ export default function LoginForm() {
         <div className={styles.inputWrapper}>
           <label className={styles.label}>
             <input
-              {...register("email")}
+              {...register('email')}
               type='text'
               placeholder='Enter your email'
               className={`${styles.input} ${
-                errors.email ? styles.inputError : ""
+                errors.email ? styles.inputError : ''
               }`}
             />
             {errors.email && (
@@ -98,11 +100,11 @@ export default function LoginForm() {
           </label>
           <label className={styles.label}>
             <input
-              {...register("password")}
-              type={isPasswordVisible ? "text" : "password"}
+              {...register('password')}
+              type={isPasswordVisible ? 'text' : 'password'}
               placeholder='Enter your password'
               className={`${styles.input} ${
-                errors.password ? styles.inputError : ""
+                errors.password ? styles.inputError : ''
               }`}
             />
             {errors.password && (

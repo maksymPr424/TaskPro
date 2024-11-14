@@ -37,7 +37,6 @@
   stroke: var(--text-heder);
 }
 
-
 .modalName {
   color: var(--text-heder);
   font-family: Poppins;
@@ -79,8 +78,15 @@
   letter-spacing: -0.02em;
 }
 
+.errorWrapper {
+  position: relative;
+}
+
 .error {
-  color: #fe6262;
+  position: absolute;
+  top: -19px;
+  left: 4px;
+  color: rgb(192, 115, 115);
   font-family: Poppins;
   font-size: 12px;
   font-style: normal;
@@ -215,7 +221,7 @@
   transition: all 0.2s ease;
 }
 
-.modalPlusSvg{
+.modalPlusSvg {
   stroke: var(--modal-button-plus);
 }
 

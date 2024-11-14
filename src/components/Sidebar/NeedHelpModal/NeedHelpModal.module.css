@@ -8,7 +8,6 @@
   z-index: 1000;
 }
 
-
 .modalContent {
   position: fixed;
   top: 50%;
@@ -37,7 +36,6 @@
   height: 18px;
   stroke: var(--text-heder);
 }
-
 
 .modalName {
   color: var(--text-heder);
@@ -83,8 +81,15 @@
   letter-spacing: -0.02em;
 }
 
+.errorWrapper {
+  position: relative;
+}
+
 .error {
-  color: rgb(254, 98, 98);
+  position: absolute;
+  top: -22px;
+  left: 5px;
+  color: rgb(192, 115, 115);
   font-family: Poppins;
   font-size: 12px;
   font-style: normal;
@@ -130,7 +135,7 @@
     width: 400px;
   }
 
-  .sendButton{
+  .sendButton {
     width: 352px;
   }
 }

@@ -1,87 +1,58 @@
-import { useDispatch, useSelector } from "react-redux";
-import Header from "../../components/Header/Header";
-import Sidebar from "../../components/Sidebar/Sidebar";
-import ScreensPage from "../ScreensPage/ScreensPage.jsx";
-import styles from "./HomePage.module.css";
-import Loader from "../../components/Loader/Loader.jsx";
-import { useEffect, useState } from "react";
+import Header from '../../components/Header/Header';
+import Sidebar from '../../components/Sidebar/Sidebar';
+import ScreensPage from '../ScreensPage/ScreensPage.jsx';
+import styles from './HomePage.module.css';
+import Loader from '../../components/Loader/Loader.jsx';
+import { clearBackgroundUrls } from '../../redux/boards/slice.js';
+import { selectError } from '../../redux/auth/selectors.js';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router';
+import BeforeStart from '../../components/BeforeStart/BeforeStart.jsx';
 import {
   fetchBackground,
   fetchLastActiveBoard,
-} from "../../redux/boards/operations.js";
-import { useParams } from "react-router";
-import BeforeStart from "../../components/BeforeStart/BeforeStart.jsx";
+} from '../../redux/boards/operations.js';
 import {
   selectBackground,
   selectBackgroundUrls,
-} from "../../redux/boards/selectors.js";
-import { clearBackgroundUrls } from "../../redux/boards/slice.js";
-import { selectError } from "../../redux/auth/selectors.js";
+  selectIsLoading,
+} from '../../redux/boards/selectors.js';
 
 export default function HomePage() {
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
+  const isLoading = useSelector(selectIsLoading);
   const { boardName } = useParams();
 
-  const fetchActiveBoard = async (boardId) => {
-    setIsLoading(true);
-    console.log("start");
-
-    await dispatch(fetchLastActiveBoard(boardId))
-      .unwrap()
-      .then(() => console.log("finish"))
-      .catch((err) => {
-        console.error(err);
-      });
-
-    setIsLoading(false);
-  };
-
   const backgroundUrls = useSelector(selectBackgroundUrls);
-  const backgroundName = useSelector(selectBackground);
   const error = useSelector(selectError);
 
   const resetBackgroundsVars = () => {
-    document.documentElement.style.setProperty("--desktop-bg", "none");
-    document.documentElement.style.setProperty("--tablet-bg", "none");
-    document.documentElement.style.setProperty("--mobile-bg", "none");
+    document.documentElement.style.setProperty('--desktop-bg', 'none');
+    document.documentElement.style.setProperty('--tablet-bg', 'none');
+    document.documentElement.style.setProperty('--mobile-bg', 'none');
   };
 
-  const setBackgroundVars = (backgroundUrls) => {
+  const setBackgroundVars = backgroundUrls => {
     document.documentElement.style.setProperty(
-      "--desktop-bg",
+      '--desktop-bg',
       `url(${backgroundUrls[2]})`
     );
     document.documentElement.style.setProperty(
-      "--tablet-bg",
+      '--tablet-bg',
       `url(${backgroundUrls[1]})`
     );
     document.documentElement.style.setProperty(
-      "--mobile-bg",
+      '--mobile-bg',
       `url(${backgroundUrls[0]})`
     );
   };
 
   useEffect(() => {
-    if (boardName) {
-      if (!backgroundName) {
-        return;
-      } else {
-        if (backgroundName === "no-background") {
-          console.log("backgroundName: no ", backgroundName);
-          resetBackgroundsVars();
-        } else {
-          console.log("backgroundName: else ", backgroundName);
-          dispatch(clearBackgroundUrls());
-          dispatch(fetchBackground(backgroundName));
-        }
-      }
-    }
-  }, [dispatch, boardName, backgroundName]);
-
-  useEffect(() => {
-    if (backgroundUrls && backgroundUrls.length) {
+    if (backgroundUrls.length) {
       setBackgroundVars(backgroundUrls);
+    } else {
+      resetBackgroundsVars();
     }
   }, [backgroundUrls]);
 
@@ -91,8 +62,8 @@ export default function HomePage() {
 
   return (
     <>
-      <Header fetchActiveBoard={fetchActiveBoard} />
-      <Sidebar className={styles.sidebar} fetchActiveBoard={fetchActiveBoard} />
+      <Header />
+      <Sidebar className={styles.sidebar} />
       <div className={styles.dashboardContainer}>
         {boardName ? isLoading ? <Loader /> : <ScreensPage /> : <BeforeStart />}
       </div>

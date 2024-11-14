@@ -1,37 +1,24 @@
-import { useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import ModalWindow from "../Modal/Modal.jsx";
-import { selectLastActiveBoard } from "../../redux/boards/selectors";
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import ModalWindow from '../Modal/Modal.jsx';
 import {
   selectIsLoggedIn,
   selectRefreshError,
-} from "../../redux/auth/selectors";
+} from '../../redux/auth/selectors';
 export default function RestrictedRoute({ children }) {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const refreshError = useSelector(selectRefreshError);
-  const lastActiveBoard = useSelector(selectLastActiveBoard);
   const [isModalOpen, setModalOpen] = useState(false);
   const [shouldRedirect, setShouldRedirect] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (refreshError) {
       setModalOpen(true);
-    }
-    console.log("startRedirect");
-
-    if (isLoggedIn) {
-      const targetPath = lastActiveBoard?.title
-        ? `/home/${lastActiveBoard.title}`
-        : "/home";
-      navigate(targetPath, { replace: true });
-      console.log("redirected");
-    } else if (!isLoggedIn && !refreshError) {
+    } else if (!isLoggedIn) {
       setShouldRedirect(true);
-      console.log("no-redirected");
     }
-  }, [refreshError, isLoggedIn, lastActiveBoard, navigate]);
+  }, [refreshError, isLoggedIn]);
 
   const handleCloseModal = () => {
     setModalOpen(false);
@@ -39,7 +26,7 @@ export default function RestrictedRoute({ children }) {
   };
 
   if (!isLoggedIn && shouldRedirect) {
-    return <Navigate to="/welcome" />;
+    return <Navigate to='/welcome' />;
   }
 
   return (

@@ -105,7 +105,7 @@
   transition: background-color 0.3s ease;
 }
 
-.createPlusSvg{
+.createPlusSvg {
   stroke: var(--modal-button-text);
 }
 
@@ -410,7 +410,6 @@
     line-height: 20px;
     letter-spacing: -0.28px;
   }
-
 }
 
 @media (max-height: 740px) {
@@ -447,7 +446,7 @@
   }
 }
 
-@media (min-height:820px) {
+@media (min-height: 820px) {
   .sidebarLogo {
     margin: 0 14px 30px 14px;
   }
@@ -533,4 +532,17 @@
     overflow-y: auto;
     max-height: 500px;
   }
+}
+
+.react-tabs__tab--selected {
+  outline: none;
+  border: none;
+}
+
+.react-tabs__tab:focus {
+  outline: none;
+}
+
+.react-tabs__tab:focus-visible {
+  outline: none;
 }

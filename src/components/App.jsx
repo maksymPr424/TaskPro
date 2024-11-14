@@ -13,6 +13,7 @@ const WelcomePage = lazy(() => import('../pages/WelcomePage/WelcomePage'));
 // const AuthPage = lazy(() => import("../pages/AuthPage/AuthPage"));
 import AuthPage from '../pages/AuthPage/AuthPage.jsx';
 import { clearBoards, setBoards } from '../redux/boards/slice.js';
+import { fetchBackground } from '../redux/boards/operations.js';
 const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
 // const ScreensPage = lazy(() => import("../pages/ScreensPage/ScreensPage"));
 
@@ -31,6 +32,11 @@ function App() {
         ) {
           dispatch(clearBoards());
           dispatch(setBoards(response.boardsData));
+          if (response.boardsData.lastActiveBoard) {
+            dispatch(
+              fetchBackground(response.boardsData.lastActiveBoard.background)
+            );
+          }
         }
       }
     };

@@ -10,7 +10,9 @@ import EditBoardModal from './EditBoardModal/EditBoardModal';
 import {
   createBoard,
   editBoard,
-  fetchBoards,
+  fetchBackground,
+  // fetchBoards,
+  fetchLastActiveBoard,
   removeBoard,
 } from '../../redux/boards/operations.js';
 import {
@@ -19,11 +21,13 @@ import {
 } from '../../redux/boards/selectors.js';
 import {
   clearBackgroundUrls,
+  // clearBackgroundUrls,
   clearBoards,
   setLastActiveBoard,
 } from '../../redux/boards/slice.js';
 import { logoutUser } from '../../redux/auth/operations.js';
 import cactus from '../../img/flower-pot.png';
+import { store } from '../../redux/store.js';
 
 export default function Sidebar({ className, fetchActiveBoard }) {
   const dispatch = useDispatch();
@@ -34,20 +38,24 @@ export default function Sidebar({ className, fetchActiveBoard }) {
   const [isEditBoardModalOpen, setIsEditBoardModalOpen] = useState(false);
   const [isNeedHelpModalOpen, setIsNeedHelpModalOpen] = useState(false);
   const lastActiveBoard = useSelector(selectLastActiveBoard);
+
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
-    const index =
-      boards.findIndex(({ _id }) => _id === lastActiveBoard?._id) || 0;
-    setActiveIndex(index);
-  }, [activeIndex, boards, lastActiveBoard?._id]);
+    if (lastActiveBoard?._id && boards.length) {
+      const index = boards.findIndex(
+        board => board._id === lastActiveBoard._id
+      );
+      setActiveIndex(index === -1 ? 0 : index);
+    }
+  }, [boards, lastActiveBoard?._id]);
 
   const handleOpenNewBoardModal = () => setIsNewBoardModalOpen(true);
   const handleCloseNewBoardModal = () => setIsNewBoardModalOpen(false);
   const handleOpenNeedHelpModal = () => setIsNeedHelpModalOpen(true);
   const handleCloseNeedHelpModal = () => setIsNeedHelpModalOpen(false);
 
-  const handleOpenEditBoardModal = (board) => {
+  const handleOpenEditBoardModal = board => {
     if (board) {
       setSelectedBoard(board);
       setIsEditBoardModalOpen(true);
@@ -58,29 +66,51 @@ export default function Sidebar({ className, fetchActiveBoard }) {
     setSelectedBoard(null);
   };
 
-  const handleCreateBoard = async (newBoard) => {
-    dispatch(createBoard(newBoard));
-    // await dispatch(fetchBoards());
+  const handleCreateBoard = async newBoard => {
+    await dispatch(createBoard(newBoard));
+    const updatedLastActiveBoard = await selectLastActiveBoard(
+      store.getState()
+    );
+    if (updatedLastActiveBoard) {
+      dispatch(clearBackgroundUrls());
+      await dispatch(fetchBackground(updatedLastActiveBoard.background));
+      navigate(`/home/${updatedLastActiveBoard.title}`);
+    } else {
+      navigate('/home');
+    }
     setIsNewBoardModalOpen(false);
   };
-
-  const handleSaveBoardChanges = async (updatedBoard) => {
+  const handleSaveBoardChanges = async updatedBoard => {
     if (!updatedBoard._id) {
       console.error('Cannot save changes: ID is undefined');
       return;
     }
-    dispatch(editBoard(updatedBoard));
-    dispatch(fetchBoards());
+    await dispatch(editBoard(updatedBoard));
+    if (lastActiveBoard.title !== updatedBoard.title) {
+      navigate(`/home/${updatedBoard.title}`);
+    }
+    if (lastActiveBoard.background !== updatedBoard.background) {
+      dispatch(clearBackgroundUrls());
+      await dispatch(fetchBackground(updatedBoard.background));
+    }
     setIsEditBoardModalOpen(false);
   };
 
-  const handleDeleteBoard = async (boardId) => {
+  const handleDeleteBoard = async boardId => {
     if (!boardId) {
-      console.error('Cannot delete board: ID is undefined');
       return;
     }
-    dispatch(removeBoard(boardId));
-    dispatch(fetchBoards());
+    await dispatch(removeBoard(boardId));
+    const updatedLastActiveBoard = await selectLastActiveBoard(
+      store.getState()
+    );
+
+    if (updatedLastActiveBoard) {
+      await dispatch(fetchBackground(updatedLastActiveBoard.background));
+      navigate(`/home/${updatedLastActiveBoard.title}`);
+    } else {
+      navigate('/home');
+    }
   };
 
   const handleLogout = async () => {
@@ -93,12 +123,22 @@ export default function Sidebar({ className, fetchActiveBoard }) {
       console.error('Error during logout:', error);
     }
   };
-  const handleSendHelpRequest = (helpData) => {
+  const handleSendHelpRequest = helpData => {
     setIsNeedHelpModalOpen(false);
   };
-  const handleNavigateToBoard = (boardId, boardTitle) => {
-    dispatch(setLastActiveBoard({ boardId, title: boardTitle }));
+
+  const handleNavigateToBoard = async (
+    boardId,
+    boardTitle,
+    boardBackground
+  ) => {
+    await dispatch(fetchLastActiveBoard(boardId));
+    dispatch(fetchBackground(boardBackground));
+
+    const targetPath = `/home/${boardTitle}`;
+    navigate(targetPath, { replace: true });
   };
+
   return (
     <aside className={`${className} ${css.sidebar}`}>
       <div className={css.sidebarFlex}>
@@ -115,21 +155,27 @@ export default function Sidebar({ className, fetchActiveBoard }) {
             <button
               className={css.sidebarCreateButton}
               onClick={handleOpenNewBoardModal}>
-               <svg className={css.createPlusSvg} width="20" height="20">
-                  <use href="/sprite.svg#icon-plus" />
-                </svg>
+              <svg className={css.createPlusSvg} width='20' height='20'>
+                <use href='/sprite.svg#icon-plus' />
+              </svg>
             </button>
           </div>
-          <Tabs className={css.tabsContainer} selected={activeIndex}>
+          <Tabs
+            className={css.tabsContainer}
+            selectedIndex={activeIndex}
+            onSelect={index => setActiveIndex(index)}>
             <div className={css.tabsScrollContainer}>
               <TabList className={css.tabList}>
-                {boards.map((board) => (
+                {boards.map(board => (
                   <Tab
                     key={board._id}
                     className={css.tab}
                     onClick={() => {
-                      handleNavigateToBoard(board._id, board.title);
-                      fetchActiveBoard(board._id);
+                      handleNavigateToBoard(
+                        board._id,
+                        board.title,
+                        board.background
+                      );
                     }}>
                     <div className={css.tabFlex}>
                       <div className={css.boardTabSpan}></div>
@@ -145,7 +191,7 @@ export default function Sidebar({ className, fetchActiveBoard }) {
                       </div>
                       <div className={css.boardButtons}>
                         <button
-                          onClick={(e) => {
+                          onClick={e => {
                             e.stopPropagation();
                             handleOpenEditBoardModal(board);
                           }}
@@ -155,7 +201,7 @@ export default function Sidebar({ className, fetchActiveBoard }) {
                           </svg>
                         </button>
                         <button
-                          onClick={(e) => {
+                          onClick={e => {
                             e.stopPropagation();
                             handleDeleteBoard(board._id);
                           }}
@@ -169,7 +215,7 @@ export default function Sidebar({ className, fetchActiveBoard }) {
                   </Tab>
                 ))}
               </TabList>
-              {boards.map((board) => (
+              {boards.map(board => (
                 <TabPanel key={board._id} className={css.tabPanel}></TabPanel>
               ))}
             </div>
@@ -181,8 +227,9 @@ export default function Sidebar({ className, fetchActiveBoard }) {
             <img className={css.sidebarHelpImg} src={cactus} alt='Help' />
             <p className={css.sidebarHelpText}>
               If you need help with{' '}
-              <span className={css.sidebarHelpTextSpan}>TaskPro</span>, check out
-              our support resources or reach out to our customer support team.
+              <span className={css.sidebarHelpTextSpan}>TaskPro</span>, check
+              out our support resources or reach out to our customer support
+              team.
             </p>
             <button
               className={css.sidebarHelpButton}
@@ -201,7 +248,6 @@ export default function Sidebar({ className, fetchActiveBoard }) {
           </button>
         </div>
       </div>
-
 
       <NewBoardModal
         isOpen={isNewBoardModalOpen}

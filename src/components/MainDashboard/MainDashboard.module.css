@@ -81,11 +81,11 @@ button {
   border-radius: 6px;
 }
 
-.modalPlusSvg{
+.modalPlusSvg {
   stroke: var(--modal-bg);
 }
 
-.button:hover .modalPlus{
+.button:hover .modalPlus {
   background-color: var(--add-column-hover);
 }
 
@@ -147,11 +147,12 @@ button {
   transition: border 0.3s ease;
 }
 
-.input:hover, .input:focus{
+.input:hover,
+.input:focus {
   border: 1px solid var(--modal-input-border-hover-focus);
 }
 
-.input::placeholder{
+.input::placeholder {
   color: var(--icons);
 }
 
@@ -165,15 +166,16 @@ button {
   font-family: var(--mediumFont, Poppins);
   letter-spacing: -0.02em;
   gap: 8px;
-  margin-top: 24px;
+  /* margin-top: 24px; */
+  margin-top: 40px;
   border-radius: 8px;
   background-color: var(--modal-button-bg);
   border: none;
-  transition: background-color 0.3s ease ;
+  transition: background-color 0.3s ease;
 }
 
-.modalButton:hover{
-  background-color: var(--modal-button-bg-hover)
+.modalButton:hover {
+  background-color: var(--modal-button-bg-hover);
 }
 
 .plusModal {
@@ -190,10 +192,16 @@ button {
   padding: 20px;
 }
 
+.errorWrapper {
+  position: relative;
+}
+
 .error {
-  color: red;
+  position: absolute;
+  top: 0;
+  color: rgb(215, 150, 150);
   text-align: center;
-  padding: 20px;
+  padding: 6px;
 }
 
 .edit,
@@ -261,7 +269,6 @@ button {
 .changeColumnList::-webkit-scrollbar-thumb:hover {
   background: var(--my-boards-btn-hover);
 }
-
 
 .changeColumnList::-webkit-scrollbar-button {
   display: none;
@@ -362,16 +369,7 @@ button {
   color: var(--text-heder);
 }
 
-.modalMoveHeading{
-  font-family: Poppins;
-font-size: 14px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-letter-spacing: -0.28px;
-}
-
-.columnsTitle{
+.modalMoveHeading {
   font-family: Poppins;
   font-size: 14px;
   font-style: normal;
@@ -379,7 +377,16 @@ letter-spacing: -0.28px;
   line-height: normal;
   letter-spacing: -0.28px;
 }
-.changeColumnList{
+
+.columnsTitle {
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.28px;
+}
+.changeColumnList {
   padding-right: 10px;
 }
 /* .changeColumnBtn {
